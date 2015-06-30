@@ -25,7 +25,7 @@ FileMap::FileMap(BlkFile& blk)
    close(fd);
 #endif
 
-   fetch_ = FETCH_FETCHED;
+   fetch_.store(FETCH_FETCHED, memory_order_release);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,8 @@ FileMap::FileMap(FileMap&& fm)
    fnum_ = fm.fnum_;
    fm.filemap_ = nullptr;
    
-   fetch_ = fm.fetch_;
+   fetch_.store(fm.fetch_.load(memory_order_relaxed), 
+      memory_order_relaxed);
 }
 
 
@@ -73,89 +74,71 @@ BlockFileAccessor::BlockFileAccessor(shared_ptr<vector<BlkFile>> blkfiles,
 {
    lastSeenCumulative_.store(0, memory_order_relaxed);
 
+   cleanupTID_ = thread(cleanupThread, this);
+
    if (prefetch == PREFETCH_NONE)
       return;
 
-   tID_ = thread(prefetchThread, this);
+   prefetchTID_ = thread(prefetchThread, this);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 BlockFileAccessor::~BlockFileAccessor()
 {
    //make sure to shutdown the prefetch thread before returning from the dtor
-   if (!tID_.joinable())
-      return;
-
    {
-      unique_lock<mutex> lock(prefetchMu_);
+      unique_lock<mutex> lock(globalMutex_);
       runThread_ = false;
-      prefetchCV_.notify_all();
+      cv_.notify_all();
    }
 
-   tID_.join();
+   if (cleanupTID_.joinable())
+      cleanupTID_.join();
+   
+   if (!prefetchTID_.joinable())
+      return;
+
+   prefetchTID_.join();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void BlockFileAccessor::getRawBlock(BinaryDataRef& bdr, uint32_t fnum,
    uint64_t offset, uint32_t size, FileMapContainer* fmpPtr)
 {
-   shared_ptr<FileMap>* fmptr = nullptr;
+   shared_ptr<FileMap> fmptr;
    if (fmpPtr != nullptr &&
-      fmpPtr->prev_ != nullptr &&
-      *fmpPtr->prev_ != nullptr)
+      fmpPtr->prev_ != nullptr)
    {
-      if ((*(fmpPtr->prev_))->fnum_ == fnum)
+      if (fmpPtr->prev_->fnum_ == fnum)
          fmptr = fmpPtr->prev_;
    }
 
    if (fmptr == nullptr)
-      fmptr = &getFileMap(fnum);
+      fmptr = getFileMap(fnum);
 
-   (*fmptr)->getRawBlock(bdr, offset, size, lastSeenCumulative_);
+   fmptr->getRawBlock(bdr, offset, size, lastSeenCumulative_);
 
    if (fmpPtr != nullptr)
-      fmpPtr->current_ = *fmptr;
-
-   //clean up maps that haven't been used for a while
-   if (lastSeenCumulative_.load(memory_order_relaxed) >= nextThreshold_)
-   {
-      unique_lock<mutex> lock(mu_);
-      auto mapIter = blkMaps_.begin();
-
-      while (mapIter != blkMaps_.end())
-      {
-         if (mapIter->second->lastSeenCumulated_ + threshold_ <
-            lastSeenCumulative_.load(memory_order_relaxed))
-         {
-            if (mapIter->second.use_count() == 1)
-            {
-               blkMaps_.erase(mapIter++);
-               continue;
-            }
-         }
-
-         ++mapIter;
-      }
-
-      nextThreshold_ =
-         lastSeenCumulative_.load(memory_order_relaxed) + threshold_;
-   }
+      fmpPtr->current_ = fmptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-shared_ptr<FileMap>& BlockFileAccessor::getFileMap(uint32_t fnum)
+shared_ptr<FileMap> BlockFileAccessor::getFileMap(uint32_t fnum)
 {
-   unique_lock<mutex> lock(mu_);
+   unique_lock<mutex> lock(globalMutex_);
 
    auto mapIter = blkMaps_.find(fnum);
    if (mapIter == blkMaps_.end())
    {
       shared_ptr<FileMap> fm(new FileMap((*blkFiles_)[fnum]));
+      fm->lastSeenCumulated_.store(
+         lastSeenCumulative_.load(memory_order_relaxed),
+         memory_order_release);
       auto result = blkMaps_.insert(make_pair(fnum, fm));
       mapIter = result.first;
    }
 
-   if (mapIter->second->fetch_ != FETCH_ACCESSED && 
+   if (mapIter->second->fetch_.load(memory_order_relaxed) != FETCH_ACCESSED && 
        prefetch_ != PREFETCH_NONE)
    {
       //signal the prefetch thread to grab the next file
@@ -173,49 +156,103 @@ shared_ptr<FileMap>& BlockFileAccessor::getFileMap(uint32_t fnum)
       //We only try to lock the prefetch thread mutex. If it fails, it means
       //another thread is already filling the prefetch queue, or the thread is
       //busy.
-      unique_lock<mutex> lock(prefetchMu_, defer_lock);
+      unique_lock<mutex> lock(prefetchMutex_, defer_lock);
       if (lock.try_lock())
       {
          prefetchFileNum_ = nextFnum;
-         prefetchCV_.notify_all();
       }
    }
 
-   mapIter->second->fetch_ = FETCH_ACCESSED;
+   cv_.notify_all();
+   mapIter->second->fetch_.store(FETCH_ACCESSED, memory_order_release);
    return mapIter->second;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void BlockFileAccessor::dropFileMap(uint32_t fnum)
 {
-   unique_lock<mutex> lock(mu_);
+   unique_lock<mutex> lock(globalMutex_);
    blkMaps_.erase(fnum);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void BlockFileAccessor::prefetchThread(BlockFileAccessor* bfaPtr)
 {
-   if (bfaPtr == nullptr)
-      return;
-
-   unique_lock<mutex> lock(bfaPtr->prefetchMu_);
-
-   while (bfaPtr->runThread_)
+   try
    {
+      if (bfaPtr == nullptr)
+         return;
+
+      unique_lock<mutex> prefetchLock(bfaPtr->prefetchMutex_);
+
+      while (bfaPtr->runThread_)
       {
-         unique_lock<mutex> bfaLock(bfaPtr->mu_);
-
-         if (bfaPtr->prefetchFileNum_ != UINT32_MAX)
          {
-            shared_ptr<FileMap> fm(
-               new FileMap((*bfaPtr->blkFiles_)[bfaPtr->prefetchFileNum_]));
+            unique_lock<mutex> bfaLock(bfaPtr->globalMutex_);
 
-            bfaPtr->blkMaps_[bfaPtr->prefetchFileNum_] = fm;
+            if (bfaPtr->prefetchFileNum_ != UINT32_MAX)
+            {
+               auto mapIter = bfaPtr->blkMaps_.find(bfaPtr->prefetchFileNum_);
+               if (mapIter == bfaPtr->blkMaps_.end())
+               {
+                  shared_ptr<FileMap> fm(
+                     new FileMap((*bfaPtr->blkFiles_)[bfaPtr->prefetchFileNum_]));
+
+                  bfaPtr->blkMaps_[bfaPtr->prefetchFileNum_] = fm;
+               }
+            }
          }
-      }
 
-      bfaPtr->prefetchCV_.wait(lock);
+         bfaPtr->cv_.wait(prefetchLock);
+      }
+   }
+   catch (exception &e)
+   {
+      LOGERR << e.what();
+   }
+   catch (...)
+   {
+      LOGERR << "error in prefetchThread()";
    }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+void BlockFileAccessor::cleanupThread(BlockFileAccessor* bfaPtr)
+{
+   //clean up maps that haven't been used for a while
+      
+   
+   unique_lock<mutex> lock(bfaPtr->globalMutex_);
+   while (bfaPtr->runThread_)
+   {
+      uint64_t lastSeen = bfaPtr->lastSeenCumulative_.load(memory_order_relaxed);
 
+      if (lastSeen >= bfaPtr->nextThreshold_)
+      {
+         auto mapIter = bfaPtr->blkMaps_.begin();
+
+         while (mapIter != bfaPtr->blkMaps_.end())
+         {
+            if (mapIter->second->fetch_.load(memory_order_relaxed) == 
+                FETCH_ACCESSED 
+                &&
+                mapIter->second->lastSeenCumulated_ + threshold_ <
+                lastSeen)
+            {
+               if (mapIter->second.use_count() == 1)
+               {
+                  bfaPtr->blkMaps_.erase(mapIter++);
+                  continue;
+               }
+            }
+
+            ++mapIter;
+         }
+
+         bfaPtr->nextThreshold_ =
+            lastSeen + threshold_;
+      }
+
+      bfaPtr->cv_.wait(lock);
+   }
+}

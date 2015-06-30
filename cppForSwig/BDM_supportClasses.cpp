@@ -495,9 +495,7 @@ void ZeroConfContainer::addRawTx(const BinaryData& rawTx, uint32_t txtime)
    Tx zcTx(rawTx);
    zcTx.setTxTime(txtime);
 
-   //grab container lock
    unique_lock<mutex> lock(mu_);
-
    newZCMap_[ZCkey] = zcTx;
 }
 
@@ -676,6 +674,7 @@ bool ZeroConfContainer::parseNewZC(function<bool(const BinaryData&)> filter,
       zcMap = newZCMap_;
    }
 
+
    LMDBEnv::Transaction tx;
    db_->beginDBTransaction(&tx, ZEROCONF, LMDB::ReadOnly);
 
@@ -842,7 +841,7 @@ ZeroConfContainer::ZCisMineBulkFilter(const Tx & tx,
       OutPoint op;
       op.unserialize(txStartPtr + tx.getTxInOffset(iin), 36);
 
-      //check ZC txhash first, always cheaper than grabing a stxo from DB,
+      //check ZC txhash first, always cheaper than grabbing a stxo from DB,
       //and will always be checked if the tx doesn't hit in DB outpoints.
       {
          BinaryData opZcKey;
@@ -981,13 +980,26 @@ bool ZeroConfContainer::isTxOutSpentByZC(const BinaryData& dbkey)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-const map<BinaryData, TxIOPair>& ZeroConfContainer::getZCforScrAddr(
+const map<BinaryData, TxIOPair> ZeroConfContainer::getZCforScrAddr(
    BinaryData scrAddr) const
 {
    auto saIter = txioMap_.find(scrAddr);
 
    if (ITER_IN_MAP(saIter, txioMap_))
-      return saIter->second;
+   {
+      auto& zcMap = saIter->second;
+      map<BinaryData, TxIOPair> returnMap;
+
+      for (auto& zcPair : zcMap)
+      {
+         if (isTxOutSpentByZC(zcPair.second.getDBKeyOfOutput()))
+            continue;
+
+         returnMap.insert(zcPair);
+      }
+
+      return returnMap;
+   }
 
    return emptyTxioMap_;
 }

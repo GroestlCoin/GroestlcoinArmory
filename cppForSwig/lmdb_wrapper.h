@@ -377,18 +377,10 @@ public:
    void getNextBlock(void);
 
    /////////////////////////////////////////////////////////////////////////////
-   void getBlock(BlockHeader & bh,
-      vector<Tx> & txList,
-      LMDB::Iterator* iter = NULL,
-      bool ignoreMerkle = true);
-
-
-   /////////////////////////////////////////////////////////////////////////////
    void loadAllStoredHistory(void);
 
    map<HashString, BlockHeader> getHeaderMap(void);
    BinaryData getRawHeader(BinaryData const & headerHash);
-   //bool addHeader(BinaryData const & headerHash, BinaryData const & headerRaw);
 
    map<uint32_t, uint32_t> getSSHSummary(BinaryDataRef scrAddrStr,
       uint32_t endBlock);
@@ -477,15 +469,18 @@ public:
       BinaryDataRef dbKey) const;
 
    bool getStoredTx(StoredTx & stx,
+      BinaryData& txHashOrDBKey) const;
+
+   bool getStoredTx(StoredTx & stx,
       BinaryDataRef txHashOrDBKey) const;
 
    bool getStoredTx_byDBKey(StoredTx & stx,
       BinaryDataRef dbKey) const;
 
-   bool getStoredTx_byHash(BinaryDataRef txHash,
+   bool getStoredTx_byHash(const BinaryData& txHash,
       StoredTx* stx = nullptr,
       BinaryData* DBkey = nullptr) const;
-   bool getStoredTx_byHashSuper(BinaryDataRef txHash,
+   bool getStoredTx_byHashSuper(const BinaryData& txHash,
       StoredTx* stx = nullptr,
       BinaryData* DBkey = nullptr) const;
 

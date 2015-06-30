@@ -178,7 +178,7 @@ public:
 
    void clear(void);
 
-   bool hasScrAddress(const BinaryData & sa)
+   bool hasScrAddress(const BinaryData & sa) const
    { return (scrAddrMap_.find(sa) != scrAddrMap_.end()); }
 
    void getScrAddrCurrentSyncState();
@@ -330,7 +330,7 @@ public:
    void resetNewZC() { newTxioMap_.clear(); }
    void clear(void);
 
-   const map<BinaryData, TxIOPair>& getZCforScrAddr(BinaryData scrAddr) const;
+   const map<BinaryData, TxIOPair> getZCforScrAddr(BinaryData scrAddr) const;
    const vector<BinaryData>& getSpentSAforZCKey(const BinaryData& zcKey) const;
 
    void updateZCinDB(

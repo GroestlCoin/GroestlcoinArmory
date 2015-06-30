@@ -374,6 +374,9 @@ void LMDBBlockDatabase::openDatabases(
    )
 {
    /***
+   
+   ---- outdated, update this to 0.94 mechanics ----
+
    Supernode and Fullnode use different DB. 
    
    Supernode keeps all data within the same file.
@@ -435,6 +438,7 @@ void LMDBBlockDatabase::openDatabases(
    SCOPED_TIMER("openDatabases");
    LOGINFO << "Opening databases...";
 
+
    baseDir_ = basedir;
    magicBytes_ = magic;
    genesisTxHash_ = genesisTxHash;
@@ -442,6 +446,24 @@ void LMDBBlockDatabase::openDatabases(
 
    armoryDbType_ = dbtype;
    dbPruneType_ = pruneType;
+
+   //check if the folder contains a compatible db
+   bool hasBlocks = false;
+   bool hasSubSSH = false;
+   
+   FILE* blkFile = fopen(dbBlkdataFilename().c_str(), "rb");
+   FILE* zcFile = fopen(dbZeroconfFilename().c_str(), "rb");
+
+   if (blkFile && !zcFile)
+   {
+      throw runtime_error("Your current database is incompatible with this"
+         " version. Either empty the database folder or use a different"
+         " folder through the --dbdir command line argument."
+         );
+   }
+
+   if(blkFile != nullptr) fclose(blkFile);
+   if(zcFile != nullptr) fclose(zcFile);
 
    if (genesisBlkHash_.getSize() == 0 || magicBytes_.getSize() == 0)
    {
@@ -2645,12 +2667,28 @@ StoredTxHints LMDBBlockDatabase::getHintsForTxHash(BinaryDataRef txHash) const
 
 ////////////////////////////////////////////////////////////////////////////////
 bool LMDBBlockDatabase::getStoredTx( StoredTx & stx,
-                                  BinaryDataRef txHashOrDBKey) const
+                                  BinaryData& txHashOrDBKey) const
 {
    uint32_t sz = txHashOrDBKey.getSize();
    if(sz == 32)
       return getStoredTx_byHash(txHashOrDBKey, &stx);
    else if(sz == 6 || sz == 7)
+      return getStoredTx_byDBKey(stx, txHashOrDBKey);
+   else
+   {
+      LOGERR << "Unrecognized input string: " << txHashOrDBKey.toHexStr();
+      return false;
+   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+bool LMDBBlockDatabase::getStoredTx(StoredTx & stx,
+   BinaryDataRef txHashOrDBKey) const
+{
+   uint32_t sz = txHashOrDBKey.getSize();
+   if (sz == 32)
+      return getStoredTx_byHash(txHashOrDBKey, &stx);
+   else if (sz == 6 || sz == 7)
       return getStoredTx_byDBKey(stx, txHashOrDBKey);
    else
    {
@@ -2755,7 +2793,7 @@ bool LMDBBlockDatabase::getStoredZcTx(StoredTx & stx,
 // when we mark a transaction/block valid, we need to make sure all the hints
 // lists have the correct one in front.  Luckily, the TXHINTS entries are tiny 
 // and the number of modifications to make for each reorg is small.
-bool LMDBBlockDatabase::getStoredTx_byHash(BinaryDataRef txHash,
+bool LMDBBlockDatabase::getStoredTx_byHash(const BinaryData& txHash,
                                            StoredTx* stx,
                                            BinaryData *DBkey) const
 {
@@ -2822,7 +2860,8 @@ bool LMDBBlockDatabase::getStoredTx_byHash(BinaryDataRef txHash,
    return false;
 }
 
-bool LMDBBlockDatabase::getStoredTx_byHashSuper(BinaryDataRef txHash,
+////////////////////////////////////////////////////////////////////////////////
+bool LMDBBlockDatabase::getStoredTx_byHashSuper(const BinaryData& txHash,
    StoredTx* stx,
    BinaryData *DBkey) const
 {
