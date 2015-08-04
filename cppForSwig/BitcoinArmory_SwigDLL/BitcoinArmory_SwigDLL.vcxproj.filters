@@ -76,6 +76,12 @@
     <ClCompile Include="..\txio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\lmdbpp.cpp">
+      <Filter>Source Files\LMDB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\mdb\mdb.c">
+      <Filter>Source Files\LMDB</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BinaryData.h">
@@ -141,6 +147,9 @@
     <ClInclude Include="..\txio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\armory-config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -148,6 +157,9 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{7fc64c57-ce9f-4864-8d81-e66466e48727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LMDB">
+      <UniqueIdentifier>{191f9fdc-2218-492a-a2ff-4db998468e73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

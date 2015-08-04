@@ -8490,7 +8490,7 @@ typedef struct mdb_copy {
 
 	/** Dedicated writer thread for compacting copy. */
 static THREAD_RET ESECT
-mdb_env_copythr(void *arg)
+WINAPI mdb_env_copythr(void *arg)
 {
 	mdb_copy *my = arg;
 	char *ptr;
