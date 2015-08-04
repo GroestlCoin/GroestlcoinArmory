@@ -472,11 +472,11 @@ if not USE_TESTNET:
    BITCOIN_RPC_PORT = 8332
    ARMORY_RPC_PORT = 8225
    MAGIC_BYTES = '\xf9\xbe\xb4\xd9'
-   GENESIS_BLOCK_HASH_HEX  = '6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000'
-   GENESIS_BLOCK_HASH      = 'o\xe2\x8c\n\xb6\xf1\xb3r\xc1\xa6\xa2F\xaec\xf7O\x93\x1e\x83e\xe1Z\x08\x9ch\xd6\x19\x00\x00\x00\x00\x00'
-   GENESIS_TX_HASH_HEX     = '3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a'
-   GENESIS_TX_HASH         = ';\xa3\xed\xfdz{\x12\xb2z\xc7,>gv\x8fa\x7f\xc8\x1b\xc3\x88\x8aQ2:\x9f\xb8\xaaK\x1e^J'
-   ADDRBYTE = '\x00'
+   GENESIS_BLOCK_HASH_HEX  = '2390633b70f062cb3a3d6814b67e29a80d9d7581db0bcc494d597c92c50a0000'		#GRS
+   GENESIS_BLOCK_HASH      = '\x23\x90\x63\x3b\x70\xf0\x62\xcb\x3a\x3d\x68\x14\xb6\x7e\x29\xa8\x0d\x9d\x75\x81\xdb\x0b\xcc\x49\x4d\x59\x7c\x92\xc5\x0a\x00\x00'
+   GENESIS_TX_HASH_HEX     = 'bb2866aaca46c4428ad08b57bc9d1493abaf64724b6c3052a7c8f958df68e93c'		#GRS
+   GENESIS_TX_HASH         = '\xbb\x28\x66\xaa\xca\x46\xc4\x42\x8a\xd0\x8b\x57\xbc\x9d\x14\x93\xab\xaf\x64\x72\x4b\x6c\x30\x52\xa7\xc8\xf9\x58\xdf\x68\xe9\x3c'
+   ADDRBYTE = '\x24'		#GRS
    P2SHBYTE = '\x05'
    PRIVKEYBYTE = '\x80'
 

@@ -25,9 +25,6 @@
     <ClCompile Include="..\CppBlockUtils_wrap.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\leveldb_windows_port\win32_posix\Win_TranslatePath.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\LedgerEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -52,22 +49,10 @@
     <ClCompile Include="..\lmdb_wrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\leveldb_windows_port\win32_posix\dirent_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\leveldb_windows_port\win32_posix\win32_posix.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\leveldb_windows_port\win32_posix\pthread_win32port.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\BlockDataViewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\HistoryPager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\leveldb_windows_port\win32_posix\mman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Progress.cpp">
@@ -81,6 +66,30 @@
     </ClCompile>
     <ClCompile Include="..\mdb\mdb.c">
       <Filter>Source Files\LMDB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\mdb\midl.c">
+      <Filter>Source Files\LMDB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\leveldb_windows_port\win32_posix\pthread_win32port.cpp">
+      <Filter>Source Files\posix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\leveldb_windows_port\win32_posix\mman.cpp">
+      <Filter>Source Files\posix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DetSign.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\leveldb_windows_port\win32_posix\Win_TranslatePath.cpp">
+      <Filter>Source Files\posix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sphlib\groestl.cpp">
+      <Filter>Source Files\sphlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\leveldb_windows_port\win32_posix\dirent_win32.cpp">
+      <Filter>Source Files\posix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\leveldb_windows_port\win32_posix\win32_posix.cc">
+      <Filter>Source Files\posix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +169,12 @@
     </Filter>
     <Filter Include="Source Files\LMDB">
       <UniqueIdentifier>{191f9fdc-2218-492a-a2ff-4db998468e73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\posix">
+      <UniqueIdentifier>{f9cb32fb-e2fb-4dde-831f-1bff8872b9f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sphlib">
+      <UniqueIdentifier>{733c17c9-40fb-4109-bbdc-9951947a1bfa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -63,9 +63,12 @@ class LedgerEntry;
 #define TESTNET_GENESIS_HASH_HEX    "43497fd7f826957108f4a30fd9cec3aeba79972084e90ead01ea330900000000"
 #define TESTNET_GENESIS_TX_HASH_HEX "3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a"
 
-#define MAINNET_MAGIC_BYTES "f9beb4d9"
-#define MAINNET_GENESIS_HASH_HEX    "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
-#define MAINNET_GENESIS_TX_HASH_HEX "3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a"
+#define MAINNET_MAGIC_BYTES "f9beb4d4"
+#define MAINNET_GENESIS_HASH_HEX    "2390633b70f062cb3a3d6814b67e29a80d9d7581db0bcc494d597c92c50a0000"	//GRS
+#define MAINNET_GENESIS_TX_HASH_HEX "bb2866aaca46c4428ad08b57bc9d1493abaf64724b6c3052a7c8f958df68e93c"	//GRS
+
+
+
 
 #define BITMASK(X) (2**X - 1)
 
@@ -109,7 +112,7 @@ typedef enum
 
 typedef enum
 {
-  SCRIPT_PREFIX_HASH160=0x00,
+  SCRIPT_PREFIX_HASH160=0x24,		//GRS
   SCRIPT_PREFIX_P2SH=0x05,
   SCRIPT_PREFIX_MULTISIG=0xfe,
   SCRIPT_PREFIX_NONSTD=0xff,
@@ -518,6 +521,8 @@ public:
       sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
       return hashOutput;
    }
+
+   static BinaryData getGroestlHash(uint8_t const * strToHash, uint32_t nBytes);
 
    /////////////////////////////////////////////////////////////////////////////
    static void getHash256(BinaryData const & strToHash, 

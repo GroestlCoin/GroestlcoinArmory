@@ -1,8 +1,9 @@
-##Armory
+##GroestlCoinArmory
 
 **Created by Alan Reiner on 13 July, 2011**
+**Patched for GroestlCoin by GroestlCoin developers 2015**
 
-[Armory](https://github.com/etotheipi/BitcoinArmory) is a full-featured Bitcoin client, offering a dozen innovative features not found in any other client software! Manage multiple wallets (deterministic and watching-only), print paper backups that work forever, import or sweep private keys, and keep your savings in a computer that never touches the internet, while still being able to manage incoming payments, and create outgoing payments with the help of a USB key.
+[Armory](https://github.com/etotheipi/BitcoinArmory) is a full-featured GroestlCoin client, offering a dozen innovative features not found in any other client software! Manage multiple wallets (deterministic and watching-only), print paper backups that work forever, import or sweep private keys, and keep your savings in a computer that never touches the internet, while still being able to manage incoming payments, and create outgoing payments with the help of a USB key.
 
 Multi-signature transactions are accommodated under-the-hood about 80%, and will be completed and integrated into the UI soon.
 

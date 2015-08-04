@@ -28,7 +28,10 @@ void BlockHeader::unserialize(uint8_t const * ptr, uint32_t size)
    if (size < HEADER_SIZE)
       throw BlockDeserializingException();
    dataCopy_.copyFrom(ptr, HEADER_SIZE);
-   BtcUtils::getHash256(dataCopy_.getPtr(), HEADER_SIZE, thisHash_);
+
+   thisHash_ = BtcUtils::getGroestlHash(dataCopy_.getPtr(), HEADER_SIZE);
+//GRS   BtcUtils::getHash256(dataCopy_.getPtr(), HEADER_SIZE, thisHash_);
+
    difficultyDbl_ = BtcUtils::convertDiffBitsToDouble( 
                               BinaryDataRef(dataCopy_.getPtr()+72, 4));
    isInitialized_ = true;

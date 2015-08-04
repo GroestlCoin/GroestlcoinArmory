@@ -44,7 +44,7 @@ BACKUP_TYPE_135a_SP_TEXT = tr('Version 1.35a (5 lines + SecurePrint™)')
 BACKUP_TYPE_135c_TEXT = tr('Version 1.35c (3 lines Unencrypted)')
 BACKUP_TYPE_135c_SP_TEXT = tr('Version 1.35c (3 lines + SecurePrint™)')
 MAX_QR_SIZE = 198
-MAX_SATOSHIS = 2100000000000000
+MAX_SATOSHIS = 10500000000000000
 
 ################################################################################
 class DlgUnlockWallet(ArmoryDialog):
