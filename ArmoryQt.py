@@ -4970,8 +4970,8 @@ class ArmoryMainWindow(QMainWindow):
    def closeExistingBitcoin(self):
       for proc in psutil.process_iter():
          try:
-            if proc.name().lower() in ['bitcoind.exe','bitcoin-qt.exe',\
-                                        'bitcoind','bitcoin-qt']:
+            if proc.name().lower() in ['groestlcoind.exe','groestlcoin-qt.exe',\
+                                        'groestlcoind','groestlcoin-qt']:
                killProcess(proc.pid)
                time.sleep(2)
                return
@@ -6646,8 +6646,8 @@ class ArmoryMainWindow(QMainWindow):
          dispLines = []
          totalStr = coin2strNZS(abs(le.getValue()))
          if le.getValue() > 0:
-            title = tr('Bitcoins Received!')
-            dispLines.append(tr('Amount:  %(tot)s BTC') % { 'tot' : totalStr })
+            title = tr('GroestlCoins Received!')
+            dispLines.append(tr('Amount:  %(tot)s GRS') % { 'tot' : totalStr })
             dispLines.append(tr('From:    %(wlt)s') % { 'wlt' : wltName })
          elif le.getValue() < 0:
             # Also display the address of where they went
@@ -6663,8 +6663,8 @@ class ArmoryMainWindow(QMainWindow):
                else:
                   recipStr = tr('<Multiple Recipients>')
             
-            title = tr('Bitcoins Sent!')
-            dispLines.append(tr('Amount:  %(tot)s BTC') % { 'tot' : totalStr })
+            title = tr('GroestlCoins Sent!')
+            dispLines.append(tr('Amount:  %(tot)s GRS') % { 'tot' : totalStr })
             dispLines.append(tr('From:    %(wlt)s') % { 'wlt' : wltName })
             dispLines.append(tr('To:      %(recp)s') % { 'recp' : recipStr })
    
@@ -7103,7 +7103,7 @@ def checkForAlreadyOpenError():
    armoryExists = []
    bitcoindExists = []
    aexe = os.path.basename(sys.argv[0])
-   bexe = 'bitcoind.exe' if OS_WINDOWS else 'bitcoind'
+   bexe = 'groestlcoind.exe' if OS_WINDOWS else 'groestlcoind'
    for proc in psutil.process_iter():
       if hasattr(proc, '_name'):
          pname = str(proc._name)

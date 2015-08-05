@@ -339,11 +339,11 @@ if __name__ == '__main__':
       import platform
       opsys = platform.system()
       if 'win' in opsys.lower():
-         blkfile = path.join(os.getenv('APPDATA'), 'Bitcoin', 'blk0001.dat')
+         blkfile = path.join(os.getenv('APPDATA'), 'GroestlCoin', 'blk0001.dat')
       if 'nix' in opsys.lower() or 'nux' in opsys.lower():
-         blkfile = path.join(os.getenv('HOME'), '.bitcoin', 'blk0001.dat')
+         blkfile = path.join(os.getenv('HOME'), '.groestlcoin', 'blk0001.dat')
       if 'mac' in opsys.lower() or 'osx' in opsys.lower():
-			blkfile = os.path.expanduser('~/Library/Application Support/Bitcoin/blk0001.dat')
+			blkfile = os.path.expanduser('~/Library/Application Support/GroestlCoin/blk0001.dat')
 
    # A variety of error conditions
    if fn == None and len(args)==0:

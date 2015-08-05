@@ -387,7 +387,7 @@ class SatoshiDaemonManager(object):
       if OS_WINDOWS:
          # Making sure the search path argument comes with /daemon and /Bitcoin on Windows
 
-         searchPaths.extend([os.path.join(sp, 'Bitcoin') for sp in searchPaths])
+         searchPaths.extend([os.path.join(sp, 'GroestlCoin') for sp in searchPaths])
          searchPaths.extend([os.path.join(sp, 'daemon') for sp in searchPaths])
 
          possBaseDir = []         
@@ -407,12 +407,12 @@ class SatoshiDaemonManager(object):
          if os.path.exists(desktop):
             dtopfiles = os.listdir(desktop)
             for path in [os.path.join(desktop, fn) for fn in dtopfiles]:
-               if 'bitcoin' in path.lower() and path.lower().endswith('.lnk'):
+               if 'groestlcoin' in path.lower() and path.lower().endswith('.lnk'):
                   import win32com.client
                   shell = win32com.client.Dispatch('WScript.Shell')
                   targ = shell.CreateShortCut(path).Targetpath
                   targDir = os.path.dirname(targ)
-                  LOGINFO('Found Bitcoin-Qt link on desktop: %s', targDir)
+                  LOGINFO('Found GroestlCoin-Qt link on desktop: %s', targDir)
                   possBaseDir.append( targDir )
 
          # Also look in default place in ProgramFiles dirs
@@ -422,12 +422,12 @@ class SatoshiDaemonManager(object):
 
          # Now look at a few subdirs of the
          searchPaths.extend(possBaseDir)
-         searchPaths.extend([os.path.join(p, 'Bitcoin', 'daemon') for p in possBaseDir])
+         searchPaths.extend([os.path.join(p, 'GroestlCoin', 'daemon') for p in possBaseDir])
          searchPaths.extend([os.path.join(p, 'daemon') for p in possBaseDir])
-         searchPaths.extend([os.path.join(p, 'Bitcoin') for p in possBaseDir])
+         searchPaths.extend([os.path.join(p, 'GroestlCoin') for p in possBaseDir])
 
          for p in searchPaths:
-            testPath = os.path.join(p, 'bitcoind.exe')
+            testPath = os.path.join(p, 'groestlcoind.exe')
             if os.path.exists(testPath):
                self.foundExe.append(testPath)
 
@@ -438,7 +438,7 @@ class SatoshiDaemonManager(object):
          else:
             searchPaths.extend([os.path.join(p, 'bin/32') for p in extraSearchPaths])
 
-         searchPaths.extend(['/usr/lib/bitcoin/'])
+         searchPaths.extend(['/usr/lib/groestlcoin/'])
          searchPaths.extend(os.getenv("PATH").split(':'))
 
          for p in searchPaths:
@@ -447,9 +447,9 @@ class SatoshiDaemonManager(object):
                self.foundExe.append(testPath)
 
          try:
-            locs = subprocess_check_output(['whereis','bitcoind']).split()
+            locs = subprocess_check_output(['whereis','groestlcoind']).split()
             if len(locs)>1:
-               locs = filter(lambda x: os.path.basename(x)=='bitcoind', locs)
+               locs = filter(lambda x: os.path.basename(x)=='groestlcoind', locs)
                LOGINFO('"whereis" returned: %s', str(locs))
                self.foundExe.extend(locs)
          except:
@@ -696,7 +696,7 @@ class SatoshiDaemonManager(object):
             total += 1
 
             if total > 1200:
-               LOGERROR("bitcoind failed to shutdown in less than 2 minutes."
+               LOGERROR("groestlcoind failed to shutdown in less than 2 minutes."
                       " Terminating.")
                return
 
@@ -720,13 +720,13 @@ class SatoshiDaemonManager(object):
          return False
       else:
          if not self.bitcoind.poll()==None:
-            LOGDEBUG('Bitcoind is no more')
+            LOGDEBUG('groestlcoind is no more')
             if self.btcOut==None:
                self.btcOut, self.btcErr = self.bitcoind.communicate()
-               LOGWARN('bitcoind exited, bitcoind STDOUT:')
+               LOGWARN('groestlcoind exited, bitcoind STDOUT:')
                for line in self.btcOut.split('\n'):
                   LOGWARN(line)
-               LOGWARN('bitcoind exited, bitcoind STDERR:')
+               LOGWARN('groestlcoind exited, groestlcoind STDERR:')
                for line in self.btcErr.split('\n'):
                   LOGWARN(line)
          return self.bitcoind.poll()==None

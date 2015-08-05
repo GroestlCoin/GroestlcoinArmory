@@ -2557,7 +2557,7 @@ class UnsignedTransaction(AsciiSerializable):
          addrDisp = getTxOutScriptDisplayStr(txout.binScript)
          valDisp = coin2str(txout.value, maxZeros=2)
          print ' '*2*indent + 'Recip:', addrDisp.ljust(35),
-         print valDisp, 'BTC',
+         print valDisp, 'GRS',
          print ('(%s)' % dtxo.contribID) if dtxo.contribID else ''
 
 

@@ -1355,11 +1355,11 @@ class DlgLockboxManager(ArmoryDialog):
       wltID  = str(self.ledgerView.model().index(row, LEDGERCOLS.WltID).data().toString())
 
       if USE_TESTNET:
-         blkExploreTitle = 'View on blockexplorer.com'
+         blkExploreTitle = 'View on chainz.cryptoid.info'
          blkExploreURL   = 'http://blockexplorer.com/testnet/tx/%s' % txHash
       else:
-         blkExploreTitle = 'View on blockchain.info'
-         blkExploreURL   = 'https://blockchain.info/tx/%s' % txHash
+         blkExploreTitle = 'View on chainz.cryptoid.info'
+         blkExploreURL   = 'https://chainz.cryptoid.info/grs/tx.dws?%s' % txHash
 
 
       actViewTx     = menu.addAction("View Details")
@@ -3169,8 +3169,8 @@ class DlgCreatePromNote(ArmoryDialog):
       lblAddress = QRichLabel(tr('Address:'))
       lblAmount  = QRichLabel(tr('Amount:'))
       lblFee     = QRichLabel(tr('Add fee:'))
-      lblBTC1    = QRichLabel(tr('BTC'))
-      lblBTC2    = QRichLabel(tr('BTC'))
+      lblBTC1    = QRichLabel(tr('GRS'))
+      lblBTC2    = QRichLabel(tr('GRS'))
 
       startStr = ''
       if defaultIDorAddr:
@@ -3532,8 +3532,8 @@ class DlgMergePromNotes(ArmoryDialog):
       lblFeeText = QRichLabel('Total Fee:', doWrap=False)
       self.lblCurrPay = QMoneyLabel(0, maxZeros=2)
       self.lblCurrFee = QMoneyLabel(0, maxZeros=2)
-      self.lblPayUnits = QRichLabel('BTC')
-      self.lblFeeUnits = QRichLabel('BTC')
+      self.lblPayUnits = QRichLabel('GRS')
+      self.lblFeeUnits = QRichLabel('GRS')
 
       
 

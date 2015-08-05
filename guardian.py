@@ -83,9 +83,9 @@ else:
 
 
 if proc_name_bitcoind:
-   print 'bitcoind is running in pid=%d (%s)' % (pid_bitcoind, proc_name_bitcoind)
+   print 'groestlcoind is running in pid=%d (%s)' % (pid_bitcoind, proc_name_bitcoind)
 else:
-   print 'bitcoind IS NOT RUNNING!'
+   print 'groestlcoind IS NOT RUNNING!'
 
 
 while True:

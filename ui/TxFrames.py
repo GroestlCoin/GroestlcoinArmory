@@ -1024,7 +1024,7 @@ class SendBitcoinsFrame(ArmoryFrame):
          self.widgetTable[r]['QLE_AMT'].setMaximumHeight(self.maxHeight)
          self.widgetTable[r]['QLE_AMT'].setAlignment(Qt.AlignLeft)
 
-         self.widgetTable[r]['LBL_BTC'] = QLabel('BTC')
+         self.widgetTable[r]['LBL_BTC'] = QLabel('GRS')
          self.widgetTable[r]['LBL_BTC'].setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
 
          self.widgetTable[r]['BTN_MAX'] = \

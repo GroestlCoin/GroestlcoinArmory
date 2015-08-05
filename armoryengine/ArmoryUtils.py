@@ -295,16 +295,16 @@ if OS_WINDOWS:
    rt = ctypes.windll.shell32.SHGetFolderPathW(0, 26, 0, 0, ctypes.byref(buffer))
    USER_HOME_DIR = unicode(buffer.value)
                
-   BTC_HOME_DIR    = os.path.join(USER_HOME_DIR, 'Bitcoin', SUBDIR)
-   ARMORY_HOME_DIR = os.path.join(USER_HOME_DIR, 'Armory', SUBDIR)
+   BTC_HOME_DIR    = os.path.join(USER_HOME_DIR, 'GroestlCoin', SUBDIR)					#GRS
+   ARMORY_HOME_DIR = os.path.join(USER_HOME_DIR, 'GroestlCoinArmory', SUBDIR)
    BLKFILE_DIR     = os.path.join(BTC_HOME_DIR, 'blocks')
    BLKFILE_1stFILE = os.path.join(BLKFILE_DIR, 'blk00000.dat')
 elif OS_LINUX:
    OS_NAME         = 'Linux'
    OS_VARIANT      = platform.linux_distribution()
    USER_HOME_DIR   = os.getenv('HOME')
-   BTC_HOME_DIR    = os.path.join(USER_HOME_DIR, '.bitcoin', SUBDIR)
-   ARMORY_HOME_DIR = os.path.join(USER_HOME_DIR, '.armory', SUBDIR)
+   BTC_HOME_DIR    = os.path.join(USER_HOME_DIR, '.groestlcoin', SUBDIR)
+   ARMORY_HOME_DIR = os.path.join(USER_HOME_DIR, '.groestlcoinarmory', SUBDIR)
    BLKFILE_DIR     = os.path.join(BTC_HOME_DIR, 'blocks')
    BLKFILE_1stFILE = os.path.join(BLKFILE_DIR, 'blk00000.dat')
 elif OS_MACOSX:
@@ -312,8 +312,8 @@ elif OS_MACOSX:
    OS_NAME         = 'MacOSX'
    OS_VARIANT      = platform.mac_ver()
    USER_HOME_DIR   = os.path.expanduser('~/Library/Application Support')
-   BTC_HOME_DIR    = os.path.join(USER_HOME_DIR, 'Bitcoin', SUBDIR)
-   ARMORY_HOME_DIR = os.path.join(USER_HOME_DIR, 'Armory', SUBDIR)
+   BTC_HOME_DIR    = os.path.join(USER_HOME_DIR, 'GroestlCoin', SUBDIR)
+   ARMORY_HOME_DIR = os.path.join(USER_HOME_DIR, 'GroestlCoinArmory', SUBDIR)
    BLKFILE_DIR     = os.path.join(BTC_HOME_DIR, 'blocks')
    BLKFILE_1stFILE = os.path.join(BLKFILE_DIR, 'blk00000.dat')
 else:
@@ -468,9 +468,9 @@ if not os.path.exists(ARMORY_DB_DIR):
 ##### MAIN NETWORK IS DEFAULT #####
 if not USE_TESTNET:
    # TODO:  The testnet genesis tx hash can't be the same...?
-   BITCOIN_PORT = 8333
-   BITCOIN_RPC_PORT = 8332
-   ARMORY_RPC_PORT = 8225
+   BITCOIN_PORT = 1331
+   BITCOIN_RPC_PORT = 1441
+   ARMORY_RPC_PORT = 8226
    MAGIC_BYTES = '\xf9\xbe\xb4\xd9'
    GENESIS_BLOCK_HASH_HEX  = '2390633b70f062cb3a3d6814b67e29a80d9d7581db0bcc494d597c92c50a0000'		#GRS
    GENESIS_BLOCK_HASH      = '\x23\x90\x63\x3b\x70\xf0\x62\xcb\x3a\x3d\x68\x14\xb6\x7e\x29\xa8\x0d\x9d\x75\x81\xdb\x0b\xcc\x49\x4d\x59\x7c\x92\xc5\x0a\x00\x00'
@@ -481,13 +481,13 @@ if not USE_TESTNET:
    PRIVKEYBYTE = '\x80'
 
    # This will usually just be used in the GUI to make links for the user
-   BLOCKEXPLORE_NAME     = 'blockchain.info'
-   BLOCKEXPLORE_URL_TX   = 'https://blockchain.info/tx/%s'
-   BLOCKEXPLORE_URL_ADDR = 'https://blockchain.info/address/%s'
+   BLOCKEXPLORE_NAME     = 'chainz.cryptoid.info/grs/'											#GRS
+   BLOCKEXPLORE_URL_TX   = 'https://chainz.cryptoid.info/grs/tx.dws?%s'
+   BLOCKEXPLORE_URL_ADDR = 'https://chainz.cryptoid.info/grs/address.dws?%s'
 else:
-   BITCOIN_PORT = 18333
-   BITCOIN_RPC_PORT = 18332
-   ARMORY_RPC_PORT     = 18225
+   BITCOIN_PORT = 17777
+   BITCOIN_RPC_PORT = 17766
+   ARMORY_RPC_PORT     = 18226
    MAGIC_BYTES  = '\x0b\x11\x09\x07'
    GENESIS_BLOCK_HASH_HEX  = '43497fd7f826957108f4a30fd9cec3aeba79972084e90ead01ea330900000000'
    GENESIS_BLOCK_HASH      = 'CI\x7f\xd7\xf8&\x95q\x08\xf4\xa3\x0f\xd9\xce\xc3\xae\xbay\x97 \x84\xe9\x0e\xad\x01\xea3\t\x00\x00\x00\x00'
@@ -499,12 +499,12 @@ else:
 
    # 
    BLOCKEXPLORE_NAME     = 'blockexplorer.com'
-   BLOCKEXPLORE_URL_TX   = 'http://blockexplorer.com/testnet/tx/%s'
+   BLOCKEXPLORE_URL_TX   = 'https://chainz.cryptoid.info/grs/tx.dws?%s'
    BLOCKEXPLORE_URL_ADDR = 'http://blockexplorer.com/testnet/address/%s'
 
 # These are the same regardless of network
 # They are the way data is stored in the database which is network agnostic
-SCRADDR_P2PKH_BYTE    = '\x00'
+SCRADDR_P2PKH_BYTE    = '\x24'
 SCRADDR_P2SH_BYTE     = '\x05'
 SCRADDR_MULTISIG_BYTE = '\xfe'
 SCRADDR_NONSTD_BYTE   = '\xff'
@@ -566,7 +566,7 @@ if not CLI_OPTIONS.satoshiRpcport == DEFAULT:
    try:
       BITCOIN_RPC_PORT = int(CLI_OPTIONS.satoshiRpcport)
    except:
-      raise TypeError('Invalid rpc port for Bitcoin-Qt, using ' + str(BITCOIN_RPC_PORT))
+      raise TypeError('Invalid rpc port for GroestlCoin-Qt, using ' + str(BITCOIN_RPC_PORT))
 
 ################################################################################
 if not CLI_OPTIONS.rpcport == DEFAULT:
@@ -2901,7 +2901,7 @@ def parseBitcoinURI(uriStr):
          query[k] = v[0]
 
    # Now start walking through the parts and get the info out of it.
-   if uri.scheme == 'bitcoin':
+   if uri.scheme == 'groestlcoin':
       data['address'] = uri.path
 
       # Apply filters to known keys. Do NOT filter based on the "req-"
