@@ -19,22 +19,18 @@ const BinaryData BtcUtils::EmptyHash_  = BinaryData::CreateFromHex("000000000000
 BinaryData BtcUtils::getGroestlHash(uint8_t const * strToHash, uint32_t nBytes) {
     sph_groestl512_context  ctx_gr[2];
     static unsigned char pblank[1];
-    std::array<uint8_t, 64> hash1;
+    uint8_t hash1[64];
 	
     sph_groestl512_init(&ctx_gr[0]);
     sph_groestl512 (&ctx_gr[0], strToHash ? strToHash : pblank, nBytes);
-    sph_groestl512_close(&ctx_gr[0], static_cast<void*>(hash1.data()));
+    sph_groestl512_close(&ctx_gr[0], hash1);
 	
-	std::array<uint8_t, 64> hash2;
+	uint8_t hash2[64];
 	sph_groestl512_init(&ctx_gr[1]);
-	sph_groestl512(&ctx_gr[1],static_cast<const void*>(hash1.data()), 64);
-	sph_groestl512_close(&ctx_gr[1],static_cast<void*>(hash2.data()));
+	sph_groestl512(&ctx_gr[1], hash1, 64);
+	sph_groestl512_close(&ctx_gr[1], hash2);
 
-	BinaryData	r(32);
-	memcpy(r.getPtr(), hash2.data(), 32);
-	return r;
-
-
+	return BinaryData(hash2, 32);
 }
 
 

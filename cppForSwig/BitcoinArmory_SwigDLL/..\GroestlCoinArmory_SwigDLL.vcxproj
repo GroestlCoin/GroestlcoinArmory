@@ -100,8 +100,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">
-    <TargetName>$(ProjectName)_d</TargetName>
+    <TargetName>_CppBlockUtils</TargetName>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <OutDir>..\</OutDir>
+    <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win_XP_32|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -110,16 +112,26 @@
     <IntDir>$(SolutionDir)libs\IntermediateBuildFiles\$(Configuration).$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">
-    <TargetName>$(ProjectName)_d</TargetName>
+    <TargetName>_CppBlockUtils</TargetName>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <OutDir>..\</OutDir>
+    <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win_XP_32|x64'">
     <TargetName>$(ProjectName)_d</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)libs\x64</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">
+    <OutDir>..\</OutDir>
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_CppBlockUtils</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
+    <OutDir>..\</OutDir>
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_CppBlockUtils</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='WinXP_release_x86|Win32'">
     <OutDir>$(SolutionDir)libs\$(Platform)\Win_XP</OutDir>
   </PropertyGroup>
@@ -129,7 +141,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
@@ -141,7 +153,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python27\libs;%(AdditionalLibraryDirectories);C:\Python27\libs</AdditionalLibraryDirectories>
-      <OutputFile>..\_CppBlockUtils.pyd</OutputFile>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -166,11 +177,6 @@
       <AdditionalDependencies>cryptopp_d.lib;leveldb_msvc11_port_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>pthreads-w32-2-9-1-release\Pre-built.2\lib\x86;pthreads-w32-2-9-1-release\Pre-built.2\dll\x86;$(SolutionDir)libs\$(Platform)\Win_XP;C:\WinDDK\7600.16385.1\lib\ATL\i386;C:\Python27\libs;C:\Python26\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy libs\Win32\BitcoinArmory_SwigDLL_d.dll ..\_CppBlockUtils.pyd
-C:\Python27\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\qrc_img_resources.py ..\imgList.xml
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">
     <ClCompile>
@@ -178,7 +184,7 @@ C:\Python27\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\qrc_img_resources.py ..\img
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
@@ -192,7 +198,6 @@ C:\Python27\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\qrc_img_resources.py ..\img
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);pthreads-w32-2-9-1-release\Pre-built.2\lib\x64;C:\Python27_64\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <OutputFile>..\_CppBlockUtils.pyd</OutputFile>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -215,11 +220,6 @@ C:\Python27\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\qrc_img_resources.py ..\img
       <AdditionalDependencies>cryptopp_d.lib;leveldb_msvc11_port_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\pthreads-w32-2-9-1-release\Pre-built.2\lib\x64;$(SolutionDir)libs\$(Platform)\;C:\Python27_64\libs;C:\Python26\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy ..\libs\x64\BitcoinArmory_SwigDLL_d.dll ..\..\_CppBlockUtils.pyd
-C:\Python27_64\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\..\qrc_img_resources.py ..\..\imgList.xml
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win_XP_32|x64'">
     <ClCompile>
@@ -237,11 +237,6 @@ C:\Python27_64\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\..\qrc_img_resources.py 
       <AdditionalDependencies>cryptopp_d.lib;leveldb_msvc11_port_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\pthreads-w32-2-9-1-release\Pre-built.2\lib\x64;$(SolutionDir)libs\$(Platform)\;C:\Python27_64\libs;C:\Python26\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy ..\libs\x64\BitcoinArmory_SwigDLL_d.dll ..\..\_CppBlockUtils.pyd
-C:\Python27_64\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\..\qrc_img_resources.py ..\..\imgList.xml
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -268,11 +263,6 @@ C:\Python27_64\Lib\site-packages\PyQt4\pyrcc4.exe -o ..\..\qrc_img_resources.py 
       <DelayLoadDLLs>
       </DelayLoadDLLs>
     </Link>
-    <PostBuildEvent>
-      <Command>build_installer.bat
-copy ..\libs\Win32\BitcoinArmory_SwigDLL.dll ..\..\_CppBlockUtils.pyd
-</Command>
-    </PostBuildEvent>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
@@ -374,19 +364,15 @@ copy ..\libs\Win32\BitcoinArmory_SwigDLL.dll ..\..\_CppBlockUtils.pyd
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">
-    <Link>
-      <OutputFile>..\_CppBlockUtils.pyd</OutputFile>
-    </Link>
+    <Link />
     <ClCompile>
-      <AdditionalIncludeDirectories>.;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
-    <Link>
-      <OutputFile>..\_CppBlockUtils.pyd</OutputFile>
-    </Link>
+    <Link />
     <ClCompile>
-      <AdditionalIncludeDirectories>.;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -435,6 +421,7 @@ copy ..\libs\Win32\BitcoinArmory_SwigDLL.dll ..\..\_CppBlockUtils.pyd
     <ClCompile Include="leveldb_windows_port\win32_posix\pthread_win32port.cpp" />
     <ClCompile Include="leveldb_windows_port\win32_posix\win32_posix.cc" />
     <ClCompile Include="leveldb_windows_port\win32_posix\Win_TranslatePath.cpp" />
+    <ClCompile Include="lmdbpp.cpp" />
     <ClCompile Include="lmdb_wrapper.cpp" />
     <ClCompile Include="Progress.cpp" />
     <ClCompile Include="ScrAddrObj.cpp" />
@@ -444,7 +431,17 @@ copy ..\libs\Win32\BitcoinArmory_SwigDLL.dll ..\..\_CppBlockUtils.pyd
     <ClCompile Include="UniversalTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CppBlockUtils.i" />
+    <CustomBuild Include="CppBlockUtils.i">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">%(Filename)_wrap.cxx</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">%(Filename)_wrap.cxx</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">%(Filename)_wrap.cxx</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">%(Filename)_wrap.cxx</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,11 +1,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"  ToolsVersion="4.0" DefaultTarget="Moc">
 <ItemGroup>
-	<Swig Include="CppBlockUtils.i" 				/>
 	<Qrc Include="..\imgList.xml" 					/>
 </ItemGroup>
 
 <Target Name="Swig">
-	<Exec Command="swig.exe -c++ -python -threads -outdir ..\ -v  %(Swig.FullPath)" /> 
 	<Exec Command="pyrcc4.exe -o ..\qrc_img_resources.py %(Qrc.FullPath)" 			/> 
 </Target>
 </Project>

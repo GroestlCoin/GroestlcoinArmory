@@ -82,6 +82,9 @@
     <ClCompile Include="CppBlockUtils_wrap.cxx">
       <Filter>SWIG</Filter>
     </ClCompile>
+    <ClCompile Include="lmdbpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryData.h">
