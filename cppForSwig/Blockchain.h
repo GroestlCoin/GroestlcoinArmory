@@ -57,6 +57,8 @@ public:
    BlockHeader& getGenesisBlock() const;
    BlockHeader& getHeaderByHeight(unsigned height) const;
    bool hasHeaderByHeight(unsigned height) const;
+   const BinaryData& getGenesisHash(void) const
+   { return genesisHash_; }
    
    const BlockHeader& getHeaderByHash(HashString const & blkHash) const;
    BlockHeader& getHeaderByHash(HashString const & blkHash);
@@ -86,6 +88,8 @@ public:
 
    void putBareHeaders(LMDBBlockDatabase *db, bool updateDupID=true);
    void putNewBareHeaders(LMDBBlockDatabase *db);
+
+   void rewind(const BinaryData& hash);
 
 private:
    BlockHeader* organizeChain(bool forceRebuild=false);

@@ -76,15 +76,8 @@ static uint64_t scanFor(const uint8_t *in, const uint64_t inLen,
 class BlockDataManager_LevelDB::BitcoinQtBlockFiles
 {
    const string blkFileLocation_;
-   struct BlkFile
-   {
-      size_t fnum;
-      string path;
-      uint64_t filesize;
-      uint64_t filesizeCumul;
-   };
    
-   vector<BlkFile> blkFiles_;
+   shared_ptr<vector<BlkFile>> blkFiles_;
    uint64_t totalBlockchainBytes_=0;
    
    const BinaryData magicBytes_;
@@ -100,24 +93,30 @@ class BlockDataManager_LevelDB::BitcoinQtBlockFiles
       {}
    };
 
-   class StopReading : public std::exception
+   class StopReading
    {
    };
 
 public:
    BitcoinQtBlockFiles(const string& blkFileLocation, const BinaryData &magicBytes)
-      : blkFileLocation_(blkFileLocation), magicBytes_(magicBytes)
+      : blkFileLocation_(blkFileLocation), magicBytes_(magicBytes),
+      blkFiles_(new vector<BlkFile>())
    {
+   }
+
+   shared_ptr<vector<BlkFile>> getBlkFiles(void) const
+   {
+      return blkFiles_;
    }
    
    void detectAllBlkFiles()
    {
       unsigned numBlkFiles=0;
-      if (blkFiles_.size() > 0)
+      if (blkFiles_->size() > 0)
       {
-         numBlkFiles = blkFiles_.size()-1;
-         totalBlockchainBytes_ -= blkFiles_.back().filesize;
-         blkFiles_.pop_back();
+         numBlkFiles = blkFiles_->size()-1;
+         totalBlockchainBytes_ -= blkFiles_->back().filesize;
+         blkFiles_->pop_back();
       }
       while(numBlkFiles < UINT16_MAX)
       {
@@ -132,7 +131,7 @@ public:
          f.path = path;
          f.filesize = filesize;
          f.filesizeCumul = totalBlockchainBytes_;
-         blkFiles_.push_back(f);
+         blkFiles_->push_back(f);
          
          totalBlockchainBytes_ += filesize;
          
@@ -146,14 +145,14 @@ public:
    }
    
    uint64_t totalBlockchainBytes() const { return totalBlockchainBytes_; }
-   unsigned numBlockFiles() const { return blkFiles_.size(); }
+   unsigned numBlockFiles() const { return blkFiles_->size(); }
    
    uint64_t offsetAtStartOfFile(size_t fnum) const
    {
       if (fnum==0) return 0;
-      if (fnum >= blkFiles_.size())
+      if (fnum >= blkFiles_->size())
          throw std::range_error("block file out of range");
-      return blkFiles_[fnum].filesizeCumul;
+      return (*blkFiles_)[fnum].filesizeCumul;
    }
    
    // find the location of the first block that is not in @p bc
@@ -165,9 +164,9 @@ public:
       
       size_t index=0;
       
-      for (; index < blkFiles_.size(); index++)
+      for (; index < blkFiles_->size(); index++)
       {
-         const BinaryData hash = getFirstHash(blkFiles_[index]);
+         const BinaryData hash = getFirstHash((*blkFiles_)[index]);
 
          if (allHeaders.find(hash) == allHeaders.end())
          { // not found in this file
@@ -188,17 +187,20 @@ public:
       BlockFilePosition foundAtPosition{ 0, 0 };
             
       bool foundTopBlock = false;
+      bool isGenesisBlock = false;
       auto topBlockHash = bc.top().getThisHash();
 
       const auto stopIfBlkHeaderRecognized =
-      [&allHeaders, &foundAtPosition, &foundTopBlock, &topBlockHash] (
-         const BinaryData &blockheader,
+      [&allHeaders, &foundAtPosition, &foundTopBlock, &topBlockHash, 
+       &isGenesisBlock, &bc] (
+         const BinaryDataRef &blockheader,
          const BlockFilePosition &pos,
          uint32_t blksize
       )
       {
          // always set our position so that eventually it's at the end
          foundAtPosition = pos;
+         foundAtPosition.second -= 8;
          
          BlockHeader block;
          BinaryRefReader brr(blockheader);
@@ -210,6 +212,10 @@ public:
          if(bhIter == allHeaders.end())
             throw StopReading();
 
+         isGenesisBlock = false;
+         if (blockhash == bc.getGenesisHash())
+            isGenesisBlock = true;
+
          if (bhIter->second.getThisHash() == topBlockHash)
             foundTopBlock = true;
 
@@ -217,12 +223,15 @@ public:
          bhIter->second.setBlockFileOffset(pos.second);
       };
       
+      BlockFileAccessor bfa(blkFiles_);
       uint64_t returnedOffset = UINT64_MAX;
       try
       {
-         returnedOffset = readHeadersFromFile(
-            blkFiles_[index],
+         returnedOffset = readRawBlocksFromFile(
+            bfa,
+            index,
             0,
+            UINT64_MAX,
             stopIfBlkHeaderRecognized
          );
          
@@ -235,7 +244,7 @@ public:
       // but we never find the genesis block, because
       // it always appears in Blockchain even if unloaded, and
       // we need to load it
-      if (foundAtPosition.first == 0 && foundAtPosition.second==293)
+      if (isGenesisBlock)
          return { 0, 0 };
       if (returnedOffset != UINT64_MAX)
          foundAtPosition.second = returnedOffset;
@@ -264,14 +273,14 @@ public:
          };
 
          bool foundTopBlock = false;
-         int32_t fnum = blkFiles_.size();
+         int32_t fnum = blkFiles_->size();
          if (fnum > 0)
             fnum--;
          try
          {
             for (; fnum > -1; fnum--)
-               readHeadersFromFile(blkFiles_[fnum], 0, 
-                                   checkBlkHash);
+               readRawBlocksFromFile(bfa, fnum, 0,
+                                   UINT64_MAX, checkBlkHash);
          }
          catch (StopReading&)
          {
@@ -289,10 +298,12 @@ public:
          }
 
          //Check this file to see if we are missing any block hashes in there
-         auto& f = blkFiles_[foundAtPosition.first];
          try
          {
-            readHeadersFromFile(f, 0, stopIfBlkHeaderRecognized);
+            readRawBlocksFromFile(
+               bfa, foundAtPosition.first, 0,
+               UINT64_MAX,
+               stopIfBlkHeaderRecognized);
          }
          catch (StopReading&)
          {
@@ -311,26 +322,33 @@ public:
    BlockFilePosition readHeaders(
       BlockFilePosition startAt,
       const function<void(
-         const BinaryData &,
+         const BinaryDataRef &,
          const BlockFilePosition &pos,
          uint32_t blksize
-      )> &blockDataCallback
+      )> &blockDataCallback,
+      bool verbose = false
    ) const
    {
-      if (startAt.first == blkFiles_.size())
+      if (startAt.first == blkFiles_->size())
          return startAt;
-      if (startAt.first > blkFiles_.size())
+      if (startAt.first > blkFiles_->size())
          throw std::runtime_error("blkFile out of range");
          
       uint64_t finishOffset=startAt.second;
-
+      BlockFileAccessor bfa(blkFiles_);
+      
       try
       {
-         while (startAt.first < blkFiles_.size())
+         while (startAt.first < blkFiles_->size())
          {
-            const BlkFile &f = blkFiles_[startAt.first];
-            finishOffset = readHeadersFromFile(
-               f, startAt.second, blockDataCallback
+            if(verbose)
+               LOGINFO << "parsing headers in file " << startAt.first;
+            finishOffset = readRawBlocksFromFile(
+               bfa,
+               startAt.first, 
+               startAt.second, 
+               UINT64_MAX,
+               blockDataCallback
                );
             startAt.second = 0;
             startAt.first++;
@@ -346,6 +364,7 @@ public:
    }
    
    BlockFilePosition readRawBlocks(
+      LMDBBlockDatabase* db,
       BlockFilePosition startAt,
       BlockFilePosition stopAt,
       const function<void(
@@ -355,21 +374,30 @@ public:
       )> &blockDataCallback
    )
    {
-      if (startAt.first == blkFiles_.size())
+      if (startAt.first == blkFiles_->size())
          return startAt;
-      if (startAt.first > blkFiles_.size())
+      if (startAt.first > blkFiles_->size())
          throw std::runtime_error("blkFile out of range");
 
-      stopAt.first = (std::min)(stopAt.first, blkFiles_.size());
-         
+      stopAt.first = (std::min)(stopAt.first, blkFiles_->size());
+      
+      BlockFileAccessor bfa(blkFiles_);
+
       uint64_t finishLocation=stopAt.second;
       while (startAt.first <= stopAt.first)
       {
-         const BlkFile &f = blkFiles_[startAt.first];
+         LMDBEnv::Transaction txblk(db->dbEnv_[BLKDATA].get(), LMDB::ReadWrite);
+         LMDBEnv::Transaction txhints(db->dbEnv_[TXHINTS].get(), LMDB::ReadWrite);
+         LMDBEnv::Transaction txstxo(db->dbEnv_[STXO].get(), LMDB::ReadWrite);
+         LMDBEnv::Transaction txhistory(db->dbEnv_[HISTORY].get(), LMDB::ReadWrite);
+
+         auto& f = (*blkFiles_)[startAt.first];
+         LOGINFO << "reading blocks from file " << f.fnum;
+
          const uint64_t stopAtOffset
             = startAt.first < stopAt.first ? f.filesize : stopAt.second;
-         finishLocation = readRawBlocksFromFile(
-            f, startAt.second, stopAtOffset, blockDataCallback
+         finishLocation = readRawBlocksFromFile(bfa,
+            startAt.first, startAt.second, stopAtOffset, blockDataCallback
          );
          startAt.second = 0;
          startAt.first++;
@@ -379,6 +407,7 @@ public:
    }
 
    void readRawBlocksFromTop(
+      BlockFileAccessor& bfa,
       uint32_t fnum,
       const function<void(
       const BinaryData &,
@@ -389,8 +418,8 @@ public:
    {
       for (int32_t i = fnum; i > -1; i--)
       {
-         const BlkFile &f = blkFiles_[i];
-         readRawBlocksFromFile(f, 0, f.filesize, blockDataCallback);
+         readRawBlocksFromFile(bfa, i, 0, 
+            (*blkFiles_)[i].filesize, blockDataCallback);
       }
    }
 
@@ -426,12 +455,16 @@ public:
 
       try
       {
+         BlockFileAccessor bfa(blkFiles_);
+
          //at this point, the last blkFile has been scanned for block, so skip it
-         for (int32_t i = blkFiles_.size() - 2; i > -1; i--)
+         for (int32_t i = blkFiles_->size() - 2; i > -1; i--)
          {
-            readHeadersFromFile(
-               blkFiles_[i],
+            readRawBlocksFromFile(
+               bfa,
+               i,
                0,
+               UINT64_MAX,
                stopIfBlkHeaderRecognized
                );
          }
@@ -447,88 +480,33 @@ public:
 
 private:
 
-   struct MapAndSize
-   {
-      uint8_t* filemap_;
-      uint64_t size_;
-   };
-
-   MapAndSize getMapOfFile(string path, size_t fileSize)
-   {
-      MapAndSize mas;
-
-      #ifdef WIN32
-         int fd = _open(path.c_str(), _O_RDONLY | _O_BINARY);
-         if (fd == -1)
-            throw std::runtime_error("failed to open file");
-         
-         HANDLE fdHandle = (HANDLE)_get_osfhandle(fd);
-         uint32_t sizelo = fileSize & 0xffffffff;
-         uint32_t sizehi = fileSize >> 16 >> 16;
-
-
-         HANDLE mh = CreateFileMapping(fdHandle, NULL, 
-                              PAGE_READONLY | SEC_COMMIT,
-                              sizehi, sizelo, NULL);
-         if (mh == NULL)
-            throw std::runtime_error("failed to map file");
-
-         mas.filemap_ = (uint8_t*)MapViewOfFile(mh, FILE_MAP_READ,
-                             0, 0, fileSize);
-         mas.size_ = fileSize;
-
-         if(mas.filemap_ == NULL)
-            throw std::runtime_error("failed to map file");
-
-         CloseHandle(mh);
-         _close(fd);
-      #else
-         int fd = open(path.c_str(), O_RDONLY);
-         if (fd == -1)
-            throw std::runtime_error("failed to open file");
-
-         mas.filemap_ = (uint8_t*)mmap(NULL, fileSize, PROT_READ, MAP_SHARED, fd, 0);
-         mas.size_ = fileSize;
-
-         if(mas.filemap_ == NULL)
-            throw std::runtime_error("failed to map file");
-         close(fd);
-      #endif
-
-      return mas;
-   }
-
-   void unmapFile(MapAndSize& mas)
-   {
-      #ifdef WIN32
-      if (!UnmapViewOfFile(mas.filemap_))
-         throw std::runtime_error("failed to unmap file");
-      #else
-      if(munmap(mas.filemap_, mas.size_))
-         throw std::runtime_error("failed to unmap file");
-      #endif
-   }
    // read blocks from f, starting at offset blockFileOffset,
    // returning the offset we finished at
-   uint64_t readRawBlocksFromFile(
-      const BlkFile &f, uint64_t blockFileOffset, uint64_t stopBefore,
+   uint64_t readRawBlocksFromFile(BlockFileAccessor& bfa,
+      const uint32_t &f, 
+      uint64_t blockFileOffset, 
+      uint64_t stopBefore,
       const function<void(
-         const BinaryData &,
+         const BinaryDataRef &,
          const BlockFilePosition &pos,
          uint32_t blksize
       )> &blockDataCallback
    )
+   const
    {
       // short circuit
       if (blockFileOffset >= stopBefore)
          return blockFileOffset;
       
-      MapAndSize mas = getMapOfFile(f.path, f.filesize);
+      shared_ptr<FileMap> fmPtr = bfa.getFileMap(f);
+      auto& blkFile = (*blkFiles_)[f];
+
+      FileMap& fm = *fmPtr;
       BinaryData fileMagic(4);
-      memcpy(fileMagic.getPtr(), mas.filemap_, 4);
+      memcpy(fileMagic.getPtr(), fm.filemap_, 4);
       if( fileMagic != magicBytes_ )
       {
-         LOGERR << "Block file '" << f.path << "' is the wrong network! File: "
+         LOGERR << "Block file '" << blkFile.path << "' is the wrong network! File: "
             << fileMagic.toHexStr()
             << ", expecting " << magicBytes_.toHexStr();
       }
@@ -539,40 +517,40 @@ private:
          BinaryDataRef magic, szstr, rawBlk;
          // read the file, we can't go past what we think is the end,
          // because we haven't gone past that in Headers
-         while(pos < (std::min)(f.filesize, stopBefore))
+         while(pos < (std::min)(fm.mapsize_, stopBefore))
          {
-            magic = BinaryDataRef(mas.filemap_ + pos, 4);
+            magic = BinaryDataRef(fm.filemap_ + pos, 4);
             pos += 4;
-            if (pos >= f.filesize)
+            if (pos >= fm.mapsize_)
                break;
                
             if(magic != magicBytes_)
             {
                // start scanning for MagicBytes
-               uint64_t offset = scanFor(mas.filemap_ + pos, f.filesize - pos,
+               uint64_t offset = scanFor(fm.filemap_ + pos, fm.mapsize_ - pos,
                   magicBytes_.getPtr(), magicBytes_.getSize());
                if (offset == UINT64_MAX)
                {
-                  LOGERR << "No more blocks found in file " << f.path;
+                  //LOGERR << "No more blocks found in file " << blkFile.path;
                   break;
                }
                
                pos += offset +4;
-               LOGERR << "Next block header found at offset " << pos-4;
+               LOGINFO << "Next block header found at offset " << pos-4;
             }
             
-            szstr = BinaryDataRef(mas.filemap_ + pos, 4);
+            szstr = BinaryDataRef(fm.filemap_ + pos, 4);
             pos += 4;
             uint32_t blkSize = READ_UINT32_LE(szstr.getPtr());
-            if(pos >= f.filesize) 
+            if (pos >= fm.mapsize_)
                break;
 
-            rawBlk = BinaryDataRef(mas.filemap_ +pos, blkSize);
+            rawBlk = BinaryDataRef(fm.filemap_ + pos, blkSize);
             pos += blkSize;
             
             try
             {
-               blockDataCallback(rawBlk, { f.fnum, blockFileOffset }, blkSize);
+               blockDataCallback(rawBlk, { f, pos - blkSize }, blkSize);
             }
             catch (std::exception &e)
             {
@@ -580,85 +558,85 @@ private:
                // blkdata past where we loaded headers. This isn't a problem
                LOGERR << e.what() << " (error encountered processing block at byte "
                   << blockFileOffset << " file "
-                  << f.path << ", blocksize " << blkSize << ")";
+                  << blkFile.path << ", blocksize " << blkSize << ")";
             }
             blockFileOffset = pos;
          }
       }
       
-      LOGINFO << "Reading raw blocks finished at file "
-         << f.fnum << " offset " << blockFileOffset;
+      //LOGINFO << "Reading raw blocks finished at file "
+      //   << f << " offset " << blockFileOffset;
       
-      unmapFile(mas);
+      bfa.dropFileMap(f);
       return blockFileOffset;
    }
    
    uint64_t readHeadersFromFile(
-      const BlkFile &f,
+      BlockFileAccessor &bfa,
+      uint32_t fnum,
       uint64_t blockFileOffset,
       const function<void(
-         const BinaryData &,
+         const BinaryDataRef &,
          const BlockFilePosition &pos,
          uint32_t blksize
       )> &blockDataCallback
    ) const
    {
-      ifstream is(f.path, ios::binary);
-      {
-         BinaryData fileMagic(4);
-         is.read(reinterpret_cast<char*>(fileMagic.getPtr()), 4);
+      shared_ptr<FileMap> fmPtr = bfa.getFileMap(fnum);
+      FileMap& fm = *fmPtr;
+      BlkFile& blkFile = (*blkFiles_)[fnum];
 
+      uint64_t pos = blockFileOffset;
+
+      {
+         BinaryDataRef fileMagic(fm.filemap_, 4);
          if( fileMagic != magicBytes_)
          {
             std::ostringstream ss;
-            ss << "Block file '" << f.path << "' is the wrong network! File: "
+            ss << "Block file '" << blkFile.path << "' is the wrong network! File: "
                << fileMagic.toHexStr()
                << ", expecting " << magicBytes_.toHexStr();
             throw runtime_error(ss.str());
          }
       }
-      is.seekg(blockFileOffset, ios::beg);
       
       {
          const uint32_t HEAD_AND_NTX_SZ = HEADER_SIZE + 10; // enough
-         BinaryData magic(4), szstr(4), rawHead(HEAD_AND_NTX_SZ);
-         while(!is.eof())
+         BinaryDataRef magic, szstr, rawHead; // (HEAD_AND_NTX_SZ);
+         while(pos < fm.mapsize_)
          {
-            is.read((char*)magic.getPtr(), 4);
-            if (is.eof())
+            magic = BinaryDataRef(fm.filemap_ + pos, 4);
+            pos += 4;
+            if (pos >= fm.mapsize_)
                break;
                
             if(magic != magicBytes_)
             {
                // I have to start scanning for MagicBytes
-               if (!scanFor(is, magicBytes_.getPtr(), magicBytes_.getSize()))
-               {
+               auto offset = scanFor(fm.filemap_ + pos, fm.mapsize_ - pos,
+                  magicBytes_.getPtr(), magicBytes_.getSize());
+               if (offset == UINT64_MAX)
                   break;
-               }
                
-               LOGERR << "Next block header found at offset " << uint64_t(is.tellg())-4;
+               pos += offset + 4;
+               LOGERR << "Next block header found at offset " << uint64_t(pos)-4;
             }
             
-            is.read(reinterpret_cast<char*>(szstr.getPtr()), 4);
+            szstr = BinaryDataRef(fm.filemap_ + pos, 4);
+            pos += 4;
             uint32_t nextBlkSize = READ_UINT32_LE(szstr.getPtr());
-            if(is.eof()) break;
+            if(pos >= fm.mapsize_) 
+               break;
 
-            is.read(reinterpret_cast<char*>(rawHead.getPtr()), HEAD_AND_NTX_SZ); // plus #tx var_int
-            try
-            {
-               blockDataCallback(rawHead, { f.fnum, blockFileOffset }, nextBlkSize);
-            }
-            catch (debug_replay_blocks&)
-            {
-               blockFileOffset += nextBlkSize + 8;
-               throw stopReadingHeaders(f.fnum, blockFileOffset);
-            }
+            rawHead = BinaryDataRef(fm.filemap_ + pos, HEAD_AND_NTX_SZ); // plus #tx var_int
+            blockDataCallback(rawHead, { fnum, blockFileOffset }, nextBlkSize);
             
             blockFileOffset += nextBlkSize+8;
-            is.seekg(nextBlkSize - HEAD_AND_NTX_SZ, ios::cur);
+            pos = blockFileOffset;
          }
       }
       
+      bfa.dropFileMap(fnum);
       return blockFileOffset;
    }
       
@@ -870,11 +848,12 @@ BlockDataManager_LevelDB::BlockDataManager_LevelDB(const BlockDataManagerConfig 
    : config_(bdmConfig)
    , blockchain_(config_.genesisBlockHash)
 {
-   auto isready = [this](void)->bool { return this->isReady(); };
-   iface_ = new LMDBBlockDatabase(isready);
-
-   scrAddrData_ = make_shared<BDM_ScrAddrFilter>(this);
    setConfig(bdmConfig);
+   
+   auto isready = [this](void)->bool { return this->isReady(); };
+   iface_ = new LMDBBlockDatabase(isready, readBlockHeaders_->getBlkFiles());
+   
+   scrAddrData_ = make_shared<BDM_ScrAddrFilter>(this);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -936,7 +915,8 @@ BlockDataManager_LevelDB::~BlockDataManager_LevelDB()
 pair<BlockFilePosition, vector<BlockHeader*>>
    BlockDataManager_LevelDB::loadBlockHeadersStartingAt(
       ProgressReporter &prog,
-      const BlockFilePosition &fileAndOffset
+      const BlockFilePosition &fileAndOffset,
+      bool verifyIntegrity
    )
 {
    readBlockHeaders_->detectAllBlkFiles();
@@ -955,12 +935,26 @@ pair<BlockFilePosition, vector<BlockHeader*>>
    class StopReading {};
 
    auto blockHeaderCallback
-      = [&] (const BinaryData &blockdata, const BlockFilePosition &pos, uint32_t blksize)
+      = [&] (const BinaryDataRef &blockdata, 
+             const BlockFilePosition &pos, 
+             uint32_t blksize)
       {
          BlockHeader block;
          BinaryRefReader brr(blockdata);
          block.unserialize(brr);
-         
+
+         if (verifyIntegrity)
+         {
+            try
+            {
+               StoredHeader sbh;
+               sbh.unserializeFullBlock(blockdata, true, false);
+            }
+            catch (BlockDeserializingException &e)
+            {
+               throw(BadBlockException(pos.first, pos.second - 8));
+            }
+         }
          const HashString blockhash = block.getThisHash();
          
          const uint32_t nTx = brr.get_var_int();
@@ -970,7 +964,7 @@ pair<BlockFilePosition, vector<BlockHeader*>>
          blockHeadersAdded.push_back(&addedBlock);
 
          addedBlock.setBlockFileNum(pos.first);
-         addedBlock.setBlockFileOffset(pos.second);
+         addedBlock.setBlockFileOffset(pos.second - 8);
          addedBlock.setNumTx(nTx);
          addedBlock.setBlockSize(blksize);
          
@@ -988,8 +982,17 @@ pair<BlockFilePosition, vector<BlockHeader*>>
 #endif
       };
    
-   BlockFilePosition position
-         = readBlockHeaders_->readHeaders(fileAndOffset, blockHeaderCallback);
+   BlockFilePosition position;
+   try
+   {
+      position = readBlockHeaders_->readHeaders(fileAndOffset, blockHeaderCallback,
+         !verifyIntegrity);
+   }
+   catch (BadBlockException &e)
+   {
+      position.first = e.lastValidFileNum_;
+      position.second = e.lastValidOffset_;
+   }
 
    return { position, blockHeadersAdded };
 }
@@ -1102,13 +1105,7 @@ BinaryData BlockDataManager_LevelDB::applyBlockRangeToDB(
    ProgressFilter progress(&prog, startingAt, totalBytes);
    
    // Start scanning and timer
-   BlockWriteBatcher blockWrites(config_, iface_);
-   blockWrites.setUpdateSDBI(updateSDBI);
-
-   auto errorLambda = [this](string str)->void
-   {  criticalError_ = str;
-      this->notifyMainThread(); };
-   blockWrites.setCriticalErrorLambda(errorLambda);
+   BlockWriteBatcher blockWrites(config_, iface_, scrAddrData);
 
    if (blk1 > blockchain_.top().getBlockHeight())
       blk1 = blockchain_.top().getBlockHeight();
@@ -1288,8 +1285,9 @@ void BlockDataManager_LevelDB::loadDiskState(
   
    //quick hack to signal scrAddrData_ that the BDM is loading/loaded.
    BDMstate_ = BDM_initializing;
-   
+
    readBlockHeaders_->detectAllBlkFiles();
+   iface_->setBlkFiles(readBlockHeaders_->getBlkFiles());
    if (readBlockHeaders_->numBlockFiles()==0)
    {
       throw runtime_error("No blockfiles could be found!");
@@ -1314,8 +1312,7 @@ void BlockDataManager_LevelDB::loadDiskState(
    }
 
    blockchain_.setDuplicateIDinRAM(iface_, true);
-   uint32_t lastTop = blockchain_.top().getBlockHeight();
-   
+
    if (forceRescan)
    {
       deleteHistories();
@@ -1348,10 +1345,12 @@ void BlockDataManager_LevelDB::loadDiskState(
       
    // now load the new headers found in the blkfiles
    BlockFilePosition readHeadersUpTo;
-   
+   uint32_t lastTop = blockchain_.top().getBlockHeight();
+
    {
       ProgressWithPhase prog(BDMPhase_BlockHeaders, progress);
-      readHeadersUpTo = loadBlockHeadersStartingAt(prog, blkDataPosition_).first;
+      readHeadersUpTo = loadBlockHeadersStartingAt(
+         prog, blkDataPosition_, false).first;
    }
    
    try
@@ -1382,6 +1381,7 @@ void BlockDataManager_LevelDB::loadDiskState(
    uint32_t scanFrom = findFirstBlockToScan();
 
    //Now we can put the new headers found in blk files.
+   LOGINFO << "Updating Headers in DB";
    blockchain_.putNewBareHeaders(iface_);
 
    /////////////////////////////////////////////////////////////////////////////
@@ -1397,100 +1397,220 @@ void BlockDataManager_LevelDB::loadDiskState(
       double timeElapsed = TIMER_READ_SEC("writeBlocksToDB");
       LOGINFO << "Wrote blocks to DB in " << timeElapsed << "s";
    }
-
-   {
-      /***Core 0.10 specific change:
-      Let's be consistent across different blocks folders by checking if the
-      newly added range of blocks is continuous
-      ***/
-
-      set<uint32_t> missingHeadersHeight;
-      set<uint32_t> missingBlocks;
-
-      uint32_t checkFrom = min(lastTop, scanFrom);
-      if (checkFrom > 0)
-         checkFrom--;
-
-      {
-         LOGINFO << "Checking dupIDs from " << checkFrom << " onward";
-         uint8_t dupId;
-         uint32_t currentTop = blockchain_.top().getBlockHeight();
-         LMDBEnv::Transaction blktx(iface_->dbEnv_[BLKDATA].get(), LMDB::ReadOnly);
-         for (uint32_t i = checkFrom; i <= currentTop; i++)
-         {
-            dupId = iface_->getValidDupIDForHeight(i);
-            if (dupId == UINT8_MAX)
-            {
-               missingHeadersHeight.insert(i);
-               missingBlocks.insert(i);
-               continue;
-            }
-
-            auto blockKey = DBUtils::getBlkDataKey(i, dupId);
-            auto blockData = iface_->getValueNoCopy(BLKDATA, blockKey);
-            if (blockData.getSize() == 0)
-               missingBlocks.insert(i);
-         }
-      }
-
-      if (missingHeadersHeight.size() > 0)
-      {
-         LOGERR << "missing " << missingHeadersHeight.size() << " block headers";
-         throw runtime_error("Missing headers! "
-            "This is unexpected, Armory will have to close. "
-            "If the error persists, do a factory reset.");
-      }
-
-      if (missingBlocks.size() > 0)
-      {
-         LOGERR << "Missing block data, attempting to repair the DB";
-         set<BinaryData> missingBlocksByHash;
-         for (auto id : missingBlocks)
-         {
-            auto& bh = blockchain_.getHeaderByHeight(id);
-            missingBlocksByHash.insert(bh.getThisHash());
-         }
-
-         repairBlockDataDB(missingBlocksByHash);
-      }
-   }
-
    
    {
       ProgressWithPhase progPhase(BDMPhase_Rescan, progress);
 
       // TODO: use applyBlocksProgress in applyBlockRangeToDB
       // scan addresses from BDM
+      if (config_.armoryDbType != ARMORY_DB_SUPER)
+         scanFrom = min(scrAddrData_->scanFrom(), scanFrom);
+
       TIMER_START("applyBlockRangeToDB");
-      if (config_.armoryDbType == ARMORY_DB_SUPER)
+      while (1)
       {
-         uint32_t topBlock = blockchain_.top().getBlockHeight();
+         BinaryData topScannedBlockHash;
 
-         //no point rescanning the last known block
-         if (scanFrom < topBlock)
+         if (config_.armoryDbType == ARMORY_DB_SUPER)
          {
-            applyBlockRangeToDB(progPhase, scanFrom,
-               topBlock, *scrAddrData_);
+            uint32_t topBlock = blockchain_.top().getBlockHeight();
+
+            //no point rescanning the last known block
+            if (scanFrom < topBlock)
+            {
+               topScannedBlockHash = applyBlockRangeToDB(progPhase, scanFrom,
+                  topBlock, *scrAddrData_);
+            }
          }
-      }
-      else
-      {
-         if (scrAddrData_->numScrAddr() > 0)
+         else
          {
-            uint32_t scanfrom = min(scrAddrData_->scanFrom(), scanFrom);
+            if (scrAddrData_->numScrAddr() > 0)
+            {
+               if (!scanFrom)
+                  deleteHistories();
 
-            if (!scanfrom)
-               deleteHistories();
-
-            applyBlockRangeToDB(progPhase, scanfrom,
-               blockchain_.top().getBlockHeight(),
-               *scrAddrData_.get());
+               topScannedBlockHash = applyBlockRangeToDB(progPhase, scanFrom,
+                  blockchain_.top().getBlockHeight(),
+                  *scrAddrData_.get());
+            }
          }
+
+         LOGINFO << "checking scan integrity";
+         BlockHeader* topBlockHeader = &blockchain_.top();
+         if (topBlockHeader->getThisHash() == topScannedBlockHash)
+            break;
+
+         LOGWARN << "Top scanned block does not match top block header";
+         BlockHeader* topScannedHeader = nullptr;
+         try
+         {
+            topScannedHeader =
+               &blockchain_.getHeaderByHash(topScannedBlockHash);
+         }
+         catch (range_error&)
+         {
+         }
+
+         if (topScannedHeader == nullptr)
+         {
+            if (config_.armoryDbType != ARMORY_DB_SUPER &&
+               scrAddrData_->numScrAddr() == 0)
+            {
+               //we will hit this spot if there was no address
+               //registered in fullnode
+               break;
+            }
+            else if (scanFrom >= blockchain_.top().getBlockHeight())
+            {
+               //supernode skips scans if the scan height matches or
+               //exceeds the top header height
+               break;
+            }
+
+            //If we got this far, it's possible the first block batch failed
+            //to scan. Let's see if there was any blocks scanned and try to
+            //fix block data from there.
+               
+            {
+               //pull last scanned blockhash from sdbi
+               StoredDBInfo sdbi;
+               LMDBEnv::Transaction tx;
+               iface_->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
+               iface_->getStoredDBInfo(HISTORY, sdbi);
+               topScannedBlockHash = sdbi.topScannedBlkHash_;
+
+               try
+               {
+                  topScannedHeader =
+                     &blockchain_.getHeaderByHash(topScannedBlockHash);
+               }
+               catch (range_error&)
+               {
+               }
+            }
+
+
+            if (topScannedHeader == nullptr)
+            {
+               //critical message to UI
+               //LOGERR
+               //shutdown
+               LOGERR << "could not resolve top scanned block hash, aborting";
+               return;
+            }
+         }
+
+         if (topScannedHeader->getBlockHeight() + 500 >
+            topBlockHeader->getBlockHeight())
+         {
+            LOGWARN << "Issue is benign, moving on";
+            //set last known blockfile position
+            BinaryData blkKey = DBUtils::getBlkMetaKey(
+               topScannedHeader->getBlockHeight(),
+               topScannedHeader->getDuplicateID());
+
+            LMDBEnv::Transaction blkTx(
+               iface_->dbEnv_[BLKDATA].get(), LMDB::ReadOnly);
+
+            BinaryDataRef bdr = iface_->getValueNoCopy(BLKDATA, blkKey);
+            if (bdr.getSize() != 16)
+               throw runtime_error("bad block meta value");
+
+            BinaryRefReader brr(bdr);
+            uint16_t fnum = brr.get_uint32_t();
+            uint64_t offset = brr.get_uint64_t();
+            uint32_t size = brr.get_uint32_t();
+
+            blkDataPosition_.first = fnum;
+            blkDataPosition_.second = offset + size;
+
+            blockchain_.rewind(topScannedBlockHash);
+
+            break;
+         }
+
+         //attempt repair
+         {
+            LOGWARN << "Issue is significant, attempting repairs";
+            /***Core 0.10 specific change:
+            Let's be consistent across different blocks folders by checking if the
+            newly added range of blocks is continuous
+            ***/
+
+            set<uint32_t> missingHeadersHeight;
+            set<uint32_t> missingBlocks;
+
+            uint32_t checkFrom = topScannedHeader->getBlockHeight() +1;
+
+            {
+               LOGINFO << "Checking dupIDs from " << checkFrom << " onward";
+               uint8_t dupId;
+               uint32_t currentTop = topBlockHeader->getBlockHeight();
+               LMDBEnv::Transaction blktx(iface_->dbEnv_[BLKDATA].get(), LMDB::ReadOnly);
+               for (uint32_t i = checkFrom; i <= currentTop; i++)
+               {
+                  //check dupID
+                  dupId = iface_->getValidDupIDForHeight(i);
+                  if (dupId == UINT8_MAX)
+                  {
+                     missingHeadersHeight.insert(i);
+                     missingBlocks.insert(i);
+                     continue;
+                  }
+
+                  //check block data pointer in DB
+                  auto blockKey = DBUtils::getBlkMetaKey(i, dupId);
+                  auto blockData = iface_->getValueNoCopy(BLKDATA, blockKey);
+                  if (blockData.getSize() == 0)
+                  {
+                     missingBlocks.insert(i);
+                     continue;
+                  }
+
+                  //unserialize full block
+                  try
+                  {
+                     StoredHeader sbh;
+                     iface_->getStoredHeader(sbh, i, dupId);
+                  }
+                  catch (BlockDeserializingException &e)
+                  {
+                     missingBlocks.insert(i);
+                  }
+               }
+            }
+
+            if (missingHeadersHeight.size() > 0)
+            {
+               LOGERR << "missing " << missingHeadersHeight.size() << " block headers";
+               throw runtime_error("Missing headers! "
+                  "This is unexpected, Armory will have to close. "
+                  "If the error persists, do a factory reset.");
+            }
+
+            if (missingBlocks.size() > 0)
+            {
+               LOGERR << "Missing block data, attempting to repair the DB";
+               set<BinaryData> missingBlocksByHash;
+               for (auto id : missingBlocks)
+               {
+                  auto& bh = blockchain_.getHeaderByHeight(id);
+                  missingBlocksByHash.insert(bh.getThisHash());
+               }
+
+               repairBlockDataDB(missingBlocksByHash);
+            }
+         }
+
+         //resume from last scanned block height +1
+         scanFrom = topScannedHeader->getBlockHeight() + 1;
       }
-      
+
       TIMER_STOP("applyBlockRangeToDB");
       double timeElapsed = TIMER_READ_SEC("applyBlockRangeToDB");
+      double bwbdtor = TIMER_READ_SEC("bwbDtor");
       CLEANUP_ALL_TIMERS();
+      LOGINFO << "--- bwbDtor: " << bwbdtor << "s";
       LOGINFO << "Scanned Block range in " << timeElapsed << "s";
    }
 
@@ -1517,11 +1637,10 @@ void BlockDataManager_LevelDB::loadBlockData(
    const auto blockCallback
       = [&] (const BinaryData &blockdata, const BlockFilePosition &pos, uint32_t blksize)
       {
-         LMDBEnv::Transaction tx;
-         iface_->beginDBTransaction(&tx, BLKDATA, LMDB::ReadWrite);
+         LMDBEnv::Transaction (iface_->dbEnv_[BLKDATA].get(), LMDB::ReadWrite);
 
          BinaryRefReader brr(blockdata);
-         addRawBlockToDB(brr, updateDupID);
+         addRawBlockToDB(brr, pos.first, pos.second, updateDupID);
          
          totalOffset += blksize;
          progfilter.advance(
@@ -1531,7 +1650,7 @@ void BlockDataManager_LevelDB::loadBlockData(
    
    LOGINFO << "Loading block data... file "
       << blkDataPosition_.first << " offset " << blkDataPosition_.second;
-   blkDataPosition_ = readBlockHeaders_->readRawBlocks(
+   blkDataPosition_ = readBlockHeaders_->readRawBlocks(iface_,
       blkDataPosition_, stopAt, blockCallback
    );
 }
@@ -1540,9 +1659,8 @@ uint32_t BlockDataManager_LevelDB::readBlkFileUpdate(
    const BlockDataManager_LevelDB::BlkFileUpdateCallbacks& callbacks
 )
 {
-   // callbacks is used by gtest to update the blockchain at certain moments
-
-   // i don't know why this is here
+   // callback is used by gtest to update the blockchain at certain moments
+   
    scrAddrData_->checkForMerge();
    
    uint32_t prevTopBlk = blockchain_.top().getBlockHeight()+1;
@@ -1552,7 +1670,7 @@ uint32_t BlockDataManager_LevelDB::readBlkFileUpdate(
    NullProgressReporter prog;
    
    const pair<BlockFilePosition, vector<BlockHeader*>>
-      loadResult = loadBlockHeadersStartingAt(prog, headerOffset);
+      loadResult = loadBlockHeadersStartingAt(prog, headerOffset, true);
    
    const BlockFilePosition &readHeadersUpTo = loadResult.first;
 
@@ -1722,119 +1840,7 @@ StoredHeader BlockDataManager_LevelDB::getMainBlockFromDB(uint32_t hgt) const
 // Deletes all SSH entries in the database
 void BlockDataManager_LevelDB::deleteHistories(void)
 {
-   //LOGINFO << "Clearing all SSH";
-   if (config_.armoryDbType != ARMORY_DB_SUPER)
-   {
-      wipeHistoryAndHintDB();
-      return;
-   }
-
-   LMDBEnv::Transaction tx;
-   iface_->beginDBTransaction(&tx, HISTORY, LMDB::ReadWrite);
-
-   StoredDBInfo sdbi;
-   iface_->getStoredDBInfo(iface_->getDbSelect(HISTORY), sdbi);
-
-   sdbi.appliedToHgt_ = 0;
-   sdbi.topScannedBlkHash_ = BinaryData(0);
-   iface_->putStoredDBInfo(iface_->getDbSelect(HISTORY), sdbi);
-   //////////
-
-   bool done = false;
-   uint32_t i=0;
-   //can't iterate and delete at the same time with LMDB
-   vector<BinaryData> keysToDelete;
-
-   while (!done)
-   {
-      bool recycle = false;
-
-      {
-         LDBIter ldbIter(iface_->getIterator(iface_->getDbSelect(HISTORY)));
-
-         try
-         {
-            if (!ldbIter.seekToStartsWith(DB_PREFIX_SCRIPT, BinaryData(0)))
-            {
-               done = true;
-               break;
-            }
-         }
-         catch (exception &e)
-         {
-            LOGERR << "iter recycling snafu";
-            LOGERR << e.what();
-            done = true;
-            break;
-         }
-
-         do
-         {
-            if ((++i % 10000) == 0)
-            {
-               recycle = true;
-               break;
-            }
-
-            BinaryData key = ldbIter.getKey();
-
-            if (key.getSize() == 0)
-            {
-               done = true;
-               break;
-            }
-
-            if (key[0] != (uint8_t)DB_PREFIX_SCRIPT)
-            {
-               done = true;
-               break;
-            }
-
-            keysToDelete.push_back(key);
-         } while (ldbIter.advanceAndRead(DB_PREFIX_SCRIPT));
-      }
-
-      for (auto& keytodel : keysToDelete)
-         iface_->deleteValue(iface_->getDbSelect(HISTORY), keytodel);
-
-      keysToDelete.clear();
-
-      if (!recycle)
-      {
-         break;
-      }
-
-      tx.commit();
-      tx.begin();
-   }
-
-   for (auto& keytodel : keysToDelete)
-      iface_->deleteValue(iface_->getDbSelect(HISTORY), keytodel);
-
-   if (i)
-      LOGINFO << "Deleted " << i << " SSH and subSSH entries";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-void BlockDataManager_LevelDB::wipeHistoryAndHintDB()
-{
-   { 
-      LMDBEnv::Transaction tx;
-      iface_->beginDBTransaction(&tx, HISTORY, LMDB::ReadWrite);
-
-      StoredDBInfo sdbi;
-      iface_->getStoredDBInfo(iface_->getDbSelect(HISTORY), sdbi);
-
-      sdbi.appliedToHgt_ = 0;
-      sdbi.topScannedBlkHash_ = BinaryData(0);
-
-      iface_->dbs_[HISTORY].drop();
-      iface_->putStoredDBInfo(HISTORY, sdbi);
-   }
-
-   LMDBEnv::Transaction tx;
-   iface_->beginDBTransaction(&tx, TXHINTS, LMDB::ReadWrite);
-   iface_->dbs_[TXHINTS].drop();
+   iface_->cleanUpHistoryInDB();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1878,7 +1884,7 @@ bool BlockDataManager_LevelDB::verifyBlkFileIntegrity(void)
 ////////////////////////////////////////////////////////////////////////////////
 // We must have already added this to the header map and DB and have a dupID
 void BlockDataManager_LevelDB::addRawBlockToDB(BinaryRefReader & brr,
-   bool updateDupID)
+   uint16_t fnum, uint64_t offset, bool updateDupID)
 {
    SCOPED_TIMER("addRawBlockToDB");
 
@@ -1901,6 +1907,8 @@ void BlockDataManager_LevelDB::addRawBlockToDB(BinaryRefReader & brr,
    // and dupID
    if (config().armoryDbType == ARMORY_DB_SUPER)
    {
+      LMDBEnv::Transaction txstxo(iface_->dbEnv_[STXO].get(), LMDB::ReadWrite);
+
       StoredHeader sbh;
       try
       {
@@ -1927,7 +1935,7 @@ void BlockDataManager_LevelDB::addRawBlockToDB(BinaryRefReader & brr,
                + bh.getThisHash().copySwapEndian().toHexStr() + ")"
                );
 
-            iface_->putStoredHeader(sbh, true);
+            iface_->putStoredHeader(sbh, fnum, offset, true, updateDupID, true);
             missingBlockHashes_.push_back(sbh.thisHash_);
             throw BlockDeserializingException("Error parsing block (corrupt?) - block header valid (hash="
                + bh.getThisHash().copySwapEndian().toHexStr() + ")"
@@ -1971,14 +1979,14 @@ void BlockDataManager_LevelDB::addRawBlockToDB(BinaryRefReader & brr,
          return;
       }
 
-      iface_->putStoredHeader(sbh, true, updateDupID);
+      iface_->putStoredHeader(sbh, fnum, offset, true, updateDupID, true);
    }
    else
    {
       auto getBH = [this](const BinaryData& hash)->const BlockHeader&
       { return this->blockchain_.getHeaderByHash(hash); };
       
-      iface_->putRawBlockData(brr, getBH);
+      iface_->putRawBlockData(brr, fnum, offset, getBH);
    }
 }
 
@@ -2006,7 +2014,7 @@ void BlockDataManager_LevelDB::wipeScrAddrsSSH(const vector<BinaryData>& saVec)
 
    for (const auto& scrAddr : saVec)
    {
-      LDBIter ldbIter = iface_->getIterator(iface_->getDbSelect(HISTORY));
+      LDBIter ldbIter = iface_->getIterator(HISTORY);
 
       if (!ldbIter.seekToStartsWith(DB_PREFIX_SCRIPT, scrAddr))
          continue;
@@ -2028,7 +2036,7 @@ void BlockDataManager_LevelDB::wipeScrAddrsSSH(const vector<BinaryData>& saVec)
       } while (ldbIter.advanceAndRead(DB_PREFIX_SCRIPT));
 
       for (const auto& keyToDel : keysToDelete)
-         iface_->deleteValue(iface_->getDbSelect(HISTORY), keyToDel);
+         iface_->deleteValue(HISTORY, keyToDel);
    }
 }
 
@@ -2048,7 +2056,7 @@ uint32_t BlockDataManager_LevelDB::findFirstBlockToScan(void)
       //pull last scanned blockhash from sdbi
       LMDBEnv::Transaction tx;
       iface_->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
-      iface_->getStoredDBInfo(iface_->getDbSelect(HISTORY), sdbi);
+      iface_->getStoredDBInfo(HISTORY, sdbi);
       lastTopBlockHash = sdbi.topScannedBlkHash_;
    }
 
@@ -2125,7 +2133,7 @@ void BlockDataManager_LevelDB::findFirstBlockToApply(void)
    iface_->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
 
    StoredDBInfo sdbi;
-   iface_->getStoredDBInfo(iface_->getDbSelect(HISTORY), sdbi);
+   iface_->getStoredDBInfo(HISTORY, sdbi);
    BinaryData lastTopBlockHash = sdbi.topBlkHash_;
 
    if (blockchain_.hasHeaderWithHash(lastTopBlockHash))
@@ -2178,7 +2186,17 @@ void BlockDataManager_LevelDB::repairBlockDataDB(
          iface_->beginDBTransaction(&tx, BLKDATA, LMDB::ReadWrite);
 
          BinaryRefReader brr(blockdata);
-         addRawBlockToDB(brr, true);
+         StoredHeader sbh;
+         try
+         {
+            sbh.unserializeFullBlock(brr, true, false);
+         }
+         catch (BlockDeserializingException &)
+         {
+            return;
+         }
+
+         addRawBlockToDB(brr, pos.first, pos.second, true);
 
          missingBlocksByHash.erase(hashIter);
 
@@ -2189,8 +2207,9 @@ void BlockDataManager_LevelDB::repairBlockDataDB(
 
    try
    {
-      readBlockHeaders_->readRawBlocksFromTop( 
-         readBlockHeaders_->numBlockFiles()-1,
+      BlockFileAccessor bfa(readBlockHeaders_->getBlkFiles());
+      readBlockHeaders_->readRawBlocksFromTop(bfa,
+         readBlockHeaders_->numBlockFiles() - 1,
          blockCallback);
    }
    catch (FoundAllBlocksException&)

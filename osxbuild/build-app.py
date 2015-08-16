@@ -20,17 +20,17 @@ minOSXVer    = '10.7'
 osxName      = 'Yosemite'
 pythonVer    = '2.7.9'  # NB: ArmoryMac.pro must also be kept up to date!!!
 pyMajorVer   = '2.7'
-setToolVer   = '10.2.1'
-pipVer       = '6.0.3'
-psutilVer    = '2.1.3'
-zopeVer      = '4.1.1'
-twistedVer   = '14.0.2'
-libpngVer    = '1.6.15'
-qtVerDate    = '2015-02-16-4'
+setToolVer   = '14.3.1'
+pipVer       = '6.0.8'
+psutilVer    = '2.2.1'
+zopeVer      = '4.1.2'
+twistedVer   = '15.0.0'
+libpngVer    = '1.6.16'
+libpngVerAlt = '1'
 qtVer        = '4.8.7'  # NB: ArmoryMac.pro must also be kept up to date!!!
                         # Possibly "sipFlags" below too.
-sipVer       = '4.16.5' # NB: ArmoryMac.pro must also be kept up to date!!!
-pyQtVer      = '4.11.3' # NB: When I'm upgraded, SIP usually has to be upgraded too.
+sipVer       = '4.16.8' # NB: ArmoryMac.pro must also be kept up to date!!!
+pyQtVer      = '4.11.4' # NB: When I'm upgraded, SIP usually has to be upgraded too.
 webkitRev    = '175335'
 appNopeVer   = '0.1.0'
 LOGFILE      = 'build-app.log.txt'
@@ -309,28 +309,30 @@ distfiles.append( [ 'Python', \
 distfiles.append( [ 'setuptools', \
                     "setuptools-%s.tar.gz" % setToolVer, \
                     "https://pypi.python.org/packages/source/s/setuptools/setuptools-%s.tar.gz" % setToolVer, \
-                    "09da3f767e40d1451cac97af59afd99802c77076" ] )
+                    "d23be9d55032c7986ec7bb68f909862e19febf54" ] )
 
 distfiles.append( [ 'Pip', \
                     "pip-%s.tar.gz" % pipVer, \
                     "https://pypi.python.org/packages/source/p/pip/pip-%s.tar.gz" % pipVer, \
-                    "67d4affd83ee2f3514ac1386bee59f10f672517c" ] )
+                    "bd59a468f21b3882a6c9d3e189d40c7ba1e1b9bd" ] )
 
 distfiles.append( [ "psutil", \
                     "psutil-%s.tar.gz" % psutilVer, \
                     "https://pypi.python.org/packages/source/p/psutil/psutil-%s.tar.gz" % psutilVer, \
-                    "aae4725eb33cf56d4480bc60f50c147870d607ba" ] )
+                    "ddf58b3a0e699e142586b67097e3ae062766f11d" ] )
 
 distfiles.append( [ 'Twisted', \
                     "Twisted-%s.tar.bz2" % twistedVer, \
                     "https://pypi.python.org/packages/source/T/Twisted/Twisted-%s.tar.bz2" % twistedVer, \
-                    "b908dc0d117a782d2becc83fbb906ba4311f3351" ] )
+                    "c72bd9a932d944e2e1c4901f7e1cc79b1214472a" ] )
 
 # Other lines rely on the given version. Patch this up later.
 distfiles.append( [ 'libpng', \
-                    "libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
-                    "https://downloads.sf.net/project/machomebrew/Bottles/libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
-                    "059d99d0321a8519252ae860667237a838d2a557" ] )
+                    #"libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
+                    "libpng-%s.mavericks.bottle.%s.tar.gz" % (libpngVer, libpngVerAlt), \
+                    #"https://downloads.sf.net/project/machomebrew/Bottles/libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
+                    "https://downloads.sf.net/project/machomebrew/Bottles/libpng-%s.mavericks.bottle.%s.tar.gz" % (libpngVer, libpngVerAlt), \
+                    "d1e9d2ba980f1cc608a43b17627461ef1c4954f6" ] )
 
 # Skipping Git for now.
 #distfiles.append( [ "Qt-git", \
@@ -352,27 +354,24 @@ distfiles.append( [ 'libpng', \
 # Pre-packaged source can lag a bit but provides for more consistent user
 # support. Use pre-packaged source instead of Git whenever possible.
 distfiles.append( [ "Qt", \
-                    #"qt-everywhere-opensource-src-%s.tar.gz" % qtVer, \
-                    "qt-everywhere-opensource-src-%s-%s.tar.gz" % (qtVer, qtVerDate), \
-                    #"http://download.qt-project.org/official_releases/qt/4.8/%s/qt-everywhere-opensource-src-%s.tar.gz" % (qtVer, qtVer), \
-                    "http://download.qt.io/snapshots/qt/4.8/%s/%s/qt-everywhere-opensource-src-%s-%s.tar.gz" % (qtVer, qtVerDate, qtVer, qtVerDate), \
-                    #"745f9ebf091696c0d5403ce691dc28c039d77b9e" ] )
-                    "9c1e2f3135bc4a36c5d24c1a3c3c640637041c92" ] )
+                    "qt-everywhere-opensource-src-%s.tar.gz" % qtVer, \
+                    "http://download.qt-project.org/official_releases/qt/4.8/%s/qt-everywhere-opensource-src-%s.tar.gz" % (qtVer, qtVer), \
+                    "76aef40335c0701e5be7bb3a9101df5d22fe3666" ] )
 
 distfiles.append( [ "Webkit-for-Qt", \
                     "libWebKitSystemInterface%s.a" % osxName, \
                     "http://trac.webkit.org/export/%s/trunk/WebKitLibraries/libWebKitSystemInterface%s.a" % (webkitRev, osxName), \
-                    "c8db972c03953d0d3ef89c7e67ce4a2e46dd9c36" ] )
+                    "cd9903f7fd65e64dc616a95e6b20ed6f19d7fb8e" ] )
 
 distfiles.append( [ "sip", \
                     "sip-%s.tar.gz" % sipVer, \
                     "http://sourceforge.net/projects/pyqt/files/sip/sip-%s/sip-%s.tar.gz" % (sipVer, sipVer), \
-                    'd5d7b6765de8634eccf48a250dbd915f01b2a771' ] )
+                    '0dd2463e5e1fc564c399889fc72baa67c35fcaab' ] )
 
 distfiles.append( [ "zope", \
                     "zope.interface-%s.tar.gz" % zopeVer, \
                     "https://pypi.python.org/packages/source/z/zope.interface/zope.interface-%s.tar.gz" % zopeVer, \
-                    '20a9284429e29eb8cc63eee5ed686c257c01b1fc' ] )
+                    '6d940ecd621df0437ee9deb17d03ba105c13f07f' ] )
 
 # When we upgrade to Qt5....
 #distfiles.append( [ "pyqt", \
@@ -383,7 +382,7 @@ distfiles.append( [ "zope", \
 distfiles.append( [ "pyqt", \
                     "PyQt-mac-gpl-%s.tar.gz" % pyQtVer, \
                     "http://downloads.sf.net/project/pyqt/PyQt4/PyQt-%s/PyQt-mac-gpl-%s.tar.gz" % (pyQtVer, pyQtVer), \
-                    '8c53254b38686e5366d74eba81f02f9611f39166' ] )
+                    'c319f273e40afe68a2e65ff2b9c01e0d43e980f7' ] )
 
 #distfiles.append( [ 'appnope', \
 #                    "appnope-%s.tar.gz" % appNopeVer, \
@@ -464,11 +463,9 @@ def compile_qt():
    # qtBuildDir.   Then we will build inside the qtBuildDir, using qtInstDir 
    # as the prefix.
    qtDLDir    = path.join(DLDIR, 'qt')
-   #qtBuildDir = path.join(UNPACKDIR, 'qt-everywhere-opensource-src-%s' % qtVer)
-   qtBuildDir = path.join(UNPACKDIR, 'qt-everywhere-opensource-src-%s-%s' % (qtVer, qtVerDate))
+   qtBuildDir = path.join(UNPACKDIR, 'qt-everywhere-opensource-src-%s' % qtVer)
    qtInstDir  = path.join(INSTALLDIR, 'qt')
-   #qtTarFile   = path.join(DLDIR, 'qt-everywhere-opensource-src-%s.tar.gz' % qtVer)
-   qtTarFile   = path.join(DLDIR, 'qt-everywhere-opensource-src-%s-%s.tar.gz' % (qtVer, qtVerDate))
+   qtTarFile   = path.join(DLDIR, 'qt-everywhere-opensource-src-%s.tar.gz' % qtVer)
    #qtTarFile   = path.join(DLDIR, 'qt4_git_repo.tar.gz')
    #qtTarFile   = path.join(DLDIR, 'qt5_git_repo.tar.gz')
 

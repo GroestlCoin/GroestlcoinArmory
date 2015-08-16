@@ -1,6 +1,10 @@
 CXX = g++
 CC = gcc
 
+ifdef COVERAGE
+CFLAGS=-fprofile-arcs -ftest-coverage -g3 -Wall -pipe -fPIC
+CXXFLAGS=-fprofile-arcs -ftest-coverage -g3 -Wall -pipe -fPIC
+else
 ifdef DEBUG
 CFLAGS=-g3 -Wall -pipe -fPIC
 CXXFLAGS=-g3 -Wall -pipe -fPIC
@@ -8,7 +12,9 @@ else
 CFLAGS = -O2 -pipe -fPIC
 CXXFLAGS = -O2 -pipe -fPIC
 endif
+endif
 
+# NB: Static linking is tested on Linux, not on OS X, which may need more work.
 ifdef STATIC_LINK
 CFLAGS += -static-libstdc++ -static-libgcc
 CXXFLAGS += -static-libstdc++ -static-libgcc
@@ -16,10 +22,11 @@ endif
 
 platform=$(shell uname)
 
+# Enforce some OS X build requirements.
 ifeq ($(shell uname), Darwin)
-MACOSX_DEPLOYMENT_TARGET=10.7
-export MACOSX_DEPLOYMENT_TARGET
-LDFLAGS += -undefined dynamic_lookup -headerpad_max_install_names
+    MACOSX_DEPLOYMENT_TARGET=10.7
+    export MACOSX_DEPLOYMENT_TARGET
+    LDFLAGS += -undefined dynamic_lookup -headerpad_max_install_names
 endif
 
 #**************************************************************************
@@ -30,7 +37,11 @@ OBJS = UniversalTimer.o BinaryData.o lmdb_wrapper.o StoredBlockObj.o \
 	BtcWallet.o LedgerEntry.o ScrAddrObj.o Blockchain.o BlockWriteBatcher.o \
 	BDM_mainthread.o lmdbpp.o BDM_supportClasses.o \
 	BlockDataViewer.o HistoryPager.o Progress.o \
+<<<<<<< HEAD
 	libcryptopp.a mdb.o midl.o txio.o sphlib/groestl.o
+=======
+	libcryptopp.a mdb.o midl.o txio.o FileMap.o SSHheaders.o
+>>>>>>> upstream/dev
 
 #if python is specified, use it
 ifndef PYVER
@@ -40,11 +51,19 @@ else
 PYTHON_INCLUDES=$(shell $(PYVER)-config --includes )
 endif
 
+# OS X requires a little extra elbow grease to support C++11.
+ifneq ($(OS),Windows_NT)
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Darwin)
+        CXXCPP += -stdlib=libc++
+        LDLIBS += -lc++
+    endif
+endif
+
 CPPFLAGS += $(ARMORY_CPPFLAGS) -Icryptopp -Imdb -DUSE_CRYPTOPP -D__STDC_LIMIT_MACROS
 LDLIBS += -lpthread -Lmdb
 SWIG_OPTS    += -c++ -python -threads
-
-SWIG_INC     += 
+SWIG_INC     +=
 
 # rt library used for glibc <2.17. Safe to include for Linux but not OS X.
 # Place at the end due to link order concerns involving Ubuntu 12.04.
@@ -57,15 +76,6 @@ endif
 
 CXXCPP += $(CPPFLAGS) $(PYTHON_INCLUDES) -std=c++11
 
-# OS X requires a little extra elbow grease to support C++11.
-ifneq ($(OS),Windows_NT)
-    UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S),Darwin)
-        CXXCPP += -stdlib=libc++
-        LDLIBS += -lc++
-    endif
-endif
-
 # each .o file depends on all .h files
 ALL_HEADERS_FOUND=$(wildcard *.h)
 ALL_HEADERS=$(filter-out CppBlockUtils_wrap.h,$(ALL_HEADERS_FOUND))
@@ -75,6 +85,8 @@ ALL_HEADERS=$(filter-out CppBlockUtils_wrap.h,$(ALL_HEADERS_FOUND))
 
 all: ../_CppBlockUtils.so ../qrc_img_resources.py
 
+# LDLIBS must come after any object files. This ensures the linker will link
+# based on the needs of the object files it has already encountered.
 ../_CppBlockUtils.so: $(OBJS) CppBlockUtils_wrap.o
 	$(LINK) -shared -fPIC $(LDFLAGS) $(CXXFLAGS) $(OBJS) $(STATICPYTHON) CppBlockUtils_wrap.o $(LDLIBS) -o ../_CppBlockUtils.so
 
@@ -111,6 +123,8 @@ playground: ../_CppBlockUtils.so playground.cpp $(ALL_HEADERS)
 #************************************************************************
 clean:
 	touch CppBlockUtils.i
-	rm -f *.o *.out *.a
+	rm -f *.o *.out *.a *.gcda *.gcno *.gcov
 	rm -f CppBlockUtils_wrap.cxx 
 	$(MAKE) -C cryptopp clean
+	$(MAKE) -C gtest clean
+

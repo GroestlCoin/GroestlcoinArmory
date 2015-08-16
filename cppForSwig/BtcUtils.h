@@ -642,6 +642,12 @@ public:
    static BinaryData calculateMerkleRoot(vector<BinaryData> const & txhashlist)
    {
       vector<BinaryData> mtree = calculateMerkleTree(txhashlist);
+
+      if (mtree.size() == 0)
+      {
+         throw BlockDeserializingException("empty merkle tree");
+      }
+
       return mtree[mtree.size()-1];
    }
 
