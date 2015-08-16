@@ -771,6 +771,8 @@ class ArmoryMainWindow(QMainWindow):
       actClearMemPool = self.createAction(tr('Clear All Unconfirmed'), self.clearMemoryPool)
       actRescanDB     = self.createAction(tr('Rescan Databases'), self.rescanNextLoad)
       actRebuildDB    = self.createAction(tr('Rebuild and Rescan Databases'), self.rebuildNextLoad)
+      if ENABLE_SUPERNODE: 
+         actRescanSSH = self.createAction(tr('Rescan SSH'), self.rescanSSH)
       actFactoryReset = self.createAction(tr('Factory Reset'), self.factoryReset)
       actPrivacyPolicy = self.createAction(tr('Armory Privacy Policy'), self.showPrivacyGeneric)
 
@@ -785,6 +787,8 @@ class ArmoryMainWindow(QMainWindow):
       self.menusList[MENUS.Help].addSeparator()
       self.menusList[MENUS.Help].addAction(actClearMemPool)
       self.menusList[MENUS.Help].addAction(actRescanDB)
+      if ENABLE_SUPERNODE: 
+         self.menusList[MENUS.Help].addAction(actRescanSSH)   
       self.menusList[MENUS.Help].addAction(actRebuildDB)
       self.menusList[MENUS.Help].addAction(actFactoryReset)
 
@@ -1289,6 +1293,20 @@ class ArmoryMainWindow(QMainWindow):
          QMessageBox.Yes | QMessageBox.No)
       if reply==QMessageBox.Yes:
          touchFile( os.path.join(ARMORY_HOME_DIR, 'rescan.flag') )
+         
+   ####################################################
+   def rescanSSH(self):
+      reply = QMessageBox.warning(self, tr('Queue SSH Rescan?'), tr("""
+         The next time you restart Armory, it will rescan all address
+         balance and transaction count, this is a lighter approach that a 
+         full rescan and will fix most erroneous balance issues.
+         The SSH rescan will take 5-20 minutes depending on your system.
+         <br><br>
+         Do you wish to force a SSH rescan on the next Armory restart?"""), \
+         QMessageBox.Yes | QMessageBox.No)
+      if reply==QMessageBox.Yes:
+         touchFile( os.path.join(ARMORY_HOME_DIR, 'sshrescan.flag') )
+         
 
    ####################################################
    def rebuildNextLoad(self):
@@ -3730,18 +3748,24 @@ class ArmoryMainWindow(QMainWindow):
          LOGINFO('Transaction sent to Satoshi client...!')
 
 
-         def sendGetDataMsg():
+         def sendGetDataMsg(val):
             msg = PyMessage('getdata')
             msg.payload.invList.append( [MSG_INV_TX, newTxHash] )
-            self.NetworkingFactory.sendMessage(msg)
+            self.SingletonConnectedNetworkingFactory.sendMessage(msg)
+            val = val +1
+            reactorCallLater(0.5, checkForTxInBDM, val)
 
-         def checkForTxInBDM():
+         def checkForTxInBDM(val):
             # The sleep/delay makes sure we have time to receive a response
             # but it also gives the user a chance to SEE the change to their
             # balance occur.  In some cases, that may be more satisfying than
             # just seeing the updated balance when they get back to the main
             # screen
             if not TheBDM.bdv().getTxByHash(newTxHash).isInitialized():
+               if val < 10:
+                  reactorCallLater(0.5, sendGetDataMsg, val)
+                  return
+               
                LOGERROR('Transaction was not accepted by the Satoshi client')
                LOGERROR('Raw transaction:')
                LOGRAWDATA(pytx.serialize(), logging.ERROR)
@@ -3786,8 +3810,7 @@ class ArmoryMainWindow(QMainWindow):
          # Send the Tx after a short delay, give the system time to see the Tx
          # on the network and process it, and check to see if the Tx was seen.
          # We may change this setup in the future, but for now....
-         reactor.callLater(3, sendGetDataMsg)
-         reactor.callLater(15, checkForTxInBDM)
+         reactorCallLater(0.5, sendGetDataMsg, 0)
 
 
    #############################################################################

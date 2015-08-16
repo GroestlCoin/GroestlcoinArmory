@@ -111,6 +111,7 @@ parser.add_option("--keypool",         dest="keypool",     default=100, type="in
 parser.add_option("--redownload",      dest="redownload",  default=False,     action="store_true", help="Delete Bitcoin-Qt/bitcoind databases; redownload")
 parser.add_option("--rebuild",         dest="rebuild",     default=False,     action="store_true", help="Rebuild blockchain database and rescan")
 parser.add_option("--rescan",          dest="rescan",      default=False,     action="store_true", help="Rescan existing blockchain DB")
+parser.add_option("--rescanssh",       dest="sshRescan",   default=False,     action="store_true", help="Rescan address balance and transaction count")
 parser.add_option("--disable-torrent", dest="disableTorrent", default=False,     action="store_true", help="Only download blockchain data via P2P network (slow)")
 parser.add_option("--test-announce", dest="testAnnounceCode", default=False,     action="store_true", help="Only used for developers needing to test announcement code with non-offline keys")
 parser.add_option("--nospendzeroconfchange",dest="ignoreAllZC",default=False, action="store_true", help="All zero-conf funds will be unspendable, including sent-to-self coins")
@@ -132,6 +133,9 @@ parser.add_option("--port", dest="port", default=None, type="int", help="Unit Te
 parser.add_option("--verbosity", dest="verbosity", default=None, type="int", help="Unit Test Argument - Do not consume")
 parser.add_option("--coverage_output_dir", dest="coverageOutputDir", default=None, type="str", help="Unit Test Argument - Do not consume")
 parser.add_option("--coverage_include", dest="coverageInclude", default=None, type="str", help="Unit Test Argument - Do not consume")
+
+# signassert.py arguments
+parser.add_option("-u", "--signer", dest="signer", type="str", help="Wallet ID and address in form ID/address")
 
 # Some useful constants to be used throughout everything
 BASE58CHARS  = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
@@ -916,6 +920,7 @@ sys.excepthook = logexcept_override
 fileRedownload  = os.path.join(ARMORY_HOME_DIR, 'redownload.flag')
 fileRebuild     = os.path.join(ARMORY_HOME_DIR, 'rebuild.flag')
 fileRescan      = os.path.join(ARMORY_HOME_DIR, 'rescan.flag')
+fileSSHRescan   = os.path.join(ARMORY_HOME_DIR, 'sshrescan.flag')
 fileDelSettings = os.path.join(ARMORY_HOME_DIR, 'delsettings.flag')
 fileClrMempool  = os.path.join(ARMORY_HOME_DIR, 'clearmempool.flag')
 
@@ -931,6 +936,9 @@ if os.path.exists(fileRedownload):
 
    if os.path.exists(fileRescan):
       os.remove(fileRescan)
+      
+   if os.path.exists(fileSSHRescan):
+      os.remove(fileSSHRescan)      
 
    CLI_OPTIONS.redownload = True
    CLI_OPTIONS.rebuild = True
@@ -942,6 +950,9 @@ elif os.path.exists(fileRebuild):
 
    if os.path.exists(fileRescan):
       os.remove(fileRescan)
+      
+   if os.path.exists(fileSSHRescan):
+      os.remove(fileSSHRescan)      
 
    CLI_OPTIONS.rebuild = True
 elif os.path.exists(fileRescan):
@@ -949,7 +960,15 @@ elif os.path.exists(fileRescan):
    os.remove(fileRescan)
    if os.path.exists(fileRebuild):
       os.remove(fileRebuild)
+      
+   if os.path.exists(fileSSHRescan):
+      os.remove(fileSSHRescan)
    CLI_OPTIONS.rescan = True
+elif os.path.exists(fileSSHRescan):
+   LOGINFO('Found %s, will rescan SSH' % fileSSHRescan)   
+   os.remove(fileSSHRescan)
+   
+   CLI_OPTIONS.sshRescan = True
 
 CLI_OPTIONS.clearMempool = False
 if os.path.exists(fileClrMempool):

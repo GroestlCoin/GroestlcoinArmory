@@ -520,14 +520,15 @@ vector<UnspentTxOut> BtcWallet::getSpendableTxOutListForValue(uint64_t val,
 
    {
       LMDBEnv::Transaction tx;
-      db->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
+      db->beginDBTransaction(tx, SSH, LMDB::ReadOnly);
 
       prepareTxOutHistory(val, ignoreZC);
    }
 
    //start a RO txn to grab the txouts from DB
-   LMDBEnv::Transaction tx;
-   db->beginDBTransaction(&tx, STXO, LMDB::ReadOnly);
+   LMDBEnv::Transaction tx, zcTx;
+   db->beginDBTransaction(tx, STXO, LMDB::ReadOnly);
+   db->beginDBTransaction(zcTx, ZEROCONF, LMDB::ReadOnly);
 
    vector<UnspentTxOut> utxoList;
    uint32_t blk = bdvPtr_->getTopBlockHeight();
@@ -725,7 +726,7 @@ void BtcWallet::scanWalletZeroConf(bool withReorg)
 
 ////////////////////////////////////////////////////////////////////////////////
 bool BtcWallet::scanWallet(uint32_t startBlock, uint32_t endBlock, 
-   bool reorg, const map<BinaryData, vector<BinaryData> >& invalidatedZCKeys)
+   bool reorg, const set<BinaryData>& invalidatedZCKeys)
 {
    if (startBlock < endBlock)
    {
@@ -736,7 +737,7 @@ bool BtcWallet::scanWallet(uint32_t startBlock, uint32_t endBlock,
          updateAfterReorg(startBlock);
          
       LMDBEnv::Transaction tx;
-      bdvPtr_->getDB()->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
+      bdvPtr_->getDB()->beginDBTransaction(tx, SSH, LMDB::ReadOnly);
 
       fetchDBScrAddrData(startBlock, endBlock);
       scanWalletZeroConf(reorg);
@@ -779,16 +780,10 @@ void BtcWallet::reset()
 
 ////////////////////////////////////////////////////////////////////////////////
 void BtcWallet::purgeZeroConfTxIO(
-   const map<BinaryData, vector<BinaryData> >& invalidatedTxIO)
+   const set<BinaryData>& invalidatedTxIO)
 {
-   for (auto& txioVec : invalidatedTxIO)
-   {
-      map<BinaryData, ScrAddrObj>::iterator scrAddr = 
-	      scrAddrMap_.find(txioVec.first);
-
-      if (scrAddr != scrAddrMap_.end())
-         scrAddr->second.purgeZC(txioVec.second);
-   }
+   for (auto& sa : scrAddrMap_)
+      sa.second.purgeZC(invalidatedTxIO);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -956,7 +951,7 @@ map<uint32_t, uint32_t> BtcWallet::computeScrAddrMapHistSummary()
    map<uint32_t, preHistory> preHistSummary;
 
    LMDBEnv::Transaction tx;
-   bdvPtr_->getDB()->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
+   bdvPtr_->getDB()->beginDBTransaction(tx, SSH, LMDB::ReadOnly);
    for (auto& scrAddrPair : scrAddrMap_)
    {
       scrAddrPair.second.mapHistory();

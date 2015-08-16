@@ -18,8 +18,6 @@
 
 void ScrAddrFilter::getScrAddrCurrentSyncState()
 {
-   LMDBEnv::Transaction tx;
-   lmdb_->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
 
    for (auto scrAddrPair : scrAddrMap_)
       getScrAddrCurrentSyncState(scrAddrPair.first);
@@ -29,7 +27,15 @@ void ScrAddrFilter::getScrAddrCurrentSyncState()
 void ScrAddrFilter::getScrAddrCurrentSyncState(
    BinaryData const & scrAddr)
 {
+   if (scrAddr.getSize() == 0)
+      return;
+
+   uint32_t shard = lmdb_->getShard(scrAddr);
+
    //grab SSH for scrAddr
+   LMDBEnv::Transaction tx;
+   lmdb_->beginShardTransaction(tx, shard, LMDB::ReadOnly);
+   
    StoredScriptHistory ssh;
    lmdb_->getStoredScriptHistorySummary(ssh, scrAddr);
 
@@ -42,10 +48,12 @@ void ScrAddrFilter::setSSHLastScanned(uint32_t height)
 {
    //LMDBBlockDatabase::Batch batch(db, BLKDATA);
    LOGWARN << "Updating SSH last scanned";
-   LMDBEnv::Transaction tx;
-   lmdb_->beginDBTransaction(&tx, HISTORY, LMDB::ReadWrite);
    for (const auto scrAddrPair : scrAddrMap_)
    {
+      uint32_t shard = lmdb_->getShard(scrAddrPair.first);
+      LMDBEnv::Transaction tx;
+      lmdb_->beginShardTransaction(tx, shard, LMDB::ReadWrite);
+
       StoredScriptHistory ssh;
       lmdb_->getStoredScriptHistorySummary(ssh, scrAddrPair.first);
       if (!ssh.isInitialized())
@@ -53,7 +61,7 @@ void ScrAddrFilter::setSSHLastScanned(uint32_t height)
 
       ssh.alreadyScannedUpToBlk_ = height;
 
-      lmdb_->putStoredScriptHistory(ssh);
+      lmdb_->putStoredScriptHistorySummary(ssh);
    }
 }
 
@@ -176,11 +184,10 @@ void ScrAddrFilter::scanScrAddrThread()
 
    BinaryData topScannedBlockHash;
    {
-      LMDBEnv::Transaction tx;
-      lmdb_->beginDBTransaction(&tx, HEADERS, LMDB::ReadOnly);
-      StoredHeader sbh;
-      lmdb_->getBareHeader(sbh, endBlock);
-      topScannedBlockHash = sbh.thisHash_;
+      //grab top scanned block from sdbi
+      StoredDBInfo sdbi;
+      lmdb_->getStoredDBInfo(SSH, sdbi);
+      topScannedBlockHash = sdbi.topScannedBlkHash_;
    }
 
    if(doScan_ == false)
@@ -431,18 +438,16 @@ void ScrAddrFilter::buildSSHKeys()
       scrAddrs.push_back(sa.first);
    }
 
-   //we may create new ssh keys, need the lock first.
-   unique_lock<mutex> addressingLock(SSHheaders::keyAddressingMutex_);
-
-   //let the SSHheaders object handle the key creation and collision detection
+   //let the SSHheaders object handle the key creation
    sshHeaders.processSshHeaders(scrAddrs);
    
    //write the initialized SSHs to DB, the scanning process will grab them from
    //the DB when needed
    LMDBEnv::Transaction tx;
-   lmdb_->beginDBTransaction(&tx, HISTORY, LMDB::ReadWrite);
    for (auto& ssh : *sshHeaders.sshToModify_)
    {
+      auto shard = lmdb_->getShard(ssh.first);
+      lmdb_->beginShardTransaction(tx, shard, LMDB::ReadWrite);
       lmdb_->putStoredScriptHistorySummary(ssh.second);
    }
 }
@@ -500,10 +505,10 @@ void ZeroConfContainer::addRawTx(const BinaryData& rawTx, uint32_t txtime)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-map<BinaryData, vector<BinaryData>> ZeroConfContainer::purge(
+set<BinaryData> ZeroConfContainer::purge(
    function<bool(const BinaryData&)> filter)
 {
-   map<BinaryData, vector<BinaryData>> invalidatedKeys;
+   set<BinaryData> invalidatedKeys;
 
    if (!db_)
       return invalidatedKeys;
@@ -524,60 +529,68 @@ map<BinaryData, vector<BinaryData>> ZeroConfContainer::purge(
    SCOPED_TIMER("purgeZeroConfPool");
 
    map<HashString, HashString> txHashToDBKey;
-   map<BinaryData, Tx>           txMap;
-   map<HashString, map<BinaryData, TxIOPair> >  txioMap;
    keyToSpentScrAddr_.clear();
    txOutsSpentByZC_.clear();
+   txioMap_.clear();
+   newTxioMap_.clear();
+   vector<BinaryData> keysToWrite, keysToDelete;
 
    LMDBEnv::Transaction tx;
-   db_->beginDBTransaction(&tx, HISTORY, LMDB::ReadOnly);
+   db_->beginDBTransaction(tx, SSH, LMDB::ReadOnly);
+   auto zcIter = txMap_.begin();
 
    //parse ZCs anew
-   for (auto ZCPair : txMap_)
+   while (zcIter != txMap_.end())
    {
-      const BinaryData& txHash = ZCPair.second.getThisHash();
+      const BinaryData& txHash = zcIter->second.getThisHash();
 
+      BinaryData ZCkey;
+
+      auto keyIter = txHashToDBKey_.find(txHash);
+      if (ITER_IN_MAP(keyIter, txHashToDBKey_))
+         ZCkey = keyIter->second;
+      else ZCkey = getNewZCkey();
+
+      map<BinaryData, map<BinaryData, TxIOPair> > newTxIO =
+         ZCisMineBulkFilter(
+         zcIter->second,
+         ZCkey,
+         zcIter->second.getTxTime(),
+         filter
+         );
+
+      //if a relevant ZC was found, add it to our map
+      if (!newTxIO.empty())
       {
-         BinaryData ZCkey;
+         txHashToDBKey[txHash] = ZCkey;
 
-         auto keyIter = txHashToDBKey_.find(txHash);
-         if (ITER_IN_MAP(keyIter, txHashToDBKey_))
-            ZCkey = keyIter->second;
-         else ZCkey = getNewZCkey();
-
-         map<BinaryData, map<BinaryData, TxIOPair> > newTxIO =
-            ZCisMineBulkFilter(
-               ZCPair.second,
-               ZCkey,
-               ZCPair.second.getTxTime(),
-               filter
-            );
-
-         //if a relevant ZC was found, add it to our map
-         if (!newTxIO.empty())
+         for (const auto& saTxio : newTxIO)
          {
-            txHashToDBKey[txHash] = ZCkey;
-            txMap[ZCPair.first] = ZCPair.second;
+            auto& txioPair = txioMap_[saTxio.first];
+            auto satxio = saTxio.second;
 
-            for (const auto& scrAddrTxio : newTxIO)
-            {
-               auto& txioPair = txioMap[scrAddrTxio.first];
+            satxio.insert(txioPair.begin(), txioPair.end());
+            txioPair = move(satxio);
 
-               txioPair.insert(scrAddrTxio.second.begin(),
-                  scrAddrTxio.second.end());
-            }
+            auto& newTxioPair = newTxioMap_[saTxio.first];
+            satxio = saTxio.second;
+
+            satxio.insert(newTxioPair.begin(), newTxioPair.end());
+            newTxioPair = move(satxio);
          }
+
+         ++zcIter;
+      }
+      else
+      {
+         invalidatedKeys.insert(ZCkey);
+         keysToDelete.push_back(ZCkey);
+         txMap_.erase(zcIter++);
       }
    }
 
    //build the set of invalidated zc dbKeys and delete them from db
-   vector<BinaryData> keysToWrite, keysToDelete;
 
-   for (auto& tx : txMap_)
-   {
-      if (txMap.find(tx.first) == txMap.end())
-         keysToDelete.push_back(tx.first);
-   }
 
    auto delFromDB = [&, this](void)->void
    { this->updateZCinDB(keysToWrite, keysToDelete); };
@@ -585,60 +598,6 @@ map<BinaryData, vector<BinaryData>> ZeroConfContainer::purge(
    //run in dedicated thread to make sure we can get a RW tx
    thread delFromDBthread(delFromDB);
    delFromDBthread.join();
-
-   //intersect with current container map
-   for (const auto& saMapPair : txioMap_)
-   {
-      auto saTxioIter = txioMap.find(saMapPair.first);
-      if (saTxioIter == txioMap.end())
-      {
-         auto& txioVec = invalidatedKeys[saMapPair.first];
-         
-         for (const auto & txioPair : saMapPair.second)
-            txioVec.push_back(txioPair.first);
-
-         continue;
-      }
-
-      for (const auto& txioPair : saMapPair.second)
-      {
-         if (saTxioIter->second.find(txioPair.first) ==
-            saTxioIter->second.end())
-         {
-            auto& txioVec = invalidatedKeys[saMapPair.first];
-            txioVec.push_back(txioPair.first);
-         }
-      }
-   }
-
-   //copy new containers over
-   txHashToDBKey_ = txHashToDBKey;
-   txMap_ = txMap;
-   txioMap_ = txioMap;
-
-   //now purge newTxioMap_
-   for (auto& newSaTxioPair : newTxioMap_)
-   {
-      auto validTxioIter = txioMap_.find(newSaTxioPair.first);
-
-      if (ITER_NOT_IN_MAP(validTxioIter, txioMap_))
-      {
-         newSaTxioPair.second.clear();
-         continue;
-      }
-
-      auto& validSaTxioMap = validTxioIter->second;
-      auto& newSaTxioMap = newSaTxioPair.second;
-
-      auto newTxioIter = newSaTxioMap.begin();
-
-      while (newTxioIter != newSaTxioMap.end())
-      {
-         if (KEY_NOT_IN_MAP(newTxioIter->first, validSaTxioMap))
-            newSaTxioMap.erase(newTxioIter++);
-         else ++newTxioIter;
-      }
-   }
 
    return invalidatedKeys;
 }
@@ -676,7 +635,7 @@ bool ZeroConfContainer::parseNewZC(function<bool(const BinaryData&)> filter,
 
 
    LMDBEnv::Transaction tx;
-   db_->beginDBTransaction(&tx, ZEROCONF, LMDB::ReadOnly);
+   db_->beginDBTransaction(tx, ZEROCONF, LMDB::ReadOnly);
 
    while (1)
    {
@@ -707,12 +666,15 @@ bool ZeroConfContainer::parseNewZC(function<bool(const BinaryData&)> filter,
                for (const auto& saTxio : newTxIO)
                {
                   auto& txioPair = txioMap_[saTxio.first];
-                  txioPair.insert(saTxio.second.begin(),
-                     saTxio.second.end());
+                  auto satxio = saTxio.second;
+
+                  satxio.insert(txioPair.begin(), txioPair.end());
+                  txioPair = move(satxio);
 
                   auto& newTxioPair = newTxioMap_[saTxio.first];
-                  newTxioPair.insert(saTxio.second.begin(),
-                     saTxio.second.end());
+                  satxio = saTxio.second;
+                  satxio.insert(newTxioPair.begin(), newTxioPair.end());
+                  newTxioPair = move(satxio);
                }
 
                zcIsOurs = true;
@@ -841,8 +803,42 @@ ZeroConfContainer::ZCisMineBulkFilter(const Tx & tx,
       OutPoint op;
       op.unserialize(txStartPtr + tx.getTxInOffset(iin), 36);
 
-      //check ZC txhash first, always cheaper than grabbing a stxo from DB,
-      //and will always be checked if the tx doesn't hit in DB outpoints.
+      //fetch the TxOut from DB
+      BinaryData opKey = op.getDBkey(db_);
+      if (opKey.getSize() == 8)
+      {
+         //found outPoint DBKey, grab the StoredTxOut
+         StoredTxOut stxOut;
+         if (db_->getStoredTxOut(stxOut, opKey))
+         {
+            if (stxOut.isSpent())
+               continue;
+
+            BinaryData sa = stxOut.getScrAddress();
+            if (filter(sa))
+            {
+               TxIOPair txio(TxRef(opKey.getSliceRef(0, 6)), op.getTxOutIndex(),
+                  TxRef(ZCkey), iin);
+
+               txio.setTxHashOfOutput(op.getTxHash());
+               txio.setTxHashOfInput(txHash);
+               txio.setValue(stxOut.getValue());
+               txio.setTxTime(txtime);
+
+               auto& key_txioPair = processedTxIO[sa];
+               key_txioPair[opKey] = txio;
+
+               auto& wltIdVec = keyToSpentScrAddr_[ZCkey];
+               wltIdVec.push_back(sa);
+
+               txOutsSpentByZC_.insert(opKey);
+               continue;
+            }
+         }
+      }
+
+      //ideally, ZC txouts should be checked first (for speed), but if the txout
+      //is on the main chain, it takes precedence. 
       {
          BinaryData opZcKey;
          if (getKeyForTxHash(op.getTxHash(), opZcKey))
@@ -865,43 +861,12 @@ ZeroConfContainer::ZCisMineBulkFilter(const Tx & tx,
             BinaryData spentSA = chainedTxOut.getScrAddressStr();
             auto& key_txioPair = processedTxIO[spentSA];
             key_txioPair[txio.getDBKeyOfOutput()] = txio;
-            
+
             auto& wltIdVec = keyToSpentScrAddr_[ZCkey];
             wltIdVec.push_back(spentSA);
-            
+
             txOutsSpentByZC_.insert(txio.getDBKeyOfOutput());
             continue;
-         }
-      }
-
-
-      //fetch the TxOut from DB
-      BinaryData opKey = op.getDBkey(db_);
-      if (opKey.getSize() == 8)
-      {
-         //found outPoint DBKey, grab the StoredTxOut
-         StoredTxOut stxOut;
-         if (db_->getStoredTxOut(stxOut, opKey))
-         {
-            BinaryData sa = stxOut.getScrAddress();
-            if (filter(sa))
-            {
-               TxIOPair txio(TxRef(opKey.getSliceRef(0, 6)), op.getTxOutIndex(),
-                  TxRef(ZCkey), iin);
-
-               txio.setTxHashOfOutput(op.getTxHash());
-               txio.setTxHashOfInput(txHash);
-               txio.setValue(stxOut.getValue());
-               txio.setTxTime(txtime);
-
-               auto& key_txioPair = processedTxIO[sa];
-               key_txioPair[opKey] = txio;
-
-               auto& wltIdVec = keyToSpentScrAddr_[ZCkey];
-               wltIdVec.push_back(sa);
-
-               txOutsSpentByZC_.insert(opKey);
-            }
          }
       }
    }
@@ -1073,7 +1038,7 @@ void ZeroConfContainer::loadZeroConfMempool(
    //RW tx afterwards
    {
       LMDBEnv::Transaction tx;
-      db_->beginDBTransaction(&tx, ZEROCONF, LMDB::ReadOnly);
+      db_->beginDBTransaction(tx, ZEROCONF, LMDB::ReadOnly);
       LDBIter dbIter(db_->getIterator(ZEROCONF));
 
       if (!dbIter.seekToStartsWith(DB_PREFIX_ZCDATA))
