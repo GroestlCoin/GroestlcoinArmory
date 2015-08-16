@@ -283,6 +283,7 @@ public:
    BtcUtils(void) {}
    static BinaryData hash256(BinaryData const & str) {return getHash256(str);}
    static BinaryData hash160(BinaryData const & str) {return getHash160(str);}
+   static BinaryData sha256(BinaryData const & str) {return getSha256(str.getPtr(), str.getSize());}
 
    /////////////////////////////////////////////////////////////////////////////
    static const BinaryData& BadAddress() { return BadAddress_; }
@@ -485,17 +486,21 @@ public:
    }
 
 
+   static BinaryData getGroestlHash(uint8_t const * strToHash, uint32_t nBytes);
+
    /////////////////////////////////////////////////////////////////////////////
    static void getHash256(uint8_t const * strToHash,
                           size_t          nBytes,
                           BinaryData &    hashOutput)
    {
-      CryptoPP::SHA256 sha256_;
+//      CryptoPP::SHA256 sha256_;
       if(hashOutput.getSize() != 32)
          hashOutput.resize(32);
 
-      sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
-      sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
+	hashOutput = getGroestlHash(strToHash, nBYtes);	//GRS
+
+//      sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
+//      sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
    }
 
    /////////////////////////////////////////////////////////////////////////////
@@ -504,25 +509,44 @@ public:
                           uint32_t        nBytes,
                           BinaryData &    hashOutput)
    {
+	hashOutput = getGroestlHash(strToHash, nBYtes);	//GRS
+/*
       CryptoPP::SHA256 sha256_;
 
       sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
       sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
+*/
    }
+
 
    /////////////////////////////////////////////////////////////////////////////
    static BinaryData getHash256(uint8_t const * strToHash,
                                 uint32_t        nBytes)
    {
+		return getGroestlHash(strToHash, nBytes);			//GRS
+
+/*
       CryptoPP::SHA256 sha256_;
 
       BinaryData hashOutput(32);
       sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
       sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
-      return hashOutput;
+      return hashOutput; */
    }
 
-   static BinaryData getGroestlHash(uint8_t const * strToHash, uint32_t nBytes);
+
+   /////////////////////////////////////////////////////////////////////////////
+   static BinaryData getSha256(uint8_t const * strToHash,
+                                uint32_t        nBytes)
+   {
+
+
+      CryptoPP::SHA256 sha256_;
+
+      BinaryData hashOutput(32);
+      sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
+      return hashOutput; 
+   }
 
    /////////////////////////////////////////////////////////////////////////////
    static void getHash256(BinaryData const & strToHash, 

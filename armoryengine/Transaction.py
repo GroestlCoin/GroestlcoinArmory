@@ -705,7 +705,7 @@ class PyTx(BlockComponent):
       self.lockTime   = txData.get(UINT32)
       endPos = txData.getPosition()
       self.nBytes = endPos - startPos
-      self.thisHash = hash256(self.serialize())
+      self.thisHash = sha256(self.serialize()) #GRS
       return self
 
    # Before broadcasting a transaction make sure that the script is canonical
@@ -727,7 +727,7 @@ class PyTx(BlockComponent):
       return paddingRemoved, newTx.copy()
 
    def getHash(self):
-      return hash256(self.serialize())
+      return sha256(self.serialize()) #GRS
 
    def getHashHex(self, endianness=LITTLEENDIAN):
       return binary_to_hex(self.getHash(), endOut=endianness)
@@ -1012,7 +1012,7 @@ class UnsignedTxInput(AsciiSerializable):
 
       self.version     = version
       self.supportTx   = rawSupportTx
-      self.outpoint    = PyOutPoint(hash256(rawSupportTx), txoutIndex)
+      self.outpoint    = PyOutPoint(sha256(rawSupportTx), txoutIndex) #GRS
       self.txoScript   = txout.getScript()
       self.scriptType  = getTxOutScriptType(self.txoScript)
       self.value       = txout.getValue()
@@ -1501,7 +1501,7 @@ class UnsignedTxInput(AsciiSerializable):
          pubMap[SCRADDR_P2PKH_BYTE+hash160(pub)] = pub
 
 
-      if not outpt[:32] == hash256(suppTx):
+      if not outpt[:32] == sha256(suppTx): #GRS
          raise UnserializeError('OutPoint hash does not match supporting tx')
 
       if not seq==UINT32_MAX:
@@ -2035,7 +2035,7 @@ class UnsignedTransaction(AsciiSerializable):
          raise ValueError('Supplied inputs are less than the supplied outputs')
 
       rawTxNoSigs = self.pytxObj.serialize()
-      self.uniqueIDB58 = binary_to_base58(hash256(rawTxNoSigs))[:8]
+      self.uniqueIDB58 = binary_to_base58(sha256(rawTxNoSigs))[:8] #GRS
       self.asciiID = self.uniqueIDB58
       return self
 
@@ -2525,7 +2525,7 @@ class UnsignedTransaction(AsciiSerializable):
    def pprint(self, indent=3):
       ind = ' '*indent
       tx = self.pytxObj
-      txHash = hash256(tx.serialize())
+      txHash = sha256(tx.serialize())	#GRS
       print ind+'UnsignedTx ID: ', self.uniqueIDB58
       print ind+'Curr TxID    : ', binary_to_hex(txHash, BIGENDIAN)
       print ind+'Version      : ', tx.version
@@ -2718,7 +2718,7 @@ def PyCreateAndSignTx_old(srcTxOuts, dstAddrsVals):
          txin.outpoint.txHash = '\x00'*32
          txin.outpoint.txOutIndex     = binary_to_int('\xff'*4)
       else:
-         txin.outpoint.txHash = hash256(srcTxOuts[i][1].serialize())
+         txin.outpoint.txHash = sha256(srcTxOuts[i][1].serialize()) #GRS
          txin.outpoint.txOutIndex     = srcTxOuts[i][2]
       txin.binScript = ''
       txin.intSeq = 2**32-1
