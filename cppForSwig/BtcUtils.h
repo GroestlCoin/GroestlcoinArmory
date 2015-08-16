@@ -497,7 +497,7 @@ public:
       if(hashOutput.getSize() != 32)
          hashOutput.resize(32);
 
-	hashOutput = getGroestlHash(strToHash, nBYtes);	//GRS
+	  hashOutput = getGroestlHash(strToHash, nBytes);			//GRS
 
 //      sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
 //      sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
@@ -509,7 +509,7 @@ public:
                           uint32_t        nBytes,
                           BinaryData &    hashOutput)
    {
-	hashOutput = getGroestlHash(strToHash, nBYtes);	//GRS
+	   hashOutput = getGroestlHash(strToHash, nBytes);			//GRS
 /*
       CryptoPP::SHA256 sha256_;
 
@@ -523,7 +523,7 @@ public:
    static BinaryData getHash256(uint8_t const * strToHash,
                                 uint32_t        nBytes)
    {
-		return getGroestlHash(strToHash, nBytes);			//GRS
+		return getGroestlHash(strToHash, nBytes);				//GRS
 
 /*
       CryptoPP::SHA256 sha256_;

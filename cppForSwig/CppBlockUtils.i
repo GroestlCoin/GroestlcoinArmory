@@ -314,3 +314,4 @@ namespace std
 %include "BlockDataManagerConfig.h"
 %include "BDM_mainthread.h"
 %include "bdmenums.h"
+

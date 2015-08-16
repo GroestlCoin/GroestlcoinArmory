@@ -22,9 +22,6 @@
     <ClCompile Include="UniversalTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CppBlockUtils_wrap.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="leveldb_windows_port\win32_posix\Win_TranslatePath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="SSHheaders.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CppBlockUtils_wrap.cxx">
+      <Filter>SWIG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,5 +161,13 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{7fc64c57-ce9f-4864-8d81-e66466e48727}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SWIG">
+      <UniqueIdentifier>{6766dc3b-29bc-4c3f-afce-1c6978cfad38}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CppBlockUtils.i">
+      <Filter>SWIG</Filter>
+    </None>
   </ItemGroup>
 </Project>
