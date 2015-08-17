@@ -990,7 +990,7 @@ if os.path.exists(fileDelSettings):
 ################################################################################
 def deleteBitcoindDBs():
    if not os.path.exists(BTC_HOME_DIR):
-      LOGERROR('Could not find Bitcoin-Qt/bitcoind home dir to remove blk data')
+      LOGERROR('Could not find GroestlCoin-Qt/groestlcoind home dir to remove blk data')
       LOGERROR('  Does not exist: %s' % BTC_HOME_DIR)
    else:
       LOGINFO('Found bitcoin home dir, removing blocks and databases')

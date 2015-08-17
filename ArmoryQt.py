@@ -104,13 +104,13 @@ class ArmoryMainWindow(QMainWindow):
       # SETUP THE WINDOWS DECORATIONS
       self.lblLogoIcon = QLabel()
       if USE_TESTNET:
-         self.setWindowTitle('Armory - Bitcoin Wallet Management [TESTNET] dlgMain')
+         self.setWindowTitle('Armory - GroestlCoin Wallet Management [TESTNET] dlgMain')
          self.iconfile = ':/armory_icon_green_32x32.png'
          self.lblLogoIcon.setPixmap(QPixmap(':/armory_logo_green_h56.png'))
          if Colors.isDarkBkgd:
             self.lblLogoIcon.setPixmap(QPixmap(':/armory_logo_white_text_green_h56.png'))
       else:
-         self.setWindowTitle('Armory - Bitcoin Wallet Management')
+         self.setWindowTitle('Armory - GroestlCoin Wallet Management')
          self.iconfile = ':/armory_icon_32x32.png'
          self.lblLogoIcon.setPixmap(QPixmap(':/armory_logo_h44.png'))
          if Colors.isDarkBkgd:
@@ -546,8 +546,8 @@ class ArmoryMainWindow(QMainWindow):
 
       self.lbDialog = None
 
-      btnSendBtc   = QPushButton(tr("Send Bitcoins"))
-      btnRecvBtc   = QPushButton(tr("Receive Bitcoins"))
+      btnSendBtc   = QPushButton(tr("Send GroestlCoins"))
+      btnRecvBtc   = QPushButton(tr("Receive GroestlCoins"))
       btnWltProps  = QPushButton(tr("Wallet Properties"))
       btnOfflineTx = QPushButton(tr("Offline Transactions"))
       btnMultisig  = QPushButton(tr("Lockboxes (Multi-Sig)"))
@@ -1436,8 +1436,8 @@ class ArmoryMainWindow(QMainWindow):
          self.clickReceiveCoins()
 
       actShowArmory = self.createAction('Show Armory', self.bringArmoryToFront)
-      actSendBtc    = self.createAction('Send Bitcoins', traySend)
-      actRcvBtc     = self.createAction('Receive Bitcoins', trayRecv)
+      actSendBtc    = self.createAction('Send GroestlCoins', traySend)
+      actRcvBtc     = self.createAction('Receive GroestlCoins', trayRecv)
       actClose      = self.createAction('Quit Armory', self.closeForReal)
       # Create a short menu of options
       menu.addAction(actShowArmory)
@@ -2477,7 +2477,7 @@ class ArmoryMainWindow(QMainWindow):
          # path the executable.  That dir tree will be searched for bitcoind
          TheSDM.setupSDM(extraExeSearch=self.satoshiExeSearchPath)
          TheSDM.startBitcoind(self.notifyBitcoindIsReady)
-         LOGDEBUG('Bitcoind started without error')
+         LOGDEBUG('Groestlcoind started without error')
          return True
       except:
          LOGEXCEPT('Failed to setup SDM')
@@ -3832,8 +3832,8 @@ class ArmoryMainWindow(QMainWindow):
    def execImportWallet(self):
       sdm = TheSDM.getSDMState()
       bdm = TheBDM.getState()
-      if sdm in ['BitcoindInitializing', \
-                 'BitcoindSynchronizing', \
+      if sdm in ['GroestlCoindInitializing', \
+                 'GroestlCoindSynchronizing', \
                  'TorrentSynchronizing'] or \
          bdm in [BDM_SCANNING]:
          QMessageBox.warning(self, tr('Scanning'), tr("""
@@ -4329,7 +4329,7 @@ class ArmoryMainWindow(QMainWindow):
    def executeModeSwitch(self):
       LOGDEBUG('executeModeSwitch')
 
-      if TheSDM.getSDMState() == 'BitcoindExeMissing':
+      if TheSDM.getSDMState() == 'GroestlCoindExeMissing':
          bitcoindStat = self.lookForBitcoind()
          if bitcoindStat=='Running':
             result = QMessageBox.warning(self, tr('Already running!'), tr("""
@@ -5158,7 +5158,7 @@ class ArmoryMainWindow(QMainWindow):
             self.lblTimeLeftScan.setText(tstring)
             self.barProgressScan.setValue(pvalue)
 
-      elif TheSDM.getSDMState() in ['BitcoindInitializing','BitcoindSynchronizing']:
+      elif TheSDM.getSDMState() in ['GroestlCoindInitializing','GroestlCoindSynchronizing']:
 
          self.barProgressTorrent.setVisible(TheTDM.isStarted())
          self.lblDashModeTorrent.setVisible(TheTDM.isStarted())
@@ -5232,11 +5232,11 @@ class ArmoryMainWindow(QMainWindow):
 
 
          self.barProgressSync.setFormat('%p%')
-         if ssdm == 'BitcoindReady':
+         if ssdm == 'GroestlCoindReady':
             return (0,0,0.99)  # because it's probably not completely done...
             self.lblTimeLeftSync.setText(tr('Almost Done...'))
             self.barProgressSync.setValue(99)
-         elif ssdm == 'BitcoindSynchronizing':
+         elif ssdm == 'GroestlCoindSynchronizing':
             sdmPercent = int(99.9*self.approxPctSoFar)
             if self.approxBlkLeft < 10000:
                if self.approxBlkLeft < 200:
@@ -5253,7 +5253,7 @@ class ArmoryMainWindow(QMainWindow):
                   self.lblTimeLeftSync.setText(secondsToHumanTime(timeRemain))
                else:
                   self.lblTimeLeftSync.setText('')
-         elif ssdm == 'BitcoindInitializing':
+         elif ssdm == 'GroestlCoindInitializing':
             sdmPercent = 0
             self.barProgressSync.setFormat('')
             self.barProgressBuild.setFormat('')
@@ -5311,7 +5311,7 @@ class ArmoryMainWindow(QMainWindow):
          '<ul>'
          '<li>Create, import or recover Armory wallets</li>'
          '<li>Generate new addresses to receive coins</li>'
-         '<li>Send bitcoins to other people</li>'
+         '<li>Send groestlcoins to other people</li>'
          '<li>Create one-time backups of your wallets (in printed or digital form)</li>'
          '<li>Click on "bitcoin:" links in your web browser '
             '(not supported on all operating systems)</li>'
@@ -5490,8 +5490,8 @@ class ArmoryMainWindow(QMainWindow):
             'to notify Armory where to find them.') % BLKFILE_DIR
          elif state == 'Disconnected':
             return tr( \
-            'Armory was previously online, but the connection to Bitcoin-Qt/'
-            'bitcoind was interrupted.  You will not be able to send bitcoins '
+            'Armory was previously online, but the connection to GroestlCoin-Qt/'
+            'groestlcoind was interrupted.  You will not be able to send groestlcoins '
             'or confirm receipt of bitcoins until the connection is '
             'reestablished.  <br><br>Please check that Bitcoin-Qt is open '
             'and synchronized with the network.  Armory will <i>try to '
@@ -5734,7 +5734,7 @@ class ArmoryMainWindow(QMainWindow):
       # This keeps popping up for some reason!
       self.lblTorrentStats.setVisible(False)
 
-      if self.doAutoBitcoind and not sdmState=='BitcoindReady':
+      if self.doAutoBitcoind and not sdmState=='GroestlCoindReady':
          # User is letting Armory manage the Satoshi client for them.
          # TODO -  Move to event handlers
          if not sdmState==self.lastSDMState:
@@ -5792,7 +5792,7 @@ class ArmoryMainWindow(QMainWindow):
                self.lblDashModeSync.setText( tr('Armory is <u>offline</u>'), \
                                             size=4, color='TextWarn', bold=True)
                # Bitcoind is not being managed, but we want it to be
-               if satoshiIsAvailable() or sdmState=='BitcoindAlreadyRunning':
+               if satoshiIsAvailable() or sdmState=='GroestlCoindAlreadyRunning':
                   # But bitcoind/-qt is already running
                   LOGINFO('Dashboard switched to auto-butSatoshiRunning')
                   self.lblDashModeSync.setText(tr(' Please close Bitcoin-Qt'), \
@@ -5808,13 +5808,13 @@ class ArmoryMainWindow(QMainWindow):
                   self.lblDashDescr1.setText(descr1)
                   self.lblDashDescr2.setText(descr2)
                   #self.psutil_detect_bitcoin_exe_path()
-               elif sdmState in ['BitcoindExeMissing', 'BitcoindHomeMissing']:
+               elif sdmState in ['GroestlCoindExeMissing', 'GroestlCoindHomeMissing']:
                   LOGINFO('Dashboard switched to auto-cannotFindExeHome')
-                  if sdmState=='BitcoindExeMissing':
-                     self.lblDashModeSync.setText(tr('Cannot find Bitcoin Installation'), \
+                  if sdmState=='GroestlCoindExeMissing':
+                     self.lblDashModeSync.setText(tr('Cannot find GroestlCoin Installation'), \
                                                          size=4, bold=True)
                   else:
-                     self.lblDashModeSync.setText(tr('Cannot find Bitcoin Home Directory'), \
+                     self.lblDashModeSync.setText(tr('Cannot find GroestlCoin Home Directory'), \
                                                          size=4, bold=True)
                   setBtnRowVisible(DASHBTNS.Close, satoshiIsAvailable())
                   setBtnRowVisible(DASHBTNS.Install, True)
@@ -5829,7 +5829,7 @@ class ArmoryMainWindow(QMainWindow):
                   descr2 += self.GetDashFunctionalityText('Offline')
                   self.lblDashDescr1.setText(descr1)
                   self.lblDashDescr2.setText(descr2)
-               elif sdmState in ['BitcoindDatabaseEnvError']:
+               elif sdmState in ['GroestlCoindDatabaseEnvError']:
                   LOGINFO('Dashboard switched to auto-BadDBEnv')
                   setOnlyDashModeVisible()
                   setBtnRowVisible(DASHBTNS.Install, True)
@@ -5842,7 +5842,7 @@ class ArmoryMainWindow(QMainWindow):
                   self.lblDashDescr1.setText(descr1)
                   self.lblDashDescr2.setText(descr2)
                   setBtnFrameVisible(True, '')
-               elif sdmState in ['BitcoindUnknownCrash']:
+               elif sdmState in ['GroestlCoindUnknownCrash']:
                   LOGERROR('Should not usually get here')
                   setOnlyDashModeVisible()
                   setBtnFrameVisible(True, \
@@ -5863,8 +5863,8 @@ class ArmoryMainWindow(QMainWindow):
                   self.lblDashDescr1.setTextInteractionFlags( \
                                           Qt.TextSelectableByMouse | \
                                           Qt.TextSelectableByKeyboard)
-               elif sdmState in ['BitcoindNotAvailable']:
-                  LOGERROR('BitcoindNotAvailable: should not happen...')
+               elif sdmState in ['GroestlCoindNotAvailable']:
+                  LOGERROR('GroestlCoindNotAvailable: should not happen...')
                   self.notAvailErrorCount += 1
                   descr1 += ''
                   descr2 += self.GetDashFunctionalityText('Offline')
@@ -5877,7 +5877,7 @@ class ArmoryMainWindow(QMainWindow):
                   self.lblDashDescr1.setText(descr1)
                   self.lblDashDescr2.setText(descr2)
             else:  # online detected/forced, and TheSDM has already been started
-               if sdmState in ['BitcoindWrongPassword', 'BitcoindNotAvailable']:
+               if sdmState in ['GroestlCoindWrongPassword', 'GroestlCoindNotAvailable']:
 
                   extraTxt = ''
                   if not self.wasSynchronizing:
@@ -5901,8 +5901,8 @@ class ArmoryMainWindow(QMainWindow):
                   descr2 += self.GetDashFunctionalityText('Offline')
                   self.lblDashDescr1.setText(extraTxt + descr1)
                   self.lblDashDescr2.setText(descr2)
-               elif sdmState in ['BitcoindInitializing', \
-                                 'BitcoindSynchronizing', \
+               elif sdmState in ['GroestlCoindInitializing', \
+                                 'GroestlCoindSynchronizing', \
                                  'TorrentSynchronizing']:
                   self.wasSynchronizing = True
                   LOGINFO('Dashboard switched to auto-InitSync')
@@ -5922,7 +5922,7 @@ class ArmoryMainWindow(QMainWindow):
                      self.lblDashModeSync.setText( tr('Synchronizing with Network'), \
                                           size=4, bold=True, color='DisableFG')
                      self.lblTorrentStats.setVisible(True)
-                  elif sdmState=='BitcoindInitializing':
+                  elif sdmState=='GroestlCoindInitializing':
                      self.lblDashModeTorrent.setText(tr('Download via Armory CDN'), \
                                           size=4, bold=True, color='DisableFG')
                      self.lblDashModeSync.setText( tr('Initializing Bitcoin Engine'), \
@@ -6036,7 +6036,7 @@ class ArmoryMainWindow(QMainWindow):
             self.lblBusy.setVisible(True)
             self.btnModeSwitch.setVisible(False)
 
-            if TheSDM.getSDMState() == 'BitcoindReady':
+            if TheSDM.getSDMState() == 'GroestlCoindReady':
                self.barProgressSync.setVisible(True)
                self.lblTimeLeftSync.setVisible(True)
                self.lblDashModeSync.setVisible(True)
@@ -6484,8 +6484,8 @@ class ArmoryMainWindow(QMainWindow):
                         # For now, just show once then disable
                         self.lastAskedUserStopTorrent = UINT64_MAX
 
-            if (sdmState in ['BitcoindInitializing','BitcoindSynchronizing']) or \
-               (sdmState == 'BitcoindReady' and bdmState==BDM_SCANNING):
+            if (sdmState in ['GroestlCoindInitializing','GroestlCoindSynchronizing']) or \
+               (sdmState == 'GroestlCoindReady' and bdmState==BDM_SCANNING):
                self.updateSyncProgress()
                
          else:

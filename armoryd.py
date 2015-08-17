@@ -3049,7 +3049,7 @@ class Armory_Daemon(object):
             reactorCallLater(3, self.Heartbeat)
          else:
             errStr = 'armoryd is not ready to run! Please check to see if ' \
-                     'bitcoind is running and the Blockchain files ' \
+                     'groestlcoind is running and the Blockchain files ' \
                      '(blk*.dat) are available.'
             LOGERROR(errStr)
             os._exit(0)

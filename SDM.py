@@ -315,10 +315,10 @@ class SatoshiDaemonManager(object):
       if pathToBitcoindExe==None:
          pathToBitcoindExe = self.findBitcoind(extraExeSearch)
          if len(pathToBitcoindExe)==0:
-            LOGDEBUG('Failed to find bitcoind')
+            LOGDEBUG('Failed to find groestlcoind')
             self.failedFindExe = True
          else:
-            LOGINFO('Found bitcoind in the following places:')
+            LOGINFO('Found groestlcoind in the following places:')
             for p in pathToBitcoindExe:
                LOGINFO('   %s', p)
             pathToBitcoindExe = pathToBitcoindExe[0]
@@ -347,7 +347,7 @@ class SatoshiDaemonManager(object):
             LOGINFO('No home dir, makedir not requested')
             self.failedFindHome = True
 
-      if self.failedFindExe:  raise self.BitcoindError, 'bitcoind not found'
+      if self.failedFindExe:  raise self.BitcoindError, 'groestlcoind not found'
       if self.failedFindHome: raise self.BitcoindError, 'homedir not found'
 
       self.disabled = False
@@ -367,7 +367,7 @@ class SatoshiDaemonManager(object):
       s = self.getSDMState()
 
       if newBool==True:
-         if s in ('BitcoindInitializing', 'BitcoindSynchronizing', 'BitcoindReady'):
+         if s in ('GroestlCoindInitializing', 'GroestlCoindSynchronizing', 'GroestlCoindReady'):
             self.stopBitcoind()
 
       self.disabled = newBool
@@ -443,7 +443,7 @@ class SatoshiDaemonManager(object):
          searchPaths.extend(os.getenv("PATH").split(':'))
 
          for p in searchPaths:
-            testPath = os.path.join(p, 'bitcoind')
+            testPath = os.path.join(p, 'groestlcoind')
             if os.path.exists(testPath):
                self.foundExe.append(testPath)
 
@@ -467,10 +467,10 @@ class SatoshiDaemonManager(object):
                foundIt=True
 
          if not foundIt:
-            LOGERROR('Bitcoind could not be found in the specified installation:')
+            LOGERROR('GroestlCoind could not be found in the specified installation:')
             for p in extraSearchPaths:
                LOGERROR('   %s', p)
-            LOGERROR('Bitcoind is being started from:')
+            LOGERROR('GroestlCoind is being started from:')
             LOGERROR('   %s', self.foundExe[0])
 
       return self.foundExe
@@ -494,13 +494,13 @@ class SatoshiDaemonManager(object):
 
    #############################################################################
    def readBitcoinConf(self, makeIfDNE=False):
-      LOGINFO('Reading bitcoin.conf file')
-      bitconf = os.path.join(self.satoshiRoot, 'bitcoin.conf')
+      LOGINFO('Reading groestlcoin.conf file')
+      bitconf = os.path.join(self.satoshiRoot, 'groestlcoin.conf')
       if not os.path.exists(bitconf):
          if not makeIfDNE:
-            raise self.BitcoinDotConfError, 'Could not find bitcoin.conf'
+            raise self.BitcoinDotConfError, 'Could not find groestlcoin.conf'
          else:
-            LOGINFO('No bitcoin.conf available.  Creating it...')
+            LOGINFO('No groestlcoin.conf available.  Creating it...')
             touchFile(bitconf)
 
       # Guarantee that bitcoin.conf file has very strict permissions
@@ -513,7 +513,7 @@ class SatoshiDaemonManager(object):
             LOGERROR('on XP systems):')
             LOGERROR('    %s', bitconf)
          else:
-            LOGINFO('Setting permissions on bitcoin.conf')
+            LOGINFO('Setting permissions on groestlcoin.conf')
             import ctypes
             username_u16 = ctypes.create_unicode_buffer(u'\0', 512)
             str_length = ctypes.c_int(512)
@@ -601,7 +601,7 @@ class SatoshiDaemonManager(object):
          raise self.BitcoindError, 'Looks like we have already started theSDM'
 
       if not os.path.exists(self.executable):
-         raise self.BitcoindError, 'Could not find bitcoind'
+         raise self.BitcoindError, 'Could not find groestlcoind'
 
       
       chk1 = os.path.exists(self.useTorrentFile)
@@ -622,7 +622,7 @@ class SatoshiDaemonManager(object):
    #############################################################################
    @AllowAsync
    def pollBitcoindState(self, callback):
-      while self.getSDMStateLogic() != 'BitcoindReady':
+      while self.getSDMStateLogic() != 'GroestlCoindReady':
          time.sleep(1.0)
       callback()
       
@@ -764,10 +764,10 @@ class SatoshiDaemonManager(object):
       # of "not available").   "NotAvail" keeps getting added to the
       # buffer, but if it was "initializing" in the last 5 seconds,
       # we will keep "initializing"
-      if state=='BitcoindNotAvailable':
-         if 'BitcoindInitializing' in self.circBufferState:
+      if state=='GroestlCoindNotAvailable':
+         if 'GroestlCoindInitializing' in self.circBufferState:
             LOGWARN('Overriding not-available state. This should happen 0-5 times')
-            return 'BitcoindInitializing'
+            return 'GroestlCoindInitializing'
 
       return state
 
@@ -775,13 +775,13 @@ class SatoshiDaemonManager(object):
    def getSDMStateLogic(self):
 
       if self.disabled:
-         return 'BitcoindMgmtDisabled'
+         return 'GroestlCoindMgmtDisabled'
 
       if self.failedFindExe:
-         return 'BitcoindExeMissing'
+         return 'GroestlCoindExeMissing'
 
       if self.failedFindHome:
-         return 'BitcoindHomeMissing'
+         return 'GroestlCoindHomeMissing'
 
       if TheTDM.isRunning():
          return 'TorrentSynchronizing'
@@ -789,7 +789,7 @@ class SatoshiDaemonManager(object):
       latestInfo = self.getTopBlockInfo()
 
       if self.bitcoind==None and latestInfo['error']=='Uninitialized':
-         return 'BitcoindNeverStarted'
+         return 'GroestlCoindNeverStarted'
 
       if not self.isRunningBitcoind():
          # Not running at all:  either never started, or process terminated
@@ -799,42 +799,42 @@ class SatoshiDaemonManager(object):
             runPcs = set(['cannot','obtain','lock','already','running'])
             dbePcs = set(['database', 'recover','backup','except','wallet','dat'])
             if len(errPcs.intersection(runPcs))>=(len(runPcs)-1):
-               return 'BitcoindAlreadyRunning'
+               return 'GroestlCoindAlreadyRunning'
             elif len(errPcs.intersection(dbePcs))>=(len(dbePcs)-1):
-               return 'BitcoindDatabaseEnvError'
+               return 'GroestlCoindDatabaseEnvError'
             else:
-               return 'BitcoindUnknownCrash'
+               return 'GroestlCoindUnknownCrash'
          else:
-            return 'BitcoindNotAvailable'
+            return 'GroestlCoindNotAvailable'
       elif not self.bitcoindIsResponsive():
          # Running but not responsive... must still be initializing
-         return 'BitcoindInitializing'
+         return 'GroestlCoindInitializing'
       else:
          # If it's responsive, get the top block and check
          # TODO: These conditionals are based on experimental results.  May
          #       not be accurate what the specific errors mean...
          if latestInfo['error']=='ValueError':
-            return 'BitcoindWrongPassword'
+            return 'GroestlCoindWrongPassword'
          elif latestInfo['error']=='JsonRpcException':
-            return 'BitcoindInitializing'
+            return 'GroestlCoindInitializing'
          elif latestInfo['error']=='SocketError':
-            return 'BitcoindNotAvailable'
+            return 'GroestlCoindNotAvailable'
 
-         if 'BitcoindReady' in self.circBufferState:
+         if 'GroestlCoindReady' in self.circBufferState:
             # If ready, always ready
-            return 'BitcoindReady'
+            return 'GroestlCoindReady'
 
          # If we get here, bitcoind is gave us a response.
          secSinceLastBlk = RightNow() - latestInfo['toptime']
          blkspersec = latestInfo['blkspersec']
          #print 'Blocks per 10 sec:', ('UNKNOWN' if blkspersec==-1 else blkspersec*10)
          if secSinceLastBlk > 4*HOUR or blkspersec==-1:
-            return 'BitcoindSynchronizing'
+            return 'GroestlCoindSynchronizing'
          else:
-            if blkspersec*20 > 2 and not 'BitcoindReady' in self.circBufferState:
-               return 'BitcoindSynchronizing'
+            if blkspersec*20 > 2 and not 'GroestlCoindReady' in self.circBufferState:
+               return 'GroestlCoindSynchronizing'
             else:
-               return 'BitcoindReady'
+               return 'GroestlCoindReady'
 
 
 
@@ -937,7 +937,7 @@ class SatoshiDaemonManager(object):
    #############################################################################
    def callJSON(self, func, *args):
       state = self.getSDMState()
-      if not state in ('BitcoindReady', 'BitcoindSynchronizing'):
+      if not state in ('GroestlCoindReady', 'GroestlCoindSynchronizing'):
          LOGWARN('Called callJSON(%s, %s)', func, str(args))
          LOGWARN('Current SDM state: %s', state)
          raise self.BitcoindError, 'callJSON while %s'%state
