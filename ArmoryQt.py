@@ -5362,7 +5362,7 @@ class ArmoryMainWindow(QMainWindow):
          '<p><b>You now have access to all the features Armory has to offer!</b><br>'
          'To see your balances and transaction history, please click '
          'on the "Transactions" tab above this text.  <br>'
-         'Here\'s some things you can do with Armory Bitcoin Client:'
+         'Here\'s some things you can do with Armory GroestlCoin Client:'
          '<br>')
       elif state == 'OnlineFull2':
          return ( \

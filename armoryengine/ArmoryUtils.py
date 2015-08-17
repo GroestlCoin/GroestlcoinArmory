@@ -332,16 +332,15 @@ OS_LINUX   = 'nix'    in opsys.lower() or 'nux'     in opsys.lower()
 OS_MACOSX  = 'darwin' in opsys.lower() or 'osx'     in opsys.lower()
 
 BLOCKCHAINS = {}
-BLOCKCHAINS['\xf9\xbe\xb4\xd9'] = "Main Network"
-BLOCKCHAINS['\xfa\xbf\xb5\xda'] = "Old Test Network"
+BLOCKCHAINS['\xf9\xbe\xb4\xd4'] = "Main Network"                # GRS
 BLOCKCHAINS['\x0b\x11\x09\x07'] = "Test Network (testnet3)"
 
 NETWORKS = {}
-NETWORKS['\x00'] = "Main Network"
+NETWORKS['\x24'] = "Main Network"      # GRS
 NETWORKS['\x05'] = "Main Network"
 NETWORKS['\x6f'] = "Test Network"
 NETWORKS['\xc4'] = "Test Network"
-NETWORKS['\x34'] = "Namecoin Network"
+# NETWORKS['\x34'] = "Namecoin Network"
 
 # We disable wallet checks on ARM for the sake of resources (unless forced)
 DO_WALLET_CHECK = CLI_OPTIONS.forceWalletCheck or \
@@ -427,7 +426,7 @@ if not CLI_OPTIONS.armoryDBDir==DEFAULT:
 # Change the log file to use
 ARMORY_LOG_FILE = os.path.join(ARMORY_HOME_DIR, 'armorylog.txt')
 ARMCPP_LOG_FILE = os.path.join(ARMORY_HOME_DIR, 'armorycpplog.txt')
-if not sys.argv[0] in ['ArmoryQt.py', 'ArmoryQt.exe', 'Armory.exe']:
+if not sys.argv[0] in ['ArmoryQt.py', 'GroestlCoin-ArmoryQt.exe', 'GroestlCoin-Armory.exe']:
    basename = os.path.basename(sys.argv[0])
    CLI_OPTIONS.logFile = os.path.join(ARMORY_HOME_DIR, '%s.log.txt' % basename)
 
@@ -438,7 +437,7 @@ if CLI_OPTIONS.settingsPath==DEFAULT:
 
 # Change the log file to use
 if CLI_OPTIONS.logFile==DEFAULT:
-   if sys.argv[0] in ['ArmoryQt.py', 'ArmoryQt.exe', 'Armory.exe']:
+   if sys.argv[0] in ['ArmoryQt.py', 'GroestlCoin-ArmoryQt.exe', 'GroestlCoin-Armory.exe']:
       CLI_OPTIONS.logFile = os.path.join(ARMORY_HOME_DIR, 'armorylog.txt')
    else:
       basename = os.path.basename(sys.argv[0])
@@ -476,7 +475,7 @@ if not USE_TESTNET:
    BITCOIN_PORT = 1331
    BITCOIN_RPC_PORT = 1441
    ARMORY_RPC_PORT = 8226
-   MAGIC_BYTES = '\xf9\xbe\xb4\xd9'
+   MAGIC_BYTES = '\xf9\xbe\xb4\xd4'
    GENESIS_BLOCK_HASH_HEX  = '2390633b70f062cb3a3d6814b67e29a80d9d7581db0bcc494d597c92c50a0000'		#GRS
    GENESIS_BLOCK_HASH      = '\x23\x90\x63\x3b\x70\xf0\x62\xcb\x3a\x3d\x68\x14\xb6\x7e\x29\xa8\x0d\x9d\x75\x81\xdb\x0b\xcc\x49\x4d\x59\x7c\x92\xc5\x0a\x00\x00'
    GENESIS_TX_HASH_HEX     = 'bb2866aaca46c4428ad08b57bc9d1493abaf64724b6c3052a7c8f958df68e93c'		#GRS

@@ -52,13 +52,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='WinXP Release|Win32'">
@@ -104,6 +104,7 @@
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
     <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win_XP_32|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -116,6 +117,7 @@
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
     <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win_XP_32|x64'">
     <TargetName>$(ProjectName)_d</TargetName>
@@ -126,11 +128,13 @@
     <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_CppBlockUtils</TargetName>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
     <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_CppBlockUtils</TargetName>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='WinXP_release_x86|Win32'">
     <OutDir>$(SolutionDir)libs\$(Platform)\Win_XP</OutDir>
@@ -147,6 +151,8 @@
       <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BufferSecurityCheck>false</BufferSecurityCheck>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <ControlFlowGuard>false</ControlFlowGuard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -192,6 +198,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ControlFlowGuard>false</ControlFlowGuard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -367,15 +374,42 @@
     <Link />
     <ClCompile>
       <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
     </ClCompile>
+    <Link>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
     <Link />
     <ClCompile>
       <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
     </ClCompile>
+    <Link>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);pthreads-w32-2-9-1-release\Pre-built.2\lib\x64;C:\Python27_64\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="armory-config.h" />
     <ClInclude Include="BDM_supportClasses.h" />
     <ClInclude Include="BinaryData.h" />
     <ClInclude Include="Blockchain.h" />
@@ -412,6 +446,7 @@
     <ClCompile Include="BtcUtils.cpp" />
     <ClCompile Include="BtcWallet.cpp" />
     <ClCompile Include="CppBlockUtils_wrap.cxx" />
+    <ClCompile Include="DetSign.cpp" />
     <ClCompile Include="EncryptionUtils.cpp" />
     <ClCompile Include="FileMap.cpp" />
     <ClCompile Include="HistoryPager.cpp" />
@@ -423,8 +458,11 @@
     <ClCompile Include="leveldb_windows_port\win32_posix\Win_TranslatePath.cpp" />
     <ClCompile Include="lmdbpp.cpp" />
     <ClCompile Include="lmdb_wrapper.cpp" />
+    <ClCompile Include="mdb\mdb.c" />
+    <ClCompile Include="mdb\midl.c" />
     <ClCompile Include="Progress.cpp" />
     <ClCompile Include="ScrAddrObj.cpp" />
+    <ClCompile Include="sphlib\groestl.cpp" />
     <ClCompile Include="SSHheaders.cpp" />
     <ClCompile Include="StoredBlockObj.cpp" />
     <ClCompile Include="txio.cpp" />

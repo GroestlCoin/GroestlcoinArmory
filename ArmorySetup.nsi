@@ -22,7 +22,7 @@ Name "GroestlCoin Armory"
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER Armory
-!define MUI_FINISHPAGE_RUN $INSTDIR\ArmoryQt.exe
+!define MUI_FINISHPAGE_RUN $INSTDIR\GroestlCoin-ArmoryQt.exe
 !define MUI_UNICON img\armory48x48.ico
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
@@ -112,11 +112,11 @@ Section -Main SEC0000
         RmDir /r $INSTDIR
         SetOverwrite on
         File /r ArmoryStandalone\*
-        File ArmoryStandalone\ArmoryQt.exe
-        !insertmacro CreateRegKey ${HKEY_CURRENT_USER} "Software\Armory"
+        File ArmoryStandalone\GroestlCoin-ArmoryQt.exe
+        !insertmacro CreateRegKey ${HKEY_CURRENT_USER} "Software\GroestlCoinArmory"
         SetOutPath $DESKTOP
         IfFileExists "$DESKTOP\GroestlCoin Armory.lnk" +2 0
-            CreateShortcut "$DESKTOP\GroestlCoin Armory.lnk" $INSTDIR\ArmoryQt.exe
+            CreateShortcut "$DESKTOP\GroestlCoin Armory.lnk" $INSTDIR\GroestlCoin-ArmoryQt.exe
         !insertmacro CREATE_SMGROUP_SHORTCUT "GroestlCoin Armory" "$INSTDIR\GroestlCoin-ArmoryQt.exe" ""
         !insertmacro CREATE_SMGROUP_SHORTCUT "GroestlCoin Armory (Offline)" "$INSTDIR\GroestlCoin-ArmoryQt.exe" "--offline"
         !insertmacro CREATE_SMGROUP_SHORTCUT "GroestlCoin Armory (testnet)" "$INSTDIR\GroestlCoin-ArmoryQt.exe" "--testnet"
@@ -175,7 +175,7 @@ Section /o -un.Main UNSEC0000
     !insertmacro DELETE_SMGROUP_SHORTCUT "GroestlCoin Armory"
     Delete /REBOOTOK "$DESKTOP\GroestlCoin Armory.lnk"
     DeleteRegKey /IfEmpty HKEY_CURRENT_USER "Software\Armory"
-    Delete /REBOOTOK $INSTDIR\ArmoryQt.exe
+    Delete /REBOOTOK $INSTDIR\GroestlCoin-ArmoryQt.exe
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd

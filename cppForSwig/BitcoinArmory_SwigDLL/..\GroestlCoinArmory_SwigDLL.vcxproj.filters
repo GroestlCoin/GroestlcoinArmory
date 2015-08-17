@@ -85,6 +85,18 @@
     <ClCompile Include="lmdbpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mdb\mdb.c">
+      <Filter>Source Files\mdb</Filter>
+    </ClCompile>
+    <ClCompile Include="mdb\midl.c">
+      <Filter>Source Files\mdb</Filter>
+    </ClCompile>
+    <ClCompile Include="sphlib\groestl.cpp">
+      <Filter>Source Files\sphlib</Filter>
+    </ClCompile>
+    <ClCompile Include="DetSign.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryData.h">
@@ -156,6 +168,9 @@
     <ClInclude Include="SSHheaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="armory-config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -167,10 +182,14 @@
     <Filter Include="SWIG">
       <UniqueIdentifier>{6766dc3b-29bc-4c3f-afce-1c6978cfad38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\mdb">
+      <UniqueIdentifier>{89d07703-5597-42d9-9a9f-7e460bf46191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sphlib">
+      <UniqueIdentifier>{c85aa032-bea2-401a-b34f-fb323172ba31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CppBlockUtils.i">
-      <Filter>SWIG</Filter>
-    </None>
+    <CustomBuild Include="CppBlockUtils.i" />
   </ItemGroup>
 </Project>

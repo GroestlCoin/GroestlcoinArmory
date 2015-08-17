@@ -9,7 +9,7 @@ int pthread_mutex_init(pthread_mutex_t *mu, const int mutex_attr)
 
 pthread_t pthread_self()
 {
-	return (void*)GetCurrentThreadId();
+	return (void*)(DWORD_PTR)GetCurrentThreadId();
 }
 
 int pthread_mutex_lock(pthread_mutex_t *mu)
