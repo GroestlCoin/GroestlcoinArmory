@@ -8724,9 +8724,9 @@ class DlgSettings(ArmoryDialog):
 
 
       ##########################################################################
-      # bitcoind-management settings
+      # groestlcoind-management settings
       self.chkManageSatoshi = QCheckBox(tr("""
-         Let Armory run Bitcoin-Qt/bitcoind in the background"""))
+         Let Armory run Groestlcoin-Qt/groestlcoind in the background"""))
       self.edtSatoshiExePath = QLineEdit()
       self.edtSatoshiHomePath = QLineEdit()
       self.edtSatoshiExePath.setMinimumWidth(tightSizeNChar(GETFONT('Fixed', 10), 40)[0])
@@ -8786,7 +8786,7 @@ class DlgSettings(ArmoryDialog):
       frmMgmt.setLayout(layoutMgmt)
 
       self.clickChkManage()
-      # bitcoind-management settings
+      # groestlcoind-management settings
       ##########################################################################
 
       # We check for internet connection on each startup.
@@ -8843,10 +8843,10 @@ class DlgSettings(ArmoryDialog):
       lblDefaultUriTitle = QRichLabel(tr("""
          <b>Set Armory as default URL handler</b>"""))
       lblDefaultURI = QRichLabel(tr("""
-         Set Armory to be the default when you click on "bitcoin:"
+         Set Armory to be the default when you click on "groestlcoin:"
          links in your browser or in emails.
          You can test if your operating system is supported by clicking
-         on a "bitcoin:" link right after clicking this button."""))
+         on a "groestlcoin:" link right after clicking this button."""))
       btnDefaultURI = QPushButton(tr('Set Armory as Default'))
       frmBtnDefaultURI = makeHorizFrame([btnDefaultURI, 'Stretch'])
 
@@ -8858,7 +8858,7 @@ class DlgSettings(ArmoryDialog):
       def clickRegURI():
          self.main.setupUriRegistration(justDoIt=True)
          QMessageBox.information(self, tr('Registered'), tr("""
-            Armory just attempted to register itself to handle "bitcoin:"
+            Armory just attempted to register itself to handle "groestlcoin:"
             links, but this does not work on all operating systems.  You can
             test it by going to the
             <a href="http://www.bitcoinarmory.com">Bitcoin Armory
@@ -9308,7 +9308,7 @@ class DlgSettings(ArmoryDialog):
          else:
             self.main.settings.delete('SatoshiExe')
 
-         # Check valid path is supplied for bitcoind home directory
+         # Check valid path is supplied for groestlcoind home directory
          pathHome = unicode(self.edtSatoshiHomePath.text()).strip()
          if len(pathHome) > 0:
             if not os.path.exists(pathHome):
@@ -10435,7 +10435,7 @@ class DlgUriCopyAndPaste(ArmoryDialog):
 
       self.uriDict = {}
       lblDescr = QRichLabel('Copy and paste a raw groestlcoin URL string here.  '
-                            'A valid string starts with "bitcoin:" followed '
+                            'A valid string starts with "groestlcoin:" followed '
                             'by a bitcoin address.'
                             '<br><br>'
                             'You should use this feature if there is a "groestlcoin:" '
@@ -10770,7 +10770,7 @@ class DlgInstallLinux(ArmoryDialog):
          '<br>'
          'sudo apt-get update'
          '<br>'
-         'sudo apt-get install bitcoin-qt bitcoind')
+         'sudo apt-get install bitcoin-qt groestlcoind')
       lblInstallPPACmds.setFont(GETFONT('Courier', 10))
       lblInstallPPACmds.setTextInteractionFlags(Qt.TextSelectableByMouse | \
                                                 Qt.TextSelectableByKeyboard)
@@ -10963,11 +10963,11 @@ def tryInstallLinux(main):
    def doit():
       #print '\n'
       #print '***** Executing auto-install in linux...'
-      out, err = execAndWait('gksudo "apt-get remove -y bitcoin-qt bitcoind"', \
+      out, err = execAndWait('gksudo "apt-get remove -y bitcoin-qt groestlcoind"', \
                              timeout=20)
       out, err = execAndWait(('gksudo apt-add-repository ppa:bitcoin/bitcoin; '
                              'gksudo apt-get update; '
-                             'gksudo "apt-get install -y bitcoin-qt bitcoind"'), \
+                             'gksudo "apt-get install -y bitcoin-qt groestlcoind"'), \
                              timeout=120)
       try:
          TheSDM.setupSDM()
@@ -14681,7 +14681,7 @@ class DlgFactoryReset(ArmoryDialog):
          It is <i>strongly</i> recommended that you make backups of your
          wallets before continuing, though <b>wallet files will never be
          intentionally deleted!</b>  All Armory
-         wallet files, and the wallet.dat file used by Bitcoin-Qt/bitcoind
+         wallet files, and the wallet.dat file used by Groestlcoin-Qt/groestlcoind
          should remain untouched in their current locations.  All Armory
          wallets will automatically be detected and loaded after the reset.
          <br><br>
@@ -14710,7 +14710,7 @@ class DlgFactoryReset(ArmoryDialog):
          <b>Also re-download the blockchain (most extreme)</b>"""))
       self.lblBitcoinDB = QRichLabel(tr("""
          This will delete settings, network data, Armory's databases,
-         <b>and</b> the Bitcoin software databases.  Bitcoin-Qt/bitcoind will
+         <b>and</b> the Bitcoin software databases.  Groestlcoin-Qt/groestlcoind will
          have to download the blockchain again.  Only use this if you
          suspect blockchain corruption, such as receiving StdOut/StdErr errors
          on the dashboard (8-72 hours depending on your connection)"""))
@@ -14835,11 +14835,11 @@ class DlgFactoryReset(ArmoryDialog):
          if not self.main.settings.get('ManageSatoshi'):
             # Must have user shutdown Bitcoin sw now, and delete DBs now
             reply = MsgBoxCustom(MSGBOX.Warning, tr('Restart Armory'), tr("""
-               <b>Bitcoin-Qt (or bitcoind) must be closed to do the reset!</b>
+               <b>Groestlcoin-Qt (or groestlcoind) must be closed to do the reset!</b>
                Please close all Bitcoin software, <u><b>right now</b></u>,
                before clicking "Continue".
                <br><br>
-               Armory will now close.  Please restart Bitcoin-Qt/bitcoind
+               Armory will now close.  Please restart Groestlcoin-Qt/groestlcoind
                first and wait for it to finish synchronizing before restarting
                Armory."""), wCancel=True, yesStr="Continue")
 

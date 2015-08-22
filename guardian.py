@@ -50,7 +50,7 @@ def kill(pid):
       if not check_pid(pid):
          return
 
-      print 'Regular TERMINATE of bitcoind failed; issuing SIGKILL (hard)'
+      print 'Regular TERMINATE of groestlcoind failed; issuing SIGKILL (hard)'
       time.sleep(1)
       os.kill(pid, signal.SIGKILL)
 
@@ -96,13 +96,13 @@ while True:
       break
 
    if not check_pid(pid_bitcoind, proc_name_bitcoind):
-      #print 'bitcoind disappeared -- guardian exiting'
+      #print 'groestlcoind disappeared -- guardian exiting'
       exit(0)
 
 
 if check_pid(pid_bitcoind, proc_name_bitcoind):
 
-   # Depending on how popen was called, bitcoind may be a child of
+   # Depending on how popen was called, groestlcoind may be a child of
    # pid_bitcoind.  But psutil makes it easy to find those child procs
    # and kill them.
    killProcessTree(pid_bitcoind)

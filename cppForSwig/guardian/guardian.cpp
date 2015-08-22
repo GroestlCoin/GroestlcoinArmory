@@ -17,6 +17,8 @@
 #include <iomanip>
 #include <stdio.h>
 
+#pragma warning(disable: 4474)	//!!!GRS
+
 //  Forward declarations:
 BOOL GetProcessList( );
 BOOL ListProcessModules( DWORD dwPID );

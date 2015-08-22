@@ -6,14 +6,18 @@
     <ProjectGuid>{d49c66cb-3dda-48d1-bf56-24b4a550d500}</ProjectGuid>
     <ProjectHome />
     <StartupFile>ArmoryQt.py</StartupFile>
-    <SearchPath />
-    <WorkingDirectory>C:\OUT\WD</WorkingDirectory>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>
+    </WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
     <IsWindowsApplication>True</IsWindowsApplication>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <CommandLineArguments>--debug</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'D_St' " />
   <PropertyGroup Condition=" '$(Configuration)' == 'R_St' " />
@@ -22,9 +26,7 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ALL.py" />
     <Compile Include="announcefetch.py" />
-    <Compile Include="ArmoryBuild.py" />
     <Compile Include="armorycolors.py" />
     <Compile Include="armoryd.py" />
     <Compile Include="armoryengine\ALL.py" />
@@ -50,39 +52,21 @@
     <Compile Include="armoryengine\__init__.py" />
     <Compile Include="armorymodels.py" />
     <Compile Include="ArmoryQt.py" />
-    <Compile Include="ArmoryUtils.py" />
-    <Compile Include="AsciiSerialize.py" />
-    <Compile Include="BDM.py" />
-    <Compile Include="BinaryPacker.py" />
-    <Compile Include="BinaryUnpacker.py" />
-    <Compile Include="Block.py" />
-    <Compile Include="CoinSelection.py" />
     <Compile Include="CppBlockUtils.py" />
-    <Compile Include="Decorators.py" />
     <Compile Include="dynamicImport.py" />
     <Compile Include="guardian.py" />
     <Compile Include="jasvet.py" />
     <Compile Include="LICENSE.py" />
-    <Compile Include="MultiSigUtils.py" />
-    <Compile Include="Networking.py" />
-    <Compile Include="parseAnnounce.py" />
-    <Compile Include="PyBtcAddress.py" />
-    <Compile Include="PyBtcWallet.py" />
-    <Compile Include="PyBtcWalletRecovery.py" />
     <Compile Include="qrcodenative.py" />
     <Compile Include="qrc_img_resources.py" />
     <Compile Include="qt4reactor.py" />
     <Compile Include="qtdefines.py" />
     <Compile Include="qtdialogs.py" />
-    <Compile Include="Script.py" />
     <Compile Include="SDM.py" />
     <Compile Include="setup.py" />
     <Compile Include="subprocess_win.py" />
-    <Compile Include="Timer.py" />
     <Compile Include="torrentDL.py" />
-    <Compile Include="Transaction.py" />
     <Compile Include="update_version.py" />
-    <Compile Include="UserAddressUtils.py" />
     <Compile Include="writeNSISCompilerArgs.py" />
   </ItemGroup>
   <ItemGroup>
@@ -90,13 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="armoryengine\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="armoryengine\BDM.pyc" />
-    <Content Include="armoryengine\Block.pyc" />
-    <Content Include="armoryengine\MultiSigUtils.pyc" />
-    <Content Include="armoryengine\Networking.pyc" />
-    <Content Include="armoryengine\Timer.pyc" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />

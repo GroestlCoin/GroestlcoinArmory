@@ -22,7 +22,7 @@
 #
 # Where possible this follows conventions established by the Satoshi client.
 # Does not require armory to be installed or running, this is a standalone
-# application. Requires bitcoind process to be running before starting armoryd.
+# application. Requires groestlcoind process to be running before starting armoryd.
 # Requires an armory wallet (can be watching only) to be in the same folder as
 # the armoryd script. Works with testnet, use --testnet flag when starting the
 # script.
@@ -251,7 +251,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       # we'll set everything up here.
       self.addrByte = addrByte
 
-      # connection to bitcoind
+      # connection to groestlcoind
       self.NetworkingFactory = None
 
 
@@ -439,7 +439,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       None
       RETURN:
       A dictionary listing information about each UTXO in the currently loaded
-      wallet. The dictionary is similar to the one returned by the bitcoind
+      wallet. The dictionary is similar to the one returned by the groestlcoind
       call of the same name.
       """
 
@@ -591,7 +591,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       Import a private key into the current wallet.
       PARAMETERS:
       privKey - A private key in any format supported by Armory, including
-                Base58 private keys supported by bitcoind (uncompressed public
+                Base58 private keys supported by groestlcoind (uncompressed public
                 key support only).
       RETURN:
       A string of the private key's accompanying hexadecimal public key.
@@ -663,7 +663,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
 
    #############################################################################
    # NOTE: For now, the "includemempool" option isn't included. It seems to be a
-   # dead option on bitcoind. If this ever changes, it can be implemented.
+   # dead option on groestlcoind. If this ever changes, it can be implemented.
    @catchErrsForJSON
    def jsonrpc_gettxout(self, txHash, n, binary=0):
       """
@@ -1613,7 +1613,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
 
 
    #############################################################################
-   # A semi-analogue to bitcoind's getinfo().
+   # A semi-analogue to groestlcoind's getinfo().
    @catchErrsForJSON
    def jsonrpc_getarmorydinfo(self):
       """
@@ -1709,7 +1709,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
          out['mainbranch'] = head.isMainBranch()
          out['rawheader'] = binary_to_hex(head.serialize())
 
-      # bitcoind sends a raw block when not verbose. The C++ BlockHeader class
+      # groestlcoind sends a raw block when not verbose. The C++ BlockHeader class
       # still needs to implement TxRef::getTxRefPtrList(). Until then, we can't
       # return a raw block.
       elif verbose.lower() == 'false':
@@ -2929,9 +2929,9 @@ class Armory_Daemon(object):
             LOGWARN('* Please note that armoryd v%s is beta software and is still in ' % \
                   getVersionString(BTCARMORY_VERSION))
             LOGWARN('* development. Whenever applicable, the interface is designed to match ')
-            LOGWARN('* that of bitcoind, with function parameters and return values closely ')
-            LOGWARN('* matching those of bitcoind. Despite this, the function parameters and ')
-            LOGWARN('* return values may change, both for ported bitcoind function and ')
+            LOGWARN('* that of groestlcoind, with function parameters and return values closely ')
+            LOGWARN('* matching those of groestlcoind. Despite this, the function parameters and ')
+            LOGWARN('* return values may change, both for ported groestlcoind function and ')
             LOGWARN('* Armory-specific functions.')
             LOGWARN('************************************************************************')
             LOGWARN('')
@@ -3070,8 +3070,8 @@ class Armory_Daemon(object):
          LOGINFO('Wallet balance: %s' % \
                  coin2str(self.curWlt.getBalance('Spendable')))
 
-         # This is CONNECT call for armoryd to talk to bitcoind
-         LOGINFO('Set up connection to bitcoind')
+         # This is CONNECT call for armoryd to talk to groestlcoind
+         LOGINFO('Set up connection to groestlcoind')
          self.NetworkingFactory = ArmoryClientFactory( \
                         TheBDM,
                         func_loseConnect = self.showOfflineMsg, \

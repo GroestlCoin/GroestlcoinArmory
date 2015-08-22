@@ -188,7 +188,7 @@ class ArmoryMainWindow(QMainWindow):
       self.tempModulesDirName = None
       self.internetStatus = None
 
-      # We only need a single connection to bitcoind since it's a
+      # We only need a single connection to groestlcoind since it's a
       # reconnecting connection, so we keep it around.
       self.SingletonConnectedNetworkingFactory = None
 
@@ -271,7 +271,7 @@ class ArmoryMainWindow(QMainWindow):
       else:
          self.loadBlockchainIfNecessary()
 
-      # Setup system tray and register "bitcoin:" URLs with the OS
+      # Setup system tray and register "groestlcoin:" URLs with the OS
       self.setupSystemTray()
       self.setupUriRegistration()
 
@@ -1163,8 +1163,8 @@ class ArmoryMainWindow(QMainWindow):
          be cleared allowing you to retry any stuck transactions.""")
       if not self.doAutoBitcoind:
          msg += tr("""
-         <br><br>Make sure you also restart Bitcoin-Qt
-         (or bitcoind) and let it synchronize again before you restart
+         <br><br>Make sure you also restart Groestlcoin-Qt
+         (or groestlcoind) and let it synchronize again before you restart
          Armory.  Doing so will clear its memory pool, as well""")
       QMessageBox.information(self, tr('Memory Pool'), msg, QMessageBox.Ok)
 
@@ -1528,7 +1528,7 @@ class ArmoryMainWindow(QMainWindow):
    #############################################################################
    def setupUriRegistration(self, justDoIt=False):
       """
-      Setup Armory as the default application for handling bitcoin: links
+      Setup Armory as the default application for handling groestlcoin: links
       """
       LOGINFO('setupUriRegistration')
 
@@ -1562,7 +1562,7 @@ class ArmoryMainWindow(QMainWindow):
             if not self.getSettingOrSetDefault('DNAA_DefaultApp', False):
                reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Default URL Handler', \
                   'Armory is not set as your default application for handling '
-                  '"bitcoin:" links.  Would you like to use Armory as the '
+                  '"groestlcoin:" links.  Would you like to use Armory as the '
                   'default?', 'Do not ask this question again')
                if reply[0]==True:
                   setAsDefault()
@@ -1633,7 +1633,7 @@ class ArmoryMainWindow(QMainWindow):
             # needed.  They have enough to worry about with this weird new program...
             reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Default URL Handler', \
                'Armory is not set as your default application for handling '
-               '"bitcoin:" links.  Would you like to use Armory as the '
+               '"groestlcoin:" links.  Would you like to use Armory as the '
                'default?', 'Do not ask this question again')
 
             if reply[1]==True:
@@ -2093,7 +2093,7 @@ class ArmoryMainWindow(QMainWindow):
                if not self.NetworkingFactory:
                   return
 
-               # This is to detect the running versions of Bitcoin-Qt/bitcoind
+               # This is to detect the running versions of Groestlcoin-Qt/groestlcoind
                if self.NetworkingFactory.getProto():
                   thisVerStr = self.NetworkingFactory.getProto().peerInfo['subver']
                   thisVerStr = thisVerStr.strip('/').split(':')[-1]
@@ -2349,7 +2349,7 @@ class ArmoryMainWindow(QMainWindow):
       if not satoshiIsAvailable():
          reply = MsgBoxCustom(MSGBOX.Question, tr('BitTorrent Option'), tr("""
             You are currently configured to run the core Bitcoin software
-            yourself (Bitcoin-Qt or bitcoind).  <u>Normally</u>, you should
+            yourself (Groestlcoin-Qt or groestlcoind).  <u>Normally</u>, you should
             start the Bitcoin software first and wait for it to synchronize
             with the network before starting Armory.
             <br><br>
@@ -2364,16 +2364,16 @@ class ArmoryMainWindow(QMainWindow):
             software until after it is complete.
             <br><br>
             <u>To synchronize using Bitcoin P2P (fallback):</u>
-            Click "Cancel" below, then close Armory and start Bitcoin-Qt
-            (or bitcoind).  Do not start Armory until you see a green checkmark
-            in the bottom-right corner of the Bitcoin-Qt window."""), \
+            Click "Cancel" below, then close Armory and start Groestlcoin-Qt
+            (or groestlcoind).  Do not start Armory until you see a green checkmark
+            in the bottom-right corner of the Groestlcoin-Qt window."""), \
             wCancel=True, yesStr='Use BitTorrent')
 
          if not reply:
             QMessageBox.warning(self, tr('Synchronize'), tr("""
                When you are ready to start synchronization, close Armory and
-               start Bitcoin-Qt or bitcoind.  Restart Armory only when
-               synchronization is complete.  If using Bitcoin-Qt, you will see
+               start Groestlcoin-Qt or groestlcoind.  Restart Armory only when
+               synchronization is complete.  If using Groestlcoin-Qt, you will see
                a green checkmark in the bottom-right corner"""), QMessageBox.Ok)
             return False
 
@@ -2381,7 +2381,7 @@ class ArmoryMainWindow(QMainWindow):
          reply = MsgBoxCustom(MSGBOX.Question, tr('BitTorrent Option'), tr("""
             You are currently running the core Bitcoin software, but it
             is not fully synchronized with the network, yet.  <u>Normally</u>,
-            you should close Armory until Bitcoin-Qt (or bitcoind) is
+            you should close Armory until Groestlcoin-Qt (or groestlcoind) is
             finished
             <br><br>
             <b><u>However</u></b>, Armory can speed up this initial
@@ -2397,7 +2397,7 @@ class ArmoryMainWindow(QMainWindow):
             <br><br>
             <u>To synchronize using Bitcoin P2P (fallback):</u>
             Click "Cancel" below, and then close Armory until the Bitcoin
-            software is finished synchronizing.  If using Bitcoin-Qt, you
+            software is finished synchronizing.  If using Groestlcoin-Qt, you
             will see a green checkmark in the bottom-right corner of the
             main window."""), QMessageBox.Ok)
 
@@ -2412,7 +2412,7 @@ class ArmoryMainWindow(QMainWindow):
             QMessageBox.warning(self, tr('Synchronize'), tr("""
                You chose to finish synchronizing with the network using
                the Bitcoin software which is already running.  Please close
-               Armory until it is finished.  If you are running Bitcoin-Qt,
+               Armory until it is finished.  If you are running Groestlcoin-Qt,
                you will see a green checkmark in the bottom-right corner,
                when it is time to open Armory again."""), QMessageBox.Ok)
             return False
@@ -2458,21 +2458,21 @@ class ArmoryMainWindow(QMainWindow):
    def startBitcoindIfNecessary(self):
       LOGINFO('startBitcoindIfNecessary')
       if self.internetStatus == INTERNET_STATUS.Unavailable or CLI_OPTIONS.offline:
-         LOGWARN('Not online, will not start bitcoind')
+         LOGWARN('Not online, will not start groestlcoind')
          return False
 
       if not self.doAutoBitcoind:
-         LOGWARN('Tried to start bitcoind, but ManageSatoshi==False')
+         LOGWARN('Tried to start groestlcoind, but ManageSatoshi==False')
          return False
 
       if satoshiIsAvailable():
-         LOGWARN('Tried to start bitcoind, but satoshi already running')
+         LOGWARN('Tried to start groestlcoind, but satoshi already running')
          return False
 
       self.setSatoshiPaths()
       TheSDM.setDisabled(False)
 
-      torrentIsDisabled = self.getSettingOrSetDefault('DisableTorrent', False)
+      torrentIsDisabled = True #!!!GRS self.getSettingOrSetDefault('DisableTorrent', False)
 
       # Give the SDM the torrent file...it will use it if it makes sense
       if not torrentIsDisabled and TheSDM.shouldTryBootstrapTorrent():
@@ -2485,7 +2485,7 @@ class ArmoryMainWindow(QMainWindow):
 
       try:
          # "satexe" is actually just the install directory, not the direct
-         # path the executable.  That dir tree will be searched for bitcoind
+         # path the executable.  That dir tree will be searched for groestlcoind
          TheSDM.setupSDM(extraExeSearch=self.satoshiExeSearchPath)
          TheSDM.startBitcoind(self.notifyBitcoindIsReady)
          LOGDEBUG('Groestlcoind started without error')
@@ -2527,7 +2527,7 @@ class ArmoryMainWindow(QMainWindow):
 
       TheBDM.setSatoshiDir(self.satoshiHomePath)
       TheSDM.setSatoshiDir(self.satoshiHomePath)
-      TheTDM.setSatoshiDir(self.satoshiHomePath)
+#!!!GRS      TheTDM.setSatoshiDir(self.satoshiHomePath)
       
       
    ############################################################################
@@ -2585,7 +2585,7 @@ class ArmoryMainWindow(QMainWindow):
                return
 
             try:
-               self.sysTray.showMessage('Disconnected', 'Connection to Bitcoin-Qt ' \
+               self.sysTray.showMessage('Disconnected', 'Connection to Groestlcoin-Qt ' \
                                         'client lost!  Armory cannot send nor ' \
                                         'receive bitcoins until connection is ' \
                                         're-established.', QSystemTrayIcon.Critical, \
@@ -2606,7 +2606,7 @@ class ArmoryMainWindow(QMainWindow):
 
             try:
                if self.connectCount>0:
-                  self.sysTray.showMessage('Connected', 'Connection to Bitcoin-Qt ' \
+                  self.sysTray.showMessage('Connected', 'Connection to Groestlcoin-Qt ' \
                                            're-established', \
                                            QSystemTrayIcon.Information, 10000)
                self.connectCount += 1
@@ -2657,10 +2657,10 @@ class ArmoryMainWindow(QMainWindow):
          uriDict = {}
          
       if TheBDM.getState() in (BDM_OFFLINE,BDM_UNINITIALIZED):
-         LOGERROR('%sed "bitcoin:" link in offline mode.' % ClickOrEnter)
+         LOGERROR('%sed "groestlcoin:" link in offline mode.' % ClickOrEnter)
          self.bringArmoryToFront()
          QMessageBox.warning(self, 'Offline Mode',
-            'You %sed on a "bitcoin:" link, but Armory is in '
+            'You %sed on a "groestlcoin:" link, but Armory is in '
             'offline mode, and is not capable of creating transactions. '
             '%sing links will only work if Armory is connected '
             'to the Groestlcoin network!' % (clickOrEnter, ClickOrEnter), \
@@ -2668,7 +2668,7 @@ class ArmoryMainWindow(QMainWindow):
          return {}
 
       if len(uriDict)==0:
-         warnMsg = ('It looks like you just %sed a "bitcoin:" link, but '
+         warnMsg = ('It looks like you just %sed a "groestlcoin:" link, but '
                     'that link is malformed.  ' % clickOrEnter)
          if self.usermode == USERMODE.Standard:
             warnMsg += ('Please check the source of the link and enter the '
@@ -2680,10 +2680,10 @@ class ArmoryMainWindow(QMainWindow):
          return {}
 
       if not uriDict.has_key('address'):
-         QMessageBox.warning(self, 'The "bitcoin:" link you just %sed '
+         QMessageBox.warning(self, 'The "groestlcoin:" link you just %sed '
             'does not even contain an address!  There is nothing that '
             'Armory can do with this link!' % clickOrEnter, QMessageBox.Ok)
-         LOGERROR('No address in "bitcoin:" link!  Nothing to do!')
+         LOGERROR('No address in "groestlcoin:" link!  Nothing to do!')
          return {}
 
       # Verify the URI is for the same network as this Armory instnance
@@ -2693,7 +2693,7 @@ class ArmoryMainWindow(QMainWindow):
          if NETWORKS.has_key(theAddrByte):
             net = NETWORKS[theAddrByte]
          QMessageBox.warning(self, 'Wrong Network!', \
-            'The address for the "bitcoin:" link you just %sed is '
+            'The address for the "groestlcoin:" link you just %sed is '
             'for the wrong network!  You are on the <b>%s</b> '
             'and the address you supplied is for the the '
             '<b>%s</b>!' % (clickOrEnter, NETWORKS[ADDRBYTE], net), \
@@ -2705,7 +2705,7 @@ class ArmoryMainWindow(QMainWindow):
       recognized = ['address','version','amount','label','message']
       for key,value in uriDict.iteritems():
          if key.startswith('req-') and not key[4:] in recognized:
-            QMessageBox.warning(self,'Unsupported URI', 'The "bitcoin:" link '
+            QMessageBox.warning(self,'Unsupported URI', 'The "groestlcoin:" link '
                'you just %sed contains fields that are required but not '
                'recognized by Armory.  This may be an older version of Armory, '
                'or the link you %sed on uses an exotic, unsupported format.'
@@ -2723,7 +2723,7 @@ class ArmoryMainWindow(QMainWindow):
       LOGINFO('uriLinkClicked')
       if TheBDM.getState()==BDM_OFFLINE:
          QMessageBox.warning(self, 'Offline', \
-            'You just clicked on a "bitcoin:" link, but Armory is offline '
+            'You just clicked on a "groestlcoin:" link, but Armory is offline '
             'and cannot send transactions.  Please click the link '
             'again when Armory is online.', \
             QMessageBox.Ok)
@@ -4057,7 +4057,7 @@ class ArmoryMainWindow(QMainWindow):
 
    #############################################################################
    def uriSendBitcoins(self, uriDict):
-      # Because Bitcoin-Qt doesn't store the message= field we have to assume
+      # Because Groestlcoin-Qt doesn't store the message= field we have to assume
       # that the label field holds the Tx-info.  So we concatenate them for
       # the display message
       uri_has = lambda s: uriDict.has_key(s)
@@ -4074,7 +4074,7 @@ class ArmoryMainWindow(QMainWindow):
          newMsg = uriDict['label']
 
       descrStr = ''
-      descrStr = ('You just clicked on a "bitcoin:" link requesting bitcoins '
+      descrStr = ('You just clicked on a "groestlcoin:" link requesting bitcoins '
                 'to be sent to the following address:<br> ')
 
       descrStr += '<br>--<b>Address</b>:\t%s ' % uriDict['address']
@@ -4112,7 +4112,7 @@ class ArmoryMainWindow(QMainWindow):
       selectedWalletID = None
       if len(self.walletMap)==0:
          reply = QMessageBox.information(self, 'No Wallets!', \
-            'You just clicked on a "bitcoin:" link to send money, but you '
+            'You just clicked on a "groestlcoin:" link to send money, but you '
             'currently have no wallets!  Would you like to create a wallet '
             'now?', QMessageBox.Yes | QMessageBox.No)
          if reply==QMessageBox.Yes:
@@ -4319,7 +4319,7 @@ class ArmoryMainWindow(QMainWindow):
 
    #############################################################################
    def lookForBitcoind(self):
-      LOGDEBUG('lookForBitcoind')
+      LOGDEBUG('lookForGroestlcoind')
       if satoshiIsAvailable():
          return 'Running'
 
@@ -4359,7 +4359,7 @@ class ArmoryMainWindow(QMainWindow):
       elif self.doAutoBitcoind and not TheSDM.isRunningBitcoind():
          if satoshiIsAvailable():
             result = QMessageBox.warning(self, tr('Still Running'), tr("""
-               'Bitcoin-Qt is still running.  Armory cannot start until
+               'Groestlcoin-Qt is still running.  Armory cannot start until
                'it is closed.  Do you want Armory to close it for you?"""), \
                QMessageBox.Yes | QMessageBox.No)
             if result==QMessageBox.Yes:
@@ -4478,7 +4478,7 @@ class ArmoryMainWindow(QMainWindow):
          lbl.setOpenExternalLinks(True)
 
       # Set up an array of buttons in the middle of the dashboard, to be used
-      # to help the user install bitcoind.
+      # to help the user install groestlcoind.
       self.lblDashBtnDescr = QRichLabel('')
       self.lblDashBtnDescr.setOpenExternalLinks(True)
       BTN,LBL,TTIP = range(3)
@@ -4548,16 +4548,16 @@ class ArmoryMainWindow(QMainWindow):
 
       self.dashBtns[DASHBTNS.Browse][TTIP] = self.createToolTipWidget( \
            'Will open your default browser to http://www.bitcoin.org where you can '
-           'download the latest version of Bitcoin-Qt, and get other information '
+           'download the latest version of Groestlcoin-Qt, and get other information '
            'and links about Bitcoin, in general.')
       self.dashBtns[DASHBTNS.Instruct][TTIP] = self.createToolTipWidget( \
            'Instructions are specific to your operating system and include '
            'information to help you verify you are installing the correct software')
       self.dashBtns[DASHBTNS.Settings][TTIP] = self.createToolTipWidget(
-           'Change Bitcoin-Qt/bitcoind management settings or point Armory to '
+           'Change Groestlcoin-Qt/groestlcoind management settings or point Armory to '
            'a non-standard Bitcoin installation')
       self.dashBtns[DASHBTNS.Close][TTIP] = self.createToolTipWidget( \
-           'Armory has detected a running Bitcoin-Qt or bitcoind instance and '
+           'Armory has detected a running Groestlcoin-Qt or groestlcoind instance and '
            'will force it to exit')
 
       self.dashBtns[DASHBTNS.Install][BTN].setEnabled(False)
@@ -5002,7 +5002,7 @@ class ArmoryMainWindow(QMainWindow):
 
       # If got here, never found it
       QMessageBox.warning(self, 'Not Found', \
-         'Attempted to kill the running Bitcoin-Qt/bitcoind instance, '
+         'Attempted to kill the running Groestlcoin-Qt/groestlcoind instance, '
          'but it was not found.  ', QMessageBox.Ok)
 
    #############################################################################
@@ -5324,7 +5324,7 @@ class ArmoryMainWindow(QMainWindow):
          '<li>Generate new addresses to receive coins</li>'
          '<li>Send groestlcoins to other people</li>'
          '<li>Create one-time backups of your wallets (in printed or digital form)</li>'
-         '<li>Click on "bitcoin:" links in your web browser '
+         '<li>Click on "groestlcoin:" links in your web browser '
             '(not supported on all operating systems)</li>'
          '<li>Import private keys to wallets</li>'
          '<li>Monitor payments to watching-only wallets and create '
@@ -5381,7 +5381,7 @@ class ArmoryMainWindow(QMainWindow):
          'please confirm that Groestlcoin-Qt is running and <i>fully '
          'synchronized with the Groestlcoin network</i>.  You will see '
          'a green checkmark in the bottom right corner of the '
-         'Bitcoin-Qt window if it is synchronized.  If not, it is '
+         'Groestlcoin-Qt window if it is synchronized.  If not, it is '
          'recommended you close Armory and restart it only when you '
          'see that checkmark.'
          '<br><br>')  if not self.doAutoBitcoind else '') + tr(
@@ -5429,7 +5429,7 @@ class ArmoryMainWindow(QMainWindow):
          'then you can restart Armory with the "--skip-online-check" '
          'option, or change it in the Armory settings.'
          '<br><br>'
-         'If you do not have Bitcoin-Qt installed, you can '
+         'If you do not have Groestlcoin-Qt installed, you can '
          'download it from <a href="http://www.bitcoin.org">'
          'http://www.bitcoin.org</a>.')
 
@@ -5443,9 +5443,9 @@ class ArmoryMainWindow(QMainWindow):
             'You are currently in offline mode, but can '
             'switch to online mode by pressing the button above.  However, '
             'it is not recommended that you switch until '
-            'Bitcoin-Qt/bitcoind is fully synchronized with the Groestlcoin network.  '
+            'Groestlcoin-Qt/groestlcoind is fully synchronized with the Groestlcoin network.  '
             'You will see a green checkmark in the bottom-right corner of '
-            'the Bitcoin-Qt window when it is finished.'
+            'the Groestlcoin-Qt window when it is finished.'
             '<br><br>'
             'Switching to online mode will give you access '
             'to more Armory functionality, including sending and receiving '
@@ -5455,10 +5455,10 @@ class ArmoryMainWindow(QMainWindow):
             bitconf = os.path.join(BTC_HOME_DIR, 'bitcoin.conf')
             return tr( \
             'You are currently in offline mode because '
-            'Bitcoin-Qt is not running.  To switch to online '
-            'mode, start Bitcoin-Qt and let it synchronize with the network '
+            'Groestlcoin-Qt is not running.  To switch to online '
+            'mode, start Groestlcoin-Qt and let it synchronize with the network '
             '-- you will see a green checkmark in the bottom-right corner when '
-            'it is complete.  If Bitcoin-Qt is already running and you believe '
+            'it is complete.  If Groestlcoin-Qt is already running and you believe '
             'the lack of connection is an error (especially if using proxies), '
             'please see <a href="'
             'https://bitcointalk.org/index.php?topic=155717.msg1719077#msg1719077">'
@@ -5466,17 +5466,17 @@ class ArmoryMainWindow(QMainWindow):
             '<br><br>'
             '<b>If you prefer to have Armory do this for you</b>, '
             'then please check "Let Armory run '
-            'Bitcoin-Qt in the background" under "File"->"Settings."'
+            'Groestlcoin-Qt in the background" under "File"->"Settings."'
             '<br><br>'
-            'If you are new to Armory and/or Bitcoin-Qt, '
+            'If you are new to Armory and/or Groestlcoin-Qt, '
             'please visit the Armory '
             'webpage for more information.  Start at '
             '<a href="https://bitcoinarmory.com/armory-and-bitcoin-qt">'
-            'Why Armory needs Bitcoin-Qt</a> or go straight to our <a '
+            'Why Armory needs Groestlcoin-Qt</a> or go straight to our <a '
             'href="https://bitcoinarmory.com/faq/">'
             'frequently asked questions</a> page for more general information.  '
             'If you already know what you\'re doing and simply need '
-            'to fetch the latest version of Bitcoin-Qt, you can download it from '
+            'to fetch the latest version of Groestlcoin-Qt, you can download it from '
             '<a href="http://www.bitcoin.org">http://www.bitcoin.org</a>.')
          elif state == 'OfflineNoInternet':
             return tr( \
@@ -5487,13 +5487,13 @@ class ArmoryMainWindow(QMainWindow):
             'or adjust the Armory settings.  Then restart Armory.'
             '<br><br>'
             'If this is intended to be an offline computer, note '
-            'that it is not necessary to have Bitcoin-Qt or bitcoind '
+            'that it is not necessary to have Groestlcoin-Qt or groestlcoind '
             'running.' )
          elif state == 'OfflineNoBlkFiles':
             return tr( \
             'You are currently in offline mode because '
             'Armory could not find the blockchain files produced '
-            'by Bitcoin-Qt.  Do you run Bitcoin-Qt (or bitcoind) '
+            'by Groestlcoin-Qt.  Do you run Groestlcoin-Qt (or groestlcoind) '
             'from a non-standard directory?   Armory expects to '
             'find the blkXXXX.dat files in <br><br>%s<br><br> '
             'If you know where they are located, please restart '
@@ -5504,10 +5504,10 @@ class ArmoryMainWindow(QMainWindow):
             'Armory was previously online, but the connection to GroestlCoin-Qt/'
             'groestlcoind was interrupted.  You will not be able to send groestlcoins '
             'or confirm receipt of bitcoins until the connection is '
-            'reestablished.  <br><br>Please check that Bitcoin-Qt is open '
+            'reestablished.  <br><br>Please check that Groestlcoin-Qt is open '
             'and synchronized with the network.  Armory will <i>try to '
             'reconnect</i> automatically when the connection is available '
-            'again.  If Bitcoin-Qt is available again, and reconnection does '
+            'again.  If Groestlcoin-Qt is available again, and reconnection does '
             'not happen, please restart Armory.<br><br>')
          elif state == 'ScanNoWallets':
             return tr( \
@@ -5630,7 +5630,7 @@ class ArmoryMainWindow(QMainWindow):
             return tr( \
             'The Bitcoin software indicates there '
             'is a problem with its databases.  This can occur when '
-            'Bitcoin-Qt/bitcoind is upgraded or downgraded, or sometimes '
+            'Groestlcoin-Qt/groestlcoind is upgraded or downgraded, or sometimes '
             'just by chance after an unclean shutdown.'
             '<br><br>'
             'You can either revert your installed Bitcoin software to the '
@@ -5654,17 +5654,17 @@ class ArmoryMainWindow(QMainWindow):
                return  (tr("""
                There was an error starting the underlying Bitcoin engine.
                This should not normally happen.  Usually it occurs when you
-               have been using Bitcoin-Qt prior to using Armory, especially
-               if you have upgraded or downgraded Bitcoin-Qt recently.
-               Output from bitcoind:<br>""") + \
+               have been using Groestlcoin-Qt prior to using Armory, especially
+               if you have upgraded or downgraded Groestlcoin-Qt recently.
+               Output from groestlcoind:<br>""") + \
                (soutDisp if len(sout)>0 else '') + \
                (serrDisp if len(serr)>0 else '') )
             else:
                return ( tr("""
                   There was an error starting the underlying Bitcoin engine.
                   This should not normally happen.  Usually it occurs when you
-                  have been using Bitcoin-Qt prior to using Armory, especially
-                  if you have upgraded or downgraded Bitcoin-Qt recently.
+                  have been using Groestlcoin-Qt prior to using Armory, especially
+                  if you have upgraded or downgraded Groestlcoin-Qt recently.
                   <br><br>
                   Unfortunately, this error is so strange, Armory does not
                   recognize it.  Please go to "Export Log File" from the "File"
@@ -5771,7 +5771,7 @@ class ArmoryMainWindow(QMainWindow):
                   self.frmDashMidButtons.setVisible(True)
                   setBtnRowVisible(DASHBTNS.Close, True)
                   if CLI_OPTIONS.offline:
-                     # Forced offline but bitcoind is running
+                     # Forced offline but groestlcoind is running
                      LOGINFO('Dashboard switched to auto-OfflineForcedButSatoshiAvail')
                      descr1 += self.GetDashStateText('Auto', 'OfflineForcedButSatoshiAvail')
                      descr2 += self.GetDashFunctionalityText('Offline')
@@ -5804,9 +5804,9 @@ class ArmoryMainWindow(QMainWindow):
                                             size=4, color='TextWarn', bold=True)
                # Bitcoind is not being managed, but we want it to be
                if satoshiIsAvailable() or sdmState=='GroestlCoindAlreadyRunning':
-                  # But bitcoind/-qt is already running
+                  # But groestlcoind/-qt is already running
                   LOGINFO('Dashboard switched to auto-butSatoshiRunning')
-                  self.lblDashModeSync.setText(tr(' Please close Bitcoin-Qt'), \
+                  self.lblDashModeSync.setText(tr(' Please close Groestlcoin-Qt'), \
                                                          size=4, bold=True)
                   setBtnFrameVisible(True, '')
                   setBtnRowVisible(DASHBTNS.Close, True)
@@ -5857,7 +5857,7 @@ class ArmoryMainWindow(QMainWindow):
                   LOGERROR('Should not usually get here')
                   setOnlyDashModeVisible()
                   setBtnFrameVisible(True, \
-                     tr('Try reinstalling the Bitcoin '
+                     tr('Try reinstalling the Groestlcoin '
                      'software then restart Armory.  If you continue to have '
                      'problems, please contact Armory\'s core developer at '
                      '<a href="mailto:support@bitcoinarmory.com?Subject=Bitcoind%20Crash"'
@@ -5897,7 +5897,7 @@ class ArmoryMainWindow(QMainWindow):
                      extraTxt = tr("""
                         <b>Armory has lost connection to the
                         core Bitcoin software.  If you did not do anything
-                        that affects your network connection or the bitcoind
+                        that affects your network connection or the groestlcoind
                         process, it will probably recover on its own in a
                         couple minutes</b><br><br>""")
                      self.lblTimeLeftSync.setVisible(False)
@@ -5962,7 +5962,7 @@ class ArmoryMainWindow(QMainWindow):
 
                   setBtnRowVisible(DASHBTNS.Settings, True)
                   setBtnFrameVisible(True, \
-                     tr('Since version 0.88, Armory runs bitcoind in the '
+                     tr('Since version 0.88, Armory runs groestlcoind in the '
                      'background.  You can switch back to '
                      'the old way in the Settings dialog. '))
 
@@ -5970,7 +5970,7 @@ class ArmoryMainWindow(QMainWindow):
                   self.lblDashDescr1.setText(descr1)
                   self.lblDashDescr2.setText(descr2)
       else:
-         # User is managing satoshi client, or bitcoind is already sync'd
+         # User is managing satoshi client, or groestlcoind is already sync'd
          self.frmDashMidButtons.setVisible(False)
          if bdmState in (BDM_OFFLINE, BDM_UNINITIALIZED):
             if self.internetStatus == INTERNET_STATUS.Unavailable:
@@ -6005,7 +6005,7 @@ class ArmoryMainWindow(QMainWindow):
                   setBtnRowVisible(DASHBTNS.Settings, True)
                   setBtnFrameVisible(True, \
                      tr('If you would like Armory to manage the Bitcoin software '
-                     'for you (Bitcoin-Qt or bitcoind), then adjust your '
+                     'for you (Groestlcoin-Qt or groestlcoind), then adjust your '
                      'Armory settings, then restart Armory.'))
                   descr = self.GetDashStateText('User','OfflineNoSatoshiNoInternet')
                else:
@@ -6502,7 +6502,7 @@ class ArmoryMainWindow(QMainWindow):
          else:
             if bdmState in (BDM_OFFLINE,BDM_UNINITIALIZED):
                # This call seems out of place, but it's because if you are in offline
-               # mode, it needs to check periodically for the existence of Bitcoin-Qt
+               # mode, it needs to check periodically for the existence of Groestlcoin-Qt
                # so that it can enable the "Go Online" button
                self.setDashboardDetails()
                return
@@ -6826,7 +6826,7 @@ class ArmoryMainWindow(QMainWindow):
             LOGEXCEPT('Shutdown function failed.  Skipping.')
 
       
-      # This will do nothing if bitcoind isn't running.
+      # This will do nothing if groestlcoind isn't running.
       try:
          self.shutdownBitcoindThread.join()
       except:
@@ -7123,7 +7123,7 @@ def checkForAlreadyOpenError():
          LOGINFO('Found armory PID: %d', proc.pid)
          armoryExists.append(proc.pid)
       if bexe in pname:
-         LOGINFO('Found bitcoind PID: %d', proc.pid)
+         LOGINFO('Found groestlcoind PID: %d', proc.pid)
          if ('testnet' in proc.name) == USE_TESTNET:
             bitcoindExists.append(proc.pid)
 
@@ -7131,9 +7131,9 @@ def checkForAlreadyOpenError():
       LOGINFO('Not an error!  Armory really is open')
       return
    elif len(bitcoindExists)>0:
-      # Strange condition where bitcoind doesn't get killed by Armory/guardian
+      # Strange condition where groestlcoind doesn't get killed by Armory/guardian
       # (I've only seen this happen on windows, though)
-      LOGERROR('Found zombie bitcoind process...killing it')
+      LOGERROR('Found zombie groestlcoind process...killing it')
       for pid in bitcoindExists:
          killProcess(pid)
       time.sleep(0.5)

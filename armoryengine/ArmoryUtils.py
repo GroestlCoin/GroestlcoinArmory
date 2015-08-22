@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.
 # Distributed under the GNU Affero General Public License (AGPL v3)
@@ -88,10 +88,10 @@ haveGUI = [False, None]
 parser = optparse.OptionParser(usage="%prog [options]\n")
 parser.add_option("--settings",        dest="settingsPath",default=DEFAULT, type="str",          help="load Armory with a specific settings file")
 parser.add_option("--datadir",         dest="datadir",     default=DEFAULT, type="str",          help="Change the directory that Armory calls home")
-parser.add_option("--satoshi-datadir", dest="satoshiHome", default=DEFAULT, type='str',          help="The Bitcoin-Qt/bitcoind home directory")
-parser.add_option("--satoshi-port",    dest="satoshiPort", default=DEFAULT, type="str",          help="For Bitcoin-Qt instances operating on a non-standard port")
-parser.add_option("--satoshi-rpcport", dest="satoshiRpcport",default=DEFAULT,type="str",         help="RPC port Bitcoin-Qt instances operating on a non-standard port")
-#parser.add_option("--bitcoind-path",   dest="bitcoindPath",default='DEFAULT', type="str",         help="Path to the location of bitcoind on your system")
+parser.add_option("--satoshi-datadir", dest="satoshiHome", default=DEFAULT, type='str',          help="The Groestlcoin-Qt/groestlcoind home directory")
+parser.add_option("--satoshi-port",    dest="satoshiPort", default=DEFAULT, type="str",          help="For Groestlcoin-Qt instances operating on a non-standard port")
+parser.add_option("--satoshi-rpcport", dest="satoshiRpcport",default=DEFAULT,type="str",         help="RPC port Groestlcoin-Qt instances operating on a non-standard port")
+#parser.add_option("--groestlcoind-path",   dest="bitcoindPath",default='DEFAULT', type="str",         help="Path to the location of groestlcoind on your system")
 parser.add_option("--dbdir",           dest="armoryDBDir",  default=DEFAULT, type='str',          help="Location to store blocks database (defaults to --datadir)")
 parser.add_option("--rpcport",         dest="rpcport",     default=DEFAULT, type="str",          help="RPC port for running armoryd.py")
 parser.add_option("--testnet",         dest="testnet",     default=False,     action="store_true", help="Use the testnet protocol")
@@ -108,7 +108,7 @@ parser.add_option("--skip-stats-report", dest="skipStatsReport", default=False, 
 parser.add_option("--skip-announce-check",dest="skipAnnounceCheck", default=False, action="store_true", help="Do not query for Armory announcements")
 parser.add_option("--tor",             dest="useTorSettings", default=False, action="store_true", help="Enable common settings for when Armory connects through Tor")
 parser.add_option("--keypool",         dest="keypool",     default=100, type="int",                help="Default number of addresses to lookahead in Armory wallets")
-parser.add_option("--redownload",      dest="redownload",  default=False,     action="store_true", help="Delete Bitcoin-Qt/bitcoind databases; redownload")
+parser.add_option("--redownload",      dest="redownload",  default=False,     action="store_true", help="Delete Groestlcoin-Qt/groestlcoind databases; redownload")
 parser.add_option("--rebuild",         dest="rebuild",     default=False,     action="store_true", help="Rebuild blockchain database and rescan")
 parser.add_option("--rescan",          dest="rescan",      default=False,     action="store_true", help="Rescan existing blockchain DB")
 parser.add_option("--rescanssh",       dest="sshRescan",   default=False,     action="store_true", help="Rescan address balance and transaction count")
@@ -379,7 +379,7 @@ def readVersionInt(verInt):
    verList.append( int(verStr[:-7       ]) )
    return tuple(verList[::-1])
 
-# Allow user to override default bitcoin-qt/bitcoind home directory
+# Allow user to override default bitcoin-qt/groestlcoind home directory
 if not CLI_OPTIONS.satoshiHome==DEFAULT:
    success = True
    if USE_TESTNET:
@@ -493,18 +493,18 @@ else:
    BITCOIN_RPC_PORT = 17766
    ARMORY_RPC_PORT     = 18226
    MAGIC_BYTES  = '\x0b\x11\x09\x07'
-   GENESIS_BLOCK_HASH_HEX  = '43497fd7f826957108f4a30fd9cec3aeba79972084e90ead01ea330900000000'
-   GENESIS_BLOCK_HASH      = 'CI\x7f\xd7\xf8&\x95q\x08\xf4\xa3\x0f\xd9\xce\xc3\xae\xbay\x97 \x84\xe9\x0e\xad\x01\xea3\t\x00\x00\x00\x00'
-   GENESIS_TX_HASH_HEX     = '3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a'
-   GENESIS_TX_HASH         = ';\xa3\xed\xfdz{\x12\xb2z\xc7,>gv\x8fa\x7f\xc8\x1b\xc3\x88\x8aQ2:\x9f\xb8\xaaK\x1e^J'
+   GENESIS_BLOCK_HASH_HEX  = '36cdf2dcb7556287282a05c064012323bae663c16ed3cd9898fc50bbff000000'
+   GENESIS_BLOCK_HASH      = '\x36\xcd\xf2\xdc\xb7\x55\x62\x87\x28\x2a\x05\xc0\x64\x01\x23\x23\xba\xe6\x63\xc1\x6e\xd3\xcd\x98\x98\xfc\x50\xbb\xff\x00\x00\x00'
+   GENESIS_TX_HASH_HEX     = '3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a'	#!!!TODO
+   GENESIS_TX_HASH         = ';\xa3\xed\xfdz{\x12\xb2z\xc7,>gv\x8fa\x7f\xc8\x1b\xc3\x88\x8aQ2:\x9f\xb8\xaaK\x1e^J'	#!!!TODO
    ADDRBYTE = '\x6f'
    P2SHBYTE = '\xc4'
    PRIVKEYBYTE = '\xef'
 
    # 
-   BLOCKEXPLORE_NAME     = 'blockexplorer.com'
+   BLOCKEXPLORE_NAME     = 'chainz.cryptoid.info'
    BLOCKEXPLORE_URL_TX   = 'https://chainz.cryptoid.info/grs/tx.dws?%s'
-   BLOCKEXPLORE_URL_ADDR = 'http://blockexplorer.com/testnet/address/%s'
+   BLOCKEXPLORE_URL_ADDR = 'https://chainz.cryptoid.info/grs/address.dws?%s'
 
 # These are the same regardless of network
 # They are the way data is stored in the database which is network agnostic
@@ -563,7 +563,7 @@ if not CLI_OPTIONS.satoshiPort == DEFAULT:
    try:
       BITCOIN_PORT = int(CLI_OPTIONS.satoshiPort)
    except:
-      raise TypeError('Invalid port for Bitcoin-Qt, using ' + str(BITCOIN_PORT))
+      raise TypeError('Invalid port for Groestlcoin-Qt, using ' + str(BITCOIN_PORT))
 
 ################################################################################
 if not CLI_OPTIONS.satoshiRpcport == DEFAULT:
@@ -2902,7 +2902,7 @@ URI_VERSION_STR = '1.0'
 
 
 ################################################################################
-# Take in a "bitcoin:" URI string and parse the data out into a dictionary. If
+# Take in a "groestlcoin:" URI string and parse the data out into a dictionary. If
 # the URI isn't a Bitcoin URI, return an empty dictionary.
 def parseBitcoinURI(uriStr):
    """ Takes a URI string, returns normalized dicitonary with pieces """
@@ -2965,7 +2965,7 @@ def uriPercentToReserved(theStr):
 
 ################################################################################
 def createBitcoinURI(addr, amt=None, msg=None):
-   uriStr = 'bitcoin:%s' % addr
+   uriStr = 'groestlcoin:%s' % addr
    if amt or msg:
       uriStr += '?'
 

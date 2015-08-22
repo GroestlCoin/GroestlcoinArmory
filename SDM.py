@@ -89,10 +89,10 @@ def parseLinkList(theData):
 
 
 ################################################################################
-# jgarzik'sjj jsonrpc-bitcoin code -- stupid-easy to talk to bitcoind
+# jgarzik'sjj jsonrpc-bitcoin code -- stupid-easy to talk to groestlcoind
 class SatoshiDaemonManager(object):
    """
-   Use an existing implementation of bitcoind
+   Use an existing implementation of groestlcoind
    """
 
    class BitcoindError(Exception): pass
@@ -109,7 +109,7 @@ class SatoshiDaemonManager(object):
       self.satoshiHome = None
       self.bitconf = {}
       self.proxy = None
-      self.bitcoind = None
+      self.groestlcoind = None
       self.isMidQuery = False
       self.last20queries = []
       self.disabled = False
@@ -180,7 +180,7 @@ class SatoshiDaemonManager(object):
 
 
       # We will tell the TDM to write status updates to the log file, and only
-      # every 90 seconds.  After it finishes (or fails), simply launch bitcoind
+      # every 90 seconds.  After it finishes (or fails), simply launch groestlcoind
       # as we would've done without the torrent
       #####
       def torrentLogToFile(dpflag=Event(), fractionDone=None, timeEst=None,
@@ -352,7 +352,7 @@ class SatoshiDaemonManager(object):
 
       self.disabled = False
       self.proxy = None
-      self.bitcoind = None  # this will be a Popen object
+      self.groestlcoind = None  # this will be a Popen object
       self.isMidQuery = False
       self.last20queries = []
 
@@ -614,8 +614,8 @@ class SatoshiDaemonManager(object):
          self.launchBitcoindAndGuardian()
             
       #New backend code: we wont be polling the SDM state in the main thread
-      #anymore, instead create a thread at bitcoind start to poll the SDM state
-      #and notify the main thread once bitcoind is ready, then terminates
+      #anymore, instead create a thread at groestlcoind start to poll the SDM state
+      #and notify the main thread once groestlcoind is ready, then terminates
       self.pollBitcoindState(callback, async=True)
 
       
@@ -661,13 +661,13 @@ class SatoshiDaemonManager(object):
          kargs['shell'] = True
          kargs['creationflags'] = win32process.CREATE_NO_WINDOW
          
-      # Startup bitcoind and get its process ID (along with our own)
-      self.bitcoind = launchProcess(pargs, **kargs)
+      # Startup groestlcoind and get its process ID (along with our own)
+      self.groestlcoind = launchProcess(pargs, **kargs)
 
-      self.btcdpid  = self.bitcoind.pid
+      self.btcdpid  = self.groestlcoind.pid
       self.selfpid  = os.getpid()
 
-      LOGINFO('PID of bitcoind: %d',  self.btcdpid)
+      LOGINFO('PID of groestlcoind: %d',  self.btcdpid)
       LOGINFO('PID of armory:   %d',  self.selfpid)
 
       # Startup guardian process -- it will watch Armory's PID
@@ -684,15 +684,15 @@ class SatoshiDaemonManager(object):
       LOGINFO('Called stopBitcoind')
       try:
          if not self.isRunningBitcoind():
-               LOGINFO('...but bitcoind is not running, to be able to stop')
+               LOGINFO('...but groestlcoind is not running, to be able to stop')
                return
 
-         #signal bitcoind to stop
+         #signal groestlcoind to stop
          self.proxy.stop()
 
          #poll the pid until it's gone, for as long as 2 minutes
          total = 0
-         while self.bitcoind.poll()==None:
+         while self.groestlcoind.poll()==None:
             time.sleep(0.1)
             total += 1
 
@@ -701,7 +701,7 @@ class SatoshiDaemonManager(object):
                       " Terminating.")
                return
 
-         self.bitcoind = None
+         self.groestlcoind = None
       except Exception as e:
          LOGERROR(e)
          return
@@ -711,30 +711,30 @@ class SatoshiDaemonManager(object):
    def isRunningBitcoind(self):
       """
       armoryengine satoshiIsAvailable() only tells us whether there's a
-      running bitcoind that is actively responding on its port.  But it
+      running groestlcoind that is actively responding on its port.  But it
       won't be responding immediately after we've started it (still doing
-      startup operations).  If bitcoind was started and still running,
+      startup operations).  If groestlcoind was started and still running,
       then poll() will return None.  Any othe poll() return value means
       that the process terminated
       """
-      if self.bitcoind==None:
+      if self.groestlcoind==None:
          return False
       else:
-         if not self.bitcoind.poll()==None:
+         if not self.groestlcoind.poll()==None:
             LOGDEBUG('groestlcoind is no more')
             if self.btcOut==None:
-               self.btcOut, self.btcErr = self.bitcoind.communicate()
-               LOGWARN('groestlcoind exited, bitcoind STDOUT:')
+               self.btcOut, self.btcErr = self.groestlcoind.communicate()
+               LOGWARN('groestlcoind exited, groestlcoind STDOUT:')
                for line in self.btcOut.split('\n'):
                   LOGWARN(line)
                LOGWARN('groestlcoind exited, groestlcoind STDERR:')
                for line in self.btcErr.split('\n'):
                   LOGWARN(line)
-         return self.bitcoind.poll()==None
+         return self.groestlcoind.poll()==None
 
    #############################################################################
    def wasRunningBitcoind(self):
-      return (not self.bitcoind==None)
+      return (not self.groestlcoind==None)
 
    #############################################################################
    def bitcoindIsResponsive(self):
@@ -744,7 +744,7 @@ class SatoshiDaemonManager(object):
    def getSDMState(self):
       """
       As for why I'm doing this:  it turns out that between "initializing"
-      and "synchronizing", bitcoind temporarily stops responding entirely,
+      and "synchronizing", groestlcoind temporarily stops responding entirely,
       which causes "not-available" to be the state.  I need to smooth that
       out because it wreaks havoc on the GUI which will switch to showing
       a nasty error.
@@ -788,7 +788,7 @@ class SatoshiDaemonManager(object):
 
       latestInfo = self.getTopBlockInfo()
 
-      if self.bitcoind==None and latestInfo['error']=='Uninitialized':
+      if self.groestlcoind==None and latestInfo['error']=='Uninitialized':
          return 'GroestlCoindNeverStarted'
 
       if not self.isRunningBitcoind():
@@ -824,7 +824,7 @@ class SatoshiDaemonManager(object):
             # If ready, always ready
             return 'GroestlCoindReady'
 
-         # If we get here, bitcoind is gave us a response.
+         # If we get here, groestlcoind is gave us a response.
          secSinceLastBlk = RightNow() - latestInfo['toptime']
          blkspersec = latestInfo['blkspersec']
          #print 'Blocks per 10 sec:', ('UNKNOWN' if blkspersec==-1 else blkspersec*10)
@@ -884,11 +884,11 @@ class SatoshiDaemonManager(object):
          LOGEXCEPT('ValueError in bkgd req top blk')
          self.lastTopBlockInfo['error'] = 'ValueError'
       except authproxy.JSONRPCException:
-         # This seems to happen when bitcoind is overwhelmed... not quite ready
+         # This seems to happen when groestlcoind is overwhelmed... not quite ready
          LOGDEBUG('generic jsonrpc exception')
          self.lastTopBlockInfo['error'] = 'JsonRpcException'
       except socket.error:
-         # Connection isn't available... is bitcoind not running anymore?
+         # Connection isn't available... is groestlcoind not running anymore?
          LOGDEBUG('generic socket error')
          self.lastTopBlockInfo['error'] = 'SocketError'
       except:
@@ -902,7 +902,7 @@ class SatoshiDaemonManager(object):
    #############################################################################
    def updateTopBlockInfo(self):
       """
-      We want to get the top block information, but if bitcoind is rigorously
+      We want to get the top block information, but if groestlcoind is rigorously
       downloading and verifying the blockchain, it can sometimes take 10s to
       to respond to JSON-RPC calls!  We must do it in the background...
 
