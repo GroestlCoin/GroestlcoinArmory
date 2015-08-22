@@ -596,7 +596,7 @@ class SatoshiDaemonManager(object):
          LOGERROR('SDM was disabled, must be re-enabled before starting')
          return
 
-      LOGINFO('Called startBitcoind')
+      LOGINFO('Called startGroestlcoind')
 
       if self.isRunningBitcoind() or TheTDM.getTDMState()=='Downloading':
          raise self.BitcoindError, 'Looks like we have already started theSDM'
@@ -682,7 +682,7 @@ class SatoshiDaemonManager(object):
 
    #############################################################################
    def stopBitcoind(self):
-      LOGINFO('Called stopBitcoind')
+      LOGINFO('Called stopGroestlcoind')
       try:
          if not self.isRunningBitcoind():
                LOGINFO('...but groestlcoind is not running, to be able to stop')

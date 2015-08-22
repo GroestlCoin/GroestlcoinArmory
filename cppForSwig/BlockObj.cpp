@@ -568,7 +568,7 @@ void Tx::unserialize(uint8_t const * ptr, size_t size)
    if (nBytes > size)
       throw BlockDeserializingException();
    dataCopy_.copyFrom(ptr, nBytes);
-   BtcUtils::getHash256(ptr, nBytes, thisHash_);
+   thisHash_ = BtcUtils::getSha256(ptr, nBytes);
    if (8 > size)
       throw BlockDeserializingException();
 

@@ -472,13 +472,13 @@
   <ItemGroup>
     <CustomBuild Include="CppBlockUtils.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">swig.exe -dirvtable -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">%(Filename)_wrap.cxx</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">swig.exe -dirvtable -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">%(Filename)_wrap.cxx</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">C:\GIT\armory\cppForSwig\swigwin\swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">%(Filename)_wrap.cxx</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">C:\GIT\armory\cppForSwig\swigwin\swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">%(Filename)_wrap.cxx</Outputs>
     </CustomBuild>
   </ItemGroup>

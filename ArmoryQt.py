@@ -2456,7 +2456,7 @@ class ArmoryMainWindow(QMainWindow):
 
    ############################################################################
    def startBitcoindIfNecessary(self):
-      LOGINFO('startBitcoindIfNecessary')
+      LOGINFO('startGroestlcoindIfNecessary')
       if self.internetStatus == INTERNET_STATUS.Unavailable or CLI_OPTIONS.offline:
          LOGWARN('Not online, will not start groestlcoind')
          return False

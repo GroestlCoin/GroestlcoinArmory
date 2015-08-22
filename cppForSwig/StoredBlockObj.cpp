@@ -323,9 +323,9 @@ void StoredHeader::unserializeFullBlock(BinaryRefReader brr,
 
    //compute the merkle root and compare to the header's
    BinaryData computedMerkleRoot = BtcUtils::calculateMerkleRoot(allTxHashes);
+   BinaryData merkle = bh.getMerkleRoot();
 
-   if (computedMerkleRoot != bh.getMerkleRoot())
-   {
+   if (computedMerkleRoot != merkle) {
       LOGERR << "Merkle root mismatch! Raw block data is corrupt!";
       throw BlockDeserializingException();
    }
