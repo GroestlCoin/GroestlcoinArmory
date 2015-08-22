@@ -1938,7 +1938,7 @@ class ArmoryMainWindow(QMainWindow):
 
       # Check each of the individual files for recent modifications
       idFuncPairs = [
-                      ['announce',  self.updateAnnounceTab],
+#                      ['announce',  self.updateAnnounceTab],
                       ['changelog', self.processChangelog],
                       ['downloads', self.processDownloads],
                       ['notify',    self.processNotifications],
@@ -6443,7 +6443,7 @@ class ArmoryMainWindow(QMainWindow):
 
       self.heartbeatCount += 1
       if self.heartbeatCount % 60 == 20:
-         self.processAnnounceData()
+         #!!!GRS self.processAnnounceData()
          self.processAlerts()
 
       try:

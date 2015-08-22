@@ -266,7 +266,7 @@ try
          lastvalues = currentvalues;
          
          //pass empty walletID for main build&scan calls
-         callback->progress(phase, vector<string>(), prog, time, numericProgress);
+//!!!T         callback->progress(phase, vector<string>(), prog, time, numericProgress);
 
          if (!pimpl->run)
          {
@@ -340,7 +340,7 @@ try
    };   
    
    //push 'bdm is ready' to Python
-   callback->run(BDMAction_Ready, nullptr, bdm->getTopBlockHeight());
+//!!!T   callback->run(BDMAction_Ready, nullptr, bdm->getTopBlockHeight());
    
    while(pimpl->run)
    {

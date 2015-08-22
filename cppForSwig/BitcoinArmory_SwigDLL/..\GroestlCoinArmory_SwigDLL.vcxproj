@@ -145,7 +145,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\2.6.6_x86\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\2.7.1_x86\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
@@ -157,8 +157,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>crypto++.lib;python26.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\2.6.6_x86\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\2.7.1_x86\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -373,7 +373,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">
     <Link />
     <ClCompile>
-      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\2.6.6_x86\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\2.7.1_x86\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -385,8 +385,8 @@
     </ClCompile>
     <Link>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
-      <AdditionalDependencies>crypto++.lib;python26.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\2.6.6_x86\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\2.7.1_x86\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
@@ -472,9 +472,9 @@
   <ItemGroup>
     <CustomBuild Include="CppBlockUtils.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">C:\GIT\armory\cppForSwig\swigwin\swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">swig.exe -dirvtable -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">%(Filename)_wrap.cxx</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">C:\GIT\armory\cppForSwig\swigwin\swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">swig.exe -dirvtable -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">%(Filename)_wrap.cxx</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">C:\GIT\armory\cppForSwig\swigwin\swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">%(Filename)_wrap.cxx</Outputs>
