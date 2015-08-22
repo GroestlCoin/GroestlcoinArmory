@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #                                                                              #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.                           #
 # Distributed under the GNU Affero General Public License (AGPL v3)            #
@@ -290,7 +290,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    def jsonrpc_sendasciitransaction(self, txASCIIFile):
       """
       DESCRIPTION:
-      Broadcast to the bitcoin network the signed tx in the txASCIIFile
+      Broadcast to the Groestlcoin network the signed tx in the txASCIIFile
       PARAMETERS:
       txASCIIFile - The path to a file with a signed transacion.
       RETURN:

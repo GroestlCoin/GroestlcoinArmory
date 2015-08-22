@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #                                                                              #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.                           #
 # Distributed under the GNU Affero General Public License (AGPL v3)            #
@@ -255,8 +255,8 @@ class SatoshiDaemonManager(object):
       if DISABLE_TORRENTDL or TheTDM.getTDMState()=='Disabled':
          return False
 
-      # The only torrent we have is for the primary Bitcoin network
-      if not MAGIC_BYTES=='\xf9\xbe\xb4\xd9':
+      # The only torrent we have is for the primary Groestlcoin network
+      if not MAGIC_BYTES=='\xf9\xbe\xb4\xd4':
          return False
       
          

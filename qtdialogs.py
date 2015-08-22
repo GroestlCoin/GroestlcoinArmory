@@ -5231,7 +5231,7 @@ class DlgOfflineSelect(ArmoryDialog):
          the private keys needed for it """))
 
       lblBroadc = QRichLabel(tr("""
-         Send a pre-signed transaction to the Bitcoin network to finalize it"""))
+         Send a pre-signed transaction to the Groestlcoin network to finalize it"""))
 
       lblBroadc.setMinimumWidth(tightSizeNChar(lblBroadc, 45)[0])
 
@@ -8504,7 +8504,7 @@ class DlgAddressBook(ArmoryDialog):
             self.useBareMultiSigCheckBox.setChecked(False)
             self.useBareMultiSigCheckBox.setToolTip(tr("""
                Bare multi-sig is not available for M-of-N lockboxes on the 
-               main Bitcoin network with N higher than 3."""))
+               main Groestlcoin network with N higher than 3."""))
          else:
             self.useBareMultiSigCheckBox.setEnabled(True)
 
@@ -8932,7 +8932,7 @@ class DlgSettings(ArmoryDialog):
          <b>Default fee to include with transactions:</b><br>"""))
       lblDefaultDescr = QRichLabel(tr("""
          Fees go to users that contribute computing power to keep the
-         Bitcoin network secure.  It also increases the priority of your
+         Groestlcoin network secure.  It also increases the priority of your
          transactions so they confirm faster (%s BTC is standard).""") % \
          coin2strNZS(MIN_TX_FEE))
 
@@ -9279,7 +9279,7 @@ class DlgSettings(ArmoryDialog):
       # self.Options.append( ['LineEdit', 'Default_Fee', MIN_TX_FEE, \
                            # 'Default fee to include with transactions.', \
                            # 'Fees go to users that contribute computing power '
-                           # 'to keep the Bitcoin network secure (0.0005 BTC is '
+                           # 'to keep the Groestlcoin network secure (0.0005 BTC is '
                            # 'standard).', \
                            # 'NOTE: some transactions will require a fee '
                            # 'regardless of your preferences -- in such cases '
@@ -14947,7 +14947,7 @@ class DlgBroadcastBlindTx(ArmoryDialog):
 
       lblDescr = QRichLabel(tr("""
          Copy a raw, hex-encoded transaction below to have Armory 
-         broadcast it to the Bitcoin network.  This function is 
+         broadcast it to the Groestlcoin network.  This function is 
          provided as a convenience to expert users, and carries 
          no guarantees of usefulness.
          <br><br>
@@ -14955,12 +14955,12 @@ class DlgBroadcastBlindTx(ArmoryDialog):
          this broadcast function:
          <ul>
             <li>The transaction will be "broadcast" by sending it
-                to the connected Bitcon Core instance which will
-                forward it to the rest of the Bitcoin network.  
+                to the connected Groestlcoin Core instance which will
+                forward it to the rest of the Groestlcoin network.  
                 However, if the transaction is non-standard or 
                 does not satisfy standard fee rules, Bitcoin Core 
                 <u>will</u> drop it and it 
-                will never be seen by the Bitcoin network. 
+                will never be seen by the Groestlcoin network. 
             </li>
             <li>There will be no feedback as to whether the
                 transaction succeeded.  You will have to verify the
@@ -15059,7 +15059,7 @@ class DlgBroadcastBlindTx(ArmoryDialog):
          Core instance, though there is no guarantees that it was
          forwarded to the rest of the network.   On testnet, just about
          every valid transaction will successfully propagate.  On the
-         main Bitcoin network, this will fail unless it was a standard
+         main Groestlcoin network, this will fail unless it was a standard
          transaction type.
 
          The transaction 
