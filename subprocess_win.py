@@ -1,4 +1,4 @@
-# subprocess - Subprocesses with accessible I/O streams
+﻿# subprocess - Subprocesses with accessible I/O streams
 #
 # For more information about this module, see PEP 324.
 #
@@ -652,10 +652,11 @@ def list2cmdline(seq):
 
 if mswindows:
    import platform
-   if platform.machine() == 'AMD64':
-      from ctypes import c_ulonglong as handleType
-   elif platform.machine() == 'i386':   
+   if platform.architecture()[0] == '32bit':          #!!!P
       from ctypes import c_uint as handleType
+   else:
+      from ctypes import c_ulonglong as handleType
+      
       
    class STARTUP_INFO(ctypes.Structure):
       _fields_ = [
@@ -680,8 +681,8 @@ if mswindows:
    
    class PROCESS_INFORMATION(ctypes.Structure):
       _fields_ = [
-         ("hProcess", ctypes.c_ulonglong),
-         ("hThread", ctypes.c_ulonglong),
+         ("hProcess", handleType),        #!!!P
+         ("hThread", handleType),
          ("dwProcessId", ctypes.c_uint),
          ("dwThreadId", ctypes.c_uint)]
      

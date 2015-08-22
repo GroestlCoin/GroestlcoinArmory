@@ -315,7 +315,7 @@ try
       }
       catch (BDMStopRequest&)
       {
-         LOGINFO << "UI asked build/scan thread to finish";
+//!!!T         LOGINFO << "UI asked build/scan thread to finish";
          return;
       }
    }

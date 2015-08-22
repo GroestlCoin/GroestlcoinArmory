@@ -1588,8 +1588,8 @@ class DlgWalletDetails(ArmoryDialog):
 
       exportStr = 'Data' if self.wlt.watchingOnly else 'Copy'
       
-      lbtnSendBtc = QLabelButton('Send GroestlCoins')
-      lbtnGenAddr = QLabelButton('Receive GroestlCoins')
+      lbtnSendBtc = QLabelButton('Send Groestlcoins')
+      lbtnGenAddr = QLabelButton('Receive Groestlcoins')
       lbtnImportA = QLabelButton('Import/Sweep Private Keys')
       lbtnDeleteA = QLabelButton('Remove Imported Address')
       # lbtnSweepA  = QLabelButton('Sweep Wallet/Address')
@@ -2547,7 +2547,7 @@ def showRecvCoinsWarningIfNecessary(wlt, parent, main):
       result = QMessageBox.warning(main, tr('Careful!'), tr("""
          Armory is not online yet, and will eventually need to be online to
          access any funds sent to your wallet.  Please <u><b>do not</b></u>
-         receive Bitcoins to your Armory wallets until you have successfully
+         receive Groestlcoins to your Armory wallets until you have successfully
          gotten online <i>at least one time</i>.
          <br><br>
          Armory is still beta software, and some users report difficulty
@@ -2830,7 +2830,7 @@ class DlgNewAddressDisp(ArmoryDialog):
       frmComment.setLayout(frmCommentLayout)
 
 
-      lblRecvWlt = QRichLabel('GroestlCoins sent to this address will '
+      lblRecvWlt = QRichLabel('Groestlcoins sent to this address will '
             'appear in the wallet:', doWrap=False)
 
       lblRecvWlt.setWordWrap(True)
@@ -2938,7 +2938,7 @@ class DlgImportAddress(ArmoryDialog):
                      'has access to it.  Otherwise, sweep it to get '
                      'the funds out of it.  All standard private-key formats '
                      'are supported <i>except for private keys created by '
-                     'GroestlCoin-Qt version 0.6.0 and later (compressed)</i>.')
+                     'Groestlcoin-Qt version 0.6.0 and later (compressed)</i>.')
 
       lblPrivOne = QRichLabel('Private Key')
       self.edtPrivData = QLineEdit()
@@ -2947,7 +2947,7 @@ class DlgImportAddress(ArmoryDialog):
                        'Supported formats are any hexadecimal or Base58 '
                        'representation of a 32-byte private key (with or '
                        'without checksums), and mini-private-key format '
-                       'used on Casascius physical bitcoins.  Private keys '
+                       'used on Casascius physical groestlcoins.  Private keys '
                        'that use <i>compressed</i> public keys are not yet '
                        'supported by Armory.')
 
@@ -3028,7 +3028,7 @@ class DlgImportAddress(ArmoryDialog):
       sweepTooltip = self.main.createToolTipWidget(\
          'You should never add an untrusted key to your wallet.  By choosing this '
          'option, you are only moving the funds into your wallet, but not the key '
-         'itself.  You should use this option for Casascius physical bitcoins.')
+         'itself.  You should use this option for Casascius physical groestlcoins.')
 
       importTooltip = self.main.createToolTipWidget(\
          'This option will make the key part of your wallet, meaning that it '
@@ -3156,7 +3156,7 @@ class DlgImportAddress(ArmoryDialog):
       except CompressedKeyError, e:
          QMessageBox.critical(self, 'Unsupported key type', 'You entered a key '
             'for an address that uses a compressed public key, usually produced '
-            'in GroestlCoin-Qt/groestlcoind wallets created after version 0.6.0.  Armory '
+            'in Groestlcoin-Qt/groestlcoind wallets created after version 0.6.0.  Armory '
             'does not yet support this key type.')
          LOGERROR('Compressed key data recognized but not supported')
          return
@@ -3172,7 +3172,7 @@ class DlgImportAddress(ArmoryDialog):
       if not 'mini' in keyType.lower():
          reply = QMessageBox.question(self, 'Verify Address', \
                'The key data you entered appears to correspond to '
-               'the following GroestlCoin address:\n\n\t' + addrStr +
+               'the following Groestlcoin address:\n\n\t' + addrStr +
                '\n\nIs this the correct address?',
                QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
          if reply == QMessageBox.Cancel:
@@ -4032,7 +4032,7 @@ class DlgEULA(ArmoryDialog):
 
 
       lblPleaseAgree = QRichLabel(\
-         '<b>Armory GroestlCoin Client is licensed under the <i>Affero General '
+         '<b>Armory Groestlcoin Client is licensed under the <i>Affero General '
          'Public License, Version 3 (AGPLv3)</i></b>'
          '<br><br>'
          'Additionally, as a condition of receiving this software '
@@ -4082,16 +4082,16 @@ class DlgIntroMessage(ArmoryDialog):
       lblWelcome = QRichLabel('<b>Welcome to Armory!</b>')
       lblWelcome.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
       lblWelcome.setFont(GETFONT('Var', 14))
-      lblSlogan = QRichLabel('<i>The most advanced GroestlCoin Client on Earth!</i>')
+      lblSlogan = QRichLabel('<i>The most advanced Groestlcoin Client on Earth!</i>')
       lblSlogan.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
       lblDescr = QRichLabel(\
-         '<b>You are about to use the most secure and feature-rich GroestlCoin client '
+         '<b>You are about to use the most secure and feature-rich Groestlcoin client '
          'software available!</b>  But please remember, this software '
          'is still <i>Beta</i> - Armory developers will not be held responsible '
          'for loss of groestlcoins resulting from the use of this software!'
          '<br><br>'
-         'For more info about Armory, and Bitcoin itself, see '
+         'For more info about Armory, and Groestlcoin itself, see '
          '<a href="https://bitcoinarmory.com/faq">frequently '
          'asked questions</a>.')
       lblDescr.setOpenExternalLinks(True)
@@ -5073,7 +5073,7 @@ class DlgSendBitcoins(ArmoryDialog):
 
       self.spendFromLockboxID = spendFromLockboxID
 
-      self.frame = SendBitcoinsFrame(self, main, tr('Send GroestlCoins'),
+      self.frame = SendBitcoinsFrame(self, main, tr('Send Groestlcoins'),
                    wlt, prefill, wltIDList, onlyOfflineWallets=onlyOfflineWallets,
                    sendCallback=self.createTxAndBroadcast,
                    createUnsignedTxCallback=self.createUnsignedTxAndDisplay, 
@@ -5612,7 +5612,7 @@ class DlgTxFeeOptions(ArmoryDialog):
 
       lblDescr = QLabel(\
          'Transaction fees go to people who contribute processing power to '
-         'the GroestlCoin network to process transactions and keep it secure.')
+         'the Groestlcoin network to process transactions and keep it secure.')
       lblDescr2 = QLabel(\
          'Nearly all transactions are guaranteed to be '
          'processed if a fee of 0.0005 BTC is included (less than $0.01 USD).  You '
@@ -5891,7 +5891,7 @@ class DlgDispTxInfo(ArmoryDialog):
       if self.mode in (USERMODE.Expert,):
          # Add protocol version and locktime to the display
          lbls.append([])
-         lbls[-1].append(self.main.createToolTipWidget('GroestlCoin Protocol Version Number'))
+         lbls[-1].append(self.main.createToolTipWidget('Groestlcoin Protocol Version Number'))
          lbls[-1].append(QLabel('Tx Version:'))
          lbls[-1].append(QLabel(str(self.pytx.version)))
 
@@ -5976,7 +5976,7 @@ class DlgDispTxInfo(ArmoryDialog):
       else:
          lbls.append([])
          lbls[-1].append(self.main.createToolTipWidget(
-               'GroestlCoins were either sent or received, or sent-to-self'))
+               'Groestlcoins were either sent or received, or sent-to-self'))
          lbls[-1].append(QLabel('Transaction Direction:'))
          lbls[-1].append(QRichLabel(txdir))
 
@@ -5996,7 +5996,7 @@ class DlgDispTxInfo(ArmoryDialog):
          fee = self.data[FIELDS.SumIn] - self.data[FIELDS.SumOut]
          lbls.append([])
          lbls[-1].append(self.main.createToolTipWidget(
-            'Transaction fees go to users supplying the GroestlCoin network with '
+            'Transaction fees go to users supplying the Groestlcoin network with '
             'computing power for processing transactions and maintaining security.'))
          lbls[-1].append(QLabel('Tx Fee Paid:'))
          lbls[-1].append(QLabel(coin2str(fee, maxZeros=0).strip() + '  BTC'))
@@ -7010,7 +7010,7 @@ class DlgPrintBackup(ArmoryDialog):
             <b><u>Print Wallet Backup Fragments</u></b><br><br>
             When any %d of these fragments are combined, all <u>previous
             <b>and</b> future</u> addresses generated by this wallet will be
-            restored, giving you complete access to your bitcoins.  The
+            restored, giving you complete access to your groestlcoins.  The
             data can be copied by hand if a working printer is not
             available.  Please make sure that all data lines contain
             <b>9 columns</b>
@@ -7288,7 +7288,7 @@ class DlgPrintBackup(ArmoryDialog):
          container = 'this wallet' if printType == 'SingleSheetFirstPage' else 'these addresses'
          warnMsg = tr("""
             <font color="#aa0000"><b>WARNING:</b></font> Anyone who has access to this
-            page has access to all the bitcoins in %s!  Please keep this
+            page has access to all the groestlcoins in %s!  Please keep this
             page in a safe place.""" % container)
 
       self.scene.newLine()
@@ -7591,13 +7591,13 @@ class DlgBadConnection(ArmoryDialog):
             'restart Armory.<br><br>Would you like to continue in "Offline" mode? ')
       elif haveInternet and not haveSatoshi:
          lblDescr = QRichLabel(\
-            'Armory was not able to detect the presence of GroestlCoin-Qt or groestlcoind '
+            'Armory was not able to detect the presence of Groestlcoin-Qt or groestlcoind '
             'client software (available at http://www.bitcoin.org).  Please make sure that '
             'the one of those programs is... <br>'
             '<br><b>(1)</b> ...open and connected to the network '
             '<br><b>(2)</b> ...on the same network as Armory (main-network or test-network)'
             '<br><b>(3)</b> ...synchronized with the blockchain before '
-            'starting Armory<br><br>Without the GroestlCoin-Qt or groestlcoind open, you will only '
+            'starting Armory<br><br>Without the Groestlcoin-Qt or groestlcoind open, you will only '
             'be able to run Armory in "Offline" mode, which will not have access '
             'to new blockchain data, and you will not be able to send outgoing '
             'transactions<br><br>If you do not want to be in "Offline" mode, please '
@@ -8022,7 +8022,7 @@ class DlgECDSACalc(ArmoryDialog):
       if not CryptoECDSA().ECVerifyPoint(binBx, binBy):
          QMessageBox.critical(self, 'Invalid EC Point', \
             'The point you specified (<b>B</b>) is not on the '
-            'elliptic curved used in GroestlCoin (secp256k1).', QMessageBox.Ok)
+            'elliptic curved used in Groestlcoin (secp256k1).', QMessageBox.Ok)
          return
 
       C = CryptoECDSA().ECMultiplyPoint(binA, binBx, binBy)
@@ -8044,13 +8044,13 @@ class DlgECDSACalc(ArmoryDialog):
       if not CryptoECDSA().ECVerifyPoint(binAx, binAy):
          QMessageBox.critical(self, 'Invalid EC Point', \
             'The point you specified (<b>A</b>) is not on the '
-            'elliptic curved used in GroestlCoin (secp256k1).', QMessageBox.Ok)
+            'elliptic curved used in Groestlcoin (secp256k1).', QMessageBox.Ok)
          return
 
       if not CryptoECDSA().ECVerifyPoint(binBx, binBy):
          QMessageBox.critical(self, 'Invalid EC Point', \
             'The point you specified (<b>B</b>) is not on the '
-            'elliptic curved used in GroestlCoin (secp256k1).', QMessageBox.Ok)
+            'elliptic curved used in Groestlcoin (secp256k1).', QMessageBox.Ok)
          return
 
       C = CryptoECDSA().ECAddPoints(binAx, binAy, binBx, binBy)
@@ -8692,11 +8692,11 @@ class DlgHelpAbout(ArmoryDialog):
       imgLogo.setPixmap(QPixmap(':/armory_logo_h56.png'))
       imgLogo.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
-      lblHead = QRichLabel(tr('Armory GroestlCoin Wallet : Version %s-beta-%s') % \
+      lblHead = QRichLabel(tr('Armory Groestlcoin Wallet : Version %s-beta-%s') % \
                                     (getVersionString(BTCARMORY_VERSION), BTCARMORY_BUILD), doWrap=False)
       lblWebpage = QRichLabel('<a href="https://www.bitcoinarmory.com">https://www.bitcoinarmory.com</a>')
       lblWebpage.setOpenExternalLinks(True)
-      lblCopyright = QRichLabel(tr(u'Copyright &copy; 2011-2015 Armory Technologies, Inc.\nCopyright &copy; 2014-2015 GroestlCoin developers'))
+      lblCopyright = QRichLabel(tr(u'Copyright &copy; 2011-2015 Armory Technologies, Inc.\nCopyright &copy; 2014-2015 Groestlcoin developers'))
       lblLicense = QRichLabel(tr(u'Licensed under the '
                               '<a href="http://www.gnu.org/licenses/agpl-3.0.html">'
                               'Affero General Public License, Version 3</a> (AGPLv3)'))
@@ -8737,7 +8737,7 @@ class DlgSettings(ArmoryDialog):
       if OS_MACOSX:
          self.chkManageSatoshi.setEnabled(False)
          lblManageSatoshi = QRichLabel(\
-            'GroestlCoin-Qt/groestlcoind management is not available on Mac/OSX')
+            'Groestlcoin-Qt/groestlcoind management is not available on Mac/OSX')
       else:
          if self.main.settings.hasSetting('SatoshiExe'):
             satexe = self.main.settings.get('SatoshiExe')
@@ -8747,9 +8747,9 @@ class DlgSettings(ArmoryDialog):
             sathome = self.main.settings.get('SatoshiDatadir')
 
          lblManageSatoshi = QRichLabel(\
-            '<b>GroestlCoin Software Management</b>'
+            '<b>Groestlcoin Software Management</b>'
             '<br><br>'
-            'By default, Armory will manage the Bitcoin engine/software in the '
+            'By default, Armory will manage the Groestlcoin engine/software in the '
             'background.  You can choose to manage it yourself, or tell Armory '
             'about non-standard installation configuration.')
       if self.main.settings.hasSetting('SatoshiExe'):
@@ -8759,8 +8759,8 @@ class DlgSettings(ArmoryDialog):
          self.edtSatoshiHomePath.setText(self.main.settings.get('SatoshiDatadir'))
          self.edtSatoshiHomePath.home(False)
 
-      lblDescrExe = QRichLabel('GroestlCoin Install Dir:')
-      lblDescrHome = QRichLabel('GroestlCoin Home Dir:')
+      lblDescrExe = QRichLabel('Groestlcoin Install Dir:')
+      lblDescrHome = QRichLabel('Groestlcoin Home Dir:')
       lblDefaultExe = QRichLabel('Leave blank to have Armory search default '
                                   'locations for your OS', size=2)
       lblDefaultHome = QRichLabel('Leave blank to use default datadir '
@@ -8821,7 +8821,7 @@ class DlgSettings(ArmoryDialog):
          logged by ATI servers.  You can continue to receive notifications 
          but not send any statistical information.""")
       lblPrivTorDescr = QRichLabel("""
-         If you are going to use Armory and Bitcoin Core with a proxy (such
+         If you are going to use Armory and Groestlcoin Core with a proxy (such
          as Tor), you should disable all Armory communications that might operate 
          outside the proxy.""")
 
@@ -8983,10 +8983,10 @@ class DlgSettings(ArmoryDialog):
          osxMinorVer = OS_VARIANT[0].split(".")[1]
 
       lblNotify = QRichLabel('<b>Enable notifications from the system-tray:</b>')
-      self.chkBtcIn = QCheckBox('GroestlCoins Received')
-      self.chkBtcOut = QCheckBox('GroestlCoins Sent')
-      self.chkDiscon = QCheckBox('GroestlCoin-Qt/groestlcoind disconnected')
-      self.chkReconn = QCheckBox('GroestlCoin-Qt/groestlcoind reconnected')
+      self.chkBtcIn = QCheckBox('Groestlcoins Received')
+      self.chkBtcOut = QCheckBox('Groestlcoins Sent')
+      self.chkDiscon = QCheckBox('Groestlcoin-Qt/groestlcoind disconnected')
+      self.chkReconn = QCheckBox('Groestlcoin-Qt/groestlcoind reconnected')
 
       # FYI:If we're not on OS X, the if condition will never be hit.
       if (OS_MACOSX) and (int(osxMinorVer) < 7):
@@ -9297,7 +9297,7 @@ class DlgSettings(ArmoryDialog):
             if not os.path.exists(pathExe):
                exeName = 'groestlcoin-qt.exe' if OS_WINDOWS else 'groestlcoin-qt'
                QMessageBox.warning(self, 'Invalid Path', \
-                  'The path you specified for the GroestlCoin software installation '
+                  'The path you specified for the Groestlcoin software installation '
                   'does not exist.  Please select the directory that contains %s '
                   'or leave it blank to have Armory search the default location '
                   'for your operating system' % exeName, QMessageBox.Ok)
@@ -9314,9 +9314,9 @@ class DlgSettings(ArmoryDialog):
             if not os.path.exists(pathHome):
                exeName = 'groestlcoin-qt.exe' if OS_WINDOWS else 'groestlcoin-qt'
                QMessageBox.warning(self, 'Invalid Path', \
-                  'The path you specified for the GroestlCoin software home directory '
+                  'The path you specified for the Groestlcoin software home directory '
                   'does not exist.  Only specify this directory if you use a '
-                  'non-standard "-datadir=" option when running GroestlCoin-Qt or '
+                  'non-standard "-datadir=" option when running Groestlcoin-Qt or '
                   'groestlcoind.  If you leave this field blank, the following '
                   'path will be used: <br><br> %s' % BTC_HOME_DIR, QMessageBox.Ok)
                return
@@ -9429,7 +9429,7 @@ class DlgSettings(ArmoryDialog):
             ('"Expert" mode is similar to "Advanced" but includes '
              'access to lower-level info about transactions, scripts, keys '
              'and network protocol.  Most extra functionality is geared '
-             'towards GroestlCoin software developers.')
+             'towards Groestlcoin software developers.')
       self.lblUsermodeDescr.setText(strDescr)
 
 
@@ -9889,7 +9889,7 @@ class DlgRequestPayment(ArmoryDialog):
 
       lblDescr = QRichLabel(\
          'Create a clickable link that you can copy into email or webpage to '
-         'request a payment.   If the user is running a GroestlCoin program '
+         'request a payment.   If the user is running a Groestlcoin program '
          'that supports "groestlcoin:" links, that program will open with '
          'all this information pre-filled after they click the link.')
 
@@ -9898,7 +9898,7 @@ class DlgRequestPayment(ArmoryDialog):
 
 
       ttipPreview = self.main.createToolTipWidget(\
-         'The following GroestlCoin desktop applications <i>try</i> to '
+         'The following Groestlcoin desktop applications <i>try</i> to '
          'register themselves with your computer to handle "groestlcoin:" '
          'links: Armory, Multibit, Electrum')
       ttipLinkText = self.main.createToolTipWidget(\
@@ -10726,7 +10726,7 @@ class DlgInstallLinux(ArmoryDialog):
 
 
       lblOptions = QRichLabel(\
-         'If you have manually installed GroestlCoin-Qt or groestlcoind on this system '
+         'If you have manually installed Groestlcoin-Qt or groestlcoind on this system '
          'before, it is recommended you use the method here you previously used.  '
          'If you get errors using this option, try using the manual instructions '
          'below.')
@@ -10746,13 +10746,13 @@ class DlgInstallLinux(ArmoryDialog):
       lblAutoPPA = QRichLabel(\
          'Have Armory install the PPA for you.  The does not work on all '
          'systems, so try the manual instructions below, if it fails.  '
-         'Using the PPA will install the GroestlCoin software using your '
+         'Using the PPA will install the Groestlcoin software using your '
          'system\'s package manager, and you will be notified of updates along with '
          'other software on your system.')
-      self.btnAutoPPA = QPushButton('Install GroestlCoin PPA')
+      self.btnAutoPPA = QPushButton('Install Groestlcoin PPA')
       self.connect(self.btnAutoPPA, SIGNAL(CLICKED), self.doPPA)
       self.btnAutoPPA.setToolTip(\
-         'Click to install the GroestlCoin PPA for Ubuntu')
+         'Click to install the Groestlcoin PPA for Ubuntu')
 
       frmDoItForMeBtn = makeHorizFrame([STRETCH, \
                                         self.btnAutoPPA, \
@@ -10801,7 +10801,7 @@ class DlgInstallLinux(ArmoryDialog):
       self.chkCustomDLPath = QCheckBox('Select custom download location')
 
       lblInstallManualDescr = QRichLabel(\
-         '<b>Manual download and install of the Bitcoin software:</b><br>'
+         '<b>Manual download and install of the Groestlcoin software:</b><br>'
          '<ol>'
          '<li>Go to <a href="http://www.bitcoin.org/en/download">'
          'http://www.bitcoin.org/en/download</a></li>'
@@ -10868,7 +10868,7 @@ class DlgInstallLinux(ArmoryDialog):
          QMessageBox.warning(self, 'Not available', \
             'Armory does not actually have the information needed to execute '
             'this process securely.  Please visit the bitcoin.org and download '
-            'the Linux version of the Bitcoin software, then modify your '
+            'the Linux version of the Groestlcoin software, then modify your '
             'settings to point to where it was unpacked. ', QMessageBox.Ok)
          return
 
@@ -10877,7 +10877,7 @@ class DlgInstallLinux(ArmoryDialog):
          if not os.path.exists(installPath):
             os.makedirs(installPath)
       else:
-         title = 'Download GroestlCoin software to...'
+         title = 'Download Groestlcoin software to...'
          initPath = self.main.settings.get('LastDirectory')
          if not OS_MACOSX:
             installPath = unicode(QFileDialog.getExistingDirectory(self, title, initPath))
@@ -10901,7 +10901,7 @@ class DlgInstallLinux(ArmoryDialog):
       if len(fileData) == 0 or dlg.dlVerifyFailed:
          QMessageBox.critical(self, 'Download Failed', \
             'The download failed.  Please visit www.groestlcoin.org '
-            'to download and install GroestlCoin-Qt manually.', QMessageBox.Ok)
+            'to download and install Groestlcoin-Qt manually.', QMessageBox.Ok)
          import webbrowser
          webbrowser.open('http://www.groestlcoin.org')
          return
@@ -10985,7 +10985,7 @@ def tryInstallLinux(main):
             QMessageBox.Ok)
          raise
 
-   DlgExecLongProcess(doit, 'Installing Bitcoin Software...', main, main).exec_()
+   DlgExecLongProcess(doit, 'Installing Groestlcoin Software...', main, main).exec_()
 
 
 ################################################################################
@@ -11274,11 +11274,11 @@ class DlgSimpleBackup(ArmoryDialog):
       self.wlt = wlt
 
       lblDescrTitle = QRichLabel(tr("""
-         <b>Protect Your Bitcoins -- Make a Wallet Backup!</b>"""))
+         <b>Protect Your Groestlcoins -- Make a Wallet Backup!</b>"""))
 
       lblDescr = QRichLabel(tr("""
          A failed hard-drive or forgotten passphrase will lead to
-         <u>permanent loss of bitcoins</u>!  Luckily, Armory wallets only
+         <u>permanent loss of groestlcoins</u>!  Luckily, Armory wallets only
          need to be backed up <u>one time</u>, and protect you in both
          of these events.   If you've ever forgotten a password or had
          a hardware failure, make a backup! """))
@@ -14710,7 +14710,7 @@ class DlgFactoryReset(ArmoryDialog):
          <b>Also re-download the blockchain (most extreme)</b>"""))
       self.lblBitcoinDB = QRichLabel(tr("""
          This will delete settings, network data, Armory's databases,
-         <b>and</b> the Bitcoin software databases.  Groestlcoin-Qt/groestlcoind will
+         <b>and</b> the Groestlcoin software databases.  Groestlcoin-Qt/groestlcoind will
          have to download the blockchain again.  Only use this if you
          suspect blockchain corruption, such as receiving StdOut/StdErr errors
          on the dashboard (8-72 hours depending on your connection)"""))
@@ -14807,7 +14807,7 @@ class DlgFactoryReset(ArmoryDialog):
          if self.chkSaveSettings.isChecked():
             msg = tr("""
                You are about to delete <b>all</b>
-               blockchain databases on your system.  The Bitcoin software will
+               blockchain databases on your system.  The Groestlcoin software will
                have to redownload of blockchain data over the peer-to-peer
                network again which can take from 8 to 72 hours depending on
                your system speed and connection.  <br><br><b>Are you absolutely
@@ -14815,7 +14815,7 @@ class DlgFactoryReset(ArmoryDialog):
          else:
             msg = tr("""
                You are about to delete your settings and delete <b>all</b>
-               blockchain databases on your system.  The Bitcoin software will
+               blockchain databases on your system.  The Groestlcoin software will
                have to redownload of blockchain data over the peer-to-peer
                network again which can take from 8 to 72 hours depending on
                your system speed and connection.  <br><br><b>Are you absolutely
@@ -14836,7 +14836,7 @@ class DlgFactoryReset(ArmoryDialog):
             # Must have user shutdown Bitcoin sw now, and delete DBs now
             reply = MsgBoxCustom(MSGBOX.Warning, tr('Restart Armory'), tr("""
                <b>Groestlcoin-Qt (or groestlcoind) must be closed to do the reset!</b>
-               Please close all Bitcoin software, <u><b>right now</b></u>,
+               Please close all Groestlcoin software, <u><b>right now</b></u>,
                before clicking "Continue".
                <br><br>
                Armory will now close.  Please restart Groestlcoin-Qt/groestlcoind
@@ -14958,7 +14958,7 @@ class DlgBroadcastBlindTx(ArmoryDialog):
                 to the connected Groestlcoin Core instance which will
                 forward it to the rest of the Groestlcoin network.  
                 However, if the transaction is non-standard or 
-                does not satisfy standard fee rules, Bitcoin Core 
+                does not satisfy standard fee rules, Groestlcoin Core 
                 <u>will</u> drop it and it 
                 will never be seen by the Groestlcoin network. 
             </li>

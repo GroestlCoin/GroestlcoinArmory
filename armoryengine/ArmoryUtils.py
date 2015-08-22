@@ -426,7 +426,7 @@ if not CLI_OPTIONS.armoryDBDir==DEFAULT:
 # Change the log file to use
 ARMORY_LOG_FILE = os.path.join(ARMORY_HOME_DIR, 'armorylog.txt')
 ARMCPP_LOG_FILE = os.path.join(ARMORY_HOME_DIR, 'armorycpplog.txt')
-if not sys.argv[0] in ['ArmoryQt.py', 'GroestlCoin-ArmoryQt.exe', 'GroestlCoin-Armory.exe']:
+if not sys.argv[0] in ['ArmoryQt.py', 'Groestlcoin-ArmoryQt.exe', 'Groestlcoin-Armory.exe']:
    basename = os.path.basename(sys.argv[0])
    CLI_OPTIONS.logFile = os.path.join(ARMORY_HOME_DIR, '%s.log.txt' % basename)
 
@@ -437,7 +437,7 @@ if CLI_OPTIONS.settingsPath==DEFAULT:
 
 # Change the log file to use
 if CLI_OPTIONS.logFile==DEFAULT:
-   if sys.argv[0] in ['ArmoryQt.py', 'GroestlCoin-ArmoryQt.exe', 'GroestlCoin-Armory.exe']:
+   if sys.argv[0] in ['ArmoryQt.py', 'Groestlcoin-ArmoryQt.exe', 'Groestlcoin-Armory.exe']:
       CLI_OPTIONS.logFile = os.path.join(ARMORY_HOME_DIR, 'armorylog.txt')
    else:
       basename = os.path.basename(sys.argv[0])
@@ -570,7 +570,7 @@ if not CLI_OPTIONS.satoshiRpcport == DEFAULT:
    try:
       BITCOIN_RPC_PORT = int(CLI_OPTIONS.satoshiRpcport)
    except:
-      raise TypeError('Invalid rpc port for GroestlCoin-Qt, using ' + str(BITCOIN_RPC_PORT))
+      raise TypeError('Invalid rpc port for Groestlcoin-Qt, using ' + str(BITCOIN_RPC_PORT))
 
 ################################################################################
 if not CLI_OPTIONS.rpcport == DEFAULT:
@@ -990,7 +990,7 @@ if os.path.exists(fileDelSettings):
 ################################################################################
 def deleteBitcoindDBs():
    if not os.path.exists(BTC_HOME_DIR):
-      LOGERROR('Could not find GroestlCoin-Qt/groestlcoind home dir to remove blk data')
+      LOGERROR('Could not find Groestlcoin-Qt/groestlcoind home dir to remove blk data')
       LOGERROR('  Does not exist: %s' % BTC_HOME_DIR)
    else:
       LOGINFO('Found bitcoin home dir, removing blocks and databases')
@@ -3716,12 +3716,12 @@ class FakeTDM(object):
 
 DISABLE_TORRENTDL = CLI_OPTIONS.disableTorrent
 TheTDM = FakeTDM()
-try:
-   import torrentDL
-   TheTDM = torrentDL.TorrentDownloadManager()
-except:
-   LOGEXCEPT('Failed to import torrent downloader')
-   DISABLE_TORRENTDL = True
+#!!!GRS try:
+#!!!GRS    import torrentDL
+#!!!GRS    TheTDM = torrentDL.TorrentDownloadManager()
+#!!!GRS except:
+#!!!GRS    LOGEXCEPT('Failed to import torrent downloader')
+#!!!GRS    DISABLE_TORRENTDL = True
 
 # We only use BITTORRENT for mainnet
 if USE_TESTNET:

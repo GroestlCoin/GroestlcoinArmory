@@ -367,7 +367,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       PARAMETERS:
       sender - Base58 address of the sender to the current wallet.
       RETURN:
-      Number of Bitcoins sent by the sender to the current wallet.
+      Number of Groestlcoins sent by the sender to the current wallet.
       """
       totalReceived = 0.0
       ledgerEntries = self.curWlt.getTxLedger('blk')
@@ -1072,7 +1072,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       recAddr - The recipient. This can be an address, a P2SH script address, a
                 lockbox (e.g., "Lockbox[83jcAqz9]" or "Lockbox[Bare:83jcAqz9]"),
                 or a public key (compressed or uncompressed) string.
-      amount - The number of Bitcoins to send to the recipient.
+      amount - The number of Groestlcoins to send to the recipient.
       fee - Amount you want to pay in transaction fees.
       RETURN:
       An ASCII-formatted unsigned transaction, similar to the one output by
@@ -1101,7 +1101,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       recAddr - The recipient. This can be an address, a P2SH script address, a
                 lockbox (e.g., "Lockbox[83jcAqz9]" or "Lockbox[Bare:83jcAqz9]"),
                 or a public key (compressed or uncompressed) string.
-      amount - The number of Bitcoins to send to the recipient.
+      amount - The number of Groestlcoins to send to the recipient.
       fee - Amount you want to pay in transaction fees.
       RETURN:
       An ASCII-formatted unsigned transaction, similar to the one output by
@@ -1136,7 +1136,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       fee - Amount you want to pay in transaction fees. Put 0 to make the
             fee the minimum amount for the tx to go through
       args - An indefinite number of comma-separated sets of recipients and the
-             number of Bitcoins to send to the recipients. The recipients can be
+             number of Groestlcoins to send to the recipients. The recipients can be
              an address, a P2SH script address, a lockbox (e.g.,
              "Lockbox[83jcAqz9]" or "Lockbox[Bare:83jcAqz9]"), or a public key
              (compressed or uncompressed) string.
@@ -1175,7 +1175,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       fee - Amount you want to pay in transaction fees. Put 0 to make the
             fee the minimum amount for the tx to go through
       args - An indefinite number of comma-separated sets of recipients and the
-             number of Bitcoins to send to the recipients. The recipients can be
+             number of Groestlcoins to send to the recipients. The recipients can be
              an address, a P2SH script address, a lockbox (e.g.,
              "Lockbox[83jcAqz9]" or "Lockbox[Bare:83jcAqz9]"), or a public key
              (compressed or uncompressed) string.

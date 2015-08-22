@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #                                                                              #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.                           #
 # Distributed under the GNU Affero General Public License (AGPL v3)            #
@@ -406,16 +406,16 @@ class LedgerDispModelSimple(QAbstractTableModel):
             #toSelf = self.index(index.row(), COL.toSelf).data().toBool()
             toSelf = rowData[COL.toSelf]
             if toSelf:
-               return QVariant('Bitcoins sent and received by the same wallet')
+               return QVariant('Groestlcoins sent and received by the same wallet')
             else:
                #txdir = str(index.model().data(index).toString()).strip()
                txdir = rowData[COL.TxDir]
                if rowData[COL.isCoinbase]:
-                  return QVariant('You mined these Bitcoins!')
+                  return QVariant('You mined these Groestlcoins!')
                if float(txdir.strip())<0:
-                  return QVariant('Bitcoins sent')
+                  return QVariant('Groestlcoins sent')
                else:
-                  return QVariant('Bitcoins received')
+                  return QVariant('Groestlcoins received')
          if col==COL.Amount:
             if self.main.settings.get('DispRmFee'):
                return QVariant('The net effect on the balance of this wallet '
@@ -902,8 +902,10 @@ class ArmoryTableView(QTableView):
          else:
             self.BlockAndDateSelector.show()
          
-         ratio = float(self.verticalScrollBar().value()) \
-              / float(self.verticalScrollBar().maximum())
+         if self.verticalScrollBar().maximum() != 0:
+            ratio = float(self.verticalScrollBar().value()) / float(self.verticalScrollBar().maximum())
+         else:
+            ratio = 1
               
          leID = int(ratio * float(self.ledgerModel.rowCount()))
          block = TheBDM.getTopBlockHeight() - self.ledgerModel.ledger[leID][0] +1               
