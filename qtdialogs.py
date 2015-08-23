@@ -1859,9 +1859,9 @@ class DlgWalletDetails(ArmoryDialog):
       self.lblSpendFunds.setText(spdStr)
       self.lblUnconfFunds.setText(ucnStr)
 
-      self.lblBTC1.setText('<b><font color="%s">BTC</font></b>' % lblcolor)
-      self.lblBTC2.setText('<b>BTC</b>')
-      self.lblBTC3.setText('<b>BTC</b>')
+      self.lblBTC1.setText('<b><font color="%s">GRS</font></b>' % lblcolor)
+      self.lblBTC2.setText('<b>GRS</b>')
+      self.lblBTC3.setText('<b>GRS</b>')
 
 
    #############################################################################
@@ -5615,7 +5615,7 @@ class DlgTxFeeOptions(ArmoryDialog):
          'the Groestlcoin network to process transactions and keep it secure.')
       lblDescr2 = QLabel(\
          'Nearly all transactions are guaranteed to be '
-         'processed if a fee of 0.0005 BTC is included (less than $0.01 USD).  You '
+         'processed if a fee of 0.0005 GRS is included (less than $0.01 USD).  You '
          'will be prompted for confirmation if a higher fee amount is required for '
          'your transaction.')
 
@@ -8933,7 +8933,7 @@ class DlgSettings(ArmoryDialog):
       lblDefaultDescr = QRichLabel(tr("""
          Fees go to users that contribute computing power to keep the
          Groestlcoin network secure.  It also increases the priority of your
-         transactions so they confirm faster (%s BTC is standard).""") % \
+         transactions so they confirm faster (%s GRS is standard).""") % \
          coin2strNZS(MIN_TX_FEE))
 
       ttipDefaultFee = self.main.createToolTipWidget(tr("""
@@ -9279,7 +9279,7 @@ class DlgSettings(ArmoryDialog):
       # self.Options.append( ['LineEdit', 'Default_Fee', MIN_TX_FEE, \
                            # 'Default fee to include with transactions.', \
                            # 'Fees go to users that contribute computing power '
-                           # 'to keep the Groestlcoin network secure (0.0005 BTC is '
+                           # 'to keep the Groestlcoin network secure (0.0005 GRS is '
                            # 'standard).', \
                            # 'NOTE: some transactions will require a fee '
                            # 'regardless of your preferences -- in such cases '

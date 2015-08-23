@@ -236,6 +236,8 @@ NAMESPACE_END
 	// 4355: 'this' : used in base member initializer list
 	// 4910: '__declspec(dllexport)' and 'extern' are incompatible on an explicit instantiation
 #	pragma warning(disable: 4231 4250 4251 4275 4660 4661 4786 4355 4910)
+#	pragma warning(disable: 4297)		//!!!P
+#	define _WINSOCK_DEPRECATED_NO_WARNINGS
 #endif
 
 #ifdef __BORLANDC__

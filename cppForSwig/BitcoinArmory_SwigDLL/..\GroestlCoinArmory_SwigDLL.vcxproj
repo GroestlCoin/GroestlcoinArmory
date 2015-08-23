@@ -145,7 +145,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\2.7.1_x86\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;cryptopp;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\27_$(PlatformShortName)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
@@ -158,7 +158,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\2.7.1_x86\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -190,7 +190,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;cryptopp;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\27_$(PlatformShortName)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ForcedIncludeFiles>armory-config.h</ForcedIncludeFiles>
@@ -204,7 +204,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);pthreads-w32-2-9-1-release\Pre-built.2\lib\x64;C:\Python27_64\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -373,7 +373,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">
     <Link />
     <ClCompile>
-      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\2.7.1_x86\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;cryptopp;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\27_$(PlatformShortName)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -386,13 +386,13 @@
     <Link>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\2.7.1_x86\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
     <Link />
     <ClCompile>
-      <AdditionalIncludeDirectories>.;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python27\include;%(AdditionalIncludeDirectories);..\foreign\crypto++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;cryptopp;mdb;leveldb;leveldb\include;leveldb_windows_port\win32_posix;C:\Python\27_$(PlatformShortName)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -404,7 +404,7 @@
     </ClCompile>
     <Link>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
-      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);pthreads-w32-2-9-1-release\Pre-built.2\lib\x64;C:\Python27_64\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -472,13 +472,13 @@
   <ItemGroup>
     <CustomBuild Include="CppBlockUtils.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">swig.exe -c++ -python -threads -v -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">%(Filename)_wrap.cxx</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">swig.exe -c++ -python -threads -v -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">%(Filename)_wrap.cxx</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">swig.exe -c++ -python -threads -v -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">%(Filename)_wrap.cxx</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">swig.exe -c++ -python -outdir ../ -w472,402,325,362 %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">swig.exe -c++ -python -threads -v -outdir ../ -w472,402,325,362 %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">%(Filename)_wrap.cxx</Outputs>
     </CustomBuild>
   </ItemGroup>

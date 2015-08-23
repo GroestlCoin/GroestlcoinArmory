@@ -444,9 +444,9 @@ class ArmoryMainWindow(QMainWindow):
       self.lblSpd.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
       self.lblUcn.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
-      self.lblBTC1 = QRichLabel('<b>BTC</b>', doWrap=False)
-      self.lblBTC2 = QRichLabel('<b>BTC</b>', doWrap=False)
-      self.lblBTC3 = QRichLabel('<b>BTC</b>', doWrap=False)
+      self.lblBTC1 = QRichLabel('<b>GRS</b>', doWrap=False)
+      self.lblBTC2 = QRichLabel('<b>GRS</b>', doWrap=False)
+      self.lblBTC3 = QRichLabel('<b>GRS</b>', doWrap=False)
       self.ttipTot = self.createToolTipWidget( \
             'Funds if all current transactions are confirmed.  '
             'Value appears gray when it is the same as your spendable funds.')
@@ -3259,7 +3259,7 @@ class ArmoryMainWindow(QMainWindow):
          goodColor= htmlColor('TextGreen')
          self.lblTotalFunds.setText( '<b><font color="%s">%s</font></b>' % (btccolor,coin2str(totalFunds)))
          self.lblTot.setText('<b><font color="%s">Maximum Funds:</font></b>' % lblcolor)
-         self.lblBTC1.setText('<b><font color="%s">BTC</font></b>' % lblcolor)
+         self.lblBTC1.setText('<b><font color="%s">GRS</font></b>' % lblcolor)
          self.lblSpendFunds.setText( '<b><font color=%s>%s</font></b>' % (goodColor, coin2str(spendFunds)))
          self.lblUnconfFunds.setText('<b><font color="%s">%s</font></b>' % \
                                              (uncolor, coin2str(unconfFunds)))

@@ -266,7 +266,7 @@ try
          lastvalues = currentvalues;
          
          //pass empty walletID for main build&scan calls
-//!!!T         callback->progress(phase, vector<string>(), prog, time, numericProgress);
+         callback->progress(phase, vector<string>(), prog, time, numericProgress);
 
          if (!pimpl->run)
          {
@@ -315,7 +315,7 @@ try
       }
       catch (BDMStopRequest&)
       {
-//!!!T         LOGINFO << "UI asked build/scan thread to finish";
+         LOGINFO << "UI asked build/scan thread to finish";
          return;
       }
    }
@@ -340,7 +340,7 @@ try
    };   
    
    //push 'bdm is ready' to Python
-//!!!T   callback->run(BDMAction_Ready, nullptr, bdm->getTopBlockHeight());
+   callback->run(BDMAction_Ready, nullptr, bdm->getTopBlockHeight());
    
    while(pimpl->run)
    {

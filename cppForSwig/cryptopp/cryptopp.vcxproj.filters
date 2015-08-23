@@ -390,7 +390,7 @@
     <ClCompile Include="tea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DetSign.cpp">
+    <ClCompile Include="..\DetSign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
