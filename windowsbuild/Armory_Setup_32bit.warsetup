@@ -1,214 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WarSetup-Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" projectRunAfterInstall="true" mainTargetApp="ID_7a8e7d10_ec03_411b_9408_83688896535d" nextUniqueId="1873" projectName="Armory Bitcoin Client" projectUuid="ddb82637-c16c-40e0-a106-761d0bb4bd87" projectUpgradeUuid="2652272c-281a-4c00-b02e-0e5584fa41fd" projectVersion="0.87.97" projectOrganization="Armory" projectMustBeAdministratorToInstall="false" project64BitTarget="false" projectTargetDirectory="\\VBOXSVR\winlinshare\Armory_Build\Win32" projectTargetName="armory_0.87.97-testing_windows_all" projectType="0" projectUserInterface="WixUI_InstallDir">
+<WarSetup-Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" projectRunAfterInstall="true" mainTargetApp="ID_7a8e7d10_ec03_411b_9408_83688896535d" nextUniqueId="1873" projectName="Armory Groestlcoin Client" projectUuid="ddb82637-c16c-40e0-a106-761d0bb4bd87" projectUpgradeUuid="2652272c-281a-4c00-b02e-0e5584fa41fd" projectVersion="0.87.97" projectOrganization="GroestlcoinArmory" projectMustBeAdministratorToInstall="false" project64BitTarget="false" projectTargetDirectory="\\VBOXSVR\winlinshare\GroestlcoinArmory_Build\Win32" projectTargetName="groestlcoinarmory_0.87.97-testing_windows_all" projectType="0" projectUserInterface="WixUI_InstallDir">
   <LicencePaths>
     <string>C:\Program Files\Jgaa's Internet\War Setup\Licenses</string>
   </LicencePaths>
   <Virgin>false</Virgin>
-  <projectFeatures featureId="ID278B37E90A968581C29D1B7D662ECE98" featureName="Armory Bitcoin Client" featureDescription="The complete package" configurableDirectory="APPLICATIONFOLDER" configurableDirectoryDefaultPath="[ProjectName]" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
+  <projectFeatures featureId="ID278B37E90A968581C29D1B7D662ECE98" featureName="Armory Groestlcoin Client" featureDescription="The complete package" configurableDirectory="APPLICATIONFOLDER" configurableDirectoryDefaultPath="[ProjectName]" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
     <childFeatures featureId="PROGRAM" featureName="Program" featureDescription="The Main Executable" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
       <components componentId="ID1808" componentGuid="bdf72e9b-6355-47bd-a377-ace08bac55d4">
-        <componentFiles fileId="ID_cd70ae8b_bfff_4bc0_b7d6_d123a6cd10e8" srcName="_CppBlockUtils.pyd" srcDirectory="..\ArmoryStandalone" dstName="_CppBlockUtils.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_CppBlockUtils" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_cd70ae8b_bfff_4bc0_b7d6_d123a6cd10e8" srcName="_CppBlockUtils.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_CppBlockUtils.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_CppBlockUtils" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1807" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1810" componentGuid="d060a780-bc1f-4049-976e-4ac14abdd5b0">
-        <componentFiles fileId="ID_f56f56a5_532a_4b9f_9e1d_7844474d7b5b" srcName="_ctypes.pyd" srcDirectory="..\ArmoryStandalone" dstName="_ctypes.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_ctypes" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_f56f56a5_532a_4b9f_9e1d_7844474d7b5b" srcName="_ctypes.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_ctypes.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_ctypes" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1809" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1812" componentGuid="e6d9d845-7161-478c-9d54-fb70c8bce473">
-        <componentFiles fileId="ID_543a0037_82e8_44c8_8d23_24e9868a83ed" srcName="_hashlib.pyd" srcDirectory="..\ArmoryStandalone" dstName="_hashlib.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_hashlib" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_543a0037_82e8_44c8_8d23_24e9868a83ed" srcName="_hashlib.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_hashlib.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_hashlib" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1811" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1814" componentGuid="b8a8f88b-fc3c-4825-b500-306eb8038398">
-        <componentFiles fileId="ID_c164f97a_bf62_4173_926c_774463d99ee6" srcName="_multiprocessing.pyd" srcDirectory="..\ArmoryStandalone" dstName="_multiprocessing.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_multiprocessing" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_c164f97a_bf62_4173_926c_774463d99ee6" srcName="_multiprocessing.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_multiprocessing.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_multiprocessing" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1813" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1816" componentGuid="ef738d9e-fd87-4dd3-bc23-9ae59a42febe">
-        <componentFiles fileId="ID_b226197f_f095_4739_9515_824f102cc5cf" srcName="_psutil_mswindows.pyd" srcDirectory="..\ArmoryStandalone" dstName="_psutil_mswindows.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_psutil_mswindows" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_b226197f_f095_4739_9515_824f102cc5cf" srcName="_psutil_mswindows.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_psutil_mswindows.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_psutil_mswindows" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1815" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1818" componentGuid="29f5dedd-ddbf-4219-a256-06ff53a2f5e5">
-        <componentFiles fileId="ID_27a9a001_a5e6_46db_aeea_937bb393d658" srcName="_socket.pyd" srcDirectory="..\ArmoryStandalone" dstName="_socket.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_socket" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_27a9a001_a5e6_46db_aeea_937bb393d658" srcName="_socket.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_socket.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_socket" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1817" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1820" componentGuid="f8af4ed4-3ff2-4ede-b719-64843e961ff1">
-        <componentFiles fileId="ID_fb0c094a_d921_46b7_a637_0f63d47f261e" srcName="_ssl.pyd" srcDirectory="..\ArmoryStandalone" dstName="_ssl.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_ssl" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_fb0c094a_d921_46b7_a637_0f63d47f261e" srcName="_ssl.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_ssl.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_ssl" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1819" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1822" componentGuid="0c07b1c5-572d-4a82-b5a0-34c9eaecec0d">
-        <componentFiles fileId="ID_d665b23f_35ed_400f_9c61_cd24a182b898" srcName="_win32sysloader.pyd" srcDirectory="..\ArmoryStandalone" dstName="_win32sysloader.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_win32sysloader" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_d665b23f_35ed_400f_9c61_cd24a182b898" srcName="_win32sysloader.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="_win32sysloader.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="_win32sysloader" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1821" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1824" componentGuid="d7ed1979-50fb-4e85-b8c9-27c285d43077">
-        <componentFiles fileId="ID_7a8e7d10_ec03_411b_9408_83688896535d" srcName="ArmoryQt.exe" srcDirectory="..\ArmoryStandalone" dstName="Armory.exe" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="Armory" shortcutInProgramFilesMenu="true" shortcutOnDesktop="true" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_7a8e7d10_ec03_411b_9408_83688896535d" srcName="Groestlcoin-ArmoryQt.exe" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="GroestlcoinArmory.exe" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="GroestlcoinArmory" shortcutInProgramFilesMenu="true" shortcutOnDesktop="true" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1823" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1826" componentGuid="0dee725e-8272-4da6-8c1e-742d3e946d86">
-        <componentFiles fileId="ID_f14db8fe_a480_4db9_b20d_107f6e8f2151" srcName="bz2.pyd" srcDirectory="..\ArmoryStandalone" dstName="bz2.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="bz2" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_f14db8fe_a480_4db9_b20d_107f6e8f2151" srcName="bz2.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="bz2.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="bz2" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1825" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1828" componentGuid="56808f12-7b83-428a-9871-4b33ec9bf2c6">
-        <componentFiles fileId="ID_bbbffb71_6369_496b_864b_d22f2c9daee9" srcName="guardian.exe" srcDirectory="..\ArmoryStandalone" dstName="guardian.exe" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="guardian" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_bbbffb71_6369_496b_864b_d22f2c9daee9" srcName="guardian.exe" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="guardian.exe" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="guardian" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1827" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1830" componentGuid="ef59bf8d-b013-48db-b522-25a67a2026f4">
-        <componentFiles fileId="ID_bf54270a_8f97_416a_bc24_397623176d6d" srcName="library.zip" srcDirectory="..\ArmoryStandalone" dstName="library.zip" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="library" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_bf54270a_8f97_416a_bc24_397623176d6d" srcName="library.zip" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="library.zip" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="library" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1829" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1832" componentGuid="3bc86d5d-a1e6-4cb9-8558-fcfb10e52bd4">
-        <componentFiles fileId="ID_a74065f2_eebf_4b79_9245_ed9eac5d57f9" srcName="pyexpat.pyd" srcDirectory="..\ArmoryStandalone" dstName="pyexpat.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="pyexpat" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_a74065f2_eebf_4b79_9245_ed9eac5d57f9" srcName="pyexpat.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="pyexpat.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="pyexpat" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1831" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1834" componentGuid="512b6c8c-449d-4db0-afbb-3aa06931d2d4">
-        <componentFiles fileId="ID_3d5754cb_3bac_437d_bd53_883c2be4539c" srcName="PyQt4.QtCore.pyd" srcDirectory="..\ArmoryStandalone" dstName="PyQt4.QtCore.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="PyQt4.QtCore" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_3d5754cb_3bac_437d_bd53_883c2be4539c" srcName="PyQt4.QtCore.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="PyQt4.QtCore.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="PyQt4.QtCore" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1833" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1836" componentGuid="62d678c1-1b61-486d-8ba2-ea1583fe8203">
-        <componentFiles fileId="ID_f53ca294_1e4b_4593_a315_bc9821c19b56" srcName="PyQt4.QtGui.pyd" srcDirectory="..\ArmoryStandalone" dstName="PyQt4.QtGui.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="PyQt4.QtGui" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_f53ca294_1e4b_4593_a315_bc9821c19b56" srcName="PyQt4.QtGui.pyd" srcDirectory="..\GroestlcoinGroestlcoinArmoryStandalone" dstName="PyQt4.QtGui.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="PyQt4.QtGui" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1835" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1838" componentGuid="a7aa1a38-e978-467e-9244-634517673455">
-        <componentFiles fileId="ID_9651fc47_07c5_4ae1_a014_93eac54d4520" srcName="python27.dll" srcDirectory="..\ArmoryStandalone" dstName="python27.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="python27" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_9651fc47_07c5_4ae1_a014_93eac54d4520" srcName="python27.dll" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="python27.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="python27" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1837" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1840" componentGuid="c53c4709-13f8-493d-b192-04e9ae41f244">
-        <componentFiles fileId="ID_cccfad2c_70f5_41e0_a424_37949a5c9e72" srcName="pythoncom27.dll" srcDirectory="..\ArmoryStandalone" dstName="pythoncom27.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="pythoncom27" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_cccfad2c_70f5_41e0_a424_37949a5c9e72" srcName="pythoncom27.dll" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="pythoncom27.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="pythoncom27" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1839" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1842" componentGuid="867e195b-f44b-47ed-9356-72c3a652c6eb">
-        <componentFiles fileId="ID_3e88b1ed_4954_49c9_a316_1d2be7e39398" srcName="pywintypes27.dll" srcDirectory="..\ArmoryStandalone" dstName="pywintypes27.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="pywintypes27" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_3e88b1ed_4954_49c9_a316_1d2be7e39398" srcName="pywintypes27.dll" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="pywintypes27.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="pywintypes27" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1841" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1844" componentGuid="5d5c9fd9-73b4-4fc1-aa8c-12ea241bf680">
-        <componentFiles fileId="ID_4067f21e_c92f_4ec6_9c95_a9f691d7cd9d" srcName="QtCore4.dll" srcDirectory="..\ArmoryStandalone" dstName="QtCore4.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="QtCore4" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_4067f21e_c92f_4ec6_9c95_a9f691d7cd9d" srcName="QtCore4.dll" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="QtCore4.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="QtCore4" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1843" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1846" componentGuid="787aa3d5-53a4-4952-9aa4-35e640e4206a">
-        <componentFiles fileId="ID_914468cf_b1f9_419b_b2ec_da810352e395" srcName="QtGui4.dll" srcDirectory="..\ArmoryStandalone" dstName="QtGui4.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="QtGui4" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_914468cf_b1f9_419b_b2ec_da810352e395" srcName="QtGui4.dll" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="QtGui4.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="QtGui4" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1845" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1848" componentGuid="2ce59d1e-6e04-4d64-af23-5e3671f097fa">
-        <componentFiles fileId="ID_a05ef1d2_e781_45f5_bbef_cd78a60f6573" srcName="select.pyd" srcDirectory="..\ArmoryStandalone" dstName="select.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="select" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_a05ef1d2_e781_45f5_bbef_cd78a60f6573" srcName="select.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="select.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="select" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1847" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1850" componentGuid="cf9b157d-7489-4108-9cbf-ee6a9d2d408a">
-        <componentFiles fileId="ID_e382623c_0b18_4094_af93_2ffbc9320bf4" srcName="sip.pyd" srcDirectory="..\ArmoryStandalone" dstName="sip.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="sip" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_e382623c_0b18_4094_af93_2ffbc9320bf4" srcName="sip.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="sip.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="sip" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1849" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1852" componentGuid="2e019ac1-9e9e-4d5e-be75-0e5c26f9eee9">
-        <componentFiles fileId="ID_28a31e84_f461_4c68_a94f_2500209cea60" srcName="twisted.python._initgroups.pyd" srcDirectory="..\ArmoryStandalone" dstName="twisted.python._initgroups.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="twisted.python._initgroups" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_28a31e84_f461_4c68_a94f_2500209cea60" srcName="twisted.python._initgroups.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="twisted.python._initgroups.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="twisted.python._initgroups" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1851" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1854" componentGuid="5c920b93-9ddd-46f4-ba00-d5abb0e4bdc8">
-        <componentFiles fileId="ID_666663a3_7a5a_4fde_b69f_377387fbfd00" srcName="unicodedata.pyd" srcDirectory="..\ArmoryStandalone" dstName="unicodedata.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="unicodedata" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_666663a3_7a5a_4fde_b69f_377387fbfd00" srcName="unicodedata.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="unicodedata.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="unicodedata" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1853" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1856" componentGuid="80caf87a-53a4-4edb-999b-bfc42db3d3fa">
-        <componentFiles fileId="ID_ad90648f_111d_4c97_978e_3eabe520c02c" srcName="win32api.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32api.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32api" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_ad90648f_111d_4c97_978e_3eabe520c02c" srcName="win32api.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32api.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32api" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1855" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1858" componentGuid="2921941b-2dd1-4212-9dfa-3c1bb3f59791">
-        <componentFiles fileId="ID_eae06e81_4c6e_4d4f_8be9_ce9669676e45" srcName="win32event.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32event.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32event" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_eae06e81_4c6e_4d4f_8be9_ce9669676e45" srcName="win32event.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32event.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32event" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1857" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1860" componentGuid="b8dd71a2-906c-485c-b35d-77d30389f18e">
-        <componentFiles fileId="ID_d32183a4_7c4d_44b9_98d1_b83dce4c3cb8" srcName="win32evtlog.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32evtlog.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32evtlog" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_d32183a4_7c4d_44b9_98d1_b83dce4c3cb8" srcName="win32evtlog.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32evtlog.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32evtlog" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1859" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1862" componentGuid="f51300f3-7ae5-4ef6-a3ae-dc65bb3888db">
-        <componentFiles fileId="ID_ee8c0b54_7e64_4a92_b181_b72196d2f4c5" srcName="win32file.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32file.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32file" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_ee8c0b54_7e64_4a92_b181_b72196d2f4c5" srcName="win32file.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32file.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32file" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1861" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1864" componentGuid="fce64dde-a68b-4e42-8451-a7794b99a06a">
-        <componentFiles fileId="ID_97eb6c15_9f04_4be4_a78c_fc3c83a1a865" srcName="win32gui.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32gui.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32gui" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_97eb6c15_9f04_4be4_a78c_fc3c83a1a865" srcName="win32gui.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32gui.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32gui" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1863" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1866" componentGuid="7024a817-5a15-41bb-8266-25e7c26d223e">
-        <componentFiles fileId="ID_fd41b7f2_b8f9_4688_93b2_d56a7a217a2d" srcName="win32pipe.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32pipe.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32pipe" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_fd41b7f2_b8f9_4688_93b2_d56a7a217a2d" srcName="win32pipe.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32pipe.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32pipe" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1865" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1868" componentGuid="fb9ce878-e50f-41c9-a52b-2c1e0b5012c5">
-        <componentFiles fileId="ID_486cb9c2_3638_435b_aaf3_9bd47290320f" srcName="win32process.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32process.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32process" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_486cb9c2_3638_435b_aaf3_9bd47290320f" srcName="win32process.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32process.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32process" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1867" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1870" componentGuid="b2c67440-33bb-4e53-a884-edf2e063687e">
-        <componentFiles fileId="ID_e21c8533_6cd9_4ea4_b9d0_743bd65d80b2" srcName="win32security.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32security.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32security" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_e21c8533_6cd9_4ea4_b9d0_743bd65d80b2" srcName="win32security.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32security.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32security" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1869" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <components componentId="ID1872" componentGuid="900d2916-1c04-401b-948c-db69956907dc">
-        <componentFiles fileId="ID_f8da6a14_3af3_4cc8_a379_a4b67e2ee21e" srcName="win32ui.pyd" srcDirectory="..\ArmoryStandalone" dstName="win32ui.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32ui" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+        <componentFiles fileId="ID_f8da6a14_3af3_4cc8_a379_a4b67e2ee21e" srcName="win32ui.pyd" srcDirectory="..\GroestlcoinArmoryStandalone" dstName="win32ui.pyd" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="win32ui" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1871" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
         </componentFiles>
         <addToCreateFolder>false</addToCreateFolder>
       </components>
       <defaultInstallMode>3</defaultInstallMode>
-      <shortcuts srcPath="[APPLICATIONFOLDER]\Armory.exe" dstPath="[APPLICATIONFOLDER]\Armory (Offline)" workingDir="" commandArguments="--offline" description="Use system as offline wallet manager" showOnProgramMenu="true" showOnQuickLaunchBar="false" showOnDesktop="false" shortcutId="ID1138" />
-      <shortcuts srcPath="[APPLICATIONFOLDER]\Armory.exe" dstPath="[APPLICATIONFOLDER]\Armory (Testnet)" workingDir="" commandArguments="--testnet" description="Run Armory on the Test Network" showOnProgramMenu="true" showOnQuickLaunchBar="false" showOnDesktop="false" shortcutId="ID1139" />
+      <shortcuts srcPath="[APPLICATIONFOLDER]\GroestlcoinArmory.exe" dstPath="[APPLICATIONFOLDER]\GroestlcoinArmory (Offline)" workingDir="" commandArguments="--offline" description="Use system as offline wallet manager" showOnProgramMenu="true" showOnQuickLaunchBar="false" showOnDesktop="false" shortcutId="ID1138" />
+      <shortcuts srcPath="[APPLICATIONFOLDER]\GroestlcoinArmory.exe" dstPath="[APPLICATIONFOLDER]\GroestlcoinArmory (Testnet)" workingDir="" commandArguments="--testnet" description="Run Armory on the Test Network" showOnProgramMenu="true" showOnQuickLaunchBar="false" showOnDesktop="false" shortcutId="ID1139" />
     </childFeatures>
-    <childFeatures featureId="ID4F13E947D802761BFE18CF6F7024E5D3" featureName="Source Code" featureDescription="Armory Sources" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
+    <childFeatures featureId="ID4F13E947D802761BFE18CF6F7024E5D3" featureName="Source Code" featureDescription="GroestlcoinArmory Sources" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
       <components componentId="ID1059" componentGuid="566fd9cb-99a6-4fd0-8afe-92059d226ca0">
         <componentFiles fileId="ID_910a67de_cf34_49e9_9eb2_994606b8d7c3" srcName="qtdefines.py" srcDirectory=".." dstName="qtdefines.py" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="qtdefines" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutInStartupFolder="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
           <service StartWhenInstalled="true" Remove="both" id="ID1058" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
@@ -410,7 +410,7 @@
     <System>true</System>
     <Name>GNU Affero General Public License (AGPL) Version 3.0</Name>
   </License>
-  <projectProperties LicencePath="" TopBanner="" BigBanner="" ExclamationIcon="" InfoIcon="" NewIcon="" UpIcon="" VS2003Integration="VS2003_INTEGRATION" VS2005Integration="VS2005_INTEGRATION" UseRelativePaths="true" LaunchAppText="Launch Armory" UseWixUI_ErrorProgressText="true" UseWixUI="true" CreateUninstallShortcut="true" Codepage="1252" ProductLanguage="1033" AlwaysMajorUpgrade="true" SupressValidation="true" Compress="true" BuildTarget="true" PublisherUrl="" SupportContact="" SupportUrl="" SupportPhone="" ReadMeFile="[APPLICATIONFOLDER]\README" UpdateUrl="" Comments="Advanced Bitcoin Wallet Application" Icon="[APPLICATIONFOLDER]\armory48x48.ico" EmbedCab="true" MaxCabSize="0" CabCompressionLevel="mszip" InstallerVersion="300">
+  <projectProperties LicencePath="" TopBanner="" BigBanner="" ExclamationIcon="" InfoIcon="" NewIcon="" UpIcon="" VS2003Integration="VS2003_INTEGRATION" VS2005Integration="VS2005_INTEGRATION" UseRelativePaths="true" LaunchAppText="Launch GroestlcoinArmory" UseWixUI_ErrorProgressText="true" UseWixUI="true" CreateUninstallShortcut="true" Codepage="1252" ProductLanguage="1033" AlwaysMajorUpgrade="true" SupressValidation="true" Compress="true" BuildTarget="true" PublisherUrl="" SupportContact="" SupportUrl="" SupportPhone="" ReadMeFile="[APPLICATIONFOLDER]\README" UpdateUrl="" Comments="Advanced Bitcoin Wallet Application" Icon="[APPLICATIONFOLDER]\armory48x48.ico" EmbedCab="true" MaxCabSize="0" CabCompressionLevel="mszip" InstallerVersion="300">
     <UiCultures Name="en-US" Enabled="true" />
     <UiCultures Name="de-de" Enabled="false" />
     <UiCultures Name="es-es" Enabled="false" />

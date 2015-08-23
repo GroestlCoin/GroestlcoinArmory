@@ -48,7 +48,7 @@ Sub Main
   PEFileProxy.CreateBackUp = False 
 
 
-  SRCFILE = "..\..\ArmoryStandalone\ArmoryQt.exe"
+  SRCFILE = "..\..\GroestlcoinArmoryStandalone\Groestlcoin-ArmoryQt.exe"
   'Open file
   PEFileProxy.PostDebugString "Opening the file..."
   PEFileProxy.OpenFile SRCFILE
@@ -61,7 +61,7 @@ Sub Main
 
   'Save file
   PEFileProxy.PostDebugString "Saving file..."
-  DESTFILE = "..\..\ArmoryStandalone\ArmoryQt.exe"
+  DESTFILE = "..\..\GroestlcoinArmoryStandalone\Groestlcoin-ArmoryQt.exe"
   PEFileProxy.SaveAsNewImage DESTFILE
 
 PEFileProxy.PostDebugString "Closing this file..."
