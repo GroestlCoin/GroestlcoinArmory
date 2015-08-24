@@ -3186,7 +3186,7 @@ class ArmoryMainWindow(QMainWindow):
       self.settings.set('FailedLoadCount', 0)
 
       # This will force the table to refresh with new data
-      self.updateAnnounceTab()  # make sure satoshi version info is up to date
+#!!!P GRS      self.updateAnnounceTab()  # make sure satoshi version info is up to date
       self.removeBootstrapDat()  # if we got here, we're *really* done with it
       self.walletModel.reset()
    

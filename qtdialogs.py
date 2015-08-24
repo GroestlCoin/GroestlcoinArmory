@@ -8696,7 +8696,7 @@ class DlgHelpAbout(ArmoryDialog):
                                     (getVersionString(BTCARMORY_VERSION), BTCARMORY_BUILD), doWrap=False)
       lblWebpage = QRichLabel('<a href="https://www.bitcoinarmory.com">https://www.bitcoinarmory.com</a>')
       lblWebpage.setOpenExternalLinks(True)
-      lblCopyright = QRichLabel(tr(u'Copyright &copy; 2011-2015 Armory Technologies, Inc.\nCopyright &copy; 2014-2015 Groestlcoin developers'))
+      lblCopyright = QRichLabel(tr(u'Copyright &copy; 2011-2015 Armory Technologies, Inc.\n\nCopyright &copy; 2014-2015 Groestlcoin developers'))
       lblLicense = QRichLabel(tr(u'Licensed under the '
                               '<a href="http://www.gnu.org/licenses/agpl-3.0.html">'
                               'Affero General Public License, Version 3</a> (AGPLv3)'))

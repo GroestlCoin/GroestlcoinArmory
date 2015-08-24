@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #                                                                              #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.                           #
 # Distributed under the GNU Affero General Public License (AGPL v3)            #
@@ -155,7 +155,7 @@ class SendBitcoinsFrame(ArmoryFrame):
          Click this button to copy a "bitcoin:" link directly into Armory."""))
       self.connect(btnEnterURI, SIGNAL("clicked()"), self.clickEnterURI)
       fromFrameList = [self.frmSelectedWlt]
-      if not USE_TESTNET:
+      if False: #GRS not USE_TESTNET:
          btnDonate = QPushButton("Donate to Armory Developers!")
          ttipDonate = self.main.createToolTipWidget(\
             'Making this software was a lot of work.  You can give back '
