@@ -2,7 +2,7 @@
 
 
 <?define UpgradeCode="433bbf0a-7ae4-4013-90df-bfeb45120970"?>
-<?define PRODVER="2.6"?>
+<?define PRODVER="2.11"?>
 
 <?if $(sys.BUILDARCH) = x64 ?>
 	<?define OUTDIR="..\x64_R_St\"?>
@@ -14,6 +14,8 @@
    	<Package Id='*' Keywords='Installer' Description="Groestlcoin Armory" Comments='Groestlcoin Armory' Manufacturer='Groestlcoin' InstallerVersion='301' Compressed='yes'  />
 
 	<UIRef Id="WixUI_InstallDir" />
+
+    <Icon Id="Groestlcoin.ico" SourceFile="..\img\armory32x32.ico" />
 
 	<Property Id="ARPPRODUCTICON" Value="Groestlcoin.ico" />
    	<Property Id='DiskPrompt' Value="Groestlcoin Core" />
@@ -49,57 +51,68 @@
 	<Media Id="1" Cabinet="groestlcoin.cab" EmbedCab="yes"/>
 
 	<Component Id='CMP_GrsArmory' Guid='069f1f5e-a0dd-44e9-aa5b-ff196c1811b6' Directory='INSTALLDIR' >
-		<File  Id="Groestlcoin_ArmoryQt.exe" Source="$(var.OUTDIR)\ArmoryQt.exe"	KeyPath='yes' 		>
+		<File  Id="Groestlcoin_ArmoryQt.exe" Name="Groestlcoin-ArmoryQt.exe" Source="$(var.OUTDIR)\dist\ArmoryQt.exe"	KeyPath='yes' 		>
 			<Shortcut Id="desktopGroestlcoin" 	Directory="DesktopFolder"  		Name="Groestlcoin Armory" Icon="Groestlcoin.ico" IconIndex="0" Advertise="yes" />
 		</File>
 
 		<File Source="$(var.OUTDIR)\_CppBlockUtils.pyd" />
 		<File Source="..\guardian.exe"	/>
+		<File Source="..\..\groestl\$(sys.BUILDARCH)_R_St\groestlcoind.exe"	/>
 
-
-		<File Source="$(var.OUTDIR)\dist\_ctypes.pyd" />
-		<File Source="$(var.OUTDIR)\dist\_hashlib.pyd" />
-		<File Source="$(var.OUTDIR)\dist\_multiprocessing.pyd" />
-		<File Source="$(var.OUTDIR)\dist\_socket.pyd" />
-		<File Source="$(var.OUTDIR)\dist\_ssl.pyd" />
-		<File Source="$(var.OUTDIR)\dist\_testcapi.pyd" />
-		<File Source="$(var.OUTDIR)\dist\_win32sysloader.pyd" />
-		<File Source="$(var.OUTDIR)\dist\bz2.pyd" />
-		<File Source="$(var.OUTDIR)\dist\LIBEAY32.dll" />
-		<File Source="$(var.OUTDIR)\dist\library.zip" />
-		<File Source="$(var.OUTDIR)\dist\mfc90.dll" />
-		<File Source="$(var.OUTDIR)\dist\psutil._psutil_windows.pyd" />
-		<File Source="$(var.OUTDIR)\dist\pyexpat.pyd" />
-		<File Source="$(var.OUTDIR)\dist\PyQt4.Qt.pyd" />
-		<File Source="$(var.OUTDIR)\dist\PyQt4.QtCore.pyd" />
-		<File Source="$(var.OUTDIR)\dist\PyQt4.QtGui.pyd" />
-		<File Source="$(var.OUTDIR)\dist\PyQt4.QtNetwork.pyd" />
-		<File Source="$(var.OUTDIR)\dist\python27.dll" />
-		<File Source="$(var.OUTDIR)\dist\pythoncom27.dll" />
-		<File Source="$(var.OUTDIR)\dist\pywintypes27.dll" />
-		<File Source="$(var.OUTDIR)\dist\QtCore4.dll" />
-		<File Source="$(var.OUTDIR)\dist\QtGui4.dll" />
-		<File Source="$(var.OUTDIR)\dist\QtNetwork4.dll" />
-		<File Source="$(var.OUTDIR)\dist\select.pyd" />
-		<File Source="$(var.OUTDIR)\dist\sip.pyd" />
-		<File Source="$(var.OUTDIR)\dist\SSLEAY32.dll" />
-		<File Source="$(var.OUTDIR)\dist\unicodedata.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32api.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32event.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32file.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32gui.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32pipe.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32process.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32security.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32ui.pyd" />
-		<File Source="$(var.OUTDIR)\dist\win32wnet.pyd" />
+		<File Source="$(var.OUTDIR)\dist\_ctypes.pyd" 										/>
+		<File Source="$(var.OUTDIR)\dist\_hashlib.pyd"										/>
+		<File Source="$(var.OUTDIR)\dist\_multiprocessing.pyd" 								/>
+		<File Source="$(var.OUTDIR)\dist\_socket.pyd"	 									/>
+		<File Source="$(var.OUTDIR)\dist\_ssl.pyd" 											/>
+		<File Source="$(var.OUTDIR)\dist\_win32sysloader.pyd" 								/>
+		<File Source="$(var.OUTDIR)\dist\bz2.pyd" 											/>
+		<File Source="$(var.OUTDIR)\dist\library.zip" 										/>
+		<File Source="$(var.OUTDIR)\dist\psutil._psutil_windows.pyd" 						/>
+		<File Source="$(var.OUTDIR)\dist\pyexpat.pyd" 										/>
+		<File Source="$(var.OUTDIR)\dist\LIBEAY32.dll" 										/>
+		<File Source="$(var.OUTDIR)\dist\SSLEAY32.dll" 										/>
+		<File Source="$(var.OUTDIR)\dist\PyQt4.QtCore.pyd" 									/>
+		<File Source="$(var.OUTDIR)\dist\PyQt4.QtGui.pyd"			 						/>
+		<File Source="$(var.OUTDIR)\dist\PyQt4.Qt.pyd" 										/>
+		<File Source="$(var.OUTDIR)\dist\PyQt4.QtNetwork.pyd" 								/>
+		<File Source="$(var.OUTDIR)\dist\python27.dll" 										/>
+		<File Source="$(var.OUTDIR)\dist\pywintypes27.dll" 									/>
+		<File Source="$(var.OUTDIR)\dist\QtCore4.dll" 										/>
+		<File Source="$(var.OUTDIR)\dist\QtGui4.dll" 										/>
+		<File Source="$(var.OUTDIR)\dist\QtNetwork4.dll" 									/>
+		<File Source="$(var.OUTDIR)\dist\select.pyd" 										/>
+		<File Source="$(var.OUTDIR)\dist\sip.pyd" 											/>
+		<File Source="$(var.OUTDIR)\dist\unicodedata.pyd" 									/>
+		<File Source="$(var.OUTDIR)\dist\win32api.pyd" 										/>
+		<File Source="$(var.OUTDIR)\dist\win32event.pyd" 									/>
+		<File Source="$(var.OUTDIR)\dist\win32file.pyd" 									/>
+		<File Source="$(var.OUTDIR)\dist\win32gui.pyd" 										/>
+		<File Source="$(var.OUTDIR)\dist\win32pipe.pyd" 									/>
+		<File Source="$(var.OUTDIR)\dist\win32process.pyd" 									/>
+		<File Source="$(var.OUTDIR)\dist\win32security.pyd" 								/>
+		<File Source="$(var.OUTDIR)\dist\win32wnet.pyd" 									/>
 		<File Source="$(var.OUTDIR)\dist\zope.interface._zope_interface_coptimizations.pyd" />
+<!--
+		<File Source="$(var.OUTDIR)\dist\_testcapi.pyd" 									/>
+		<File Source="$(var.OUTDIR)\dist\mfc90.dll" 										/>
+		<File Source="$(var.OUTDIR)\dist\pythoncom27.dll" 									/>
+		<File Source="$(var.OUTDIR)\dist\win32ui.pyd" 										/>
+-->
 	</Component>
+
+	<DirectoryRef Id="ApplicationProgramsFolder">
+		<Component Id='CMP_ApplicationShortcut' Guid='e783e197-ede9-48f5-94d7-64f7b7cd069f'>
+			<Shortcut Id="startmenuGroestlcoin" Name="Groestlcoin Armory" Icon="Groestlcoin.ico" IconIndex="0" Advertise="no" />
+			<Shortcut Id='UninstallProduct' 	Name='Uninstall Groestlcoin Armory' Description='Uninstalls My Application' Target='[System64Folder]msiexec.exe' Arguments="/x [ProductCode]" />
+			<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+			<RegistryValue Root="HKCU" Key="Software\GroestlcoinArmory" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+		</Component>
+	</DirectoryRef>
 
 
  	<CustomAction Id="NewerVersionDetected" Error="There is a later version of this product installed"/>
 	<CustomAction Id="SetARPINSTALLLOCATION" Property="ARPINSTALLLOCATION" Value="[INSTALLDIR]" /> 
-	<CustomAction Id='LaunchFile' FileKey='groestlcoin_qt.exe' ExeCommand='' Return="asyncNoWait" /> 
+	<CustomAction Id='LaunchFile' FileKey='Groestlcoin_ArmoryQt.exe' ExeCommand='' Return="asyncNoWait" /> 
 	
 	<InstallUISequence>
     	<AppSearch After="FindRelatedProducts"/> 
@@ -120,6 +133,7 @@
 
    	<Feature Id='Complete' Level='1' Title='Groestlcoin Core'>
    		<ComponentRef Id='CMP_GrsArmory' 				/>
+   		<ComponentRef Id='CMP_ApplicationShortcut' 	/>
    	</Feature>
 
 </Product>

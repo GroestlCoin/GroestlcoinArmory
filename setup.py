@@ -4,7 +4,7 @@ import py2exe
 
 
 opts = {"py2exe":{
-    "dll_excludes":["MSWSOCK.dll", "IPHLPAPI.dll", "MSWSOCK.dll", "WINNSI.dll", "WTSAPI32.dll", "MSVCP90.dll"],
+    "dll_excludes":["CRYPT32.DLL", "PSAPI.DLL", "IPHLPAPI.dll", "MSWSOCK.dll", "WINNSI.dll", "WTSAPI32.dll", "MSVCP90.dll", "MPR.dll"],
 	"includes":["sip"],
     "packages":["email"]
     }}

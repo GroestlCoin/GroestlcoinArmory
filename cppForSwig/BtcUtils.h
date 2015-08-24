@@ -525,15 +525,17 @@ public:
    {
 		return getGroestlHash(strToHash, nBytes);				//GRS
 
-/*
-      CryptoPP::SHA256 sha256_;
-
-      BinaryData hashOutput(32);
-      sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
-      sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
-      return hashOutput; */
    }
 
+   /////////////////////////////////////////////////////////////////////////////
+   static BinaryData getSha256Sha256(uint8_t const * strToHash, uint32_t nBytes) {
+	   CryptoPP::SHA256 sha256_;
+
+	   BinaryData hashOutput(32);
+	   sha256_.CalculateDigest(hashOutput.getPtr(), strToHash, nBytes);
+	   sha256_.CalculateDigest(hashOutput.getPtr(), hashOutput.getPtr(), 32);
+	   return hashOutput;
+   }
 
    /////////////////////////////////////////////////////////////////////////////
    static BinaryData getSha256(uint8_t const * strToHash,

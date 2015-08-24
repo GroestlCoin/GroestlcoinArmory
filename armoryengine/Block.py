@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #                                                                              #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.                           #
 # Distributed under the GNU Affero General Public License (AGPL v3)            #
@@ -173,9 +173,9 @@ class PyBlockData(object):
             hashes = self.merkleTree[-sz:]
             mod2 = sz%2
             for i in range(sz/2):
-               self.merkleTree.append( hash256(hashes[2*i] + hashes[2*i+1]) )
+               self.merkleTree.append( sha256sha256(hashes[2*i] + hashes[2*i+1]) )
             if mod2==1:
-               self.merkleTree.append( hash256(hashes[-1] + hashes[-1]) )
+               self.merkleTree.append( sha256sha256(hashes[-1] + hashes[-1]) )
             sz = (sz+1) / 2
       self.merkleRoot = self.merkleTree[-1]
       return self.merkleRoot

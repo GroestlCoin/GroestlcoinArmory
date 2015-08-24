@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #                                                                              #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.                           #
 # Distributed under the GNU Affero General Public License (AGPL v3)            #
@@ -546,7 +546,7 @@ class VerifyPassphraseFrame(ArmoryFrame):
          '<font color="red"><b>!!! DO NOT FORGET YOUR PASSPHRASE !!!</b></font>', size=4)
       lblWarnTxt1.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
       lblWarnTxt2 = QRichLabel(\
-         '<b>No one can help you recover you bitcoins if you forget the '
+         '<b>No one can help you recover you groestlcoins if you forget the '
          'passphrase and don\'t have a paper backup!</b> Your wallet and '
          'any <u>digital</u> backups are useless if you forget it.  '
          '<br><br>'
@@ -676,7 +676,7 @@ class WalletBackupFrame(ArmoryFrame):
 
       F = self.FEATURES
       self.featuresTips[F.ProtGen] = self.main.createToolTipWidget(tr("""
-         Every time you click "Receive Bitcoins," a new address is generated.
+         Every time you click "Receive Groestlcoins," a new address is generated.
          All of these addresses are generated from a single seed value, which
          is included in all backups.   Therefore, all addresses that you have
          generated so far <b>and</b> will ever be generated with this wallet, 
@@ -691,7 +691,7 @@ class WalletBackupFrame(ArmoryFrame):
 
       self.featuresTips[F.LostPass] = self.main.createToolTipWidget(tr("""
          Lost/forgotten passphrases are, <b>by far</b>, the most common
-         reason for users losing bitcoins.  It is critical you have
+         reason for users losing Groestlcoins.  It is critical you have
          at least one backup that works if you forget your wallet
          passphrase. """))
 
@@ -828,7 +828,7 @@ class WalletBackupFrame(ArmoryFrame):
                gone!  """)
          txtDigCrypt = tr("""
                <b><u>IMPORTANT:</u> It is critical that you have at least
-               one unencrypted backup!</b>  Without it, your bitcoins will
+               one unencrypted backup!</b>  Without it, your Groestlcoins will
                be lost forever if you forget your passphrase!  This is <b>
                by far</b> the most common reason users lose coins!  Having
                at least one paper backup is recommended.""")

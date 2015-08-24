@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #                                                                              #
 # Copyright (C) 2011-2015, Armory Technologies, Inc.                           #
 # Distributed under the GNU Affero General Public License (AGPL v3)            #
@@ -957,8 +957,8 @@ class DlgLockboxManager(ArmoryDialog):
                'button':  tr('Create Spending Tx'),
                'callbk':  self.doSpend,
                'organiz': True,
-               'lbltxt':  tr('Send bitcoins from lockbox'),
-               'tiptxt':  tr("""Create a proposed transaction sending bitcoins
+               'lbltxt':  tr('Send Groestlcoins from lockbox'),
+               'tiptxt':  tr("""Create a proposed transaction sending Groestlcoins
                                 to an address, wallet or another lockbox.  
                                 The transaction will not be final until enough
                                 signatures have been collected and then 
@@ -2157,7 +2157,7 @@ class DlgSelectPublicKey(ArmoryDialog):
          <br>
          Lockbox creation requires <b>public keys</b> not the regular Bitcoin
          addresses most users are accustomed to.  A public key is much longer
-         than a regular bitcoin address, usually starting with "02", "03" or
+         than a regular Groestlcoin address, usually starting with "02", "03" or
          "04".  Once you have selected a public key, send it to the lockbox 
          organizer (person or device).  The organizer will create the lockbox 
          which then must be imported by all devices that will track the funds

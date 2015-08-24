@@ -1828,7 +1828,11 @@ def ripemd160(bits):
    return Cpp.BtcUtils().ripemd160_SWIG(bits)
 def hash256(s):
    """ Double-SHA256 """
+   return Cpp.BtcUtils().getHash256_SWIG(s)
+
+def sha256sha256(s):
    return sha256(sha256(s))
+
 def hash160(s):
    """ RIPEMD160( SHA256( binaryStr ) ) """
    return Cpp.BtcUtils().getHash160_SWIG(s)

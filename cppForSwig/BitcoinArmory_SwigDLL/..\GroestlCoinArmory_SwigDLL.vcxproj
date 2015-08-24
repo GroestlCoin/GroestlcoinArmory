@@ -23,6 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BitcoinArmory_CppTests</RootNamespace>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="..\src\cfg\vs\vs-ver.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'" Label="Configuration">
@@ -102,7 +103,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_St|Win32'">
     <TargetName>_CppBlockUtils</TargetName>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
-    <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
@@ -115,7 +115,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_St|x64'">
     <TargetName>_CppBlockUtils</TargetName>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
-    <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
@@ -125,13 +124,11 @@
     <OutDir>$(SolutionDir)libs\x64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|Win32'">
-    <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_CppBlockUtils</TargetName>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
-    <OutDir>..\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_CppBlockUtils</TargetName>
     <LinkIncremental>false</LinkIncremental>
@@ -155,7 +152,7 @@
       <ControlFlowGuard>false</ControlFlowGuard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -201,7 +198,7 @@
       <ControlFlowGuard>false</ControlFlowGuard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -387,6 +384,7 @@
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
       <AdditionalDependencies>crypto++.lib;python27.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_St|x64'">
