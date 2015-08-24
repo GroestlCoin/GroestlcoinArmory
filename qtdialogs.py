@@ -2545,7 +2545,7 @@ def showRecvCoinsWarningIfNecessary(wlt, parent, main):
    numTimesOnline = main.getSettingOrSetDefault("SyncSuccessCount", 0)
    if numTimesOnline < 1 and not TheBDM.getState() == BDM_OFFLINE:
       result = QMessageBox.warning(main, tr('Careful!'), tr("""
-         Armory is not online yet, and will eventually need to be online to
+         Groestlcoin Armory is not online yet, and will eventually need to be online to
          access any funds sent to your wallet.  Please <u><b>do not</b></u>
          receive Groestlcoins to your Armory wallets until you have successfully
          gotten online <i>at least one time</i>.

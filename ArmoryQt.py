@@ -569,7 +569,7 @@ class ArmoryMainWindow(QMainWindow):
       self.connect(btnOfflineTx,SIGNAL('clicked()'), self.execOfflineTx)
       self.connect(btnMultisig, SIGNAL('clicked()'), self.browseLockboxes)
 
-      verStr = 'Armory %s / %s' % (getVersionString(BTCARMORY_VERSION),
+      verStr = 'Groestlcoin Armory %s / %s' % (getVersionString(BTCARMORY_VERSION),
                                               UserModeStr(self.usermode))
       lblInfo = QRichLabel(verStr, doWrap=False)
       lblInfo.setFont(GETFONT('var',10))
@@ -1561,7 +1561,7 @@ class ArmoryMainWindow(QMainWindow):
             # needed.  They have enough to worry about with this weird new program...
             if not self.getSettingOrSetDefault('DNAA_DefaultApp', False):
                reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Default URL Handler', \
-                  'Armory is not set as your default application for handling '
+                  'Groestlcoin Armory is not set as your default application for handling '
                   '"groestlcoin:" links.  Would you like to use Armory as the '
                   'default?', 'Do not ask this question again')
                if reply[0]==True:
@@ -1632,7 +1632,7 @@ class ArmoryMainWindow(QMainWindow):
             # Don't bother the user on the first load with it if verification is
             # needed.  They have enough to worry about with this weird new program...
             reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Default URL Handler', \
-               'Armory is not set as your default application for handling '
+               'Groestlcoin Armory is not set as your default application for handling '
                '"groestlcoin:" links.  Would you like to use Armory as the '
                'default?', 'Do not ask this question again')
 
@@ -2138,7 +2138,7 @@ class ArmoryMainWindow(QMainWindow):
             """) % { 'ver' : verStr}
          
       return tr("""
-         Your version of Armory is now outdated.  Please upgrade to version
+         Your version of Groestlcoin Armory is now outdated.  Please upgrade to version
          %(ver)s through our secure downloader inside Armory (link at the bottom
          of this notification window).  Alternatively, you can get the new
          version from our website downloads page at:
