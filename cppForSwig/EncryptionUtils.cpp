@@ -638,11 +638,14 @@ SecureBinaryData CryptoECDSA::SignData(SecureBinaryData const & binToSign,
    CryptoPP::SHA256  sha256;
    BTC_PRNG prng;
 
+   SecureBinaryData hashVal = binToSign;
+   /*GRS
    // Execute the first sha256 op -- the signer will do the other one
    SecureBinaryData hashVal(32);
    sha256.CalculateDigest(hashVal.getPtr(), 
                           binToSign.getPtr(), 
                           binToSign.getSize());
+						  */
 
    // Do we want to use a PRNG or use deterministic signing (RFC 6979)?
    string signature;
@@ -695,11 +698,14 @@ bool CryptoECDSA::VerifyData(SecureBinaryData const & binMessage,
 
    assert(cppPubKey.Validate(prng, 3));
 
+   SecureBinaryData hashVal = binMessage;
+   /*GRS
    // We execute the first SHA256 op, here.  Next one is done by Verifier
    SecureBinaryData hashVal(32);
    sha256.CalculateDigest(hashVal.getPtr(), 
                           binMessage.getPtr(), 
                           binMessage.getSize());
+						  */
 
    // Verifying message 
    BTC_VERIFIER verifier(cppPubKey); 

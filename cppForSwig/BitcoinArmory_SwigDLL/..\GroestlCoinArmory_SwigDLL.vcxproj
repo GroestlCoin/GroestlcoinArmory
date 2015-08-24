@@ -158,8 +158,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy $(TargetPath) ..</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win_XP_32|Win32'">
@@ -204,8 +203,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\$(PlatformShortName)_$(ConfigurationName);C:\Python\27_$(PlatformShortName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy $(TargetPath) ..</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win_XP_32|x64'">
