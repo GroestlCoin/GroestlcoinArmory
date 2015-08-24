@@ -1771,7 +1771,7 @@ if CLI_OPTIONS.logDisable:
 # be valid entities for tracking in a wallet.  Until then, all of our python
 # utilities all use just hash160 values, and we manually add the prefix
 # before talking to the BDM.
-HASH160PREFIX  = '\x00'
+HASH160PREFIX  = '\x24'    #GRS
 P2SHPREFIX     = '\x05'
 MSIGPREFIX     = '\xfe'
 NONSTDPREFIX   = '\xff'
@@ -1828,7 +1828,7 @@ def ripemd160(bits):
    return Cpp.BtcUtils().ripemd160_SWIG(bits)
 def hash256(s):
    """ Double-SHA256 """
-   return Cpp.BtcUtils().getHash256_SWIG(s)
+   return Cpp.BtcUtils().hash256(s)
 
 def sha256sha256(s):
    return sha256(sha256(s))

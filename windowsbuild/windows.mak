@@ -2,7 +2,7 @@
 MSB=%ProgramFiles(x86)%\MSBuild\14.0\Bin\amd64\msbuild
 WIX_LINK = light.exe -ext WixUIExtension -ext WixUtilExtension -dWixUILicenseRtf=..\doc\groestlcoin_lic.rtf
 
-all : ..\GroestlcoinArmory_x86.msi # ..\GroestlcoinArmory_x64.msi
+all : .\GroestlcoinArmory_x64.msi	# ..\GroestlcoinArmory_x86.msi
 
 
 ..\x86_R_St\_CppBlockUtils.pyd : ..\cppForSwig\BlockUtils.cpp
