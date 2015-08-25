@@ -4079,7 +4079,7 @@ class DlgIntroMessage(ArmoryDialog):
       lblInfoImg.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
       lblInfoImg.setMaximumWidth(50)
 
-      lblWelcome = QRichLabel('<b>Welcome to Armory!</b>')
+      lblWelcome = QRichLabel('<b>Welcome to Groestlcoin Armory!</b>')
       lblWelcome.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
       lblWelcome.setFont(GETFONT('Var', 14))
       lblSlogan = QRichLabel('<i>The most advanced Groestlcoin Client on Earth!</i>')
@@ -4088,11 +4088,11 @@ class DlgIntroMessage(ArmoryDialog):
       lblDescr = QRichLabel(\
          '<b>You are about to use the most secure and feature-rich Groestlcoin client '
          'software available!</b>  But please remember, this software '
-         'is still <i>Beta</i> - Armory developers will not be held responsible '
+         'is still <i>Beta</i> - Groestlcoin Armory developers will not be held responsible '
          'for loss of groestlcoins resulting from the use of this software!'
          '<br><br>'
-         'For more info about Armory, and Groestlcoin itself, see '
-         '<a href="https://bitcoinarmory.com/faq">frequently '
+         'For more info about Groestlcoin Armory, and Groestlcoin itself, see '
+         '<a href="http://groestlcoin.org/faq">frequently '
          'asked questions</a>.')
       lblDescr.setOpenExternalLinks(True)
 
