@@ -92,12 +92,10 @@
 		<File Source="$(var.OUTDIR)\dist\win32security.pyd" 								/>
 		<File Source="$(var.OUTDIR)\dist\win32wnet.pyd" 									/>
 		<File Source="$(var.OUTDIR)\dist\zope.interface._zope_interface_coptimizations.pyd" />
-<!--
 		<File Source="$(var.OUTDIR)\dist\_testcapi.pyd" 									/>
 		<File Source="$(var.OUTDIR)\dist\mfc90.dll" 										/>
 		<File Source="$(var.OUTDIR)\dist\pythoncom27.dll" 									/>
 		<File Source="$(var.OUTDIR)\dist\win32ui.pyd" 										/>
--->
 	</Component>
 
 	<DirectoryRef Id="ApplicationProgramsFolder">

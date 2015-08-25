@@ -3660,7 +3660,7 @@ class DlgMergePromNotes(ArmoryDialog):
    def createPromAdd(self):
       if not TheBDM.getState()==BDM_BLOCKCHAIN_READY:
          QMessageBox.warning(self, tr("Not Online"), tr("""
-            Armory is currently in offline mode and cannot create any 
+            Groestlcoin Armory is currently in offline mode and cannot create any 
             transactions or promissory notes.  You can only merge 
             pre-existing promissory notes at this time."""), QMessageBox.Ok)
          return

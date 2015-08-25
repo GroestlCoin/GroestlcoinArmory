@@ -1809,7 +1809,7 @@ class DlgWalletDetails(ArmoryDialog):
             'the password with it!'
             '<br><br>'
             '<a href="https://bitcointalk.org/index.php?topic=152151.0">'
-            'Read more about Armory backups</a>', None, yesStr='Ok', \
+            'Read more about Groestlcoin Armory backups</a>', None, yesStr='Ok', \
             dnaaStartChk=True)
          self.main.setWltSetting(wlt.uniqueIDB58, 'DNAA_RemindBackup', result[1])
 
@@ -2037,7 +2037,7 @@ class DlgWalletDetails(ArmoryDialog):
    def execSendBtc(self):
       if TheBDM.getState() in (BDM_OFFLINE, BDM_UNINITIALIZED):
          QMessageBox.warning(self, 'Offline Mode', \
-           'Armory is currently running in offline mode, and has no '
+           'Groestlcoin Armory is currently running in offline mode, and has no '
            'ability to determine balances or create transactions. '
            '<br><br>'
            'In order to send coins from this wallet you must use a '
@@ -2046,8 +2046,8 @@ class DlgWalletDetails(ArmoryDialog):
            'wallet on an online computer.', QMessageBox.Ok)
          return
       if TheBDM.getState() == BDM_SCANNING:
-         QMessageBox.warning(self, 'Armory Not Ready', \
-           'Armory is currently scanning the blockchain to collect '
+         QMessageBox.warning(self, 'Groestlcoin Armory Not Ready', \
+           'Groestlcoin Armory is currently scanning the blockchain to collect '
            'the information needed to create transactions.  This typically '
            'takes between one and five minutes.  Please wait until your '
            'balance appears on the main window, then try again.', \
@@ -8130,7 +8130,7 @@ class DlgAddressBook(ArmoryDialog):
          lblToAddr.setVisible(False)
 
 
-      rowHeight = tightSizeStr(self.font, 'XygjpHI')[1]
+      rowHeight = tightSizeStr(self.font(), 'XygjpHI')[1]
 
       self.wltDispModel = AllWalletsDispModel(self.main)
       self.wltDispView = QTableView()
@@ -8694,9 +8694,10 @@ class DlgHelpAbout(ArmoryDialog):
 
       lblHead = QRichLabel(tr('Armory Groestlcoin Wallet : Version %s-beta-%s') % \
                                     (getVersionString(BTCARMORY_VERSION), BTCARMORY_BUILD), doWrap=False)
-      lblWebpage = QRichLabel('<a href="https://www.bitcoinarmory.com">https://www.bitcoinarmory.com</a>')
+      lblWebpage = QRichLabel('<a href="http://groestlcoin.org">http://groestlcoin.org</a>')
       lblWebpage.setOpenExternalLinks(True)
-      lblCopyright = QRichLabel(tr(u'Copyright &copy; 2011-2015 Armory Technologies, Inc.\n\nCopyright &copy; 2014-2015 Groestlcoin developers'))
+      lblCopyright = QRichLabel(tr(u'Copyright &copy; 2011-2015 Armory Technologies, Inc.'))
+      lblCopyright2 = QRichLabel(tr(u'Copyright &copy; 2014-2015 Groestlcoin developers'))
       lblLicense = QRichLabel(tr(u'Licensed under the '
                               '<a href="http://www.gnu.org/licenses/agpl-3.0.html">'
                               'Affero General Public License, Version 3</a> (AGPLv3)'))
@@ -8705,15 +8706,16 @@ class DlgHelpAbout(ArmoryDialog):
       lblHead.setAlignment(Qt.AlignHCenter)
       lblWebpage.setAlignment(Qt.AlignHCenter)
       lblCopyright.setAlignment(Qt.AlignHCenter)
+      lblCopyright2.setAlignment(Qt.AlignHCenter)
       lblLicense.setAlignment(Qt.AlignHCenter)
 
       dlgLayout = QHBoxLayout()
-      dlgLayout.addWidget(makeVertFrame([imgLogo, lblHead, lblCopyright, lblWebpage, STRETCH, lblLicense]))
+      dlgLayout.addWidget(makeVertFrame([imgLogo, lblHead, lblCopyright, lblCopyright2, lblWebpage, STRETCH, lblLicense]))
       self.setLayout(dlgLayout)
 
       self.setMinimumWidth(450)
 
-      self.setWindowTitle(tr('About Armory'))
+      self.setWindowTitle(tr('About Groestlcoin Armory'))
 
 
 ################################################################################
@@ -8726,7 +8728,7 @@ class DlgSettings(ArmoryDialog):
       ##########################################################################
       # groestlcoind-management settings
       self.chkManageSatoshi = QCheckBox(tr("""
-         Let Armory run Groestlcoin-Qt/groestlcoind in the background"""))
+         Let Groestlcoin Armory run Groestlcoin-Qt/groestlcoind in the background"""))
       self.edtSatoshiExePath = QLineEdit()
       self.edtSatoshiHomePath = QLineEdit()
       self.edtSatoshiExePath.setMinimumWidth(tightSizeNChar(GETFONT('Fixed', 10), 40)[0])

@@ -713,7 +713,7 @@ class ArmoryMainWindow(QMainWindow):
       def mkprom():
          if not TheBDM.getState()==BDM_BLOCKCHAIN_READY:
             QMessageBox.warning(self, tr('Offline'), tr("""
-               Armory is currently offline, and cannot determine what funds are
+               Groestlcoin Armory is currently offline, and cannot determine what funds are
                available for simulfunding.  Please try again when Armory is in
                online mode."""), QMessageBox.Ok)
          else:
@@ -773,8 +773,8 @@ class ArmoryMainWindow(QMainWindow):
 
 
       execVerifySigned = lambda: VerifyOfflinePackageDialog(self, self).exec_()
-      actAboutWindow  = self.createAction(tr('&About Armory...'), execAbout)
-      actVersionCheck = self.createAction(tr('Armory Version'), execVersion)
+      actAboutWindow  = self.createAction(tr('&About Groestlcoin Armory...'), execAbout)
+      actVersionCheck = self.createAction(tr('Groestlcoin Armory Version'), execVersion)
       actDownloadUpgrade = self.createAction(tr('Update Software...'), self.openDownloaderAll)
       actVerifySigned = self.createAction(tr('Verify Signed Package...'), execVerifySigned)
       actTroubleshoot = self.createAction(tr('Troubleshooting Armory'), execTrouble)
@@ -3642,12 +3642,12 @@ class ArmoryMainWindow(QMainWindow):
       if TheBDM.getState() in (BDM_OFFLINE, BDM_UNINITIALIZED):
          #LOGERROR('Somehow ended up at confirm-sweep while in offline mode')
          #QMessageBox.info(self, 'Armory is Offline', \
-            #'Armory is currently in offline mode.  You must be in online '
+            #'Groestlcoin Armory is currently in offline mode.  You must be in online '
             #'mode to initiate the sweep operation.')
          nkey = len(self.sweepAfterScanList)
          strPlur = 'addresses' if nkey>1 else 'address'
-         QMessageBox.info(self, 'Armory is Offline', \
-            'You have chosen to sweep %d %s, but Armory is currently '
+         QMessageBox.info(self, 'Groestlcoin Armory is Offline', \
+            'You have chosen to sweep %d %s, but Groestlcoin Armory is currently '
             'in offline mode.  The sweep will be performed the next time you '
             'go into online mode.  You can initiate online mode (if available) '
             'from the dashboard in the main window.' (nkey,strPlur), QMessageBox.Ok)
@@ -3848,7 +3848,7 @@ class ArmoryMainWindow(QMainWindow):
                  'TorrentSynchronizing'] or \
          bdm in [BDM_SCANNING]:
          QMessageBox.warning(self, tr('Scanning'), tr("""
-            Armory is currently in the middle of scanning the blockchain for
+            Groestlcoin Armory is currently in the middle of scanning the blockchain for
             your existing wallets.  New wallets cannot be imported until this
             operation is finished."""), QMessageBox.Ok)
          return
@@ -3897,16 +3897,17 @@ class ArmoryMainWindow(QMainWindow):
 
    #############################################################################
    def execAddressBook(self):
+      st = TheBDM.getState()  #!!!T
       if TheBDM.getState()==BDM_SCANNING:
          QMessageBox.warning(self, 'Blockchain Not Ready', \
             'The address book is created from transaction data available in '
             'the blockchain, which has not finished loading.  The address '
-            'book will become available when Armory is online.', QMessageBox.Ok)
+            'book will become available when Groestlcoin Armory is online.', QMessageBox.Ok)
       elif TheBDM.getState() in (BDM_UNINITIALIZED,BDM_OFFLINE):
          QMessageBox.warning(self, 'Blockchain Not Ready', \
             'The address book is created from transaction data available in '
-            'the blockchain, but Armory is currently offline.  The address '
-            'book will become available when Armory is online.', QMessageBox.Ok)
+            'the blockchain, but Groestlcoin Armory is currently offline.  The address '
+            'book will become available when Groestlcoin Armory is online.', QMessageBox.Ok)
       else:
          if len(self.walletMap)==0:
             QMessageBox.warning(self, 'No wallets!', 'You have no wallets so '
@@ -4026,7 +4027,7 @@ class ArmoryMainWindow(QMainWindow):
    def clickSendBitcoins(self):
       if TheBDM.getState() in (BDM_OFFLINE, BDM_UNINITIALIZED):
          QMessageBox.warning(self, 'Offline Mode', \
-           'Armory is currently running in offline mode, and has no '
+           'Groestlcoin Armory is currently running in offline mode, and has no '
            'ability to determine balances or create transactions. '
            '<br><br>'
            'In order to send coins from this wallet you must use a '
@@ -4036,7 +4037,7 @@ class ArmoryMainWindow(QMainWindow):
          return
       elif TheBDM.getState()==BDM_SCANNING:
          QMessageBox.warning(self, 'Armory Not Ready', \
-           'Armory is currently scanning the blockchain to collect '
+           'Groestlcoin Armory is currently scanning the blockchain to collect '
            'the information needed to create transactions.  This typically '
            'takes between one and five minutes.  Please wait until your '
            'balance appears on the main window, then try again.', \
@@ -5389,13 +5390,13 @@ class ArmoryMainWindow(QMainWindow):
          '"deterministic", meaning they only need to be backed up '
          'one time (unless you have imported external addresses/keys). '
          'Make a backup and keep it in a safe place!  All funds from '
-         'Armory-generated addresses will always be recoverable with '
+         'Groestlcoin Armory-generated addresses will always be recoverable with '
          'a paper backup, any time in the future.  Use the "Backup '
          'Individual Keys" option for each wallet to backup imported '
          'keys.</p>'))
       elif state == 'OnlineNeedSweep':
          return tr( \
-         'Armory is currently online, but you have requested a sweep operation '
+         'Groestlcoin Armory is currently online, but you have requested a sweep operation '
          'on one or more private keys.  This requires searching the global '
          'transaction history for the available balance of the keys to be '
          'swept. '
@@ -5408,7 +5409,7 @@ class ArmoryMainWindow(QMainWindow):
          '<b>Wallet balances may '
          'be incorrect until the rescan operation is performed!</b>'
          '<br><br>'
-         'Armory is currently online, but addresses/keys have been added '
+         'Groestlcoin Armory is currently online, but addresses/keys have been added '
          'without rescanning the blockchain.  You may continue using '
          'Armory in online mode, but any transactions associated with the '
          'new addresses will not appear in the ledger. '
