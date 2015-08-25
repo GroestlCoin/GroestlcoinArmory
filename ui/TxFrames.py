@@ -152,7 +152,7 @@ class SendBitcoinsFrame(ArmoryFrame):
       ttipEnterURI = self.main.createToolTipWidget( tr("""
          Armory does not always succeed at registering itself to handle 
          URL links from webpages and email.  
-         Click this button to copy a "bitcoin:" link directly into Armory."""))
+         Click this button to copy a "groestlcoin:" link directly into Armory."""))
       self.connect(btnEnterURI, SIGNAL("clicked()"), self.clickEnterURI)
       fromFrameList = [self.frmSelectedWlt]
       if False: #GRS not USE_TESTNET:

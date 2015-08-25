@@ -757,10 +757,10 @@ class ArmoryDialog(QDialog):
       self.setWindowFlags(Qt.Window)
 
       if USE_TESTNET:
-         self.setWindowTitle(tr('Armory - Groestlcoin Wallet Management [TESTNET] ' + self.__class__.__name__))
+         self.setWindowTitle(tr('GroestlCoin Armory - Wallet Management [TESTNET] ' + self.__class__.__name__))
          self.setWindowIcon(QIcon(':/armory_icon_green_32x32.png'))
       else:
-         self.setWindowTitle(tr('Armory - Groestlcoin Wallet Management'))
+         self.setWindowTitle(tr('GroestlCoin Armory - Wallet Management'))
          self.setWindowIcon(QIcon(':/armory_icon_32x32.png'))
    
    @AddToRunningDialogsList

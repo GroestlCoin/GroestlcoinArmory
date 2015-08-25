@@ -10439,7 +10439,7 @@ class DlgUriCopyAndPaste(ArmoryDialog):
                             'by a bitcoin address.'
                             '<br><br>'
                             'You should use this feature if there is a "groestlcoin:" '
-                            'link in a webpage or email that does not load Armory '
+                            'link in a webpage or email that does not load Groestlcoin Armory '
                             'when you click on it.  Instead, right-click on the '
                             'link and select "Copy Link Location" then paste it '
                             'into the box below. ')
@@ -10465,7 +10465,7 @@ class DlgUriCopyAndPaste(ArmoryDialog):
       layout = QVBoxLayout()
       layout.addWidget(lblDescr)
       layout.addWidget(HLINE())
-      layout.addWidget(frmImg)
+#GRS      layout.addWidget(frmImg)
       layout.addWidget(HLINE())
       layout.addWidget(self.txtUriString)
       layout.addWidget(buttonBox)
