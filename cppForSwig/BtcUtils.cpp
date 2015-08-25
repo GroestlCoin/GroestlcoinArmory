@@ -9,7 +9,7 @@
 #include "BtcUtils.h"
 
 extern "C" {
-#include "sphlib/sph_groestl.h"	//GRS
+#include "sph_groestl.h"	//GRS
 }
 
 const BinaryData BtcUtils::BadAddress_ = BinaryData::CreateFromHex("0000000000000000000000000000000000000000");

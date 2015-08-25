@@ -91,7 +91,7 @@
     <ClCompile Include="mdb\midl.c">
       <Filter>Source Files\mdb</Filter>
     </ClCompile>
-    <ClCompile Include="sphlib\groestl.cpp">
+    <ClCompile Include="groestl.cpp">
       <Filter>Source Files\sphlib</Filter>
     </ClCompile>
     <ClCompile Include="DetSign.cpp">

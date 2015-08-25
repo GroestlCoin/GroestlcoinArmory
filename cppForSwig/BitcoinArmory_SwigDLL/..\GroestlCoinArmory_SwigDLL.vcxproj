@@ -459,7 +459,7 @@
     <ClCompile Include="mdb\midl.c" />
     <ClCompile Include="Progress.cpp" />
     <ClCompile Include="ScrAddrObj.cpp" />
-    <ClCompile Include="sphlib\groestl.cpp" />
+    <ClCompile Include="groestl.cpp" />
     <ClCompile Include="SSHheaders.cpp" />
     <ClCompile Include="StoredBlockObj.cpp" />
     <ClCompile Include="txio.cpp" />

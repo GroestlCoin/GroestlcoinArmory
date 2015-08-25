@@ -37,7 +37,7 @@ OBJS = UniversalTimer.o BinaryData.o lmdb_wrapper.o StoredBlockObj.o \
 	BtcWallet.o LedgerEntry.o ScrAddrObj.o Blockchain.o BlockWriteBatcher.o \
 	BDM_mainthread.o lmdbpp.o BDM_supportClasses.o \
 	BlockDataViewer.o HistoryPager.o Progress.o \
-	sphlib/groestl.o \
+	groestl.o \
 	libcryptopp.a mdb.o midl.o txio.o FileMap.o SSHheaders.o
 
 #if python is specified, use it
