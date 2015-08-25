@@ -25,7 +25,7 @@ pipVer       = '6.0.8'
 psutilVer    = '2.2.1'
 zopeVer      = '4.1.2'
 twistedVer   = '15.0.0'
-libpngVer    = '1.6.16'
+libpngVer    = '1.6.15'			#!!!GRS
 libpngVerAlt = '1'
 qtVer        = '4.8.7'  # NB: ArmoryMac.pro must also be kept up to date!!!
                         # Possibly "sipFlags" below too.
