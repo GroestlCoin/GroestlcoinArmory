@@ -328,11 +328,9 @@ distfiles.append( [ 'Twisted', \
 
 # Other lines rely on the given version. Patch this up later.
 distfiles.append( [ 'libpng', \
-                    #"libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
-                    "libpng-%s.mavericks.bottle.%s.tar.gz" % (libpngVer, libpngVerAlt), \
-                    #"https://downloads.sf.net/project/machomebrew/Bottles/libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
-                    "https://downloads.sf.net/project/machomebrew/Bottles/libpng-%s.mavericks.bottle.%s.tar.gz" % (libpngVer, libpngVerAlt), \
-                    "d1e9d2ba980f1cc608a43b17627461ef1c4954f6" ] )
+                    "libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
+                    "https://downloads.sf.net/project/machomebrew/Bottles/libpng-%s.mavericks.bottle.tar.gz" % libpngVer, \
+                    "059d99d0321a8519252ae860667237a838d2a557" ] )
 
 # Skipping Git for now.
 #distfiles.append( [ "Qt-git", \
