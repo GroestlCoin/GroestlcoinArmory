@@ -788,13 +788,13 @@ class ArmoryMainWindow(QMainWindow):
       actPrivacyPolicy = self.createAction(tr('Armory Privacy Policy'), self.showPrivacyGeneric)
 
       self.menusList[MENUS.Help].addAction(actAboutWindow)
-      self.menusList[MENUS.Help].addAction(actVersionCheck)
-      self.menusList[MENUS.Help].addAction(actDownloadUpgrade)
+#GRS      self.menusList[MENUS.Help].addAction(actVersionCheck)
+#GRS      self.menusList[MENUS.Help].addAction(actDownloadUpgrade)
       self.menusList[MENUS.Help].addAction(actVerifySigned)
       self.menusList[MENUS.Help].addSeparator()
       self.menusList[MENUS.Help].addAction(actTroubleshoot)
       self.menusList[MENUS.Help].addAction(actSubmitBug)
-      self.menusList[MENUS.Help].addAction(actPrivacyPolicy)
+#GRS      self.menusList[MENUS.Help].addAction(actPrivacyPolicy)
       self.menusList[MENUS.Help].addSeparator()
       self.menusList[MENUS.Help].addAction(actClearMemPool)
       self.menusList[MENUS.Help].addAction(actRescanDB)
@@ -1683,7 +1683,7 @@ class ArmoryMainWindow(QMainWindow):
 
    #############################################################################
    def warnNewUSTXFormat(self):
-      if not self.getSettingOrSetDefault('DNAA_Version092Warn', False):
+      if False: #!!!P GRS             not self.getSettingOrSetDefault('DNAA_Version092Warn', False):
          reply = MsgBoxWithDNAA(self, self, MSGBOX.Warning, tr("Version Warning"), tr("""
             Since Armory version 0.92 the formats for offline transaction
             operations has changed to accommodate multi-signature 
@@ -1985,7 +1985,7 @@ class ArmoryMainWindow(QMainWindow):
             continue
          if peerInfo["subver"] not in alert.subVerSet:
             continue
-         title = "Bitcoin alert %s" % alert.uniqueID
+         title = "Groestlcoin alert %s" % alert.uniqueID
          alert_str = "%s<br>%s<br>%s<br>" % (alert.statusBar, alert.comment, alert.reserved)
          msg = "This alert has been received from the Groestlcoin network:<p>" + \
                alert_str + \
@@ -4201,7 +4201,7 @@ class ArmoryMainWindow(QMainWindow):
          As of version 0.91, Armory now includes a form for reporting
          problems with the software.  Please use
          <i>"Help"</i>→<i>"Submit Bug Report"</i>
-         to send a report directly to the Armory team, which will include
+         to send a report directly to the Groestlcoin Armory team, which will include
          your log file automatically.</qt>"""), QMessageBox.Ok | QMessageBox.Cancel)
 
       if not reply==QMessageBox.Ok:

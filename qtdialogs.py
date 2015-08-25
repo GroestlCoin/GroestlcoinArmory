@@ -415,7 +415,7 @@ class DlgBugReport(ArmoryDialog):
       faqPage = 'http://groestlcoin.org'
 
       lblDescr = QRichLabel(tr("""
-         <b><u>Send a bug report to the Armory team</u></b>
+         <b><u>Send a bug report to the Groestlcoin Armory team</u></b>
          <br><br>
          If you are having difficulties with Armory, you should first visit
          our <a href="%(tsurl)s">troubleshooting page</a> and our
@@ -9106,7 +9106,7 @@ class DlgSettings(ArmoryDialog):
       elif self.main.usermode == USERMODE.Expert:
          self.cmbUsermode.setCurrentIndex(2)
 
-      lblUsermode = QRichLabel('<b>Armory user mode:</b>')
+      lblUsermode = QRichLabel('<b>Groestlcoin Armory user mode:</b>')
       self.lblUsermodeDescr = QRichLabel('')
       self.setUsermodeDescr()
 
@@ -9122,10 +9122,10 @@ class DlgSettings(ArmoryDialog):
 
       i += 1
       frmLayout.addWidget(frmMgmt, i, 0, 1, 3)
-      i += 1
-      frmLayout.addWidget(self.chkSkipOnlineCheck, i, 0, 1, 3)
-      i += 1
-      frmLayout.addWidget(self.chkDisableTorrent, i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.chkSkipOnlineCheck, i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.chkDisableTorrent, i, 0, 1, 3)
 
       i += 1
       frmLayout.addWidget(HLINE(), i, 0, 1, 3)
