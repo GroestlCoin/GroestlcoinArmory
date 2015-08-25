@@ -739,7 +739,7 @@ def cleanup_app():
 ################################################################################
 def make_targz():
    ver = getVersionStr()
-   execAndWait('tar -zcf ../armory_%s_osx.tar.gz GroestlcoinArmory.app' % ver, cwd=WORKDIR)
+   execAndWait('tar -zcf ../groestlcoin-armory_%s_osx.tar.gz GroestlcoinArmory.app' % ver, cwd=WORKDIR)
 
 ################################################################################
 def getVersionStr():

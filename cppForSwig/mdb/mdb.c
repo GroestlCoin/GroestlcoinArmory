@@ -585,7 +585,7 @@ typedef uint16_t	 indx_t;
 	 *	the size explicitly using #mdb_env_set_mapsize().
 	 */
 #define DEFAULT_MAPSIZE	8 * 1024LL
-#define MAX_MAPSIZE_INCEREMENT	256*1024*1024
+#define MAX_MAPSIZE_INCEREMENT	128*1024*1024		//!!!P GRS
 
 /**	@defgroup readers	Reader Lock Table
  *	Readers don't acquire any locks for their data access. Instead, they
