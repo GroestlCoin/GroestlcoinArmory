@@ -270,7 +270,7 @@ USE_TESTNET = CLI_OPTIONS.testnet
 
 # Set default port for inter-process communication
 if CLI_OPTIONS.interport < 0:
-   CLI_OPTIONS.interport = 8223 + (1 if USE_TESTNET else 0)
+   CLI_OPTIONS.interport = 8225 + (1 if USE_TESTNET else 0)
 
 
 # Pass this bool to all getSpendable* methods, and it will consider
