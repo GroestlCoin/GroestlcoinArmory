@@ -1,5 +1,5 @@
 #!/usr/env python
-"""Build Armory as a Mac OS X Application."""
+"""Build GroestlcoinArmory as a Mac OS X Application."""
 
 import os
 from os import path
@@ -672,7 +672,7 @@ def compile_appnope():
 
 ################################################################################
 def compile_armory():
-   logprint('Compiling and installing Armory')
+   logprint('Compiling and installing Groestlcoin Armory')
    # Always compile - even if already in app
    #os.chdir('..') # Leave workspace directory.
    pypathpath = path.join(ARMORYDIR, 'cppForSwig/pypaths.txt')
@@ -680,8 +680,8 @@ def compile_armory():
    with open(pypathpath, 'w') as f:
       f.write(pypathData)
 
-   armoryAppScript = path.join(APPDIR, 'Contents/MacOS/Armory')
-   armorydAppScript = path.join(APPDIR, 'Contents/MacOS/armoryd')
+   armoryAppScript = path.join(APPDIR, 'Contents/MacOS/GroestlcoinArmory')
+   armorydAppScript = path.join(APPDIR, 'Contents/MacOS/groestlcoinarmoryd')
    pydir = path.join(APPDIR, 'Contents/MacOS/py')
    currentDir = os.getcwd()
    os.chdir("..")
@@ -696,7 +696,7 @@ def compile_armory():
 
 ################################################################################
 def compile_objc_library():
-   logprint('Compiling and installing the Armory Objective-C shared library')
+   logprint('Compiling and installing the Groestlcoin Armory Objective-C shared library')
 
    # Execute SIP to create the Python/Obj-C++ glue code, use qmake to create the
    # Makefile, and make the shared library. Be sure to keep the SIP flags in
@@ -739,7 +739,7 @@ def cleanup_app():
 ################################################################################
 def make_targz():
    ver = getVersionStr()
-   execAndWait('tar -zcf ../armory_%s_osx.tar.gz Armory.app' % ver, cwd=WORKDIR)
+   execAndWait('tar -zcf ../armory_%s_osx.tar.gz GroestlcoinArmory.app' % ver, cwd=WORKDIR)
 
 ################################################################################
 def getVersionStr():

@@ -12,7 +12,7 @@ are executed from a terminal (aka command line) window.
 (3) Open a terminal and run "xcode-select --install". You will have to click
     through an EULA and possibly other dialogs.
 
-(4) As seen in Red Emerald's preparation steps for compiling Armory on Mac
+(4) As seen in Red Emerald's preparation steps for compiling Groestlcoin Armory on Mac
     (https://gist.github.com/WyseNynja/4200620), execute the following steps to
     install and update brew:
 
@@ -29,7 +29,7 @@ are executed from a terminal (aka command line) window.
 (6) Execute "brew link gettext --force".
 
 (7) "cd" into the "osxbuild" directory, and execute "python build-app.py".
-    Armory will be found under the "workspace" subdirectory. Armory.app can be
+    Groestlcoin Armory will be found under the "workspace" subdirectory. GroestlcoinArmory.app can be
     moved elsewhere on the system, including under /Applications so that it's
     accessible from the OS X Launchpad.
 

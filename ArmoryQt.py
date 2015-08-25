@@ -4198,18 +4198,12 @@ class ArmoryMainWindow(QMainWindow):
    #############################################################################
    def exportLogFile(self):
       LOGDEBUG('exportLogFile')
-      reply = QMessageBox.warning(self, tr('Bug Reporting'), tr("""<qt>
-         As of version 0.91, Armory now includes a form for reporting
-         problems with the software.  Please use
-         <i>"Help"</i>→<i>"Submit Bug Report"</i>
-         to send a report directly to the Groestlcoin Armory team, which will include
-         your log file automatically.</qt>"""), QMessageBox.Ok | QMessageBox.Cancel)
 
-      if not reply==QMessageBox.Ok:
-         return
+#GRS      if not reply==QMessageBox.Ok:
+#GRS         return
 
-      if self.logFilePrivacyWarning(wCancel=True):
-         self.saveCombinedLogFile()
+#GRS      if self.logFilePrivacyWarning(wCancel=True):
+      self.saveCombinedLogFile()
 
    #############################################################################
    def getUserAgreeToPrivacy(self, getAgreement=False):
