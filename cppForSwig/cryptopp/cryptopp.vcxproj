@@ -201,7 +201,7 @@
     <ClCompile Include="default.cpp" />
     <ClCompile Include="des.cpp" />
     <ClCompile Include="dessp.cpp" />
-    <ClCompile Include="..\DetSign.cpp" />
+    <ClCompile Include="DetSign.cpp" />
     <ClCompile Include="dh.cpp" />
     <ClCompile Include="dh2.cpp" />
     <ClCompile Include="dll.cpp" />

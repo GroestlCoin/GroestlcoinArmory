@@ -443,7 +443,6 @@
     <ClCompile Include="BtcUtils.cpp" />
     <ClCompile Include="BtcWallet.cpp" />
     <ClCompile Include="CppBlockUtils_wrap.cxx" />
-    <ClCompile Include="DetSign.cpp" />
     <ClCompile Include="EncryptionUtils.cpp" />
     <ClCompile Include="FileMap.cpp" />
     <ClCompile Include="HistoryPager.cpp" />

@@ -94,9 +94,6 @@
     <ClCompile Include="groestl.cpp">
       <Filter>Source Files\sphlib</Filter>
     </ClCompile>
-    <ClCompile Include="DetSign.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryData.h">
