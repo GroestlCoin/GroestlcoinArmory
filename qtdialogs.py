@@ -8960,8 +8960,8 @@ class DlgSettings(ArmoryDialog):
          through the icon on your system tray.
          <br><br>
          If select "Minimize on close", the 'x' on the top window bar will
-         minimize Armory instead of exiting the application.  You can always use
-         <i>"File"</i> -> <i>"Quit Armory"</i> to actually close it."""))
+         minimize Groestlcoin Armory instead of exiting the application.  You can always use
+         <i>"File"</i> -> <i>"Quit Groestlcoin Armory"</i> to actually close it."""))
 
       moo = self.main.getSettingOrSetDefault('MinimizeOnOpen', False)
       self.chkMinOnOpen = QCheckBox(tr('Minimize to system tray on open'))

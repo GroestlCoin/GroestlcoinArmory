@@ -645,7 +645,7 @@ class ArmoryMainWindow(QMainWindow):
                                          self.minimizeArmory)
       actExportLog   = self.createAction('Export &Log File...',
                                          self.exportLogFile)
-      actCloseApp    = self.createAction('&Quit Armory', self.closeForReal)
+      actCloseApp    = self.createAction('&Quit Groestlcoin Armory', self.closeForReal)
       self.menusList[MENUS.File].addAction(actExportTx)
       self.menusList[MENUS.File].addAction(actSettings)
       self.menusList[MENUS.File].addAction(actMinimApp)
@@ -1446,10 +1446,10 @@ class ArmoryMainWindow(QMainWindow):
          self.bringArmoryToFront()
          self.clickReceiveCoins()
 
-      actShowArmory = self.createAction('Show Armory', self.bringArmoryToFront)
+      actShowArmory = self.createAction('Show Groestlcoin Armory', self.bringArmoryToFront)
       actSendBtc    = self.createAction('Send Groestlcoins', traySend)
       actRcvBtc     = self.createAction('Receive Groestlcoins', trayRecv)
-      actClose      = self.createAction('Quit Armory', self.closeForReal)
+      actClose      = self.createAction('Quit Groestlcoin Armory', self.closeForReal)
       # Create a short menu of options
       menu.addAction(actShowArmory)
       menu.addAction(actSendBtc)
@@ -6705,7 +6705,7 @@ class ArmoryMainWindow(QMainWindow):
       doClose, doMinimize = False, False
       if moc=='DontKnow':
          reply,remember = MsgBoxWithDNAA(self, self, MSGBOX.Question, tr('Minimize or Close'), \
-            tr('Would you like to minimize Armory to the system tray instead '
+            tr('Would you like to minimize Groestlcoin Armory to the system tray instead '
             'of closing it?'), dnaaMsg=tr('Remember my answer'), \
             yesStr=tr('Minimize'), noStr=tr('Close'))
          if reply==True:
@@ -6778,7 +6778,7 @@ class ArmoryMainWindow(QMainWindow):
    def closeForReal(self):
       '''
       Unlike File->Quit or clicking the X on the window, which may actually
-      minimize Armory, this method is for *really* closing Armory
+      minimize Groestlcoin Armory, this method is for *really* closing Armory
       '''
       
       self.setCursor(Qt.WaitCursor)
