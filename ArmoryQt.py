@@ -631,8 +631,8 @@ class ArmoryMainWindow(QMainWindow):
       def exportTx():
          if not TheBDM.getState()==BDM_BLOCKCHAIN_READY:
             QMessageBox.warning(self, 'Transactions Unavailable', \
-               'Transaction history cannot be collected until Armory is '
-               'in online mode.  Please try again when Armory is online. ',
+               'Transaction history cannot be collected until Groestlcoin Armory is '
+               'in online mode.  Please try again when Groestlcoin Armory is online. ',
                QMessageBox.Ok)
             return
          else:
@@ -5556,7 +5556,7 @@ class ArmoryMainWindow(QMainWindow):
             sign messages, and/or import private keys.  You will always
             receive Groestlcoin payments regardless of whether you are online,
             but you will have to verify that payment through another service
-            until Armory is finished this initialization.""")
+            until Groestlcoin Armory is finished this initialization.""")
          if state == 'InitializingDoneSoon':
             msg = tr( \
             'The software is downloading and processing the latest activity '

@@ -8692,7 +8692,7 @@ class DlgHelpAbout(ArmoryDialog):
       imgLogo.setPixmap(QPixmap(':/armory_logo_h56.png'))
       imgLogo.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
-      lblHead = QRichLabel(tr('Armory Groestlcoin Wallet : Version %s-beta-%s') % \
+      lblHead = QRichLabel(tr('Groestlcoin Armory Wallet : Version %s-beta-%s') % \
                                     (getVersionString(BTCARMORY_VERSION), BTCARMORY_BUILD), doWrap=False)
       lblWebpage = QRichLabel('<a href="http://groestlcoin.org">http://groestlcoin.org</a>')
       lblWebpage.setOpenExternalLinks(True)

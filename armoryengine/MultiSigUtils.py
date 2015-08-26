@@ -18,7 +18,7 @@ MULTISIG_VERSION = 1
 # have an ASCII-armored-esque form for transmission through email or text
 # file, as well as binary form for when file transfer is guaranteed
 #
-# Until Armory implements BIP 32, these utilities are more suited to
+# Until Groestlcoin Armory implements BIP 32, these utilities are more suited to
 # low-volume use cases, such as one-time escrow, or long-term savings
 # using multi-device authentication.  Multi-signature *wallets* which
 # behave like regular wallets but spit out P2SH addresses and usable 
