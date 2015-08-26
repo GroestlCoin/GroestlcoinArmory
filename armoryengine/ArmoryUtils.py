@@ -926,7 +926,7 @@ fileClrMempool  = os.path.join(ARMORY_HOME_DIR, 'clearmempool.flag')
 # Flag to remove everything in Bitcoin dir except wallet.dat (if requested)
 if os.path.exists(fileRedownload):
    # Flag to remove *BITCOIN-QT* databases so it will have to re-download
-   LOGINFO('Found %s, will delete Bitcoin DBs & redownload' % fileRedownload)
+   LOGINFO('Found %s, will delete Groestlcoin DBs & redownload' % fileRedownload)
 
    os.remove(fileRedownload)
 

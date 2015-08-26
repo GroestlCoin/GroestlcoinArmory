@@ -10772,7 +10772,7 @@ class DlgInstallLinux(ArmoryDialog):
          '<br>'
          'sudo apt-get update'
          '<br>'
-         'sudo apt-get install bitcoin-qt groestlcoind')
+         'sudo apt-get install groestlcoin-qt groestlcoind')
       lblInstallPPACmds.setFont(GETFONT('Courier', 10))
       lblInstallPPACmds.setTextInteractionFlags(Qt.TextSelectableByMouse | \
                                                 Qt.TextSelectableByKeyboard)
@@ -10965,11 +10965,11 @@ def tryInstallLinux(main):
    def doit():
       #print '\n'
       #print '***** Executing auto-install in linux...'
-      out, err = execAndWait('gksudo "apt-get remove -y bitcoin-qt groestlcoind"', \
+      out, err = execAndWait('gksudo "apt-get remove -y groestlcoin-qt groestlcoind"', \
                              timeout=20)
-      out, err = execAndWait(('gksudo apt-add-repository ppa:bitcoin/bitcoin; '
+      out, err = execAndWait(('gksudo apt-add-repository ppa:groestlcoin/groestlcoin; '
                              'gksudo apt-get update; '
-                             'gksudo "apt-get install -y bitcoin-qt groestlcoind"'), \
+                             'gksudo "apt-get install -y groestlcoin-qt groestlcoind"'), \
                              timeout=120)
       try:
          TheSDM.setupSDM()

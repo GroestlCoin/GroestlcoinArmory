@@ -1744,8 +1744,8 @@ class SignBroadcastOfflineTxFrame(ArmoryFrame):
          return
       elif self.main.netMode == NETWORKMODE.Offline:
          QMessageBox.warning(self, 'No Internet!', \
-            'You do not currently have a connection to the Bitcoin network. '
-            'If this does not seem correct, verify that Bitcoin-Qt is open '
+            'You do not currently have a connection to the Groestlcoin network. '
+            'If this does not seem correct, verify that Groestlcoin-Qt is open '
             'and synchronized with the network.', QMessageBox.Ok)
          return
 

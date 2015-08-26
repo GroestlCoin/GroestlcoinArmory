@@ -173,13 +173,13 @@ class UpgradeDownloader:
 
       if linuxUnpackFile is not None:
          reply = QMessageBox.warning(self.frame, tr('Unpack Download'), tr("""
-            You just downloaded the Bitcoin Core software for Linux.  
-            Would you like Armory to extract it for you and adjust your 
+            You just downloaded the Groestlcoin Core software for Linux.  
+            Would you like Groestlcoin Armory to extract it for you and adjust your 
             settings to use it automatically?
             <br><br>
             If you modified your settings to run Bitcoin Core manually, 
             click "No" then extract the downloaded file and manually start
-            bitcoin-qt or bitcoind in from the extracted "bin/%d" 
+            groestlcoin-qt or groestlcoind in from the extracted "bin/%d" 
             directory.""") % (64 if SystemSpecs.IsX64 else 32), \
             QMessageBox.Yes | QMessageBox.No)
 
@@ -187,7 +187,7 @@ class UpgradeDownloader:
             finalDir = self.main.unpackLinuxTarGz(dest, changeSettings=True)
             if finalDir is None:
                QMessageBox.critical(self.frame, tr('Error Unpacking'), tr("""
-                  There was an error unpacking the Bitcoin Core file.  To use
+                  There was an error unpacking the Groestlcoin Core file.  To use
                   it, you need to go to where the file was saved, right-click
                   on it and select "Extract Here", then adjust your settings
                   (<i>"File"</i>\xe2\x86\x92<i>"Settings"</i> from the main 
