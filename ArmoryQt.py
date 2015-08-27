@@ -768,7 +768,7 @@ class ArmoryMainWindow(QMainWindow):
          self.mainDisplayTabs.setCurrentIndex(self.MAINTABS.Announce)
 
       execAbout   = lambda: DlgHelpAbout(self).exec_()
-      execTrouble = lambda: webbrowser.open('https://bitcoinarmory.com/troubleshooting/')
+      execTrouble = lambda: webbrowser.open('http://www.groestlcoin.org/forum/')
       execBugReport = lambda: DlgBugReport(self, self).exec_()
 
 
@@ -856,21 +856,21 @@ class ArmoryMainWindow(QMainWindow):
       # and can't be created.
       if not CLI_OPTIONS.datadir in [ARMORY_HOME_DIR, DEFAULT]:
          QMessageBox.warning(self, tr('Default Data Directory'), tr("""
-            Armory is using the default data directory because
+            Groestlcoin Armory is using the default data directory because
             the data directory specified in the command line, could
             not be found and could not be created."""), QMessageBox.Ok)
       # This is true if and only if the command line has a database dir that doesn't exist
       # and can't be created.
       elif not CLI_OPTIONS.armoryDBDir in [ARMORY_DB_DIR, DEFAULT]:
          QMessageBox.warning(self, tr('Default Database Directory'), tr("""
-            Armory is using the default database directory because
+            Groestlcoin Armory is using the default database directory because
             the database directory specified in the command line, could
             not be found and could not be created."""), QMessageBox.Ok)
       
       # This is true if and only if the command line has a bitcoin dir that doesn't exist
       if not CLI_OPTIONS.satoshiHome in [BTC_HOME_DIR, DEFAULT]:
          QMessageBox.warning(self, tr('Groestlcoin Directory'), tr("""
-            Armory is using the default Groestlcoin directory because
+            Groestlcoin Armory is using the default Groestlcoin directory because
             the Groestlcoin director specified in the command line, could
             not be found."""), QMessageBox.Ok)
          
@@ -980,7 +980,7 @@ class ArmoryMainWindow(QMainWindow):
             LOGERROR('Module is malformed!  No tabToDisplay or tabName attrs')
             QMessageBox.critmoduleName(self, tr("Bad Module"), tr("""
                The module you attempted to load (%s) is malformed.  It is 
-               missing attributes that are needed for Armory to load it.  
+               missing attributes that are needed for Groestlcoin Armory to load it.  
                It will be skipped.""") % moduleName, QMessageBox.Ok)
             continue
                
@@ -988,7 +988,7 @@ class ArmoryMainWindow(QMainWindow):
          verArmoryInt = getVersionInt(BTCARMORY_VERSION)
          if verArmoryInt >verPluginInt:
             reply = QMessageBox.warning(self, tr("Outdated Module"), tr("""
-               Module "%(mod)s" is only specified to work up to Armory version %(maxver)s.
+               Module "%(mod)s" is only specified to work up to Groestlcoin Armory version %(maxver)s.
                You are using Armory version %(curver)s.  Please remove the module if
                you experience any problems with it, or contact the maintainer
                for a new version.
@@ -1020,7 +1020,7 @@ class ArmoryMainWindow(QMainWindow):
                continue
       
             if not hasattr(self, funcListName):
-               LOGERROR('Missing an ArmoryQt list variable: %s' % funcListName)
+               LOGERROR('Missing an Groestlcoin-ArmoryQt list variable: %s' % funcListName)
                continue
 
             LOGINFO('Found module function: %s' % plugFuncName)
@@ -1047,7 +1047,7 @@ class ArmoryMainWindow(QMainWindow):
             moduleZipPath = os.path.join(modulesZipDirPath, infoMap[MODULE_PATH_KEY])
             if  infoMap[MODULE_ZIP_STATUS_KEY] == MODULE_ZIP_STATUS.Invalid:
                reply = QMessageBox.warning(self, tr("Invalid Module"), tr("""
-                  Armory detected the following module which is 
+                  Groestlcoin Armory detected the following module which is 
                   <font color=%(color)s"><b>invalid</b></font>:
                   <br><br>
                      <b>Module Name:</b> %(name)s<br>
@@ -1058,7 +1058,7 @@ class ArmoryMainWindow(QMainWindow):
                   { 'color' : htmlColor('TextRed'), 'name' : moduleName, 'path' : moduleZipPath}, QMessageBox.Ok)
             elif not USE_TESTNET and infoMap[MODULE_ZIP_STATUS_KEY] == MODULE_ZIP_STATUS.Unsigned:
                reply = QMessageBox.warning(self, tr("UNSIGNED Module"), tr("""
-                  Armory detected the following module which  
+                  Groestlcoin Armory detected the following module which  
                   <font color="%(color)s"><b>has not been signed by Armory</b></font> and may be dangerous:
                   <br><br>
                      <b>Module Name:</b> %(name)s<br>
@@ -1079,7 +1079,7 @@ class ArmoryMainWindow(QMainWindow):
                   LOGERROR('Module is malformed!  No tabToDisplay or tabName attrs')
                   QMessageBox.critmoduleName(self, tr("Bad Module"), tr("""
                      The module you attempted to load (%s) is malformed.  It is 
-                     missing attributes that are needed for Armory to load it.  
+                     missing attributes that are needed for Groestlcoin Armory to load it.  
                      It will be skipped.""") % moduleName, QMessageBox.Ok)
                   continue
                      
@@ -1087,8 +1087,8 @@ class ArmoryMainWindow(QMainWindow):
                verArmoryInt = getVersionInt(BTCARMORY_VERSION)
                if verArmoryInt >verPluginInt:
                   reply = QMessageBox.warning(self, tr("Outdated Module"), tr("""
-                     Module %(mod)s is only specified to work up to Armory version %(maxver)s.
-                     You are using Armory version %(curver)s.  Please remove the module if
+                     Module %(mod)s is only specified to work up to Groestlcoin Armory version %(maxver)s.
+                     You are using Groestlcoin Armory version %(curver)s.  Please remove the module if
                      you experience any problems with it, or contact the maintainer
                      for a new version.
                      <br><br>
@@ -1119,7 +1119,7 @@ class ArmoryMainWindow(QMainWindow):
                      continue
             
                   if not hasattr(self, funcListName):
-                     LOGERROR('Missing an ArmoryQt list variable: %s' % funcListName)
+                     LOGERROR('Missing an Groestlcoin-ArmoryQt list variable: %s' % funcListName)
                      continue
       
                   LOGINFO('Found module function: %s' % plugFuncName)
@@ -1136,7 +1136,7 @@ class ArmoryMainWindow(QMainWindow):
          'to the state they were in when Groestlcoin Armory was first installed.  '
          '<br><br>'
          'If you click "Yes," Groestlcoin Armory will exit after settings are '
-         'reverted.  You will have to manually start Armory again.'
+         'reverted.  You will have to manually start Groestlcoin Armory again.'
          '<br><br>'
          'Do you want to continue? ', \
          QMessageBox.Yes | QMessageBox.No)
@@ -1165,7 +1165,7 @@ class ArmoryMainWindow(QMainWindow):
          msg += tr("""
          <br><br>Make sure you also restart Groestlcoin-Qt
          (or groestlcoind) and let it synchronize again before you restart
-         Armory.  Doing so will clear its memory pool, as well""")
+         Groestlcoin Armory.  Doing so will clear its memory pool, as well""")
       QMessageBox.information(self, tr('Memory Pool'), msg, QMessageBox.Ok)
 
 
@@ -1313,7 +1313,7 @@ class ArmoryMainWindow(QMainWindow):
          full rescan and will fix most erroneous balance issues.
          The SSH rescan will take 5-20 minutes depending on your system.
          <br><br>
-         Do you wish to force a SSH rescan on the next Armory restart?"""), \
+         Do you wish to force a SSH rescan on the next Groestlcoin Armory restart?"""), \
          QMessageBox.Yes | QMessageBox.No)
       if reply==QMessageBox.Yes:
          touchFile( os.path.join(ARMORY_HOME_DIR, 'sshrescan.flag') )
@@ -1464,9 +1464,9 @@ class ArmoryMainWindow(QMainWindow):
    @AllowAsync
    def registerBitcoinWithFF(self):
       #the 3 nodes needed to add to register bitcoin as a protocol in FF
-      rdfschemehandler = 'about=\"urn:scheme:handler:bitcoin\"'
-      rdfscheme = 'about=\"urn:scheme:bitcoin\"'
-      rdfexternalApp = 'about=\"urn:scheme:externalApplication:bitcoin\"'
+      rdfschemehandler = 'about=\"urn:scheme:handler:groestlcoin\"'
+      rdfscheme = 'about=\"urn:scheme:groestlcoin\"'
+      rdfexternalApp = 'about=\"urn:scheme:externalApplication:groestlcoin\"'
 
       #find mimeTypes.rdf file
       home = os.getenv('HOME')
@@ -1536,8 +1536,8 @@ class ArmoryMainWindow(QMainWindow):
          return
 
       if OS_LINUX:
-         out,err = execAndWait('gconftool-2 --get /desktop/gnome/url-handlers/bitcoin/command')
-         out2,err = execAndWait('xdg-mime query default x-scheme-handler/bitcoin')
+         out,err = execAndWait('gconftool-2 --get /desktop/gnome/url-handlers/groestlcoin/command')
+         out2,err = execAndWait('xdg-mime query default x-scheme-handler/groestlcoin')
 
          #check FF protocol association
          #checkFF_thread = threading.Thread(target=self.registerBitcoinWithFF)
@@ -1545,11 +1545,11 @@ class ArmoryMainWindow(QMainWindow):
          self.registerBitcoinWithFF(async=True)
 
          def setAsDefault():
-            LOGINFO('Setting up Armory as default URI handler...')
-            execAndWait('gconftool-2 -t string -s /desktop/gnome/url-handlers/bitcoin/command "python /usr/lib/armory/ArmoryQt.py \"%s\""')
-            execAndWait('gconftool-2 -s /desktop/gnome/url-handlers/bitcoin/needs_terminal false -t bool')
-            execAndWait('gconftool-2 -t bool -s /desktop/gnome/url-handlers/bitcoin/enabled true')
-            execAndWait('xdg-mime default armory.desktop x-scheme-handler/bitcoin')
+            LOGINFO('Setting up Groestlcoin Armory as default URI handler...')
+            execAndWait('gconftool-2 -t string -s /desktop/gnome/url-handlers/groestlcoin/command "python /usr/lib/armory/ArmoryQt.py \"%s\""')
+            execAndWait('gconftool-2 -s /desktop/gnome/url-handlers/groestlcoin/needs_terminal false -t bool')
+            execAndWait('gconftool-2 -t bool -s /desktop/gnome/url-handlers/groestlcoin/enabled true')
+            execAndWait('xdg-mime default armory.desktop x-scheme-handler/groestlcoin')
 
 
          if ('no value' in out.lower() or 'no value' in err.lower()) and not 'armory.desktop' in out2.lower():
@@ -1562,7 +1562,7 @@ class ArmoryMainWindow(QMainWindow):
             if not self.getSettingOrSetDefault('DNAA_DefaultApp', False):
                reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Default URL Handler', \
                   'Groestlcoin Armory is not set as your default application for handling '
-                  '"groestlcoin:" links.  Would you like to use Armory as the '
+                  '"groestlcoin:" links.  Would you like to use Groestlcoin Armory as the '
                   'default?', 'Do not ask this question again')
                if reply[0]==True:
                   setAsDefault()
@@ -1633,7 +1633,7 @@ class ArmoryMainWindow(QMainWindow):
             # needed.  They have enough to worry about with this weird new program...
             reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Default URL Handler', \
                'Groestlcoin Armory is not set as your default application for handling '
-               '"groestlcoin:" links.  Would you like to use Armory as the '
+               '"groestlcoin:" links.  Would you like to use Groestlcoin Armory as the '
                'default?', 'Do not ask this question again')
 
             if reply[1]==True:
@@ -1644,20 +1644,20 @@ class ArmoryMainWindow(QMainWindow):
             if reply[0]==True:
                action = 'DoIt'
             else:
-               LOGINFO('User requested not to use Armory as URI handler')
+               LOGINFO('User requested not to use Groestlcoin Armory as URI handler')
                return
 
          # Finally, do it if we're supposed to!
          LOGINFO('URL-register action: %s', action)
          if action=='DoIt':
 
-            LOGINFO('Registering Armory  for current user')
+            LOGINFO('Registering Groestlcoin Armory  for current user')
             baseDir = os.path.dirname(unicode(passstr[0:(rtlength*2)], encoding='utf16'))
             regKeys = []
-            regKeys.append(['Software\\Classes\\bitcoin', '', 'URL:bitcoin Protocol'])
-            regKeys.append(['Software\\Classes\\bitcoin', 'URL Protocol', ""])
-            regKeys.append(['Software\\Classes\\bitcoin\\shell', '', None])
-            regKeys.append(['Software\\Classes\\bitcoin\\shell\\open', '',  None])
+            regKeys.append(['Software\\Classes\\groestlcoin', '', 'URL:groestlcoin Protocol'])
+            regKeys.append(['Software\\Classes\\groestlcoin', 'URL Protocol', ""])
+            regKeys.append(['Software\\Classes\\groestlcoin\\shell', '', None])
+            regKeys.append(['Software\\Classes\\groestlcoin\\shell\\open', '',  None])
 
             for key,name,val in regKeys:
                dkey = '%s\\%s' % (key,name)
@@ -1667,9 +1667,9 @@ class ArmoryMainWindow(QMainWindow):
                CloseKey(registryKey)
 
             regKeysU = []
-            regKeysU.append(['Software\\Classes\\bitcoin\\shell\\open\\command',  '', \
+            regKeysU.append(['Software\\Classes\\groestlcoin\\shell\\open\\command',  '', \
                            modulepathname])
-            regKeysU.append(['Software\\Classes\\bitcoin\\DefaultIcon', '',  \
+            regKeysU.append(['Software\\Classes\\groestlcoin\\DefaultIcon', '',  \
                           '"%s\\armory48x48.ico"' % baseDir])
             for key,name,val in regKeysU:
                dkey = '%s\\%s' % (key,name)
@@ -1988,8 +1988,7 @@ class ArmoryMainWindow(QMainWindow):
          title = "Groestlcoin alert %s" % alert.uniqueID
          alert_str = "%s<br>%s<br>%s<br>" % (alert.statusBar, alert.comment, alert.reserved)
          msg = "This alert has been received from the Groestlcoin network:<p>" + \
-               alert_str + \
-               "</p>Please visit <a href='http://www.bitcoin.org/en/alerts'>http://www.bitcoin.org/en/alerts</a> for more information.<br>"
+               alert_str
          reply, self.ignoreAlerts[id] = MsgBoxWithDNAA(
             self, self, MSGBOX.Warning, title, msg,
             'Do not show me this notification again', yesStr='OK')
@@ -2126,22 +2125,14 @@ class ArmoryMainWindow(QMainWindow):
       elif OS_MACOSX:
          shortOS = 'mac'
 
-      webURL = 'https://bitcoinarmory.com/download/'
+      webURL = 'http://www.groestlcoin.org'
       if shortOS is not None:
          webURL += '#' + shortOS
 
-      if testing:
-         return tr("""
-            A new testing version of Groestlcoin Armory is out. You can upgrade to version
-            %(ver)s through our secure downloader inside Armory (link at the bottom
-            of this notification window).
-            """) % { 'ver' : verStr}
          
       return tr("""
          Your version of Groestlcoin Armory is now outdated.  Please upgrade to version
-         %(ver)s through our secure downloader inside Armory (link at the bottom
-         of this notification window).  Alternatively, you can get the new
-         version from our website downloads page at:
+         %(ver)s You can get the new version from our website downloads page at:         
          <br><br>
          <a href="%(url)s">%(url)s</a> """) % {'ver' : verStr, 'url' : webURL}
 
@@ -2406,8 +2397,7 @@ class ArmoryMainWindow(QMainWindow):
                QMessageBox.warning(self, tr('Still Running'), tr("""
                   The Groestlcoin software still appears to be open!
                   Close it <b>right now</b>
-                  before clicking "Ok."  The BitTorrent engine will start
-                  as soon as you do."""), QMessageBox.Ok)
+                  before clicking "Ok." """), QMessageBox.Ok)
          else:
             QMessageBox.warning(self, tr('Synchronize'), tr("""
                You chose to finish synchronizing with the network using
@@ -2662,7 +2652,7 @@ class ArmoryMainWindow(QMainWindow):
          QMessageBox.warning(self, 'Offline Mode',
             'You %sed on a "groestlcoin:" link, but Groestlcoin Armory is in '
             'offline mode, and is not capable of creating transactions. '
-            '%sing links will only work if Armory is connected '
+            '%sing links will only work if Groestlcoin Armory is connected '
             'to the Groestlcoin network!' % (clickOrEnter, ClickOrEnter), \
              QMessageBox.Ok)
          return {}
@@ -2707,7 +2697,7 @@ class ArmoryMainWindow(QMainWindow):
          if key.startswith('req-') and not key[4:] in recognized:
             QMessageBox.warning(self,'Unsupported URI', 'The "groestlcoin:" link '
                'you just %sed contains fields that are required but not '
-               'recognized by Armory.  This may be an older version of Groestlcoin Armory, '
+               'recognized by Groestlcoin Armory.  This may be an older version of Groestlcoin Armory, '
                'or the link you %sed on uses an exotic, unsupported format.'
                '<br><br>The action cannot be completed.' % (clickOrEnter, clickOrEnter), \
                QMessageBox.Ok)
@@ -2725,7 +2715,7 @@ class ArmoryMainWindow(QMainWindow):
          QMessageBox.warning(self, 'Offline', \
             'You just clicked on a "groestlcoin:" link, but Groestlcoin Armory is offline '
             'and cannot send transactions.  Please click the link '
-            'again when Armory is online.', \
+            'again when Groestlcoin Armory is online.', \
             QMessageBox.Ok)
          return
       elif not TheBDM.getState()==BDM_BLOCKCHAIN_READY:
@@ -3743,9 +3733,9 @@ class ArmoryMainWindow(QMainWindow):
          if modified and withOldSigWarning:
             reply = QMessageBox.warning(self, 'Old signature format detected', \
                  'The transaction that you are about to execute '
-                 'has been signed with an older version Bitcoin Armory '
+                 'has been signed with an older version Groestlcoin Armory '
                  'that has added unnecessary padding to the signature. '
-                 'If you are running version Bitcoin 0.8.2 or later the unnecessary '
+                 'If you are running version Groestlcoin 2.11.0 or later the unnecessary '
                  'the unnecessary signature padding will not be broadcast. '
                  'Note that removing the unnecessary padding will change the hash value '
                  'of the transaction. Do you want to remove the unnecessary padding?', QMessageBox.Yes | QMessageBox.No)
@@ -3784,7 +3774,7 @@ class ArmoryMainWindow(QMainWindow):
                LOGPPRINT(pytx, logging.ERROR)
                searchstr  = binary_to_hex(newTxHash, BIGENDIAN)
 
-               supportURL       = 'https://bitcoinarmory.com/support' 
+               supportURL       = 'http://www.groestlcoin.org/forum/' 
                blkexplURL       = BLOCKEXPLORE_URL_TX % searchstr
                blkexplURL_short = BLOCKEXPLORE_URL_TX % searchstr[:20]
 
@@ -3803,13 +3793,12 @@ class ArmoryMainWindow(QMainWindow):
                   transaction on that webpage within one minute, it failed and you 
                   should attempt to re-send it. 
                   If it <i>does</i> show up, then you do not need to do anything 
-                  else -- it will show up in Armory as soon as it receives one
+                  else -- it will show up in Groestlcoin Armory as soon as it receives one
                   confirmation. 
                   <br><br>If the transaction did fail, it is likely because the fee
                   is too low. Try again with a higher fee.
                   
-                  If the problem persists, go to "<i>Help</i>" and select 
-                  "<i>Submit Bug Report</i>".  Or use "<i>File</i>" -> 
+                  If the problem persists, go to "<i>File</i>" -> 
                   "<i>Export Log File</i>" and then attach it to a support 
                   ticket at 
                   <a href="%(supporturl)s">%(supporturl)s</a>""") % {
@@ -4340,7 +4329,7 @@ class ArmoryMainWindow(QMainWindow):
          if bitcoindStat=='Running':
             result = QMessageBox.warning(self, tr('Already running!'), tr("""
                The Groestlcoin software appears to be installed now, but it
-               needs to be closed for Armory to work.  Would you like Groestlcoin Armory
+               needs to be closed for Groestlcoin Armory to work.  Would you like Groestlcoin Armory
                to close it for you?"""), QMessageBox.Yes | QMessageBox.No)
             if result==QMessageBox.Yes:
                self.closeExistingBitcoin()
@@ -4503,17 +4492,17 @@ class ArmoryMainWindow(QMainWindow):
 
       #####
       def openBitcoinOrg():
-         webbrowser.open('http://www.bitcoin.org/en/download')
+         webbrowser.open('http://www.groestlcoin.org')
 
 
       #####
       def openInstruct():
          if OS_WINDOWS:
-            webbrowser.open('https://www.bitcoinarmory.com/install-windows/')
+            webbrowser.open('http://www.groestlcoin.org')
          elif OS_LINUX:
-            webbrowser.open('https://www.bitcoinarmory.com/install-linux/')
+            webbrowser.open('http://www.groestlcoin.org')
          elif OS_MACOSX:
-            webbrowser.open('https://www.bitcoinarmory.com/install-macosx/')
+            webbrowser.open('http://www.groestlcoin.org')
 
 
 
@@ -4632,8 +4621,8 @@ class ArmoryMainWindow(QMainWindow):
    def setupAnnounceTab(self):
 
       self.lblAlertStr = QRichLabel(tr("""
-         <font size=4><b>Announcements and alerts from <i>Armory Technologies,
-         Inc.</i></b></font>"""), doWrap=False, hAlign=Qt.AlignHCenter)
+         <font size=4><b>Announcements and alerts from <i>Groestlcoin
+         </i></b></font>"""), doWrap=False, hAlign=Qt.AlignHCenter)
 
       def checkUpd():
          lastUpdate = self.announceFetcher.getLastSuccessfulFetchTime()
@@ -4641,8 +4630,8 @@ class ArmoryMainWindow(QMainWindow):
          lastUpdate2 = self.announceFetcher.getLastSuccessfulFetchTime()
          if lastUpdate==lastUpdate2:
             QMessageBox.warning(self, tr('Not Available'), tr("""
-               Could not access the <font color="%s"><b>Armory
-               Technologies, Inc.</b></font> announcement feeder.
+               Could not access the <font color="%s"><b>Groestlcoin
+               </b></font> announcement feeder.
                Try again in a couple minutes.""") % \
                htmlColor('TextGreen'), QMessageBox.Ok)
          else:
@@ -4799,8 +4788,8 @@ class ArmoryMainWindow(QMainWindow):
       sinceLastUpd = RightNow() - lastUpdate
       if lastUpdate < RightNow()-1*WEEK:
          QMessageBox.warning(self, tr('Old Data'), tr("""
-            The last update retrieved from the <font color="%(color)s"><b>Armory
-            Technologies, Inc.</b></font> announcement feeder was <b>%(time)s</b>
+            The last update retrieved from the <font color="%(color)s"><b>Groestcloin
+            </b></font> announcement feeder was <b>%(time)s</b>
             ago.  The following downloads may not be the latest
             available.""") % { 'color' : htmlColor("TextGreen"), \
             'time' : secondsToHumanTime(sinceLastUpd)}, QMessageBox.Ok)
@@ -4881,7 +4870,7 @@ class ArmoryMainWindow(QMainWindow):
                self.btnSecureDLSatoshi.setVisible(False)
                self.icoSatoshiSWVersion.setPixmap(dispIcon)
                self.lblSatoshiSWVersion.setText(tr(""" You are using
-                  the latest version of core Bitcoin (%s)""") % satCurrStr)
+                  the latest version of core Groestlcoin (%s)""") % satCurrStr)
             else:
                dispIcon = QPixmap(iconWarnFile).scaled(24,24)
                self.btnSecureDLSatoshi.setVisible(True)
@@ -4895,13 +4884,13 @@ class ArmoryMainWindow(QMainWindow):
             self.btnSecureDLSatoshi.setVisible(False)
             self.icoSatoshiSWVersion.setPixmap(None)
             self.lblSatoshiSWVersion.setText(tr(""" You are using
-               core Bitcoin version %s""") % satCurrStr)
+               core Groestlcoin version %s""") % satCurrStr)
          elif satLatest:
             # only satLatest is avail (maybe offline)
             dispIcon = QPixmap(iconSatoshi).scaled(24,24)
             self.btnSecureDLSatoshi.setVisible(True)
             self.icoSatoshiSWVersion.setPixmap(dispIcon)
-            self.lblSatoshiSWVersion.setText(tr("""Core Bitcoin version
+            self.lblSatoshiSWVersion.setText(tr("""Core Groestlcoin version
                %s is available.""") % satLastStr)
          else:
             # only satLatest is avail (maybe offline)
@@ -4909,7 +4898,7 @@ class ArmoryMainWindow(QMainWindow):
             self.btnSecureDLSatoshi.setVisible(False)
             self.icoSatoshiSWVersion.setPixmap(dispIcon)
             self.lblSatoshiSWVersion.setText(tr("""No version information
-               is available for core Bitcoin""") )
+               is available for core Groestlcoin""") )
 
 
 
@@ -5065,7 +5054,7 @@ class ArmoryMainWindow(QMainWindow):
 
             self.lblTorrentStats.setVisible(False)
          else:
-            self.lblDashModeTorrent.setText(tr('Downloading via Armory CDN'), \
+            self.lblDashModeTorrent.setText(tr('Downloading via Groestlcoin Armory CDN'), \
                                           size=4, bold=True, color='Foreground')
 
             if fracDone:
@@ -5341,10 +5330,10 @@ class ArmoryMainWindow(QMainWindow):
       if state == 'NewUserInfo':
          return tr("""
          For more information about Groestlcoin Armory, and even Groestlcoin itself, you should
-         visit the <a href="http://groestlcoin.org/faq/">frequently
+         visit the <a href="http://www.groestlcoin.org/forum/">frequently
          asked questions page</a>.  If
          you are experiencing problems using this software, please visit the
-         <a href="http://groestlcoin.org">Groestlcoin Armory
+         <a href="http://www.groestlcoin.org/forum/">Groestlcoin Armory
          troubleshooting webpage</a>.  It will be updated frequently with
          solutions to common problems.
          <br><br>
@@ -5354,14 +5343,14 @@ class ArmoryMainWindow(QMainWindow):
          your funds if something terrible happens to you.  <i>Each wallet
          only needs to be backed up once, ever!</i>  Without it, you are at
          risk of losing all of your Groestlcoins!  For more information,
-         visit the <a href="http://groestlcoin.org">Groestlcoin Armory
+         visit the <a href="http://www.groestlcoin.org/forum/">Groestlcoin Armory
          Backups page</a>.
          <br><br>
          To learn about improving your security through the use of offline
          wallets, visit the
-         <a href="http://groestlcoin.org">Groestlcoin Armory
+         <a href="http://www.groestlcoin.org/forum/">Groestlcoin Armory
          Quick Start Guide</a>, and the
-         <a href="http://groestlcoin.org">Offline
+         <a href="http://www.groestlcoin.org/forum/">Offline
          Wallet Tutorial</a>.<br><br> """)
       elif state == 'OnlineFull1':
          return tr( \
@@ -5372,12 +5361,12 @@ class ArmoryMainWindow(QMainWindow):
          '<br>')
       elif state == 'OnlineFull2':
          return ( \
-         (tr('If you experience any performance issues with Armory, '
+         (tr('If you experience any performance issues with Groestlcoin Armory, '
          'please confirm that Groestlcoin-Qt is running and <i>fully '
          'synchronized with the Groestlcoin network</i>.  You will see '
          'a green checkmark in the bottom right corner of the '
          'Groestlcoin-Qt window if it is synchronized.  If not, it is '
-         'recommended you close Armory and restart it only when you '
+         'recommended you close Groestlcoin Armory and restart it only when you '
          'see that checkmark.'
          '<br><br>')  if not self.doAutoBitcoind else '') + tr(
          '<b>Please backup your wallets!</b>  Groestlcoin Armory wallets are '
@@ -5425,8 +5414,8 @@ class ArmoryMainWindow(QMainWindow):
          'option, or change it in the Groestlcoin Armory settings.'
          '<br><br>'
          'If you do not have Groestlcoin-Qt installed, you can '
-         'download it from <a href="http://www.bitcoin.org">'
-         'http://www.bitcoin.org</a>.')
+         'download it from <a href="http://www.groestlcoin.org">'
+         'http://www.groestlcoin.org</a>.')
 
       # Branch the available display text based on which Satoshi-Management
       # mode Armory is using.  It probably wasn't necessary to branch the
@@ -5443,7 +5432,7 @@ class ArmoryMainWindow(QMainWindow):
             'the Groestlcoin-Qt window when it is finished.'
             '<br><br>'
             'Switching to online mode will give you access '
-            'to more Armory functionality, including sending and receiving '
+            'to more Groestlcoin Armory functionality, including sending and receiving '
             'groestlcoins and viewing the balances and transaction histories '
             'of each of your wallets.<br><br>')
          elif state == 'OfflineNoSatoshi':
@@ -5455,9 +5444,7 @@ class ArmoryMainWindow(QMainWindow):
             '-- you will see a green checkmark in the bottom-right corner when '
             'it is complete.  If Groestlcoin-Qt is already running and you believe '
             'the lack of connection is an error (especially if using proxies), '
-            'please see <a href="'
-            'https://bitcointalk.org/index.php?topic=155717.msg1719077#msg1719077">'
-            'this link</a> for options.'
+            'Create a groestlcoin.conf file with listen=1  (C:\\Users\\username\\AppData\\Roaming\\Groestlcoin\\groestlcoin.conf or /home/user/.groestlcoin/groestlcoin.conf)'
             '<br><br>'
             '<b>If you prefer to have Groestlcoin Armory do this for you</b>, '
             'then please check "Let Groestlcoin Armory run '
@@ -5468,7 +5455,7 @@ class ArmoryMainWindow(QMainWindow):
             'webpage for more information.  Start at '
             '<a href="https://groestlcoin.org">'
             'Why Groestlcoin Armory needs Groestlcoin-Qt</a> or go straight to our <a '
-            'href="https://groestlcoin.org/faq/">'
+            'href="http://www.groestlcoin.org/forum/">'
             'frequently asked questions</a> page for more general information.  '
             'If you already know what you\'re doing and simply need '
             'to fetch the latest version of Groestlcoin-Qt, you can download it from '
@@ -5525,7 +5512,7 @@ class ArmoryMainWindow(QMainWindow):
             'It appears you are already running Groestlcoin software '
             '(Groestlcoin-Qt or groestlcoind). '
             'Unlike previous versions of Groestlcoin Armory, you should <u>not</u> run '
-            'this software yourself --  Armory '
+            'this software yourself --  Groestlcoin Armory '
             'will run it in the background for you.  Either close the '
             'Groestlcoin application or adjust your settings.  If you change '
             'your settings, then please restart Groestlcoin Armory.')
@@ -5533,7 +5520,7 @@ class ArmoryMainWindow(QMainWindow):
             return tr( \
             '<b>Only one more step to getting online with Armory!</b>   You '
             'must install the Groestlcoin software from www.groestlcoin.org in order '
-            'for Armory to communicate with the Groestlcoin network.  If the '
+            'for Groestlcoin Armory to communicate with the Groestlcoin network.  If the '
             'Groestlcoin software is already installed and/or you would prefer '
             'to manage it yourself, please adjust your settings and '
             'restart Groestlcoin Armory.')
@@ -5546,7 +5533,7 @@ class ArmoryMainWindow(QMainWindow):
             initialization process.  Subsequent loads will only take a few
             minutes.
             <br><br>
-            <b>Please Note:</b> Between Armory and the underlying Groestlcoin
+            <b>Please Note:</b> Between Groestlcoin Armory and the underlying Groestlcoin
             engine, you need to have 1-2 GB of spare disk space available
             to hold the global transaction history.
             <br><br>
@@ -5585,7 +5572,7 @@ class ArmoryMainWindow(QMainWindow):
             return tr( \
             'Groestlcoin Armory\'s communication with the Groestlcoin network was interrupted. '
             'This usually does not happen unless you closed the process that '
-            'Groestlcoin Armory was using to communicate with the network. Armory requires '
+            'Groestlcoin Armory was using to communicate with the network. Groestlcoin Armory requires '
             '%(sdm)s to be running in the background, and this error pops up if it '
             'disappears.'
             '<br><br>You may continue in offline mode, or you can close '
@@ -5627,7 +5614,7 @@ class ArmoryMainWindow(QMainWindow):
             'just by chance after an unclean shutdown.'
             '<br><br>'
             'You can either revert your installed Groestlcoin software to the '
-            'last known working version (but not earlier than version 0.8.1) '
+            'last known working version (but not earlier than version 2.11.0) '
             'or delete everything <b>except</b> "wallet.dat" from the your Groestlcoin '
             'home directory:<br><br>'
             '<font face="courier"><b>%(satoshipath)s</b></font>'
@@ -5780,7 +5767,7 @@ class ArmoryMainWindow(QMainWindow):
                   LOGINFO('Dashboard switched to auto-OfflineNoSatoshiNoInternet')
                   setBtnFrameVisible(True, \
                      tr('In case you actually do have internet access, you can use '
-                     'the following links to get Armory installed.  Or change '
+                     'the following links to get Groestlcoin Armory installed.  Or change '
                      'your settings.'))
                   setBtnRowVisible(DASHBTNS.Browse, True)
                   setBtnRowVisible(DASHBTNS.Install, True)
@@ -5888,7 +5875,7 @@ class ArmoryMainWindow(QMainWindow):
                      setOnlyDashModeVisible()
                   else:
                      extraTxt = tr("""
-                        <b>Armory has lost connection to the
+                        <b>Groestlcoin Armory has lost connection to the
                         core Groestlcoin software.  If you did not do anything
                         that affects your network connection or the groestlcoind
                         process, it will probably recover on its own in a
@@ -5921,19 +5908,19 @@ class ArmoryMainWindow(QMainWindow):
                   setTorrentRowVisible(TheTDM.isStarted())
 
                   if TheTDM.isRunning():
-                     self.lblDashModeTorrent.setText(tr('Downloading via Armory CDN'), \
+                     self.lblDashModeTorrent.setText(tr('Downloading via Groestlcoin Armory CDN'), \
                                           size=4, bold=True, color='Foreground')
                      self.lblDashModeSync.setText( tr('Synchronizing with Network'), \
                                           size=4, bold=True, color='DisableFG')
                      self.lblTorrentStats.setVisible(True)
                   elif sdmState=='GroestlcoindInitializing':
-                     self.lblDashModeTorrent.setText(tr('Download via Armory CDN'), \
+                     self.lblDashModeTorrent.setText(tr('Download via Groestlcoin Armory CDN'), \
                                           size=4, bold=True, color='DisableFG')
                      self.lblDashModeSync.setText( tr('Initializing Groestlcoin Engine'), \
                                               size=4, bold=True, color='Foreground')
                      self.lblTorrentStats.setVisible(False)
                   else:
-                     self.lblDashModeTorrent.setText(tr('Download via Armory CDN'), \
+                     self.lblDashModeTorrent.setText(tr('Download via Groestlcoin Armory CDN'), \
                                           size=4, bold=True, color='DisableFG')
                      self.lblDashModeSync.setText( 'Synchronizing with Network', \
                                               size=4, bold=True, color='Foreground')
@@ -6472,7 +6459,7 @@ class ArmoryMainWindow(QMainWindow):
                      if (RightNow() - self.lastAskedUserStopTorrent) > 5*MINUTE:
                         self.lastAskedUserStopTorrent = RightNow()
                         reply = QMessageBox.warning(self, tr('Torrent'), tr("""
-                           Armory is attempting to use BitTorrent to speed up
+                           Groestlcoin Armory is attempting to use BitTorrent to speed up
                            the initial synchronization, but it appears to be
                            downloading slowly or not at all.  
                            <br><br>
@@ -6651,7 +6638,7 @@ class ArmoryMainWindow(QMainWindow):
             #                          'Wallet "%s" (%s) just sent %s BTC to itself!' % \
             #                          (wlt.labelName, moneyID, coin2str(amt,maxZeros=1).strip()),
             self.sysTray.showMessage(tr('Your groestlcoins just did a lap!'), \
-                                     tr('%(wltName)s just sent some BTC to itself!') % { 'wltName' : wltName }, \
+                                     tr('%(wltName)s just sent some GRS to itself!') % { 'wltName' : wltName }, \
                                      QSystemTrayIcon.Information, 10000)
             return
 
@@ -6939,7 +6926,7 @@ class ArmoryMainWindow(QMainWindow):
          if TheBDM.getState() == BDM_SCANNING:
             canFix = tr("""
                The wallet analysis tool will become available
-               as soon as Armory is done loading.   You can close this 
+               as soon as Groestlcoin Armory is done loading.   You can close this 
                window and it will reappear when ready.""")
             self.dlgCptWlt.UpdateCanFix([canFix])
             time.sleep(1)
