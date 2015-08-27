@@ -790,8 +790,8 @@ class ArmoryMainWindow(QMainWindow):
       self.menusList[MENUS.Help].addAction(actAboutWindow)
 #GRS      self.menusList[MENUS.Help].addAction(actVersionCheck)
 #GRS      self.menusList[MENUS.Help].addAction(actDownloadUpgrade)
-      self.menusList[MENUS.Help].addAction(actVerifySigned)
-      self.menusList[MENUS.Help].addSeparator()
+#GRS      self.menusList[MENUS.Help].addAction(actVerifySigned)
+#GRS      self.menusList[MENUS.Help].addSeparator()
 #GRS      self.menusList[MENUS.Help].addAction(actTroubleshoot)
 #GRS      self.menusList[MENUS.Help].addAction(actSubmitBug)
 #GRS      self.menusList[MENUS.Help].addAction(actPrivacyPolicy)
@@ -2511,7 +2511,7 @@ class ArmoryMainWindow(QMainWindow):
       # it if it doesn't exist
       if self.settings.hasSetting('SatoshiExe'):
          if not os.path.exists(self.settings.get('SatoshiExe')):
-            LOGERROR('Bitcoin installation setting is a non-existent directory')
+            LOGERROR('Groestlcoin installation setting is a non-existent directory')
          self.satoshiExeSearchPath = [self.settings.get('SatoshiExe')]
       else:
          self.satoshiExeSearchPath = [get_main_dir()]     #!!!P
@@ -4572,7 +4572,7 @@ class ArmoryMainWindow(QMainWindow):
             'have to click through it to complete installation.')
 
          #self.lblDashInstallForMe = QRichLabel( \
-           #'Groestlcoin Armory will download, verify, and start the Bitcoin installer for you')
+           #'Groestlcoin Armory will download, verify, and start the Groestlcoin installer for you')
          #self.ttipInstallForMe = self.createToolTipWidget( \
            #'Groestlcoin Armory will download the latest version of the Groestlcoin software '
            #'for Windows and verify its digital signatures.  You will have to '
