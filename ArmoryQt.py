@@ -245,7 +245,7 @@ class ArmoryMainWindow(QMainWindow):
 
       # setupNetworking may have set this flag if something went wrong
       if self.abortLoad:
-         LOGWARN('Armory startup was aborted.  Closing.')
+         LOGWARN('Groestlcoin Armory startup was aborted.  Closing.')
          os._exit(0)
 
       # We need to query this once at the beginning, to avoid having
@@ -777,7 +777,7 @@ class ArmoryMainWindow(QMainWindow):
       actVersionCheck = self.createAction(tr('Groestlcoin Armory Version'), execVersion)
       actDownloadUpgrade = self.createAction(tr('Update Software...'), self.openDownloaderAll)
       actVerifySigned = self.createAction(tr('Verify Signed Package...'), execVerifySigned)
-      actTroubleshoot = self.createAction(tr('Troubleshooting Armory'), execTrouble)
+      actTroubleshoot = self.createAction(tr('Troubleshooting Groestlcoin Armory'), execTrouble)
       actSubmitBug    = self.createAction(tr('Submit Bug Report'), execBugReport)
       actClearMemPool = self.createAction(tr('Clear All Unconfirmed'), self.clearMemoryPool)
       actRescanDB     = self.createAction(tr('Rescan Databases'), self.rescanNextLoad)
@@ -785,15 +785,15 @@ class ArmoryMainWindow(QMainWindow):
       if ENABLE_SUPERNODE: 
          actRescanSSH = self.createAction(tr('Rescan SSH'), self.rescanSSH)
       actFactoryReset = self.createAction(tr('Factory Reset'), self.factoryReset)
-      actPrivacyPolicy = self.createAction(tr('Armory Privacy Policy'), self.showPrivacyGeneric)
+      actPrivacyPolicy = self.createAction(tr('Groestlcoin Armory Privacy Policy'), self.showPrivacyGeneric)
 
       self.menusList[MENUS.Help].addAction(actAboutWindow)
 #GRS      self.menusList[MENUS.Help].addAction(actVersionCheck)
 #GRS      self.menusList[MENUS.Help].addAction(actDownloadUpgrade)
       self.menusList[MENUS.Help].addAction(actVerifySigned)
       self.menusList[MENUS.Help].addSeparator()
-      self.menusList[MENUS.Help].addAction(actTroubleshoot)
-      self.menusList[MENUS.Help].addAction(actSubmitBug)
+#GRS      self.menusList[MENUS.Help].addAction(actTroubleshoot)
+#GRS      self.menusList[MENUS.Help].addAction(actSubmitBug)
 #GRS      self.menusList[MENUS.Help].addAction(actPrivacyPolicy)
       self.menusList[MENUS.Help].addSeparator()
       self.menusList[MENUS.Help].addAction(actClearMemPool)
@@ -877,7 +877,7 @@ class ArmoryMainWindow(QMainWindow):
       if not self.getSettingOrSetDefault('DNAA_DeleteLevelDB', False) and \
             os.path.exists(os.path.join(ARMORY_DB_DIR, LEVELDB_BLKDATA)):
                reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Delete Old DB Directory', \
-                  'Armory detected an older version Database. '
+                  'Groestlcoin Armory detected an older version Database. '
                   'Do you want to delete the old database? Choose yes if '
                   'do not think that you will revert to an older version of Armory.', 'Do not ask this question again')
                if reply[0]==True:
@@ -1288,7 +1288,7 @@ class ArmoryMainWindow(QMainWindow):
       
 
       allEntropy = ''.join([str(a) for a in [source1, source1, source3]])
-      return SecureBinaryData(HMAC256('Armory Entropy', allEntropy))
+      return SecureBinaryData(HMAC256('Groestlcoin Armory Entropy', allEntropy))
       
 
 
@@ -1432,7 +1432,7 @@ class ArmoryMainWindow(QMainWindow):
       self.sysTray = QSystemTrayIcon(self)
       self.sysTray.setIcon( QIcon(self.iconfile) )
       self.sysTray.setVisible(True)
-      self.sysTray.setToolTip('Armory' + (' [Testnet]' if USE_TESTNET else ''))
+      self.sysTray.setToolTip('Groestlcoin Armory' + (' [Testnet]' if USE_TESTNET else ''))
       self.connect(self.sysTray, SIGNAL('messageClicked()'), self.bringArmoryToFront)
       self.connect(self.sysTray, SIGNAL('activated(QSystemTrayIcon::ActivationReason)'), \
                    self.sysTrayActivated)
@@ -1598,7 +1598,7 @@ class ArmoryMainWindow(QMainWindow):
             val,code = QueryValueEx(registryKey, '')
             if 'armory' in val.lower():
                if val.lower()==modulepathname.lower():
-                  LOGINFO('Armory already registered for current user.  Done!')
+                  LOGINFO('Groestlcoin Armory already registered for current user.  Done!')
                   return
                else:
                   action = 'DoIt' #armory is registered, but to another path
@@ -1611,7 +1611,7 @@ class ArmoryMainWindow(QMainWindow):
                registryKey = OpenKey(HKEY_CLASSES_ROOT, rootKey, 0, KEY_READ)
                val,code = QueryValueEx(registryKey, '')
                if 'armory' in val.lower():
-                  LOGINFO('Armory already registered at admin level.  Done!')
+                  LOGINFO('Groestlcoin Armory already registered at admin level.  Done!')
                   return
                else:
                   # Root key is set (or at least created, which is enough)
@@ -1837,7 +1837,7 @@ class ArmoryMainWindow(QMainWindow):
       LOGINFO('     To: %s', self.settings.get('User_Mode'))
 
       if not self.firstModeSwitch:
-         QMessageBox.information(self,'Restart Armory', \
+         QMessageBox.information(self,'Restart Groestlcoin Armory', \
          'You may have to restart Armory for all aspects of '
          'the new usermode to go into effect.', QMessageBox.Ok)
 
@@ -2020,7 +2020,7 @@ class ArmoryMainWindow(QMainWindow):
 
          # Check ARMORY versions
          if not 'Armory' in self.downloadLinks:
-            LOGWARN('No Armory links in the downloads list')
+            LOGWARN('No Groestlcoin Armory links in the downloads list')
          else:
             maxVer = 0
             self.versionNotification = {}
@@ -2032,7 +2032,7 @@ class ArmoryMainWindow(QMainWindow):
                   if thisVer >= maxVer:
                      continue
 
-                  shortDescr = tr('Armory version %s is now available!') % verStr
+                  shortDescr = tr('Groestlcoin Armory version %s is now available!') % verStr
                   notifyID = binary_to_hex(hash256(shortDescr)[:4])
                   self.versionNotification['UNIQUEID'] = notifyID
                   self.versionNotification['VERSION'] = '0'
@@ -2058,7 +2058,7 @@ class ArmoryMainWindow(QMainWindow):
                      if thisVer >= maxVer:
                         continue
 
-                     shortDescr = tr('Armory Testing version %s is now available!') % verStr
+                     shortDescr = tr('Groestlcoin Armory Testing version %s is now available!') % verStr
                      notifyID = binary_to_hex(hash256(shortDescr)[:4])
                      self.versionNotification['UNIQUEID'] = notifyID
                      self.versionNotification['VERSION'] = '0'
@@ -2326,7 +2326,7 @@ class ArmoryMainWindow(QMainWindow):
                                                           uriClick_partial )
             reactorListenTCP(CLI_OPTIONS.interport, self.InstanceListener)
          except ReactorListenError:
-            LOGWARN('Socket already occupied!  This must be a duplicate Armory')
+            LOGWARN('Socket already occupied!  This must be a duplicate Groestlcoin Armory')
             QMessageBox.warning(self, tr('Already Open'), tr("""
                Armory is already running!  You can only have one Armory open
                at a time.  Exiting..."""), QMessageBox.Ok)
@@ -2412,9 +2412,9 @@ class ArmoryMainWindow(QMainWindow):
             QMessageBox.warning(self, tr('Synchronize'), tr("""
                You chose to finish synchronizing with the network using
                the Groestlcoin software which is already running.  Please close
-               Armory until it is finished.  If you are running Groestlcoin-Qt,
+               Groestlcoin Armory until it is finished.  If you are running Groestlcoin-Qt,
                you will see a green checkmark in the bottom-right corner,
-               when it is time to open Armory again."""), QMessageBox.Ok)
+               when it is time to open Groestlcoin Armory again."""), QMessageBox.Ok)
             return False
 
          return True
@@ -2682,7 +2682,7 @@ class ArmoryMainWindow(QMainWindow):
       if not uriDict.has_key('address'):
          QMessageBox.warning(self, 'The "groestlcoin:" link you just %sed '
             'does not even contain an address!  There is nothing that '
-            'Armory can do with this link!' % clickOrEnter, QMessageBox.Ok)
+            'Groestlcoin Armory can do with this link!' % clickOrEnter, QMessageBox.Ok)
          LOGERROR('No address in "groestlcoin:" link!  Nothing to do!')
          return {}
 
@@ -3641,7 +3641,7 @@ class ArmoryMainWindow(QMainWindow):
       confirmed=False
       if TheBDM.getState() in (BDM_OFFLINE, BDM_UNINITIALIZED):
          #LOGERROR('Somehow ended up at confirm-sweep while in offline mode')
-         #QMessageBox.info(self, 'Armory is Offline', \
+         #QMessageBox.info(self, 'Groestlcoin Armory is Offline', \
             #'Groestlcoin Armory is currently in offline mode.  You must be in online '
             #'mode to initiate the sweep operation.')
          nkey = len(self.sweepAfterScanList)
@@ -3655,9 +3655,9 @@ class ArmoryMainWindow(QMainWindow):
 
       else:
          msgConfirm = ( \
-            'Armory must scan the global transaction history in order to '
+            'Groestlcoin Armory must scan the global transaction history in order to '
             'find any groestlcoins associated with the %s you supplied. '
-            'Armory will go into offline mode temporarily while the scan '
+            'Groestlcoin Armory will go into offline mode temporarily while the scan '
             'is performed, and you will not have access to balances or be '
             'able to create transactions.  The scan may take several minutes.'
             '<br><br>' % ('keys' if gt1 else 'key'))
@@ -3832,7 +3832,7 @@ class ArmoryMainWindow(QMainWindow):
                      tr('In the future, you may avoid scanning twice by '
                      'starting Armory in offline mode (--offline), and '
                      'perform the import before switching to online mode.'))
-      QMessageBox.warning(self, tr('Armory is Busy'), \
+      QMessageBox.warning(self, tr('Groestlcoin Armory is Busy'), \
          tr('Wallets and addresses cannot be imported while Armory is in '
          'the middle of an existing blockchain scan.  Please wait for '
          'the scan to finish.  ') + extraMsg, QMessageBox.Ok)
@@ -3963,7 +3963,7 @@ class ArmoryMainWindow(QMainWindow):
       if pytx==None:
          QMessageBox.critical(self, 'Invalid Tx',
          'The transaction you requested be displayed does not exist in '
-         'Armory\'s database.  This is unusual...', QMessageBox.Ok)
+         'Groestlcoin Armory\'s database.  This is unusual...', QMessageBox.Ok)
          return
 
       DlgDispTxInfo( pytx, self.walletMap[wltID], self, self, txtime=txtime).exec_()
@@ -3998,7 +3998,7 @@ class ArmoryMainWindow(QMainWindow):
          except:
             LOGEXCEPT('Failed to open webbrowser')
             QMessageBox.critical(self, 'Could not open browser', \
-               'Armory encountered an error opening your web browser.  To view '
+               'Groestlcoin Armory encountered an error opening your web browser.  To view '
                'this transaction on blockchain.info, please copy and paste '
                'the following URL into your browser: '
                '<br><br>%s' % (BLOCKEXPLORE_URL_TX % txHash), QMessageBox.Ok)
@@ -4036,7 +4036,7 @@ class ArmoryMainWindow(QMainWindow):
            'wallet on an online computer.', QMessageBox.Ok)
          return
       elif TheBDM.getState()==BDM_SCANNING:
-         QMessageBox.warning(self, 'Armory Not Ready', \
+         QMessageBox.warning(self, 'Groestlcoin Armory Not Ready', \
            'Groestlcoin Armory is currently scanning the blockchain to collect '
            'the information needed to create transactions.  This typically '
            'takes between one and five minutes.  Please wait until your '
@@ -4181,7 +4181,7 @@ class ArmoryMainWindow(QMainWindow):
 
    #############################################################################
    def minimizeArmory(self):
-      LOGDEBUG('Minimizing Armory')
+      LOGDEBUG('Minimizing Groestlcoin Armory')
       self.hide()
       self.sysTray.show()
 
@@ -4532,17 +4532,17 @@ class ArmoryMainWindow(QMainWindow):
                                                      #self.openInstructWindow)
 
       self.dashBtns[DASHBTNS.Close][LBL] = QRichLabel( \
-           'Stop existing Groestlcoin processes so that Armory can open its own')
+           'Stop existing Groestlcoin processes so that Groestlcoin Armory can open its own')
       self.dashBtns[DASHBTNS.Browse][LBL]     = QRichLabel( \
            'Open browser to Groestlcoin webpage to download and install Groestlcoin software')
       self.dashBtns[DASHBTNS.Instruct][LBL] = QRichLabel( \
-           'Instructions for manually installing Bitcoin for operating system')
+           'Instructions for manually installing Groestlcoin for operating system')
       self.dashBtns[DASHBTNS.Settings][LBL]  = QRichLabel( \
-           'Open Armory settings window to change Groestlcoin software management')
+           'Open Groestlcoin Armory settings window to change Groestlcoin software management')
 
 
       self.dashBtns[DASHBTNS.Browse][TTIP] = self.createToolTipWidget( \
-           'Will open your default browser to http://www.bitcoin.org where you can '
+           'Will open your default browser to http://www.groestlcoin.org where you can '
            'download the latest version of Groestlcoin-Qt, and get other information '
            'and links about Groestlcoin, in general.')
       self.dashBtns[DASHBTNS.Instruct][TTIP] = self.createToolTipWidget( \
@@ -4552,7 +4552,7 @@ class ArmoryMainWindow(QMainWindow):
            'Change Groestlcoin-Qt/groestlcoind management settings or point Armory to '
            'a non-standard Groestlcoin installation')
       self.dashBtns[DASHBTNS.Close][TTIP] = self.createToolTipWidget( \
-           'Armory has detected a running Groestlcoin-Qt or groestlcoind instance and '
+           'Groestlcoin Armory has detected a running Groestlcoin-Qt or groestlcoind instance and '
            'will force it to exit')
 
       self.dashBtns[DASHBTNS.Install][BTN].setEnabled(False)
@@ -4572,9 +4572,9 @@ class ArmoryMainWindow(QMainWindow):
             'have to click through it to complete installation.')
 
          #self.lblDashInstallForMe = QRichLabel( \
-           #'Armory will download, verify, and start the Bitcoin installer for you')
+           #'Groestlcoin Armory will download, verify, and start the Bitcoin installer for you')
          #self.ttipInstallForMe = self.createToolTipWidget( \
-           #'Armory will download the latest version of the Groestlcoin software '
+           #'Groestlcoin Armory will download the latest version of the Groestlcoin software '
            #'for Windows and verify its digital signatures.  You will have to '
            #'click through the installation options.<u></u>')
       elif OS_LINUX:
@@ -4769,7 +4769,7 @@ class ArmoryMainWindow(QMainWindow):
    def openDLArmory(self):
       dl,cl = self.getDownloaderData()
       if not dl is None and not cl is None:
-         UpgradeDownloaderDialog(self, self, 'Armory', dl, cl).exec_()
+         UpgradeDownloaderDialog(self, self, 'Groestlcoin Armory', dl, cl).exec_()
 
    #############################################################################
    def openDLSatoshi(self):
@@ -5294,7 +5294,7 @@ class ArmoryMainWindow(QMainWindow):
          'to your addresses, even if you are offline.  It is perfectly '
          'okay to create and distribute payment addresses while Armory is offline, '
          'you just won\'t be able to verify those payments until the next time '
-         'Armory is online.')
+         'Groestlcoin Armory is online.')
       elif func.lower() == 'offline':
          return tr( \
          'The following functionality is available in offline mode:'
@@ -5311,7 +5311,7 @@ class ArmoryMainWindow(QMainWindow):
          'to your addresses, regardless of whether you are online.  It is perfectly '
          'okay to create and distribute payment addresses while Armory is offline, '
          'you just won\'t be able to verify those payments until the next time '
-         'Armory is online.')
+         'Groestlcoin Armory is online.')
       elif func.lower() == 'online':
          return tr( \
          '<ul>'
@@ -5405,7 +5405,7 @@ class ArmoryMainWindow(QMainWindow):
          '<br><br>'
          'Groestlcoin Armory is currently online, but addresses/keys have been added '
          'without rescanning the blockchain.  You may continue using '
-         'Armory in online mode, but any transactions associated with the '
+         'Groestlcoin Armory in online mode, but any transactions associated with the '
          'new addresses will not appear in the ledger. '
          '<br><br>'
          'Pressing the button above will put Armory into offline mode '
@@ -5476,7 +5476,7 @@ class ArmoryMainWindow(QMainWindow):
          elif state == 'OfflineNoInternet':
             return tr( \
             'You are currently in offline mode because '
-            'Armory could not detect an internet connection.  '
+            'Groestlcoin Armory could not detect an internet connection.  '
             'If you think this is in error, then '
             'restart Armory using the " --skip-online-check" option, '
             'or adjust the Armory settings.  Then restart Armory.'
@@ -5487,31 +5487,31 @@ class ArmoryMainWindow(QMainWindow):
          elif state == 'OfflineNoBlkFiles':
             return tr( \
             'You are currently in offline mode because '
-            'Armory could not find the blockchain files produced '
+            'Groestlcoin Armory could not find the blockchain files produced '
             'by Groestlcoin-Qt.  Do you run Groestlcoin-Qt (or groestlcoind) '
             'from a non-standard directory?   Armory expects to '
             'find the blkXXXX.dat files in <br><br>%s<br><br> '
             'If you know where they are located, please restart '
-            'Armory using the " --satoshi-datadir=[path]" '
-            'to notify Armory where to find them.') % BLKFILE_DIR
+            'Groestlcoin Armory using the " --satoshi-datadir=[path]" '
+            'to notify Groestlcoin Armory where to find them.') % BLKFILE_DIR
          elif state == 'Disconnected':
             return tr( \
-            'Armory was previously online, but the connection to Groestlcoin-Qt/'
+            'Groestlcoin Armory was previously online, but the connection to Groestlcoin-Qt/'
             'groestlcoind was interrupted.  You will not be able to send groestlcoins '
             'or confirm receipt of groestlcoins until the connection is '
             'reestablished.  <br><br>Please check that Groestlcoin-Qt is open '
             'and synchronized with the network.  Armory will <i>try to '
             'reconnect</i> automatically when the connection is available '
             'again.  If Groestlcoin-Qt is available again, and reconnection does '
-            'not happen, please restart Armory.<br><br>')
+            'not happen, please restart Groestlcoin Armory.<br><br>')
          elif state == 'ScanNoWallets':
             return tr( \
             'Please wait while the global transaction history is scanned. '
-            'Armory will go into online mode automatically, as soon as '
+            'Groestlcoin Armory will go into online mode automatically, as soon as '
             'the scan is complete.')
          elif state == 'ScanWithWallets':
             return tr( \
-            'Armory is scanning the global transaction history to retrieve '
+            'Groestlcoin Armory is scanning the global transaction history to retrieve '
             'information about your wallets.  The "Transactions" tab will '
             'be updated with wallet balance and history as soon as the scan is '
             'complete.  You may manage your wallets while you wait.<br><br>')
@@ -5568,7 +5568,7 @@ class ArmoryMainWindow(QMainWindow):
             '<i>forever</i> from hard-drive loss, or forgetting you password. '
             'If you do not have a backup, you could lose all of your '
             'Groestlcoins forever!  See the <a href="https://bitcoinarmory.com/">'
-            'Armory Backups page</a> for more info.',
+            'Groestlcoin Armory Backups page</a> for more info.',
             'The software is downloading and processing the latest activity '
             'on the network related to your wallets.  This should take only '
             'a few minutes.  While you wait, you can manage your wallets.  '
@@ -5578,16 +5578,16 @@ class ArmoryMainWindow(QMainWindow):
             '<i>forever</i> from hard-drive loss, or forgetting you password. '
             'If you do not have a backup, you could lose all of your '
             'Groestlcoins forever!  See the <a href="https://bitcoinarmory.com/">'
-            'Armory Backups page</a> for more info.',
+            'Groestlcoin Armory Backups page</a> for more info.',
                len(self.walletMap)
             )
             
             return msg
          if state == 'OnlineDisconnected':
             return tr( \
-            'Armory\'s communication with the Groestlcoin network was interrupted. '
+            'Groestlcoin Armory\'s communication with the Groestlcoin network was interrupted. '
             'This usually does not happen unless you closed the process that '
-            'Armory was using to communicate with the network. Armory requires '
+            'Groestlcoin Armory was using to communicate with the network. Armory requires '
             '%(sdm)s to be running in the background, and this error pops up if it '
             'disappears.'
             '<br><br>You may continue in offline mode, or you can close '
@@ -5595,7 +5595,7 @@ class ArmoryMainWindow(QMainWindow):
             % { 'sdm' : os.path.basename(TheSDM.executable) }
          if state == 'OfflineBadConnection':
             return tr( \
-            'Armory has experienced an issue trying to communicate with the '
+            'Groestlcoin Armory has experienced an issue trying to communicate with the '
             'Groestlcoin software.  The software is running in the background, '
             'but Armory cannot communicate with it through RPC as it expects '
             'to be able to.  If you changed any settings in the Bitcoin home '
@@ -5606,8 +5606,8 @@ class ArmoryMainWindow(QMainWindow):
             '(from the "File" menu) and send it to support@bitcoinarmory.com')
          if state == 'OfflineSatoshiAvail':
             return tr( \
-            'Armory does not detect internet access, but it does detect '
-            'running Groestlcoin software.  Armory is in offline-mode. <br><br>'
+            'Groestlcoin Armory does not detect internet access, but it does detect '
+            'running Groestlcoin software.  Groestlcoin Armory is in offline-mode. <br><br>'
             'If you are intending to run an offline system, you will not '
             'need to have the Groestlcoin software installed on the offline '
             'computer.  It is only needed for the online computer. '
@@ -5616,7 +5616,7 @@ class ArmoryMainWindow(QMainWindow):
             'using the "--skip-online-check" option.  ')
          if state == 'OfflineForcedButSatoshiAvail':
             return tr( \
-            'Armory was started in offline-mode, but detected you are '
+            'Groestlcoin Armory was started in offline-mode, but detected you are '
             'running Groestlcoin software.  If you are intending to run an '
             'offline system, you will <u>not</u> need to have the Bitcoin '
             'software installed or running on the offline '
@@ -5760,7 +5760,7 @@ class ArmoryMainWindow(QMainWindow):
             if self.internetStatus == INTERNET_STATUS.Unavailable or CLI_OPTIONS.offline:
                self.mainDisplayTabs.setTabEnabled(self.MAINTABS.Ledger, False)
                setOnlyDashModeVisible()
-               self.lblDashModeSync.setText( tr('Armory is <u>offline</u>'), \
+               self.lblDashModeSync.setText( tr('Groestlcoin Armory is <u>offline</u>'), \
                                             size=4, color='TextWarn', bold=True)
                if satoshiIsAvailable():
                   self.frmDashMidButtons.setVisible(True)
@@ -5795,7 +5795,7 @@ class ArmoryMainWindow(QMainWindow):
             elif not TheSDM.isRunningBitcoind() and not TheTDM.isRunning():
                setOnlyDashModeVisible()
                self.mainDisplayTabs.setTabEnabled(self.MAINTABS.Ledger, False)
-               self.lblDashModeSync.setText( tr('Armory is <u>offline</u>'), \
+               self.lblDashModeSync.setText( tr('Groestlcoin Armory is <u>offline</u>'), \
                                             size=4, color='TextWarn', bold=True)
                # Bitcoind is not being managed, but we want it to be
                if satoshiIsAvailable() or sdmState=='GroestlcoindAlreadyRunning':
@@ -5841,7 +5841,7 @@ class ArmoryMainWindow(QMainWindow):
                   setBtnRowVisible(DASHBTNS.Install, True)
                   #setBtnRowVisible(DASHBTNS.Instruct, not OS_WINDOWS)
                   setBtnRowVisible(DASHBTNS.Settings, True)
-                  self.lblDashModeSync.setText( tr('Armory is <u>offline</u>'), \
+                  self.lblDashModeSync.setText( tr('Groestlcoin Armory is <u>offline</u>'), \
                                             size=4, color='TextWarn', bold=True)
                   descr1 += self.GetDashStateText('Auto', 'OfflineBadDBEnv')
                   descr2 += self.GetDashFunctionalityText('Offline')
@@ -5860,7 +5860,7 @@ class ArmoryMainWindow(QMainWindow):
                   setBtnRowVisible(DASHBTNS.Settings, True)
                   setBtnRowVisible(DASHBTNS.Install, True)
                   LOGINFO('Dashboard switched to auto-BtcdCrashed')
-                  self.lblDashModeSync.setText( tr('Armory is <u>offline</u>'), \
+                  self.lblDashModeSync.setText( tr('Groestlcoin Armory is <u>offline</u>'), \
                                             size=4, color='TextWarn', bold=True)
                   descr1 += self.GetDashStateText('Auto', 'OfflineBtcdCrashed')
                   descr2 += self.GetDashFunctionalityText('Offline')
@@ -5901,7 +5901,7 @@ class ArmoryMainWindow(QMainWindow):
 
                   self.mainDisplayTabs.setTabEnabled(self.MAINTABS.Ledger, False)
                   LOGINFO('Dashboard switched to auto-BadConnection')
-                  self.lblDashModeSync.setText( tr('Armory is <u>offline</u>'), \
+                  self.lblDashModeSync.setText( tr('Groestlcoin Armory is <u>offline</u>'), \
                                             size=4, color='TextWarn', bold=True)
                   descr1 += self.GetDashStateText('Auto', 'OfflineBadConnection')
                   descr2 += self.GetDashFunctionalityText('Offline')
@@ -5957,7 +5957,7 @@ class ArmoryMainWindow(QMainWindow):
 
                   setBtnRowVisible(DASHBTNS.Settings, True)
                   setBtnFrameVisible(True, \
-                     tr('Since version 0.88, Armory runs groestlcoind in the '
+                     tr('Since version 0.88, Groestlcoin Armory runs groestlcoind in the '
                      'background.  You can switch back to '
                      'the old way in the Settings dialog. '))
 
@@ -5974,7 +5974,7 @@ class ArmoryMainWindow(QMainWindow):
                self.lblBusy.setVisible(False)
                self.btnModeSwitch.setVisible(False)
                self.btnModeSwitch.setEnabled(False)
-               self.lblDashModeSync.setText( tr('Armory is <u>offline</u>'), \
+               self.lblDashModeSync.setText( tr('Groestlcoin Armory is <u>offline</u>'), \
                                          size=4, color='TextWarn', bold=True)
 
                if not satoshiIsAvailable():
@@ -5990,7 +5990,7 @@ class ArmoryMainWindow(QMainWindow):
                self.mainDisplayTabs.setTabEnabled(self.MAINTABS.Ledger, False)
                setOnlyDashModeVisible()
                self.lblBusy.setVisible(False)
-               self.lblDashModeSync.setText(tr('Armory is <u>offline</u>'), size=4, bold=True)
+               self.lblDashModeSync.setText(tr('Groestlcoin Armory is <u>offline</u>'), size=4, bold=True)
                descr  = self.GetDashStateText('User', 'OfflineButOnlinePossible')
                descr += self.GetDashFunctionalityText('Offline')
                self.lblDashDescr1.setText(descr)
@@ -6001,7 +6001,7 @@ class ArmoryMainWindow(QMainWindow):
                   setBtnFrameVisible(True, \
                      tr('If you would like Armory to manage the Groestlcoin software '
                      'for you (Groestlcoin-Qt or groestlcoind), then adjust your '
-                     'Armory settings, then restart Armory.'))
+                     'Groestlcoin Armory settings, then restart Groestlcoin Armory.'))
                   descr = self.GetDashStateText('User','OfflineNoSatoshiNoInternet')
                else:
                   self.btnModeSwitch.setVisible(True)
@@ -6019,14 +6019,14 @@ class ArmoryMainWindow(QMainWindow):
             self.lblBusy.setVisible(False)
             if self.netMode == NETWORKMODE.Disconnected:
                self.btnModeSwitch.setVisible(False)
-               self.lblDashModeSync.setText( tr('Armory is disconnected'), size=4, color='TextWarn', bold=True)
+               self.lblDashModeSync.setText( tr('Groestlcoin Armory is disconnected'), size=4, color='TextWarn', bold=True)
                descr  = self.GetDashStateText('User','Disconnected')
                descr += self.GetDashFunctionalityText('Offline')
                self.lblDashDescr1.setText(descr)
             else:
                # Fully online mode
                self.btnModeSwitch.setVisible(False)
-               self.lblDashModeSync.setText( tr('Armory is online!'), color='TextGreen', size=4, bold=True)
+               self.lblDashModeSync.setText( tr('Groestlcoin Armory is online!'), color='TextGreen', size=4, bold=True)
                self.mainDisplayTabs.setTabEnabled(self.MAINTABS.Ledger, True)
                descr  = self.GetDashStateText('User', 'OnlineFull1')
                descr += self.GetDashFunctionalityText('Online')

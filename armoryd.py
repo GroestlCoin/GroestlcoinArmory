@@ -2431,7 +2431,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       # Initial setup
       retStr = 'sendlockbox command succeeded.'
       if msgSubj == None:
-         msgSubj = 'Armory Lockboxes'
+         msgSubj = 'Groestlcoin Armory Lockboxes'
       lbIDs = lbIDs.split(":")
 
       # Write the decorated function that will send the e-mail out.

@@ -785,7 +785,7 @@ class DlgLockboxManager(ArmoryDialog):
       layout = QGridLayout()
       layout.addWidget(frmDescr,            0,0,  1,2)
       layout.addWidget(splitter,            1,0,  1,2)
-      layout.addWidget(frmDone,             2,0,  1,2)
+#GRS      layout.addWidget(frmDone,             2,0,  1,2)
 
       layout.setRowStretch(1, 1)
       self.setLayout(layout)
