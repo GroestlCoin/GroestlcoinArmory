@@ -420,7 +420,7 @@ class LedgerDispModelSimple(QAbstractTableModel):
             if self.main.settings.get('DispRmFee'):
                return QVariant('The net effect on the balance of this wallet '
                                '<b>not including transaction fees.</b>  '
-                               'You can change this behavior in the Armory '
+                               'You can change this behavior in the Groestlcoin Armory '
                                'preferences window.')
             else:
                return QVariant('The net effect on the balance of this wallet, '

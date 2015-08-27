@@ -420,7 +420,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
           if not self.curWlt.backupWalletFile(backupFilePath):
              # If we have a failure here, we probably won't know why. Not much
              # to do other than ask the user to check the armoryd server.
-             retVal['Error'] = "Backup failed. Check the armoryd server logs."
+             retVal['Error'] = "Backup failed. Check the groestlcoinarmoryd server logs."
           else:
              retVal['Result'] = "Backup succeeded."
 
@@ -675,7 +675,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       binary - (Default=0) Boolean value indicating whether or not the resultant binary
                script should be in binary form or converted to a hex string.
       RETURN:
-      A dictionary with the Bitcoin amount for the TxOut and the TxOut script in
+      A dictionary with the Groestlcoin amount for the TxOut and the TxOut script in
       hex string form (default) or binary form.
       """
 
@@ -2560,7 +2560,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    def jsonrpc_setactivewallet(self, newIDB58):
       """
       DESCRIPTION:
-      Set the currently active wallet to one already loaded on the armoryd
+      Set the currently active wallet to one already loaded on the groestlcoinarmoryd
       server.
       PARAMETERS:
       newIDB58 - The Base58 ID of the wallet to be made active.
@@ -2589,7 +2589,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    def jsonrpc_setactivelockbox(self, newIDB58):
       """
       DESCRIPTION:
-      Set the currently active lockbox to one already loaded on the armoryd
+      Set the currently active lockbox to one already loaded on the groestlcoinarmoryd
       server.
       PARAMETERS:
       newIDB58 - The Base58 ID of the lockbox to be made active.
@@ -2616,7 +2616,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    def jsonrpc_listloadedwallets(self):
       """
       DESCRIPTION:
-      List all wallets loaded onto the armoryd server.
+      List all wallets loaded onto the groestlcoinarmoryd server.
       PARAMETERS:
       None
       RETURN:
@@ -2640,7 +2640,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    def jsonrpc_listloadedlockboxes(self):
       """
       DESCRIPTION:
-      List all lockboxes loaded onto the armoryd server.
+      List all lockboxes loaded onto the groestlcoinarmoryd server.
       PARAMETERS:
       None
       RETURN:
@@ -2752,7 +2752,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    #def jsonrpc_registertxscript(self, scrPath):
    #   """
    #   DESCRIPTION:
-   #   Add wallets onto the armoryd server.
+   #   Add wallets onto the groestlcoinarmoryd server.
    #   PARAMETERS:
    #   None
    #   RETURN:
@@ -2779,11 +2779,11 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    def jsonrpc_help(self):
       """
       DESCRIPTION:
-      Get a directionary with all functions the armoryd server can run.
+      Get a directionary with all functions the groestlcoinarmoryd server can run.
       PARAMETERS:
       None
       RETURN:
-      A dictionary with all functions available on the armoryd server, along
+      A dictionary with all functions available on the groestlcoinarmoryd server, along
       with the function parameters and function return value.
       """
 
@@ -2942,7 +2942,7 @@ class Armory_Daemon(object):
             LOGWARN('*           they are managing the same wallet file.  If you want ')
             LOGWARN('*           to manage the same wallet with both applications ')
             LOGWARN('*           you must make a digital copy/backup of the wallet file ')
-            LOGWARN('*           into another directory and point armoryd at that one.  ')
+            LOGWARN('*           into another directory and point groestlcoinarmoryd at that one.  ')
             LOGWARN('*           ')
             LOGWARN('*           As long as the two processes do not share the same ')
             LOGWARN('*           actual file, there is no risk of wallet corruption. ')
@@ -3137,7 +3137,7 @@ class Armory_Daemon(object):
                   self.WltMap[wltID].isEnabled = True
                else:
                   if wltID not in self.lboxMap:
-                     raise RuntimeError("cpp says %s exists, but armoryd can't find it" % wltID)
+                     raise RuntimeError("cpp says %s exists, but groestlcoinarmoryd can't find it" % wltID)
                   self.lboxMap[wltID].isEnabled = True
 
                #no progress repoting in armoryd yet

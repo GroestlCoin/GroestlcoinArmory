@@ -219,7 +219,7 @@ class SatoshiDaemonManager(object):
          QMessageBox.warning(self, tr('Hash Failure'), tr("""The torrent download 
             is currently encountering too many packet hash failures to allow it to 
             progress properly. As a result, the torrent engine has been halted. You 
-            should report this incident to the Armory team and turn off this feature 
+            should report this incident to the Groestlcoin Armory team and turn off this feature 
             until further notice."""), QMessageBox.Ok)      
       
       #####
@@ -509,7 +509,7 @@ class SatoshiDaemonManager(object):
             LOGERROR('Cannot set permissions correctly in XP!')
             LOGERROR('Please confirm permissions on the following file ')
             LOGERROR('are set to exclusive access only for your user ')
-            LOGERROR('(it usually is, but Armory cannot guarantee it ')
+            LOGERROR('(it usually is, but Groestlcoin Armory cannot guarantee it ')
             LOGERROR('on XP systems):')
             LOGERROR('    %s', bitconf)
          else:
@@ -669,7 +669,7 @@ class SatoshiDaemonManager(object):
       self.selfpid  = os.getpid()
 
       LOGINFO('PID of groestlcoind: %d',  self.btcdpid)
-      LOGINFO('PID of armory:   %d',  self.selfpid)
+      LOGINFO('PID of groestlcoin armory:   %d',  self.selfpid)
 
       # Startup guardian process -- it will watch Armory's PID
       gpath = self.getGuardianPath()

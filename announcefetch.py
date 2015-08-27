@@ -34,7 +34,7 @@ else:
 class AnnounceDataFetcher(object):
    """
    Armory Technologies, Inc, will post occasional SIGNED updates to be
-   processed by running instances of Armory that haven't disabled it.
+   processed by running instances of Groestlcoin Armory that haven't disabled it.
 
    The files in the fetchDir will be small.  At the time of this writing,
    the only files we will fetch and store:

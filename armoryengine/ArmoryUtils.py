@@ -993,7 +993,7 @@ def deleteBitcoindDBs():
       LOGERROR('Could not find Groestlcoin-Qt/groestlcoind home dir to remove blk data')
       LOGERROR('  Does not exist: %s' % BTC_HOME_DIR)
    else:
-      LOGINFO('Found bitcoin home dir, removing blocks and databases')
+      LOGINFO('Found Groestlcoin home dir, removing blocks and databases')
 
       # Remove directories
       for btcDir in ['blocks', 'chainstate', 'database']:
@@ -1067,7 +1067,7 @@ def addWalletToList(inWltPath, inWltList):
 
 ################################################################################
 def readWalletFiles(inWltList=None):
-   '''Function that finds the paths of all non-backup wallets in the Armory
+   '''Function that finds the paths of all non-backup wallets in the Groestlcoin Armory
       data directory (nothing passed in) or in a list of wallet paths (paths
       passed in.'''
    wltPaths = []

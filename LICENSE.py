@@ -22,7 +22,7 @@ def licenseText():
 *   To use this software or source code in a way not compliant with the        *
 *   APGLv3, please contact us to discuss a dual-licensing agreement:           *
 *                                                                              *
-*                 licensing@bitcoinarmory.com                                  * 
+*                 groestlcoin@gmail.com                                        * 
 *                                                                              *
 ********************************************************************************
 

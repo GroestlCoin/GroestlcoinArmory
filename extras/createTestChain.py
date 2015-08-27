@@ -18,7 +18,7 @@ from time import time, sleep
 ### NOTE: THIS MUST BE RUN FROM THE ARMORY ROOT DIRECTORY, OTHERWISE IT'LL FAIL!
 
 if not os.path.isdir('cppForSwig/reorgTest'):
-   print "This program must be run from the armory source root dir. Copy this " \
+   print "This program must be run from the groestlcoin armory source root dir. Copy this " \
       "file to the root directory and run it from there."
    sys.exit(1);
 

@@ -559,7 +559,7 @@ class DlgBugReport(ArmoryDialog):
       if descrLen < 10:
          QMessageBox.warning(self, tr('Empty Description'), tr("""
             You must describe what problem you are having, and any steps
-            to reproduce the problem.  The Armory team cannot look for
+            to reproduce the problem.  The Groestlcoin Armory team cannot look for
             problems in the log file if it doesn't know what those problems
             are!."""), QMessageBox.Ok)
          return
@@ -722,7 +722,7 @@ class DlgInconsistentWltReport(ArmoryDialog):
       lblDescr = QRichLabel(("""
          Armory has detected that %s inconsistent,
          possibly due to hardware errors out of our control.  It <u>strongly
-         recommended</u> you submit the wallet logs to the Armory team 
+         recommended</u> you submit the wallet logs to the Groestlcoin Armory team 
          for review.  Until you hear back from an Armory representative, 
          we recommend:
          <ul>
@@ -1050,7 +1050,7 @@ class DlgInconsistentWltReport(ArmoryDialog):
             %s
             <br><br>
             It is still important to complete the rest of this form
-            and submit the data to the Armory team for review!""") % \
+            and submit the data to the Groestlcoin Armory team for review!""") % \
             saveTo, QMessageBox.Ok)
          
       except:
@@ -2291,7 +2291,7 @@ class DlgWalletDetails(ArmoryDialog):
             'will be useless for guessing your passphrase')
 
       tooltips[WLTFIELDS.Version] = self.main.createToolTipWidget(
-            'Wallets created with different versions of Armory, may have '
+            'Wallets created with different versions of Groestlcoin Armory, may have '
             'different wallet versions.  Not all functionality may be '
             'available with all wallet versions.  Creating a new wallet will '
             'always create the latest version.')
@@ -3250,7 +3250,7 @@ class DlgImportAddress(ArmoryDialog):
                    '<b>Wallet Name</b>: ' + self.main.walletMap[wltID].labelName + '<br>'
                    '<b>Address Type</b>: ' + typ +
                    '<br><br>'
-                   'Armory cannot properly display balances or create transactions '
+                   'Groestlcoin Armory cannot properly display balances or create transactions '
                    'when the same address is in multiple wallets at once.  ')
             if typ == 'Imported':
                QMessageBox.critical(self, 'Duplicate Addresses', \
@@ -3427,7 +3427,7 @@ class DlgImportAddress(ArmoryDialog):
             MsgBoxCustom(MSGBOX.Error, 'Error!', tr("""
                Failed:  No addresses could be imported.
                Please check the logfile (ArmoryQt.exe.log) or the console output
-               for information about why it failed (and email support@bitcoinarmory.com
+               for information about why it failed (and email groestlcoin@gmail.com
                for help fixing the problem). """))
             return
          else:
@@ -7592,10 +7592,10 @@ class DlgBadConnection(ArmoryDialog):
             'client software (available at http://www.bitcoin.org).  Please make sure that '
             'the one of those programs is... <br>'
             '<br><b>(1)</b> ...open and connected to the network '
-            '<br><b>(2)</b> ...on the same network as Armory (main-network or test-network)'
+            '<br><b>(2)</b> ...on the same network as Groestlcoin Armory (main-network or test-network)'
             '<br><b>(3)</b> ...synchronized with the blockchain before '
-            'starting Armory<br><br>Without the Groestlcoin-Qt or groestlcoind open, you will only '
-            'be able to run Armory in "Offline" mode, which will not have access '
+            'starting Groestlcoin Armory<br><br>Without the Groestlcoin-Qt or groestlcoind open, you will only '
+            'be able to run Groestlcoin Armory in "Offline" mode, which will not have access '
             'to new blockchain data, and you will not be able to send outgoing '
             'transactions<br><br>If you do not want to be in "Offline" mode, please '
             'restart Groestlcoin Armory after one of these programs is open and synchronized with '
@@ -8583,7 +8583,7 @@ class DlgAddressBook(ArmoryDialog):
       if not wid:
          QMessageBox.critical(self, tr('No Public Key'), tr("""
             This operation requires a full public key, not just an address.  
-            Unfortunately, Armory cannot find the public key for the address
+            Unfortunately, Groestlcoin Armory cannot find the public key for the address
             you selected.  In general public keys will only be available 
             for addresses in your wallet."""), QMessageBox.Ok)
          return None
@@ -8891,9 +8891,9 @@ class DlgSettings(ArmoryDialog):
 
       lblDisableAnnounce = QRichLabel(tr("""
          <font color="%s">If you must completely disable all notifications
-         from the Armory team, you can run Armory with the
+         from the Groestlcoin Armory team, you can run Groestlcoin Armory with the
          "--skip-announce-check" flag from the command-line, or add it to
-         the Armory shortcut target</font>""") % htmlColor('DisableFG'))
+         the Groestlcoin Armory shortcut target</font>""") % htmlColor('DisableFG'))
 
       btnGroupAnnounce = QButtonGroup(self)
       btnGroupAnnounce.addButton(self.radioAnnounce1024)
@@ -10318,7 +10318,7 @@ class DlgNotificationWithDNAA(ArmoryDialog):
       lastWord = ''
       if not isUpgrade:
          lastWord = tr("""
-         If new versions of Armory are available, you can get them
+         If new versions of Groestlcoin Armory are available, you can get them
          using our <font color="red"><a href="secureDL(Armory)">secure
          downloader</a></font> """)
 
@@ -10838,7 +10838,7 @@ class DlgInstallLinux(ArmoryDialog):
       ##########################################################################
 
       self.stkInstruct = QStackedWidget()
-      self.stkInstruct.addWidget(self.frmPPA)
+#GRS      self.stkInstruct.addWidget(self.frmPPA)
       self.stkInstruct.addWidget(self.frmManual)
 
       btnOkay = QPushButton("OK")
@@ -10866,7 +10866,7 @@ class DlgInstallLinux(ArmoryDialog):
       if not 'SATOSHI' in dlDict or not 'Linux' in dlDict['SATOSHI']:
          QMessageBox.warning(self, 'Not available', \
             'Armory does not actually have the information needed to execute '
-            'this process securely.  Please visit the bitcoin.org and download '
+            'this process securely.  Please visit the groestlcoin.org and download '
             'the Linux version of the Groestlcoin software, then modify your '
             'settings to point to where it was unpacked. ', QMessageBox.Ok)
          return
@@ -10979,7 +10979,7 @@ def tryInstallLinux(main):
          LOGINFO('***** Printing errors\n' + err)
          LOGINFO('***** End print errors\n')
          QMessageBox.warning(main, 'Unknown Error', \
-            'An error was reported while trying to install the Bitcoin '
+            'An error was reported while trying to install the Groestlcoin '
             'software.  The following information is given:<br><br>%s' % err, \
             QMessageBox.Ok)
          raise
@@ -14636,7 +14636,7 @@ class DlgCorruptWallet(DlgProgress):
                wallet!</u></b></font>
                <br>
                It is important that you send us the recovery logs 
-               and an email address so the Armory team can check for 
+               and an email address so the Groestlcoin Armory team can check for 
                further risk to your funds!</b></font>""") % \
                (htmlColor('TextWarn')))
             #self.main.statusBar().showMessage('Wallets fixed!', 15000)

@@ -207,7 +207,7 @@ def readLockboxesFile(lbFilePath):
 
 #############################################################################
 def getLockboxFilePaths():
-   '''Function that finds the paths of all lockboxes in the Armory
+   '''Function that finds the paths of all lockboxes in the Groestlcoin Armory
       home directory.'''
    lbPaths = []
 

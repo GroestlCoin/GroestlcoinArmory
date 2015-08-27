@@ -1725,7 +1725,7 @@ class DecoratedTxOut(AsciiSerializable):
       armoryengine/ArmoryUtils.py.  This list will probably not be maintained
       as regularly as the one in ArmoryUtils.py, since these comments are not
       required to be accurate for the code to be functional.  Please confirm
-      that it matches the ArmoryUtils list for the current version of Groestlcoin Armory
+      that it matches the Groestlcoin ArmoryUtils list for the current version of Groestlcoin Armory
       before relying on it.
 
       CPP_TXOUT_STDHASH160   = 0

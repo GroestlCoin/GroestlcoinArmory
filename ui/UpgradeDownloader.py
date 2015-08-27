@@ -112,7 +112,7 @@ class UpgradeDownloader:
                QMessageBox.warning(self.frame, tr("Verification failed"), tr("""
                   The download completed but its cryptographic signature is invalid.
                   Please try the download again.  If you get another error, please
-                  report the problem to support@bitcoinarmory.com.
+                  report the problem to groestlcoin@gmail.com.
                   <br><br>
                   The downloaded data has been discarded.  """))
             else:
@@ -199,7 +199,7 @@ class UpgradeDownloader:
                   %s""") % dest, QMessageBox.Ok)
             else:
                QMessageBox.warning(self.frame, tr('Finished!'), tr("""
-                  The operation was successful.  Restart Armory to use the
+                  The operation was successful.  Restart Groestlcoin Armory to use the
                   newly-downloaded Bitcoin Core software"""), QMessageBox.Ok)
 
       self.receivedData = None

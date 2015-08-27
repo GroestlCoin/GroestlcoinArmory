@@ -159,7 +159,7 @@ class SendBitcoinsFrame(ArmoryFrame):
          btnDonate = QPushButton("Donate to Armory Developers!")
          ttipDonate = self.main.createToolTipWidget(\
             'Making this software was a lot of work.  You can give back '
-            'by adding a small donation to go to the Armory developers.  '
+            'by adding a small donation to go to the Groestlcoin Armory developers.  '
             'You will have the ability to change the donation amount '
             'before finalizing the transaction.')
          self.connect(btnDonate, SIGNAL("clicked()"), self.addDonation)
@@ -274,7 +274,7 @@ class SendBitcoinsFrame(ArmoryFrame):
             If you are satisfied with this software, please consider 
             donating what you think this software would be worth as a commercial 
             application.
-            <br><br><b>Are you willing to donate to the Armory developers?</b> If you 
+            <br><br><b>Are you willing to donate to the Groestlcoin Armory developers?</b> If you 
             select "Yes," a donation field will be added to your 
             next transaction.  You will have the opportunity to remove it or change 
             the amount before sending the transaction."""), None)

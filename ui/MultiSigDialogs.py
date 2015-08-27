@@ -3437,7 +3437,7 @@ class DlgCreatePromNote(ArmoryDialog):
                There was an error creating the promissory note -- the selected
                coins were not found in the blockchain.  Please go to 
                "<i>Help</i>"\xe2\x86\x92"<i>Submit Bug Report</i>" from 
-               the main window and submit your log files so the Armory team
+               the main window and submit your log files so the Groestlcoin Armory team
                can review this error."""), QMessageBox.Ok)
 
          rawTx = cppTx.serialize()
