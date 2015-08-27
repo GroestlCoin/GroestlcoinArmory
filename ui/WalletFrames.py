@@ -387,7 +387,7 @@ class AdvancedOptionsFrame(ArmoryFrame):
    def __init__(self, parent, main, initLabel=''):
       super(AdvancedOptionsFrame, self).__init__(parent, main)
       lblComputeDescription = QRichLabel( \
-                  'Armory will test your system\'s speed to determine the most '
+                  'Groestlcoin Armory will test your system\'s speed to determine the most '
                   'challenging encryption settings that can be performed '
                   'in a given amount of time.  High settings make it much harder '
                   'for someone to guess your passphrase.  This is used for all '
@@ -408,7 +408,7 @@ class AdvancedOptionsFrame(ArmoryFrame):
                   'This is the <b>maximum</b> memory that will be '
                   'used as part of the encryption process.  The actual value used '
                   'may be lower, depending on your system\'s speed.  If a '
-                  'low value is chosen, Armory will compensate by chaining '
+                  'low value is chosen, Groestlcoin Armory will compensate by chaining '
                   'together more calculations to meet the target time.  High '
                   'memory target will make GPU-acceleration useless for '
                   'guessing your passphrase.')

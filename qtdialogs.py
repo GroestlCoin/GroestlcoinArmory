@@ -466,7 +466,7 @@ class DlgBugReport(ArmoryDialog):
       self.lblOS = QRichLabel(tr("""
          Note: if you are using this computer to report an Armory problem
          on another computer, please include the operating system of the
-         other computer and the version of Armory it is running."""))
+         other computer and the version of Groestlcoin Armory it is running."""))
 
       self.btnSubmit = QPushButton(tr('Submit Report'))
       self.btnCancel = QPushButton(tr('Cancel'))
@@ -1096,7 +1096,7 @@ class DlgNewWallet(ArmoryDialog):
 
       # Advanced Encryption Options
       lblComputeDescr = QLabel(\
-                  'Armory will test your system\'s speed to determine the most '
+                  'Groestlcoin Armory will test your system\'s speed to determine the most '
                   'challenging encryption settings that can be performed '
                   'in a given amount of time.  High settings make it much harder '
                   'for someone to guess your passphrase.  This is used for all '
@@ -1118,7 +1118,7 @@ class DlgNewWallet(ArmoryDialog):
                   'This is the <b>maximum</b> memory that will be '
                   'used as part of the encryption process.  The actual value used '
                   'may be lower, depending on your system\'s speed.  If a '
-                  'low value is chosen, Armory will compensate by chaining '
+                  'low value is chosen, Groestlcoin Armory will compensate by chaining '
                   'together more calculations to meet the target time.  High '
                   'memory target will make GPU-acceleration useless for '
                   'guessing your passphrase.')
@@ -1221,7 +1221,7 @@ class DlgNewWallet(ArmoryDialog):
       self.connect(self.chkUseCrypto, SIGNAL("clicked()"), \
                    self.cryptoFrame, SLOT("setEnabled(bool)"))
 
-      self.setWindowTitle('Create Armory wallet')
+      self.setWindowTitle('Create Groestlcoin Armory wallet')
       self.setWindowIcon(QIcon(self.main.iconfile))
 
 
@@ -1807,9 +1807,7 @@ class DlgWalletDetails(ArmoryDialog):
             'used at the time it was created.  If you have ever forgotten a '
             'password before, only rely on a digital backup if you store '
             'the password with it!'
-            '<br><br>'
-            '<a href="https://bitcointalk.org/index.php?topic=152151.0">'
-            'Read more about Groestlcoin Armory backups</a>', None, yesStr='Ok', \
+            '<br>', None, yesStr='Ok', \
             dnaaStartChk=True)
          self.main.setWltSetting(wlt.uniqueIDB58, 'DNAA_RemindBackup', result[1])
 
@@ -2547,7 +2545,7 @@ def showRecvCoinsWarningIfNecessary(wlt, parent, main):
       result = QMessageBox.warning(main, tr('Careful!'), tr("""
          Groestlcoin Armory is not online yet, and will eventually need to be online to
          access any funds sent to your wallet.  Please <u><b>do not</b></u>
-         receive Groestlcoins to your Armory wallets until you have successfully
+         receive Groestlcoins to your Groestlcoin Armory wallets until you have successfully
          gotten online <i>at least one time</i>.
          <br><br>
          Armory is still beta software, and some users report difficulty
@@ -2687,8 +2685,8 @@ class DlgKeypoolSettings(ArmoryDialog):
          confirm = QMessageBox.warning(self, 'Are you sure?', \
             'You have entered that you want to compute %d more addresses '
             'for this wallet.  This operation will take a very long time, '
-            'and Armory will become unresponsive until the computation is '
-            'finished.  Armory estimates it will take about %d minutes. '
+            'and Groestlcoin Armory will become unresponsive until the computation is '
+            'finished.  Groestlcoin Armory estimates it will take about %d minutes. '
             '<br><br>Do you want to continue?' % (naddr, int(naddr / 750.)), \
             QMessageBox.Yes | QMessageBox.No)
 
@@ -3568,7 +3566,7 @@ class DlgDuplicateAddr(ArmoryDialog):
 
       lblDescr = QRichLabel(\
          '<font color=%s>Duplicate addresses detected!</font> The following '
-         'addresses already exist in other Armory wallets:' % htmlColor('TextWarn'))
+         'addresses already exist in other Groestlcoin Armory wallets:' % htmlColor('TextWarn'))
 
       fnt = GETFONT('Fixed', 8)
       w, h = tightSizeNChar(fnt, 50)
@@ -4037,7 +4035,7 @@ class DlgEULA(ArmoryDialog):
          '<br><br>'
          'Additionally, as a condition of receiving this software '
          'for free, you accept all risks associated with using it '
-         'and the developers of Armory will not be held liable for any '
+         'and the developers of Groestlcoin Armory will not be held liable for any '
          'loss of money or groestlcoins due to software defects.'
          '<br><br>'
          '<b>Please read the full terms of the license and indicate your '
@@ -4104,8 +4102,7 @@ class DlgIntroMessage(ArmoryDialog):
 
 
       frmText = makeLayoutFrame(VERTICAL, [lblWelcome, spacer(), \
-                                         lblDescr, spacer(), \
-                                         lblContact     ])
+                                         lblDescr, spacer()    ])
 
 
 
@@ -7232,7 +7229,7 @@ class DlgPrintBackup(ArmoryDialog):
          self.scene.drawPixmapFile(':/armory_logo_h36.png')
       self.scene.newLine()
 
-      self.scene.drawText('Paper Backup for Armory Wallet', GETFONT('Var', 11))
+      self.scene.drawText('Paper Backup for Groestlcoin Armory Wallet', GETFONT('Var', 11))
       self.scene.newLine()
       self.scene.drawText('http://www.bitcoinarmory.com')
 
@@ -7552,7 +7549,7 @@ def OpenPaperBackupWindow(backupType, parent, main, wlt, unlockTitle=None):
          <li>Verify each line of the backup data contains <b>9 columns</b>
          of <b>4 letters each</b> (excluding any "ID" lines).</li>
          <li>%s</li>
-         <li>Use Armory's backup tester to test the backup before you
+         <li>Use Groestlcoin Armory's backup tester to test the backup before you
              physically secure it.</li>
       </ul>
       <br>
@@ -7588,7 +7585,7 @@ class DlgBadConnection(ArmoryDialog):
             '-management and unsigned-transaction functionality will be available. '
             '<br><br>'
             'If this is an error, please check your internet connection and '
-            'restart Armory.<br><br>Would you like to continue in "Offline" mode? ')
+            'restart Groestlcoin Armory.<br><br>Would you like to continue in "Offline" mode? ')
       elif haveInternet and not haveSatoshi:
          lblDescr = QRichLabel(\
             'Armory was not able to detect the presence of Groestlcoin-Qt or groestlcoind '
@@ -7601,7 +7598,7 @@ class DlgBadConnection(ArmoryDialog):
             'be able to run Armory in "Offline" mode, which will not have access '
             'to new blockchain data, and you will not be able to send outgoing '
             'transactions<br><br>If you do not want to be in "Offline" mode, please '
-            'restart Armory after one of these programs is open and synchronized with '
+            'restart Groestlcoin Armory after one of these programs is open and synchronized with '
             'the network')
       else:
          # Nothing to do -- we shouldn't have even gotten here
@@ -8751,7 +8748,7 @@ class DlgSettings(ArmoryDialog):
          lblManageSatoshi = QRichLabel(\
             '<b>Groestlcoin Software Management</b>'
             '<br><br>'
-            'By default, Armory will manage the Groestlcoin engine/software in the '
+            'By default, Groestlcoin Armory will manage the Groestlcoin engine/software in the '
             'background.  You can choose to manage it yourself, or tell Armory '
             'about non-standard installation configuration.')
       if self.main.settings.hasSetting('SatoshiExe'):
@@ -8763,7 +8760,7 @@ class DlgSettings(ArmoryDialog):
 
       lblDescrExe = QRichLabel('Groestlcoin Install Dir:')
       lblDescrHome = QRichLabel('Groestlcoin Home Dir:')
-      lblDefaultExe = QRichLabel('Leave blank to have Armory search default '
+      lblDefaultExe = QRichLabel('Leave blank to have Groestlcoin Armory search default '
                                   'locations for your OS', size=2)
       lblDefaultHome = QRichLabel('Leave blank to use default datadir '
                                   '(%s)' % BTC_HOME_DIR, size=2)
@@ -8956,8 +8953,8 @@ class DlgSettings(ArmoryDialog):
       lblMinimizeDescr = QRichLabel(tr("""
          <b>Minimize to System Tray</b>
          <br>
-         You can have Armory automatically minimize itself to your system
-         tray on open or close.  Armory will stay open but run in the
+         You can have Groestlcoin Armory automatically minimize itself to your system
+         tray on open or close.  Groestlcoin Armory will stay open but run in the
          background, and you will still receive notifications.  Access Armory
          through the icon on your system tray.
          <br><br>
@@ -9070,7 +9067,7 @@ class DlgSettings(ArmoryDialog):
             # 'The "SelectCoins" algorithm can be set to prefer more-anonymous '
             # 'coin selections or to prefer avoiding mandatory transaction fees. '
             # '<B>No guarantees are made about the relative anonymity of the '
-            # 'coin selection, only that Armory will <i>prefer</i> a transaction '
+            # 'coin selection, only that Groestlcoin Armory will <i>prefer</i> a transaction '
             # 'that requires a fee if it can increase anonymity.</b>')
       # self.cmbSelectCoins = QComboBox()
       # self.cmbSelectCoins.clear()
@@ -9134,10 +9131,10 @@ class DlgSettings(ArmoryDialog):
       
       i += 1
       frmLayout.addWidget(lblPrivacyTitle, i, 0, 1, 3)
-      i += 1
-      frmLayout.addWidget(lblPrivStatsDescr , i, 0, 1, 3)
-      i += 1
-      frmLayout.addWidget(self.chkPrivacyStats , i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(lblPrivStatsDescr , i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.chkPrivacyStats , i, 0, 1, 3)
       i += 1
       frmLayout.addWidget(lblPrivTorDescr, i, 0, 1, 3)
       i += 1
@@ -9208,29 +9205,29 @@ class DlgSettings(ArmoryDialog):
       frmLayout.addWidget(HLINE(), i, 0, 1, 3)
 
 
-      i += 1
-      frmLayout.addWidget(lblAnnounce, i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(lblAnnounce, i, 0, 1, 3)
 
-      i += 1
-      frmLayout.addWidget(self.radioAnnounce1024, i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.radioAnnounce1024, i, 0, 1, 3)
 
-      i += 1
-      frmLayout.addWidget(self.radioAnnounce2048, i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.radioAnnounce2048, i, 0, 1, 3)
 
-      i += 1
-      frmLayout.addWidget(self.radioAnnounce3072, i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.radioAnnounce3072, i, 0, 1, 3)
 
-      i += 1
-      frmLayout.addWidget(self.radioAnnounce4096, i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.radioAnnounce4096, i, 0, 1, 3)
 
-      i += 1
-      frmLayout.addWidget(lblDisableAnnounce, i, 0, 1, 4)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(lblDisableAnnounce, i, 0, 1, 4)
 
-      i += 1
-      frmLayout.addWidget(self.chkDisableUpgradeNotify , i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(self.chkDisableUpgradeNotify , i, 0, 1, 3)
 
-      i += 1
-      frmLayout.addWidget(frmBtnResetNotify , i, 0, 1, 3)
+#GRS      i += 1
+#GRS      frmLayout.addWidget(frmBtnResetNotify , i, 0, 1, 3)
 
 
       i += 1
@@ -9260,7 +9257,7 @@ class DlgSettings(ArmoryDialog):
       self.setLayout(dlgLayout)
 
       self.setMinimumWidth(650)
-      self.setWindowTitle('Armory Settings')
+      self.setWindowTitle('Groestlcoin Armory Settings')
 
       # NOTE:  This was getting complicated for a variety of reasons, so switched
       #        to manually constructing the options window.  May come back to this
@@ -9301,7 +9298,7 @@ class DlgSettings(ArmoryDialog):
                QMessageBox.warning(self, 'Invalid Path', \
                   'The path you specified for the Groestlcoin software installation '
                   'does not exist.  Please select the directory that contains %s '
-                  'or leave it blank to have Armory search the default location '
+                  'or leave it blank to have Groestlcoin Armory search the default location '
                   'for your operating system' % exeName, QMessageBox.Ok)
                return
             if os.path.isfile(pathExe):
@@ -10438,7 +10435,7 @@ class DlgUriCopyAndPaste(ArmoryDialog):
       self.uriDict = {}
       lblDescr = QRichLabel('Copy and paste a raw groestlcoin URL string here.  '
                             'A valid string starts with "groestlcoin:" followed '
-                            'by a bitcoin address.'
+                            'by a groestlcoin address.'
                             '<br><br>'
                             'You should use this feature if there is a "groestlcoin:" '
                             'link in a webpage or email that does not load Groestlcoin Armory '
@@ -10746,7 +10743,7 @@ class DlgInstallLinux(ArmoryDialog):
       # Install via PPA
       lblAutoPPATitle = QRichLabel('<b>Install PPA for me (Ubuntu only):</b>')
       lblAutoPPA = QRichLabel(\
-         'Have Armory install the PPA for you.  The does not work on all '
+         'Have Groestlcoin Armory install the PPA for you.  The does not work on all '
          'systems, so try the manual instructions below, if it fails.  '
          'Using the PPA will install the Groestlcoin software using your '
          'system\'s package manager, and you will be notified of updates along with '
@@ -10795,8 +10792,8 @@ class DlgInstallLinux(ArmoryDialog):
       lblManualExperiment = QRichLabel(\
          '<b>Download and set it up for me!  (All Linux):</b>'
          '<br><br>'
-         'Armory will download and verify the binaries from www.bitcoin.org.  '
-         'Your Armory settings will automatically be adjusted to point to that '
+         'Groestlcoin Armory will download and verify the binaries from www.bitcoin.org.  '
+         'Your Groestlcoin Armory settings will automatically be adjusted to point to that '
          'as the installation directory.')
       btnManualExperiment = QPushButton('Install for me!')
       self.connect(btnManualExperiment, SIGNAL(CLICKED), self.tryManualInstall)
@@ -10813,8 +10810,8 @@ class DlgInstallLinux(ArmoryDialog):
          '</ol>'
          '<br>'
          'Once the downloaded archive is unpacked, then click the button below '
-         'to open the Armory settings and change the "Bitcoin Installation Path" '
-         'to point to the new directory.  Then restart Armory')
+         'to open the Groestlcoin Armory settings and change the "Groestlcoin Installation Path" '
+         'to point to the new directory.  Then restart Groestlcoin Armory')
       lblInstallManualDescr.setOpenExternalLinks(True)
 
 
@@ -11280,7 +11277,7 @@ class DlgSimpleBackup(ArmoryDialog):
 
       lblDescr = QRichLabel(tr("""
          A failed hard-drive or forgotten passphrase will lead to
-         <u>permanent loss of groestlcoins</u>!  Luckily, Armory wallets only
+         <u>permanent loss of groestlcoins</u>!  Luckily, Groestlcoin Armory wallets only
          need to be backed up <u>one time</u>, and protect you in both
          of these events.   If you've ever forgotten a password or had
          a hardware failure, make a backup! """))
@@ -11891,8 +11888,7 @@ class DlgFragBackup(ArmoryDialog):
          fragments are sufficient to restore your wallet, and each fragment
          has the ID, <font color="%(color)s"><b>%(prefix)s</b></font>.  All fragments with the
          same fragment ID are compatible with each other!
-         <a href="https://bitcoinarmory.com/armory-backups-are-forever/">Click
-         here</a> to read more about our backup system.<br>""") % \
+         """) % \
          { 'color' : BLUE, 'M' : M, 'N' : N, 'prefix' : self.fragPrefixStr})
 
 
@@ -12151,7 +12147,7 @@ class DlgUniversalRestoreSelect(ArmoryDialog):
 
       lblDescrTitle = QRichLabel(tr("""
          <b><u>Restore Wallet from Backup</u></b>"""))
-      lblDescr = QRichLabel(tr("""You can restore any kind of backup ever created by Armory using
+      lblDescr = QRichLabel(tr("""You can restore any kind of backup ever created by Groestlcoin Armory using
          one of the options below.  If you have a list of private keys
          you should open the target wallet and select "Import/Sweep
          Private Keys."  """))
@@ -12870,7 +12866,7 @@ class DlgRestoreFragged(ArmoryDialog):
       if self.thisIsATest:
          descr += tr(""" <br><br>
             <b>For testing purposes, you may enter more fragments than needed
-            and Armory will test all subsets of the entered fragments to verify
+            and Groestlcoin Armory will test all subsets of the entered fragments to verify
             that each one still recovers the wallet successfully.</b>""")
 
       lblDescr = QRichLabel(descr)
@@ -13956,11 +13952,11 @@ class DlgWltRecoverWallet(ArmoryDialog):
          <b>Wallet Recovery Tool:
          </b><br>
          This tool will recover data from damaged or inconsistent 
-         wallets.  Specify a wallet file and Armory will analyze the
+         wallets.  Specify a wallet file and Groestlcoin Armory will analyze the
          wallet and fix any errors with it. 
          <br><br>
          <font color="%(color)s">If any problems are found with the specified
-         wallet, Armory will provide explanation and instructions to 
+         wallet, Groestlcoin Armory will provide explanation and instructions to 
          transition to a new wallet. """) % { 'color' : htmlColor('TextWarn') })
       lblDesc.setScaledContents(True)
 
@@ -14425,7 +14421,7 @@ class DlgCorruptWallet(DlgProgress):
             { 'name' : wallet.labelName, 'id' : wallet.uniqueIDB58, 'color' :htmlColor('TextWarn')})
       elif isinstance(wallet, PyBtcWallet):
          self.lblFirstMsg = QRichLabel(tr("""
-            Armory will perform a consistency check on <b>Wallet "%(name)s" (%(id)s)</b> 
+            Groestlcoin Armory will perform a consistency check on <b>Wallet "%(name)s" (%(id)s)</b> 
             and determine if any further action is required to keep your funds
             protected.  This check is normally performed on startup on all 
             your wallets, but you can click below to force another 
@@ -14678,13 +14674,13 @@ class DlgFactoryReset(ArmoryDialog):
       super(DlgFactoryReset, self).__init__(parent, main)
 
       lblDescr = QRichLabel(tr("""
-         <b><u>Armory Factory Reset</u></b>
+         <b><u>Groestlcoin Armory Factory Reset</u></b>
          <br><br>
          It is <i>strongly</i> recommended that you make backups of your
          wallets before continuing, though <b>wallet files will never be
          intentionally deleted!</b>  All Armory
          wallet files, and the wallet.dat file used by Groestlcoin-Qt/groestlcoind
-         should remain untouched in their current locations.  All Armory
+         should remain untouched in their current locations.  All Groestlcoin Armory
          wallets will automatically be detected and loaded after the reset.
          <br><br>
          If you are not sure which option to pick, try the "lightest option"
@@ -14698,20 +14694,20 @@ class DlgFactoryReset(ArmoryDialog):
          <b>Delete settings and rescan (lightest option)</b>"""))
       self.lblSettings = QRichLabel(tr("""
          Only delete the settings file and transient network data.  The
-         databases built by Armory will be rescanned (about 5-45 minutes)"""))
+         databases built by Groestlcoin Armory will be rescanned (about 5-45 minutes)"""))
 
       self.rdoArmoryDB = QRadioButton()
       self.lblArmoryDBText = QRichLabel(tr("""
          <b>Also delete databases and rebuild</b>"""))
       self.lblArmoryDB = QRichLabel(tr("""
-         Will delete settings, network data, and delete and Armory's databases,
+         Will delete settings, network data, and delete and Groestlcoin Armory's databases,
          forcing a rebuild and rescan (45 min to 3 hours)"""))
 
       self.rdoBitcoinDB = QRadioButton()
       self.lblBitcoinDBText = QRichLabel(tr("""
          <b>Also re-download the blockchain (most extreme)</b>"""))
       self.lblBitcoinDB = QRichLabel(tr("""
-         This will delete settings, network data, Armory's databases,
+         This will delete settings, network data, Groestlcoin Armory's databases,
          <b>and</b> the Groestlcoin software databases.  Groestlcoin-Qt/groestlcoind will
          have to download the blockchain again.  Only use this if you
          suspect blockchain corruption, such as receiving StdOut/StdErr errors
@@ -14836,12 +14832,12 @@ class DlgFactoryReset(ArmoryDialog):
 
          if not self.main.settings.get('ManageSatoshi'):
             # Must have user shutdown Bitcoin sw now, and delete DBs now
-            reply = MsgBoxCustom(MSGBOX.Warning, tr('Restart Armory'), tr("""
+            reply = MsgBoxCustom(MSGBOX.Warning, tr('Restart Groestlcoin Armory'), tr("""
                <b>Groestlcoin-Qt (or groestlcoind) must be closed to do the reset!</b>
                Please close all Groestlcoin software, <u><b>right now</b></u>,
                before clicking "Continue".
                <br><br>
-               Armory will now close.  Please restart Groestlcoin-Qt/groestlcoind
+               Groestlcoin Armory will now close.  Please restart Groestlcoin-Qt/groestlcoind
                first and wait for it to finish synchronizing before restarting
                Armory."""), wCancel=True, yesStr="Continue")
 
@@ -14855,8 +14851,8 @@ class DlgFactoryReset(ArmoryDialog):
             # Do the delete operation now
             deleteBitcoindDBs()
          else:
-            reply = QMessageBox.warning(self, tr('Restart Armory'), tr("""
-               Armory will now close to apply the requested changes.  Please
+            reply = QMessageBox.warning(self, tr('Restart Groestlcoin Armory'), tr("""
+               Groestlcoin Armory will now close to apply the requested changes.  Please
                restart it when you are ready to start the blockchain download
                again."""), QMessageBox.Ok)
 
@@ -14878,8 +14874,8 @@ class DlgFactoryReset(ArmoryDialog):
          self.accept()
 
 
-      QMessageBox.information(self, tr('Restart Armory'), tr("""
-         Armory will now close so that the requested changes can
+      QMessageBox.information(self, tr('Restart Groestlcoin Armory'), tr("""
+         Groestlcoin Armory will now close so that the requested changes can
          be applied."""), QMessageBox.Ok)
       self.accept()
 
@@ -14948,7 +14944,7 @@ class DlgBroadcastBlindTx(ArmoryDialog):
       self.pytx = None
 
       lblDescr = QRichLabel(tr("""
-         Copy a raw, hex-encoded transaction below to have Armory 
+         Copy a raw, hex-encoded transaction below to have Groestlcoin Armory 
          broadcast it to the Groestlcoin network.  This function is 
          provided as a convenience to expert users, and carries 
          no guarantees of usefulness.
@@ -15101,7 +15097,7 @@ class DlgPrivacyPolicy(ArmoryDialog):
             By using this software and submitting this information to 
             ATI, you are agreeing to the ATI privacy policy at the 
             link below.  The page also includes information
-            about changing Armory's default privacy settings.""")
+            about changing Groestlcoin Armory's default privacy settings.""")
       elif popupType=='submitbug':
          descrTxt = tr("""
             You are submitting a bug report to ATI servers.  Your log 
@@ -15124,7 +15120,7 @@ class DlgPrivacyPolicy(ArmoryDialog):
             By using this software and submitting this information to 
             ATI, you are agreeing to the ATI privacy policy at the 
             link below.  The page also includes information about 
-            changing Armory's default privacy settings.
+            changing Groestlcoin Armory's default privacy settings.
             <br><br>""")
          
 

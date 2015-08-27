@@ -693,7 +693,7 @@ class ArmoryMainWindow(QMainWindow):
       def openBlindBroad():
          if not satoshiIsAvailable():
             QMessageBox.warning(self, tr("Not Online"), tr("""
-               Groestlcoin Core is not available, so Armory will not be able
+               Groestlcoin Core is not available, so Groestlcoin Armory will not be able
                to broadcast any transactions for you."""), QMessageBox.Ok)
             return
          DlgBroadcastBlindTx(self,self).exec_()
@@ -879,7 +879,7 @@ class ArmoryMainWindow(QMainWindow):
                reply = MsgBoxWithDNAA(self, self, MSGBOX.Question, 'Delete Old DB Directory', \
                   'Groestlcoin Armory detected an older version Database. '
                   'Do you want to delete the old database? Choose yes if '
-                  'do not think that you will revert to an older version of Armory.', 'Do not ask this question again')
+                  'do not think that you will revert to an older version of Groestlcoin Armory.', 'Do not ask this question again')
                if reply[0]==True:
                   shutil.rmtree(os.path.join(ARMORY_DB_DIR, LEVELDB_BLKDATA))
                   shutil.rmtree(os.path.join(ARMORY_DB_DIR, LEVELDB_HEADERS))
@@ -1053,7 +1053,7 @@ class ArmoryMainWindow(QMainWindow):
                      <b>Module Name:</b> %(name)s<br>
                      <b>Module Path:</b> %(path)s<br>
                   <br><br>
-                  Armory will only run a module from a zip file that
+                  Groestlcoin Armory will only run a module from a zip file that
                   has the required stucture.""") % \
                   { 'color' : htmlColor('TextRed'), 'name' : moduleName, 'path' : moduleZipPath}, QMessageBox.Ok)
             elif not USE_TESTNET and infoMap[MODULE_ZIP_STATUS_KEY] == MODULE_ZIP_STATUS.Unsigned:
@@ -1064,7 +1064,7 @@ class ArmoryMainWindow(QMainWindow):
                      <b>Module Name:</b> %(name)s<br>
                      <b>Module Path:</b> %(path)s<br>
                   <br><br>
-                  Armory will not allow you to run this module.""") % \
+                  Groestlcoin Armory will not allow you to run this module.""") % \
                   { 'color' : htmlColor('TextRed'), 'name' : moduleName, 'path' : moduleZipPath}, QMessageBox.Ok)
             else:
    
@@ -1132,10 +1132,10 @@ class ArmoryMainWindow(QMainWindow):
    def factoryReset(self):
       """
       reply = QMessageBox.information(self,'Factory Reset', \
-         'You are about to revert all Armory settings '
-         'to the state they were in when Armory was first installed.  '
+         'You are about to revert all Groestlcoin Armory settings '
+         'to the state they were in when Groestlcoin Armory was first installed.  '
          '<br><br>'
-         'If you click "Yes," Armory will exit after settings are '
+         'If you click "Yes," Groestlcoin Armory will exit after settings are '
          'reverted.  You will have to manually start Armory again.'
          '<br><br>'
          'Do you want to continue? ', \
@@ -1159,7 +1159,7 @@ class ArmoryMainWindow(QMainWindow):
    def clearMemoryPool(self):
       touchFile( os.path.join(ARMORY_HOME_DIR, 'clearmempool.flag') )
       msg = tr("""
-         The next time you restart Armory, all unconfirmed transactions will
+         The next time you restart Groestlcoin Armory, all unconfirmed transactions will
          be cleared allowing you to retry any stuck transactions.""")
       if not self.doAutoBitcoind:
          msg += tr("""
@@ -1296,11 +1296,11 @@ class ArmoryMainWindow(QMainWindow):
    ####################################################
    def rescanNextLoad(self):
       reply = QMessageBox.warning(self, tr('Queue Rescan?'), tr("""
-         The next time you restart Armory, it will rescan the blockchain
+         The next time you restart Groestlcoin Armory, it will rescan the blockchain
          database, and reconstruct your wallet histories from scratch.
          The rescan will take 10-60 minutes depending on your system.
          <br><br>
-         Do you wish to force a rescan on the next Armory restart?"""), \
+         Do you wish to force a rescan on the next Groestlcoin Armory restart?"""), \
          QMessageBox.Yes | QMessageBox.No)
       if reply==QMessageBox.Yes:
          touchFile( os.path.join(ARMORY_HOME_DIR, 'rescan.flag') )
@@ -1308,7 +1308,7 @@ class ArmoryMainWindow(QMainWindow):
    ####################################################
    def rescanSSH(self):
       reply = QMessageBox.warning(self, tr('Queue SSH Rescan?'), tr("""
-         The next time you restart Armory, it will rescan all address
+         The next time you restart Groestlcoin Armory, it will rescan all address
          balance and transaction count, this is a lighter approach that a 
          full rescan and will fix most erroneous balance issues.
          The SSH rescan will take 5-20 minutes depending on your system.
@@ -1322,11 +1322,11 @@ class ArmoryMainWindow(QMainWindow):
    ####################################################
    def rebuildNextLoad(self):
       reply = QMessageBox.warning(self, tr('Queue Rebuild?'), tr("""
-         The next time you restart Armory, it will rebuild and rescan
+         The next time you restart Groestlcoin Armory, it will rebuild and rescan
          the entire blockchain database.  This operation can take between
          30 minutes and 4 hours depending on you system speed.
          <br><br>
-         Do you wish to force a rebuild on the next Armory restart?"""), \
+         Do you wish to force a rebuild on the next Groestlcoin Armory restart?"""), \
          QMessageBox.Yes | QMessageBox.No)
       if reply==QMessageBox.Yes:
          touchFile( os.path.join(ARMORY_HOME_DIR, 'rebuild.flag') )
@@ -1692,7 +1692,7 @@ class ArmoryMainWindow(QMainWindow):
             <br><br>
             To continue, the other system will need to be upgraded to
             to version 0.92 or later.  If you cannot upgrade the other 
-            system, you will need to reinstall an older version of Armory
+            system, you will need to reinstall an older version of Groestlcoin Armory
             on this system."""), dnaaMsg='Do not show this warning again')
          self.writeSetting('DNAA_Version092Warn', reply[1])
 
@@ -1838,7 +1838,7 @@ class ArmoryMainWindow(QMainWindow):
 
       if not self.firstModeSwitch:
          QMessageBox.information(self,'Restart Groestlcoin Armory', \
-         'You may have to restart Armory for all aspects of '
+         'You may have to restart Groestlcoin Armory for all aspects of '
          'the new usermode to go into effect.', QMessageBox.Ok)
 
       self.firstModeSwitch = False
@@ -1874,13 +1874,13 @@ class ArmoryMainWindow(QMainWindow):
    #############################################################################
    def setupAnnouncementFetcher(self):
       # Decide if disable OS/version reporting sent with announce fetches
-      skipStats1 = self.getSettingOrSetDefault('SkipStatsReport', False)
-      skipStats2 = CLI_OPTIONS.skipStatsReport
+      skipStats1 = True #self.getSettingOrSetDefault('SkipStatsReport', False)
+      skipStats2 = True #CLI_OPTIONS.skipStatsReport
       self.skipStatsReport = skipStats1 or skipStats2
 
       # This determines if we should disable all of it
-      skipChk1 = self.getSettingOrSetDefault('SkipAnnounceCheck', False)
-      skipChk2 = CLI_OPTIONS.skipAnnounceCheck
+      skipChk1 = True #self.getSettingOrSetDefault('SkipAnnounceCheck', False)
+      skipChk2 = True #CLI_OPTIONS.skipAnnounceCheck
       skipChk3 = CLI_OPTIONS.offline and not CLI_OPTIONS.testAnnounceCode
       skipChk4  = CLI_OPTIONS.useTorSettings 
       skipChk5  = self.getSettingOrSetDefault('UseTorSettings', False)
@@ -2132,7 +2132,7 @@ class ArmoryMainWindow(QMainWindow):
 
       if testing:
          return tr("""
-            A new testing version of Armory is out. You can upgrade to version
+            A new testing version of Groestlcoin Armory is out. You can upgrade to version
             %(ver)s through our secure downloader inside Armory (link at the bottom
             of this notification window).
             """) % { 'ver' : verStr}
@@ -2372,7 +2372,7 @@ class ArmoryMainWindow(QMainWindow):
          if not reply:
             QMessageBox.warning(self, tr('Synchronize'), tr("""
                When you are ready to start synchronization, close Armory and
-               start Groestlcoin-Qt or groestlcoind.  Restart Armory only when
+               start Groestlcoin-Qt or groestlcoind.  Restart Groestlcoin Armory only when
                synchronization is complete.  If using Groestlcoin-Qt, you will see
                a green checkmark in the bottom-right corner"""), QMessageBox.Ok)
             return False
@@ -2707,7 +2707,7 @@ class ArmoryMainWindow(QMainWindow):
          if key.startswith('req-') and not key[4:] in recognized:
             QMessageBox.warning(self,'Unsupported URI', 'The "groestlcoin:" link '
                'you just %sed contains fields that are required but not '
-               'recognized by Armory.  This may be an older version of Armory, '
+               'recognized by Armory.  This may be an older version of Groestlcoin Armory, '
                'or the link you %sed on uses an exotic, unsupported format.'
                '<br><br>The action cannot be completed.' % (clickOrEnter, clickOrEnter), \
                QMessageBox.Ok)
@@ -4853,14 +4853,14 @@ class ArmoryMainWindow(QMainWindow):
             self.icoArmorySWVersion.setPixmap(dispIcon)
             self.btnSecureDLArmory.setVisible(False)
             self.lblArmorySWVersion.setText(tr(
-               "You are using the latest version of Armory (%s)"
+               "You are using the latest version of Groestlcoin Armory (%s)"
                % self.armoryVersions[0]))
          else:
             dispIcon = QPixmap(iconWarnFile).scaled(24,24)
             self.icoArmorySWVersion.setPixmap(dispIcon)
             self.btnSecureDLArmory.setVisible(True)
             self.lblArmorySWVersion.setText(tr("""
-               <b>There is a newer version of Armory available!</b>"""))
+               <b>There is a newer version of Groestlcoin Armory available!</b>"""))
          self.btnSecureDLArmory.setVisible(True)
          self.icoArmorySWVersion.setVisible(True)
       except:
@@ -5315,7 +5315,7 @@ class ArmoryMainWindow(QMainWindow):
       elif func.lower() == 'online':
          return tr( \
          '<ul>'
-         '<li>Create, import or recover Armory wallets</li>'
+         '<li>Create, import or recover Groestlcoin Armory wallets</li>'
          '<li>Generate new addresses to receive coins</li>'
          '<li>Send groestlcoins to other people</li>'
          '<li>Create one-time backups of your wallets (in printed or digital form)</li>'
@@ -5380,7 +5380,7 @@ class ArmoryMainWindow(QMainWindow):
          'recommended you close Armory and restart it only when you '
          'see that checkmark.'
          '<br><br>')  if not self.doAutoBitcoind else '') + tr(
-         '<b>Please backup your wallets!</b>  Armory wallets are '
+         '<b>Please backup your wallets!</b>  Groestlcoin Armory wallets are '
          '"deterministic", meaning they only need to be backed up '
          'one time (unless you have imported external addresses/keys). '
          'Make a backup and keep it in a safe place!  All funds from '
@@ -5417,12 +5417,12 @@ class ArmoryMainWindow(QMainWindow):
          'you are here because this is a system dedicated '
          'to manage offline wallets! '
          '<br><br>'
-         '<b>If you expected Armory to be in online mode</b>, '
+         '<b>If you expected Groestlcoin Armory to be in online mode</b>, '
          'please verify your internet connection is active, '
-         'then restart Armory.  If you think the lack of internet '
+         'then restart Groestlcoin Armory.  If you think the lack of internet '
          'connection is in error (such as if you are using Tor), '
-         'then you can restart Armory with the "--skip-online-check" '
-         'option, or change it in the Armory settings.'
+         'then you can restart Groestlcoin Armory with the "--skip-online-check" '
+         'option, or change it in the Groestlcoin Armory settings.'
          '<br><br>'
          'If you do not have Groestlcoin-Qt installed, you can '
          'download it from <a href="http://www.bitcoin.org">'
@@ -5459,8 +5459,8 @@ class ArmoryMainWindow(QMainWindow):
             'https://bitcointalk.org/index.php?topic=155717.msg1719077#msg1719077">'
             'this link</a> for options.'
             '<br><br>'
-            '<b>If you prefer to have Armory do this for you</b>, '
-            'then please check "Let Armory run '
+            '<b>If you prefer to have Groestlcoin Armory do this for you</b>, '
+            'then please check "Let Groestlcoin Armory run '
             'Groestlcoin-Qt in the background" under "File"->"Settings."'
             '<br><br>'
             'If you are new to Groestlcoin Armory and/or Groestlcoin-Qt, '
@@ -5478,8 +5478,8 @@ class ArmoryMainWindow(QMainWindow):
             'You are currently in offline mode because '
             'Groestlcoin Armory could not detect an internet connection.  '
             'If you think this is in error, then '
-            'restart Armory using the " --skip-online-check" option, '
-            'or adjust the Armory settings.  Then restart Armory.'
+            'restart Groestlcoin Armory using the " --skip-online-check" option, '
+            'or adjust the Groestlcoin Armory settings.  Then restart Groestlcoin Armory.'
             '<br><br>'
             'If this is intended to be an offline computer, note '
             'that it is not necessary to have Groestlcoin-Qt or groestlcoind '
@@ -5500,7 +5500,7 @@ class ArmoryMainWindow(QMainWindow):
             'groestlcoind was interrupted.  You will not be able to send groestlcoins '
             'or confirm receipt of groestlcoins until the connection is '
             'reestablished.  <br><br>Please check that Groestlcoin-Qt is open '
-            'and synchronized with the network.  Armory will <i>try to '
+            'and synchronized with the network.  Groestlcoin Armory will <i>try to '
             'reconnect</i> automatically when the connection is available '
             'again.  If Groestlcoin-Qt is available again, and reconnection does '
             'not happen, please restart Groestlcoin Armory.<br><br>')
@@ -5528,7 +5528,7 @@ class ArmoryMainWindow(QMainWindow):
             'this software yourself --  Armory '
             'will run it in the background for you.  Either close the '
             'Groestlcoin application or adjust your settings.  If you change '
-            'your settings, then please restart Armory.')
+            'your settings, then please restart Groestlcoin Armory.')
          if state == 'OfflineNeedBitcoinInst':
             return tr( \
             '<b>Only one more step to getting online with Armory!</b>   You '
@@ -5536,7 +5536,7 @@ class ArmoryMainWindow(QMainWindow):
             'for Armory to communicate with the Groestlcoin network.  If the '
             'Groestlcoin software is already installed and/or you would prefer '
             'to manage it yourself, please adjust your settings and '
-            'restart Armory.')
+            'restart Groestlcoin Armory.')
          if state == 'InitializingLongTime':
             return tr("""
             <b>To maximize your security, the Groestlcoin engine is downloading
@@ -5591,7 +5591,7 @@ class ArmoryMainWindow(QMainWindow):
             '%(sdm)s to be running in the background, and this error pops up if it '
             'disappears.'
             '<br><br>You may continue in offline mode, or you can close '
-            'all Groestlcoin processes and restart Armory.') \
+            'all Groestlcoin processes and restart Groestlcoin Armory.') \
             % { 'sdm' : os.path.basename(TheSDM.executable) }
          if state == 'OfflineBadConnection':
             return tr( \
@@ -5612,7 +5612,7 @@ class ArmoryMainWindow(QMainWindow):
             'need to have the Groestlcoin software installed on the offline '
             'computer.  It is only needed for the online computer. '
             'If you expected to be online and '
-            'the absence of internet is an error, please restart Armory '
+            'the absence of internet is an error, please restart Groestlcoin Armory '
             'using the "--skip-online-check" option.  ')
          if state == 'OfflineForcedButSatoshiAvail':
             return tr( \
@@ -5853,7 +5853,7 @@ class ArmoryMainWindow(QMainWindow):
                   setOnlyDashModeVisible()
                   setBtnFrameVisible(True, \
                      tr('Try reinstalling the Groestlcoin '
-                     'software then restart Armory.  If you continue to have '
+                     'software then restart Groestlcoin Armory.  If you continue to have '
                      'problems, please contact Armory\'s core developer at '
                      '<a href="mailto:support@bitcoinarmory.com?Subject=Bitcoind%20Crash"'
                      '>support@bitcoinarmory.com</a>.'))
@@ -6216,7 +6216,7 @@ class ArmoryMainWindow(QMainWindow):
    def checkNewZeroConf(self, ledgers):
       '''
       Function that looks at an incoming zero-confirmation transaction queue and
-      determines if any incoming transactions were created by Armory. If so, the
+      determines if any incoming transactions were created by Groestlcoin Armory. If so, the
       transaction will be passed along to a user notification queue.
       '''
       for le in ledgers:
@@ -6485,7 +6485,7 @@ class ArmoryMainWindow(QMainWindow):
                            at a reasonable speed for your internet connection, 
                            you should disable it in
                            <i>File\xe2\x86\x92Settings</i> and then
-                           restart Armory."""), QMessageBox.Ok)
+                           restart Groestlcoin Armory."""), QMessageBox.Ok)
 
                         # For now, just show once then disable
                         self.lastAskedUserStopTorrent = UINT64_MAX

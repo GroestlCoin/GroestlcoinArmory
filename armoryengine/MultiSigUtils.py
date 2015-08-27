@@ -248,7 +248,7 @@ class MultiSigLockbox(AsciiSerializable):
                as create signatures for proposed spending transactions.  Open
                the Lockbox Manager, click "Import Lockbox" in the first row,
                then copy the text below into the import box, including the
-               first and last lines.  You will need to restart Armory and let
+               first and last lines.  You will need to restart Groestlcoin Armory and let
                it rescan if this lockbox has already been used."""
 
    #############################################################################

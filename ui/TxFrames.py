@@ -91,7 +91,7 @@ class SendBitcoinsFrame(ArmoryFrame):
       self.vertLine = VLINE()
 
       self.ttipSendChange = self.main.createToolTipWidget(\
-            'Most transactions end up with oversized inputs and Armory will send '
+            'Most transactions end up with oversized inputs and Groestlcoin Armory will send '
             'the change to the next address in this wallet.  You may change this '
             'behavior by checking this box.')
       self.ttipFeedback = self.main.createToolTipWidget(\
@@ -102,7 +102,7 @@ class SendBitcoinsFrame(ArmoryFrame):
       self.ttipSpecify = self.main.createToolTipWidget(\
             'You can specify any valid GroestlCoin address for the change.  '
             '<b>NOTE:</b> If the address you specify is not in this wallet, '
-            'Armory will not be able to distinguish the outputs when it shows '
+            'Groestlcoin Armory will not be able to distinguish the outputs when it shows '
             'up in your ledger.  The change will look like a second recipient, '
             'and the total debit to your wallet will be equal to the amount '
             'you sent to the recipient <b>plus</b> the change.')
@@ -449,7 +449,7 @@ class SendBitcoinsFrame(ArmoryFrame):
       numChkFail = sum([1 if len(b)==0 else 0 for b in scripts])
       if not self.freeOfErrors:
          QMessageBox.critical(self, tr('Invalid Address'),
-               tr("You have entered an invalid address. The error has been highlighted on the entrry screen.",
+               tr("You have entered an invalid address. The error has been highlighted on the entry screen.",
                "You have entered %d invalid addresses. The errors have been highlighted on the entry screen", numChkFail), QMessageBox.Ok)
 
          for row in range(len(self.widgetTable)):
@@ -478,7 +478,7 @@ class SendBitcoinsFrame(ArmoryFrame):
             value = str2coin(valueStr, negAllowed=False)
             if value == 0:
                QMessageBox.critical(self, 'Zero Amount', \
-                  'You cannot send 0 BTC to any recipients.  <br>Please enter '
+                  'You cannot send 0 GRS to any recipients.  <br>Please enter '
                   'a positive amount for recipient %d.' % (row+1), QMessageBox.Ok)
                return False
 
@@ -490,7 +490,7 @@ class SendBitcoinsFrame(ArmoryFrame):
          except TooMuchPrecisionError:
             QMessageBox.critical(self, 'Too much precision', \
                'GroestlCoins can only be specified down to 8 decimal places. '
-               'The smallest value that can be sent is  0.0000 0001 BTC. '
+               'The smallest value that can be sent is  0.0000 0001 GRS. '
                'Please enter a new amount for recipient %d.' % (row + 1), QMessageBox.Ok)
             return False
          except ValueError:
@@ -551,14 +551,14 @@ class SendBitcoinsFrame(ArmoryFrame):
          return False
       except TooMuchPrecisionError:
          QMessageBox.critical(self, tr('Too much precision'), tr("""
-            Bitcoins can only be specified down to 8 decimal places. 
-            The smallest unit of a Bitcoin is 0.0000 0001 BTC. 
+            Groestlcoins can only be specified down to 8 decimal places. 
+            The smallest unit of a Groestlcoin is 0.0000 0001 GRS. 
             Please enter a fee of at least 0.0000 0001"""), QMessageBox.Ok)
          return False
       except:
          QMessageBox.critical(self, tr('Invalid Fee String'), tr("""
             The fee you specified is invalid.  A standard fee is 
-            0.0001 BTC, though some transactions may succeed with 
+            0.0001 GRS, though some transactions may succeed with 
             zero fee."""), QMessageBox.Ok)
          LOGERROR(tr('Invalid fee specified: "%s"') % feeStr)
          return False
@@ -570,13 +570,13 @@ class SendBitcoinsFrame(ArmoryFrame):
          valMax = coin2str(bal, maxZeros=2).strip()
          if self.altBalance == None:
             QMessageBox.critical(self, tr('Insufficient Funds'), tr("""
-            You just tried to send more Bitcoins than you have available. You only 
-            have %s BTC (spendable) in this wallet!""") % \
+            You just tried to send more Groestlcoins than you have available. You only 
+            have %s GRS (spendable) in this wallet!""") % \
             valMax, QMessageBox.Ok)
          else:
             QMessageBox.critical(self, tr('Insufficient Funds'), tr("""
-            You just tried to send more Bitcoins than you have available. You only 
-            have %s BTC with this coin control selection!""") % \
+            You just tried to send more Groestlcoins than you have available. You only 
+            have %s GRS with this coin control selection!""") % \
             valMax, QMessageBox.Ok)
          return False
 
@@ -608,7 +608,7 @@ class SendBitcoinsFrame(ArmoryFrame):
 
       if minFee > 99*MIN_RELAY_TX_FEE:
          QMessageBox.critical(self, tr('Minimum Transaction Fee Is Too Large'), tr("""
-            The minimum fee for this transaction is <b>%s BTC</b>. That fee is too
+            The minimum fee for this transaction is <b>%s GRS</b>. That fee is too
             large and indicates that there are probably too many small inputs to fit
             into a single transaction. To send these Bitcoins, this transaction must
             be broken up into to smaller pieces.            
@@ -625,16 +625,16 @@ class SendBitcoinsFrame(ArmoryFrame):
          if totalSend + minFee > bal:
             # Need to adjust this based on overrideMin flag
             reply = QMessageBox.warning(self, tr('Insufficient Balance'), tr("""
-               The fee you have specified (%s BTC) is insufficient for the 
+               The fee you have specified (%s GRS) is insufficient for the 
                size and priority of your transaction.
                The suggested transaction fee causes this transaction to exceed 
                your balance.  In order to send this transaction with the
-               suggested fee of <b>%s BTC</b>, you will have to go back
+               suggested fee of <b>%s GRS</b>, you will have to go back
                and adjust the amount that you are sending.
                <br><br> 
-               Click Yes to use the higher fee of %s BTC.
+               Click Yes to use the higher fee of %s GRS.
                <br>
-               Click No to use the original fee of %s BTC.
+               Click No to use the original fee of %s GRS.
                <br> 
                Click Cancel to cancel this transaction.""") % \
                (usrFeeStr, minFeeStr, minFeeStr, usrFeeStr), \
@@ -653,13 +653,13 @@ class SendBitcoinsFrame(ArmoryFrame):
                return False
          else:
             reply = QMessageBox.warning(self, tr('Insufficient Fee'), tr("""
-               The fee you have specified (%s BTC) is insufficient for the 
+               The fee you have specified (%s GRS) is insufficient for the 
                size and priority of your transaction.  To ensure acceptance in
-               the network at least %s BTC is recommended to send this transaction. 
+               the network at least %s GRS is recommended to send this transaction. 
                <br><br> 
-               Click Yes to use the higher fee of %s BTC.
+               Click Yes to use the higher fee of %s GRS.
                <br>
-               Click No to use the original fee of %s BTC.
+               Click No to use the original fee of %s GRS.
                <br> 
                Click Cancel to cancel this transaction.""") % \
                (usrFeeStr, minFeeStr, minFeeStr, usrFeeStr), \
@@ -680,8 +680,8 @@ class SendBitcoinsFrame(ArmoryFrame):
       # Warn user of excessive fee specified
       if fee > 100*MIN_RELAY_TX_FEE or (minFee > 0 and fee > 10*minFee):
          reply = QMessageBox.warning(self, tr('Excessive Fee'), tr("""
-            You have specified a fee of <b>%s BTC</b> which is much higher
-            than the minimum fee required for this transaction: <b>%s BTC</b>.
+            You have specified a fee of <b>%s GRS</b> which is much higher
+            than the minimum fee required for this transaction: <b>%s GRS</b>.
             Are you <i>absolutely sure</i> that you want to send with this
             fee?  
             <br><br>
@@ -696,8 +696,8 @@ class SendBitcoinsFrame(ArmoryFrame):
       if len(utxoSelect) == 0:
          QMessageBox.critical(self, tr('Coin Selection Error'), tr("""
             There was an error constructing your transaction, due to a 
-            quirk in the way Bitcoin transactions work.  If you see this
-            error more than once, try sending your BTC in two or more 
+            quirk in the way Groestlcoin transactions work.  If you see this
+            error more than once, try sending your GRS in two or more 
             separate transactions."""), QMessageBox.Ok)
          return False
 
@@ -1624,7 +1624,7 @@ class SignBroadcastOfflineTxFrame(ArmoryFrame):
 
          ##### 3
          if self.leValue:
-            self.infoLbls[3][2].setText(coin2strNZS(self.leValue) + '  BTC')
+            self.infoLbls[3][2].setText(coin2strNZS(self.leValue) + '  GRS')
          else:
             self.infoLbls[3][2].setText('')
 

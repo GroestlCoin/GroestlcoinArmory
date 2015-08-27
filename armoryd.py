@@ -23,7 +23,7 @@
 # Where possible this follows conventions established by the Satoshi client.
 # Does not require armory to be installed or running, this is a standalone
 # application. Requires groestlcoind process to be running before starting armoryd.
-# Requires an armory wallet (can be watching only) to be in the same folder as
+# Requires an Groestlcoin armory wallet (can be watching only) to be in the same folder as
 # the armoryd script. Works with testnet, use --testnet flag when starting the
 # script.
 #
@@ -1618,11 +1618,11 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
    def jsonrpc_getarmorydinfo(self):
       """
       DESCRIPTION:
-      Get information on the version of armoryd running on the server.
+      Get information on the version of groestlcoinarmoryd running on the server.
       PARAMETERS:
       None
       RETURN:
-      A dictionary listing version of armoryd running on the server.
+      A dictionary listing version of groestlcoinarmoryd running on the server.
       """
 
       isReady = TheBDM.getState() == BDM_BLOCKCHAIN_READY
@@ -2242,7 +2242,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
             lbID = calcLockboxID(pkListScript)
             lbCreateDate = long(RightNow())
             lbName = 'Lockbox %s' % lbID
-            lbDescrip = '%s - %d-of-%d - Created by armoryd' % (lbID, m, n)
+            lbDescrip = '%s - %d-of-%d - Created by groestlcoinarmoryd' % (lbID, m, n)
             lockbox = MultiSigLockbox(lbName, lbDescrip, m, n,
                                       lockboxPubKeyList, lbCreateDate)
 

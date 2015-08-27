@@ -1161,7 +1161,7 @@ class WalletAddrDispModel(QAbstractTableModel):
                                'generated in this wallet')
          cmt = str(self.index(index.row(),COL.Comment).data().toString())
          if cmt==CHANGE_ADDR_DESCR_STRING:
-            return QVariant('This address was created by Armory to '
+            return QVariant('This address was created by Groestlcoin Armory to '
                             'receive change-back-to-self from an oversized '
                             'transaction.')
       elif role==Qt.BackgroundColorRole:

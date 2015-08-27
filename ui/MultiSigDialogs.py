@@ -639,7 +639,7 @@ class DlgLockboxManager(ArmoryDialog):
       #if not USE_TESTNET:
          #QMessageBox.warning(self, tr('Dangerous Feature!'), tr("""
             #Multi-signature transactions are an 
-            #<b>EXPERIMENTAL</b> feature in this version of Armory.  It is 
+            #<b>EXPERIMENTAL</b> feature in this version of Groestlcoin Armory.  It is 
             #<u><b>not</b></u> intended to be used with real money, until all 
             #the warnings like this one go away.
             #<br><br>
@@ -1718,7 +1718,7 @@ class DlgLockboxManager(ArmoryDialog):
       reply = QMessageBox.warning(self, tr('Confirm Delete'), tr("""
          "Removing" a lockbox does not delete any signing keys, so you 
          maintain signing authority for any coins that are sent there.     
-         However, Armory will stop tracking its history and balance, and you
+         However, Groestlcoin Armory will stop tracking its history and balance, and you
          will have to re-import it later in order to sign any transactions.
          <br><br>
          You are about to remove the following lockbox:
@@ -2496,7 +2496,7 @@ class DlgMultiSpendReview(ArmoryDialog):
          <br><br>
          Change outputs have been hidden where it is obvious (such as coins
          returning to the same lockbox from where it came).  If there is 
-         any ambiguity, Armory will display all outputs."""))
+         any ambiguity, Groestlcoin Armory will display all outputs."""))
 
       KEYW,KEYH = 25,36
       CHKW,CHKH = 32,32
@@ -3141,14 +3141,14 @@ class DlgCreatePromNote(ArmoryDialog):
          will review and sign it.  
          <br><br>
          If this lockbox is being funded by only one party, using this
-         interface is unnecessary.  Have the funding party send Bitcoins 
+         interface is unnecessary.  Have the funding party send Groestlcoins 
          to the destination address or lockbox in the normal way."""))
 
       lblNoteSrc = QRichLabel(tr("""
          <b>NOTE:</b> At the moment, simulfunding is restricted to using
          single-signature wallets/addresses for funding.    More
          complex simulfunding transactions will be possible in a future 
-         version of Armory."""))
+         version of Groestlcoin Armory."""))
 
       if len(self.main.walletIDList)>0:
          self.spendFromWltID = self.main.walletIDList[0]
@@ -3871,7 +3871,7 @@ class DlgSelectMultiSigOption(ArmoryDialog):
          to collect funding promises into a single transaction, to limit 
          the ability of any party to scam you.  Read more about it by
          clicking [NO LINK YET]  (if the above doesn't hold, you can use
-         the regular "Send Bitcoins" dialog to fund the lockbox)."""))
+         the regular "Send Groestlcoins" dialog to fund the lockbox)."""))
 
 
       self.lblCreate = QRichLabel(tr("""
