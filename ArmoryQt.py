@@ -1298,7 +1298,7 @@ class ArmoryMainWindow(QMainWindow):
       reply = QMessageBox.warning(self, tr('Queue Rescan?'), tr("""
          The next time you restart Groestlcoin Armory, it will rescan the blockchain
          database, and reconstruct your wallet histories from scratch.
-         The rescan will take 10-60 minutes depending on your system.
+         The rescan will take 5-10 minutes depending on your system.
          <br><br>
          Do you wish to force a rescan on the next Groestlcoin Armory restart?"""), \
          QMessageBox.Yes | QMessageBox.No)
@@ -1324,7 +1324,7 @@ class ArmoryMainWindow(QMainWindow):
       reply = QMessageBox.warning(self, tr('Queue Rebuild?'), tr("""
          The next time you restart Groestlcoin Armory, it will rebuild and rescan
          the entire blockchain database.  This operation can take between
-         30 minutes and 4 hours depending on you system speed.
+         30 minutes and 1 hour depending on you system speed.
          <br><br>
          Do you wish to force a rebuild on the next Groestlcoin Armory restart?"""), \
          QMessageBox.Yes | QMessageBox.No)

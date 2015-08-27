@@ -14694,14 +14694,14 @@ class DlgFactoryReset(ArmoryDialog):
          <b>Delete settings and rescan (lightest option)</b>"""))
       self.lblSettings = QRichLabel(tr("""
          Only delete the settings file and transient network data.  The
-         databases built by Groestlcoin Armory will be rescanned (about 5-45 minutes)"""))
+         databases built by Groestlcoin Armory will be rescanned (about 10 minutes)"""))
 
       self.rdoArmoryDB = QRadioButton()
       self.lblArmoryDBText = QRichLabel(tr("""
          <b>Also delete databases and rebuild</b>"""))
       self.lblArmoryDB = QRichLabel(tr("""
          Will delete settings, network data, and delete and Groestlcoin Armory's databases,
-         forcing a rebuild and rescan (45 min to 3 hours)"""))
+         forcing a rebuild and rescan (30 min)"""))
 
       self.rdoBitcoinDB = QRadioButton()
       self.lblBitcoinDBText = QRichLabel(tr("""
@@ -14711,7 +14711,7 @@ class DlgFactoryReset(ArmoryDialog):
          <b>and</b> the Groestlcoin software databases.  Groestlcoin-Qt/groestlcoind will
          have to download the blockchain again.  Only use this if you
          suspect blockchain corruption, such as receiving StdOut/StdErr errors
-         on the dashboard (8-72 hours depending on your connection)"""))
+         on the dashboard (30 min - 1 hour depending on your connection)"""))
 
 
       self.chkSaveSettings = QCheckBox(tr('Do not delete settings files'))
