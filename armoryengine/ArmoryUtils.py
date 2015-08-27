@@ -1457,7 +1457,7 @@ def formatWithPlurals(txt, replList=None, pluralList=None):
 
 ################################################################################
 def getAddrByte():
-   return '\x6f' if USE_TESTNET else '\x00'
+   return '\x6f' if USE_TESTNET else '\x24'
 
 ################################################################################
 # Convert a 20-byte hash to a "pay-to-public-key-hash" script to be inserted
