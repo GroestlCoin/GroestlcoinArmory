@@ -4079,7 +4079,7 @@ class ArmoryMainWindow(QMainWindow):
       if uri_has('amount'):
          amt     = uriDict['amount']
          amtstr  = coin2str(amt, maxZeros=1)
-         descrStr += '<br>--<b>Amount</b>:\t%s BTC' % amtstr
+         descrStr += '<br>--<b>Amount</b>:\t%s GRS' % amtstr
 
 
       if newMsg:
@@ -6560,12 +6560,12 @@ class ArmoryMainWindow(QMainWindow):
       if ledgerAmt > 0:
          # Received!
          title = tr('Groestlcoins Received!')
-         dispLines.append(tr('Amount:  %(total)s BTC') % { 'total' : totalStr })
+         dispLines.append(tr('Amount:  %(total)s GRS') % { 'total' : totalStr })
          dispLines.append(tr('Recipient:  %(recp)s') % { 'recp' : dispName } )
       elif ledgerAmt < 0:
          # Sent!
          title = tr('Groestlcoins Sent!')
-         dispLines.append(tr('Amount:  %(tot)s BTC') % { 'tot' : totalStr })
+         dispLines.append(tr('Amount:  %(tot)s GRS') % { 'tot' : totalStr })
          dispLines.append(tr('Sender:  %(disp)s') % { 'disp' : dispName })
 
       self.sysTray.showMessage(title, '\n'.join(dispLines), \

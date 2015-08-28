@@ -160,7 +160,7 @@ def pprintUnspentTxOutList(utxoList, headerLine='Coin Selection: '):
    for utxo in utxoList:
       a160 = CheckHash160(utxo.getRecipientScrAddr())
       print '   ',hash160_to_addrStr(a160).ljust(34),
-      print '   ',(coin2str(utxo.getValue()) + ' BTC').rjust(18),
+      print '   ',(coin2str(utxo.getValue()) + ' GRS').rjust(18),
       print '   ',str(utxo.getNumConfirm()).rjust(8),
       print '   ', ('%0.2f' % (utxo.getValue()*utxo.getNumConfirm()/(ONE_BTC*144.))).rjust(16)
 

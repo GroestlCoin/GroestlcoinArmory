@@ -3701,9 +3701,9 @@ class DlgAddressInfo(ArmoryDialog):
          if balCoin > 0:
             goodColor = htmlColor('MoneyPos')
             lbls[-1].append(QRichLabel(\
-               '<font color=' + goodColor + '>' + balStr.strip() + '</font> BTC'))
+               '<font color=' + goodColor + '>' + balStr.strip() + '</font> GRS'))
          else:
-            lbls[-1].append(QRichLabel(balStr.strip() + ' BTC'))
+            lbls[-1].append(QRichLabel(balStr.strip() + ' GRS'))
       except:
          lbls[-1].append(QRichLabel("N/A"))
          
@@ -4452,7 +4452,7 @@ class DlgRemoveWallet(ArmoryDialog):
             lbls[3][-1].setTextFormat(Qt.RichText)
             wltEmpty = False
          else:
-            lbls[3].append(QLabel(coin2str(bal, maxZeros=1) + ' BTC'))
+            lbls[3].append(QLabel(coin2str(bal, maxZeros=1) + ' GRS'))
 
 
       # Add two WARNING images on either side of dialog
@@ -4724,7 +4724,7 @@ class DlgRemoveAddress(ArmoryDialog):
             lbls[-1][-1].setTextFormat(Qt.RichText)
             addrEmpty = False
          else:
-            lbls[3].append(QLabel(coin2str(bal, maxZeros=1) + ' BTC'))
+            lbls[3].append(QLabel(coin2str(bal, maxZeros=1) + ' GRS'))
 
 
       # Add two WARNING images on either side of dialog
@@ -5969,7 +5969,7 @@ class DlgDispTxInfo(ArmoryDialog):
                'to determine which is which, and so this fields shows the sum '
                'of <b>all</b> outputs.'))
          lbls[-1].append(QLabel('Sum of Outputs:'))
-         lbls[-1].append(QLabel(coin2str(txAmt, maxZeros=1).strip() + '  BTC'))
+         lbls[-1].append(QLabel(coin2str(txAmt, maxZeros=1).strip() + '  GRS'))
       else:
          lbls.append([])
          lbls[-1].append(self.main.createToolTipWidget(
@@ -5982,7 +5982,7 @@ class DlgDispTxInfo(ArmoryDialog):
                'The value shown here is the net effect on your '
                'wallet, including transaction fee.'))
          lbls[-1].append(QLabel('Transaction Amount:'))
-         lbls[-1].append(QRichLabel(coin2str(txAmt, maxZeros=1).strip() + '  BTC'))
+         lbls[-1].append(QRichLabel(coin2str(txAmt, maxZeros=1).strip() + '  GRS'))
          if txAmt < 0:
             lbls[-1][-1].setText('<font color="red">' + lbls[-1][-1].text() + '</font> ')
          elif txAmt > 0:
@@ -5996,7 +5996,7 @@ class DlgDispTxInfo(ArmoryDialog):
             'Transaction fees go to users supplying the Groestlcoin network with '
             'computing power for processing transactions and maintaining security.'))
          lbls[-1].append(QLabel('Tx Fee Paid:'))
-         lbls[-1].append(QLabel(coin2str(fee, maxZeros=0).strip() + '  BTC'))
+         lbls[-1].append(QLabel(coin2str(fee, maxZeros=0).strip() + '  GRS'))
 
 
 
@@ -6036,7 +6036,7 @@ class DlgDispTxInfo(ArmoryDialog):
 
             rlbls[-1].append(QLabel(scrAddr_to_addrStr(sv[0])))
             if numRV > 1:
-               rlbls[-1].append(QLabel(coin2str(sv[1], maxZeros=1) + '  BTC'))
+               rlbls[-1].append(QLabel(coin2str(sv[1], maxZeros=1) + '  GRS'))
             else:
                rlbls[-1].append(QLabel(''))
             ffixBold = GETFONT('Fixed', 10)
@@ -10105,7 +10105,7 @@ class DlgRequestPayment(ArmoryDialog):
       self.plainText += 'If clicking on the line above does not work, use this payment info:\n'
       self.plainText += 'Pay to:  %s' % addr
       if amt:
-         self.plainText += '\nAmount:  %s BTC' % coin2str(amt, maxZeros=0).strip()
+         self.plainText += '\nAmount:  %s GRS' % coin2str(amt, maxZeros=0).strip()
       if msgStr:
          self.plainText += '\nMessage: %s' % msgStr
       self.plainText += '\n'

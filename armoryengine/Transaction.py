@@ -2028,9 +2028,9 @@ class UnsignedTransaction(AsciiSerializable):
       totalOut = sum([dtxo.value  for dtxo  in dtxoList  ])
       if totalIn - totalOut > 100*MIN_RELAY_TX_FEE:
          LOGWARN('Exceptionally high fee in createFromUnsignedTxIO')
-         LOGWARN('TotalInputs  = %s BTC', coin2strNZS(totalIn))
-         LOGWARN('TotalOutputs = %s BTC', coin2strNZS(totalOut))
-         LOGWARN('Computed Fee = %s BTC', coin2strNZS(totalIn-totalOut))
+         LOGWARN('TotalInputs  = %s GRS', coin2strNZS(totalIn))
+         LOGWARN('TotalOutputs = %s GRS', coin2strNZS(totalOut))
+         LOGWARN('Computed Fee = %s GRS', coin2strNZS(totalIn-totalOut))
       elif totalIn - totalOut < 0:
          raise ValueError('Supplied inputs are less than the supplied outputs')
 
