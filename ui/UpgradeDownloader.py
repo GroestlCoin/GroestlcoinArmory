@@ -713,7 +713,7 @@ class UpgradeDownloaderDialog(ArmoryDialog):
          elif pkgName.startswith('Armory'):
             if self.main.armoryVersions[0]:
                self.lblCurrentVersion.setText(tr("""
-                  You are currently using Armory version %s""") % \
+                  You are currently using Groestlcoin Armory version %s""") % \
                   self.main.armoryVersions[0])
 
          self.lblSelectedSimpleMore.setText(tr("""

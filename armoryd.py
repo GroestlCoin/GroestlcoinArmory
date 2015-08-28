@@ -590,7 +590,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       DESCRIPTION:
       Import a private key into the current wallet.
       PARAMETERS:
-      privKey - A private key in any format supported by Armory, including
+      privKey - A private key in any format supported by Groestlcoin Armory, including
                 Base58 private keys supported by groestlcoind (uncompressed public
                 key support only).
       RETURN:
@@ -2013,7 +2013,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
 
    #############################################################################
    # Take the ASCII representation of an unsigned Tx (i.e., the data that is
-   # signed by Armory's offline Tx functionality) and returns an ASCII
+   # signed by Groestlcoin Armory's offline Tx functionality) and returns an ASCII
    # representation of the signed Tx, with the current wallet signing the Tx.
    # See SignBroadcastOfflineTxFrame::signTx() (ui/TxFrames.py) for the GUI's
    # analog. Note this function can sign multisigs as well as normal inputs.
@@ -2253,7 +2253,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
                LOGERROR(errStr)
                result['Error'] = errStr
             else:
-               # Write to the "master" LB list used by Armory and an individual
+               # Write to the "master" LB list used by Groestlcoin Armory and an individual
                # file, and load the LB into our LB set.
                lbFileName = 'Lockbox_%s_.lockbox.def' % lbID
                lbFilePath = os.path.join(self.armoryHomeDir, lbFileName)
@@ -2437,7 +2437,7 @@ class Armory_Json_Rpc_Server(jsonrpc.JSONRPC):
       # Write the decorated function that will send the e-mail out.
       @EmailOutput(sender, server, pwd, recips, msgSubj)
       def sendLockboxes(lockboxes):
-         emailText = '%s has sent you lockboxes used by Armory.' % sender
+         emailText = '%s has sent you lockboxes used by Groestlcoin Armory.' % sender
          emailText += ' The lockboxes can be found printed below.\n\n'
          emailText += 'TOTAL LOCKBOXES: %d\n\n' % len(lockboxes)
          for curLB in lockboxes:

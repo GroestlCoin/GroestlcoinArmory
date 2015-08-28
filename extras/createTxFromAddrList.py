@@ -181,6 +181,6 @@ if __name__ == '__main__':
    print '\nRaw transaction (raw hex, copy into http://bitsend.rowit.co.uk):'
    print binary_to_hex(pytx.serialize())
    
-   print '\nSigned transaction to be broadcast using Armory "offline transactions"...'
+   print '\nSigned transaction to be broadcast using Groestlcoin Armory "offline transactions"...'
    print txdp.serializeAscii()
    

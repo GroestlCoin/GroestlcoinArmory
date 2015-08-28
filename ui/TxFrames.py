@@ -152,11 +152,11 @@ class SendBitcoinsFrame(ArmoryFrame):
       ttipEnterURI = self.main.createToolTipWidget( tr("""
          Armory does not always succeed at registering itself to handle 
          URL links from webpages and email.  
-         Click this button to copy a "groestlcoin:" link directly into Armory."""))
+         Click this button to copy a "groestlcoin:" link directly into Groestlcoin Armory."""))
       self.connect(btnEnterURI, SIGNAL("clicked()"), self.clickEnterURI)
       fromFrameList = [self.frmSelectedWlt]
       if False: #GRS not USE_TESTNET:
-         btnDonate = QPushButton("Donate to Armory Developers!")
+         btnDonate = QPushButton("Donate to Groestlcoin Armory Developers!")
          ttipDonate = self.main.createToolTipWidget(\
             'Making this software was a lot of work.  You can give back '
             'by adding a small donation to go to the Groestlcoin Armory developers.  '
@@ -1104,7 +1104,7 @@ class SendBitcoinsFrame(ArmoryFrame):
       self.widgetTable[-1]['QLE_ADDR'].setText(ARMORY_DONATION_ADDR)
       self.widgetTable[-1]['QLE_AMT'].setText(coin2str(amt, maxZeros=2).strip())
       self.widgetTable[-1]['QLE_COMM'].setText(\
-            'Donation to Armory developers.  Thank you for your generosity!')
+            'Donation to Groestlcoin Armory developers.  Thank you for your generosity!')
 
    #############################################################################
    def clickEnterURI(self):

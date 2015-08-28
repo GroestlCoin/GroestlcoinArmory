@@ -238,7 +238,7 @@ def distributeBtc(masterWallet, amount, sendingAddrList):
       masterWallet.signUnsignedTx(ustx)
       pytx = ustx.getPyTxSignedIfPossible()
    
-      print '\nSigned transaction to be broadcast using Armory "offline transactions"...'
+      print '\nSigned transaction to be broadcast using Groestlcoin Armory "offline transactions"...'
       print ustx.serializeAscii()
    finally:
       TheBDM.beginCleanShutdown()
@@ -285,7 +285,7 @@ def sweepImportedAddrs(masterWallet):
    masterWallet.signTxDistProposal(ustx)
    pytx = ustx.getPyTxSignedIfPossible()
 
-   print '\nSigned transaction to be broadcast using Armory "offline transactions"...'
+   print '\nSigned transaction to be broadcast using Groestlcoin Armory "offline transactions"...'
    print ustx.serializeAscii()
    return pytx
 

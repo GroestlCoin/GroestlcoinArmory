@@ -989,7 +989,7 @@ class ArmoryMainWindow(QMainWindow):
          if verArmoryInt >verPluginInt:
             reply = QMessageBox.warning(self, tr("Outdated Module"), tr("""
                Module "%(mod)s" is only specified to work up to Groestlcoin Armory version %(maxver)s.
-               You are using Armory version %(curver)s.  Please remove the module if
+               You are using Groestlcoin Armory version %(curver)s.  Please remove the module if
                you experience any problems with it, or contact the maintainer
                for a new version.
                <br><br>
@@ -1059,7 +1059,7 @@ class ArmoryMainWindow(QMainWindow):
             elif not USE_TESTNET and infoMap[MODULE_ZIP_STATUS_KEY] == MODULE_ZIP_STATUS.Unsigned:
                reply = QMessageBox.warning(self, tr("UNSIGNED Module"), tr("""
                   Groestlcoin Armory detected the following module which  
-                  <font color="%(color)s"><b>has not been signed by Armory</b></font> and may be dangerous:
+                  <font color="%(color)s"><b>has not been signed by Groestlcoin Armory</b></font> and may be dangerous:
                   <br><br>
                      <b>Module Name:</b> %(name)s<br>
                      <b>Module Path:</b> %(path)s<br>
@@ -1528,7 +1528,7 @@ class ArmoryMainWindow(QMainWindow):
    #############################################################################
    def setupUriRegistration(self, justDoIt=False):
       """
-      Setup Armory as the default application for handling groestlcoin: links
+      Setup Groestlcoin Armory as the default application for handling groestlcoin: links
       """
       LOGINFO('setupUriRegistration')
 
@@ -2076,7 +2076,7 @@ class ArmoryMainWindow(QMainWindow):
 
 
          # For Satoshi updates, we don't trigger any notifications like we
-         # do for Armory above -- we will release a proper announcement if
+         # do for Groestlcoin Armory above -- we will release a proper announcement if
          # necessary.  But we want to set a flag to
          if not 'Satoshi' in self.downloadLinks:
             LOGWARN('No Satoshi links in the downloads list')
@@ -2362,7 +2362,7 @@ class ArmoryMainWindow(QMainWindow):
 
          if not reply:
             QMessageBox.warning(self, tr('Synchronize'), tr("""
-               When you are ready to start synchronization, close Armory and
+               When you are ready to start synchronization, close Groestlcoin Armory and
                start Groestlcoin-Qt or groestlcoind.  Restart Groestlcoin Armory only when
                synchronization is complete.  If using Groestlcoin-Qt, you will see
                a green checkmark in the bottom-right corner"""), QMessageBox.Ok)
@@ -2372,7 +2372,7 @@ class ArmoryMainWindow(QMainWindow):
          reply = MsgBoxCustom(MSGBOX.Question, tr('BitTorrent Option'), tr("""
             You are currently running the core Groestlcoin software, but it
             is not fully synchronized with the network, yet.  <u>Normally</u>,
-            you should close Armory until Groestlcoin-Qt (or groestlcoind) is
+            you should close Groestlcoin Armory until Groestlcoin-Qt (or groestlcoind) is
             finished
             <br><br>
             <b><u>However</u></b>, Armory can speed up this initial
@@ -2387,7 +2387,7 @@ class ArmoryMainWindow(QMainWindow):
             when Armory indicates it is complete.
             <br><br>
             <u>To synchronize using Bitcoin P2P (fallback):</u>
-            Click "Cancel" below, and then close Armory until the Groestlcoin
+            Click "Cancel" below, and then close Groestlcoin Armory until the Groestlcoin
             software is finished synchronizing.  If using Groestlcoin-Qt, you
             will see a green checkmark in the bottom-right corner of the
             main window."""), QMessageBox.Ok)
@@ -5329,13 +5329,6 @@ class ArmoryMainWindow(QMainWindow):
       # A few states don't care which mgmtMode you are in...
       if state == 'NewUserInfo':
          return tr("""
-         For more information about Groestlcoin Armory, and even Groestlcoin itself, you should
-         visit the <a href="http://www.groestlcoin.org/forum/">frequently
-         asked questions page</a>.  If
-         you are experiencing problems using this software, please visit the
-         <a href="http://www.groestlcoin.org/forum/">Groestlcoin Armory
-         troubleshooting webpage</a>.  It will be updated frequently with
-         solutions to common problems.
          <br><br>
          <b><u>IMPORTANT:</u></b> Make a backup of your wallet(s)!  Paper
          backups protect you <i>forever</i> against forgotten passwords,
@@ -5345,13 +5338,7 @@ class ArmoryMainWindow(QMainWindow):
          risk of losing all of your Groestlcoins!  For more information,
          visit the <a href="http://www.groestlcoin.org/forum/">Groestlcoin Armory
          Backups page</a>.
-         <br><br>
-         To learn about improving your security through the use of offline
-         wallets, visit the
-         <a href="http://www.groestlcoin.org/forum/">Groestlcoin Armory
-         Quick Start Guide</a>, and the
-         <a href="http://www.groestlcoin.org/forum/">Offline
-         Wallet Tutorial</a>.<br><br> """)
+         <br><br> """)
       elif state == 'OnlineFull1':
          return tr( \
          '<p><b>You now have access to all the features Groestlcoin Armory has to offer!</b><br>'
@@ -5456,7 +5443,7 @@ class ArmoryMainWindow(QMainWindow):
             '<a href="https://groestlcoin.org">'
             'Why Groestlcoin Armory needs Groestlcoin-Qt</a> or go straight to our <a '
             'href="http://www.groestlcoin.org/forum/">'
-            'frequently asked questions</a> page for more general information.  '
+            'Groestlcoin Forum</a> page for more general information.  '
             'If you already know what you\'re doing and simply need '
             'to fetch the latest version of Groestlcoin-Qt, you can download it from '
             '<a href="http://www.groestlcoin.org">http://www.groestlcoin.org</a>.')
@@ -5634,7 +5621,7 @@ class ArmoryMainWindow(QMainWindow):
                return  (tr("""
                There was an error starting the underlying Groestlcoin engine.
                This should not normally happen.  Usually it occurs when you
-               have been using Groestlcoin-Qt prior to using Armory, especially
+               have been using Groestlcoin-Qt prior to using Groestlcoin Armory, especially
                if you have upgraded or downgraded Groestlcoin-Qt recently.
                Output from groestlcoind:<br>""") + \
                (soutDisp if len(sout)>0 else '') + \
@@ -5643,7 +5630,7 @@ class ArmoryMainWindow(QMainWindow):
                return ( tr("""
                   There was an error starting the underlying Groestlcoin engine.
                   This should not normally happen.  Usually it occurs when you
-                  have been using Groestlcoin-Qt prior to using Armory, especially
+                  have been using Groestlcoin-Qt prior to using Groestlcoin Armory, especially
                   if you have upgraded or downgraded Groestlcoin-Qt recently.
                   <br><br>
                   Unfortunately, this error is so strange, Armory does not
@@ -7109,7 +7096,7 @@ def checkForAlreadyOpenError():
       LOGINFO('Not an error!  Armory really is open')
       return
    elif len(bitcoindExists)>0:
-      # Strange condition where groestlcoind doesn't get killed by Armory/guardian
+      # Strange condition where groestlcoind doesn't get killed by Groestlcoin Armory/guardian
       # (I've only seen this happen on windows, though)
       LOGERROR('Found zombie groestlcoind process...killing it')
       for pid in bitcoindExists:

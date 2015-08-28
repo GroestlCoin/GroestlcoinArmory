@@ -1168,7 +1168,7 @@ class DlgNewWallet(ArmoryDialog):
       paperBackupTooltip = self.main.createToolTipWidget(
                   'A paper-backup allows you to recover your wallet/funds even '
                   'if you lose your original wallet file, any time in the future. '
-                  'Because Armory uses "deterministic wallets," '
+                  'Because Groestlcoin Armory uses "deterministic wallets," '
                   'a single backup when the wallet is first made is sufficient '
                   'for all future transactions (except ones to imported '
                   'addresses).\n\n'
@@ -2936,7 +2936,7 @@ class DlgImportAddress(ArmoryDialog):
                      'has access to it.  Otherwise, sweep it to get '
                      'the funds out of it.  All standard private-key formats '
                      'are supported <i>except for private keys created by '
-                     'Groestlcoin-Qt version 0.6.0 and later (compressed)</i>.')
+                     'Groestlcoin-Qt version 2.1.0.6 and later (compressed)</i>.')
 
       lblPrivOne = QRichLabel('Private Key')
       self.edtPrivData = QLineEdit()
@@ -2947,7 +2947,7 @@ class DlgImportAddress(ArmoryDialog):
                        'without checksums), and mini-private-key format '
                        'used on Casascius physical groestlcoins.  Private keys '
                        'that use <i>compressed</i> public keys are not yet '
-                       'supported by Armory.')
+                       'supported by Groestlcoin Armory.')
 
       frmMid1 = makeHorizFrame([lblPrivOne, self.edtPrivData, privTooltip])
       stkOne = makeVertFrame([HLINE(), lblDescrOne, frmMid1, STRETCH])
@@ -3154,7 +3154,7 @@ class DlgImportAddress(ArmoryDialog):
       except CompressedKeyError, e:
          QMessageBox.critical(self, 'Unsupported key type', 'You entered a key '
             'for an address that uses a compressed public key, usually produced '
-            'in Groestlcoin-Qt/groestlcoind wallets created after version 0.6.0.  Armory '
+            'in Groestlcoin-Qt/groestlcoind wallets created after version 2.1.0.6.  Armory '
             'does not yet support this key type.')
          LOGERROR('Compressed key data recognized but not supported')
          return
@@ -4618,7 +4618,7 @@ class DlgRemoveWallet(ArmoryDialog):
 
       # If they only want to exclude the wallet, we will add it to the excluded
       # list and remove it from the application.  The wallet files will remain
-      # in the settings directory but will be ignored by Armory
+      # in the settings directory but will be ignored by Groestlcoin Armory
 
       wltID = wlt.uniqueIDB58
       if wlt.watchingOnly:
@@ -7312,7 +7312,7 @@ class DlgPrintBackup(ArmoryDialog):
                The following is a list of all private keys imported into your
                wallet before this backup was made.   These keys are encrypted
                with the SecurePrint\xe2\x84\xa2 code and can only be restored
-               by entering them into Armory.  Print a copy of this backup without
+               by entering them into Groestlcoin Armory.  Print a copy of this backup without
                the SecurePrint\xe2\x84\xa2 option if you want to be able to import
                them into another application.""")
          else:
@@ -7613,7 +7613,7 @@ class DlgBadConnection(ArmoryDialog):
 
       lblDescr.setMinimumWidth(500)
       self.btnAccept = QPushButton("Continue in Offline Mode")
-      self.btnCancel = QPushButton("Close Armory")
+      self.btnCancel = QPushButton("Close Groestlcoin Armory")
       self.connect(self.btnAccept, SIGNAL(CLICKED), self.accept)
       self.connect(self.btnCancel, SIGNAL(CLICKED), abortLoad)
       buttonBox = QDialogButtonBox()
@@ -8796,7 +8796,7 @@ class DlgSettings(ArmoryDialog):
       self.chkSkipOnlineCheck.setChecked(skipOnlineChk)
 
       self.chkSkipVersionCheck = QCheckBox(tr("""
-         Skip periodic version queries to Armory server"""))
+         Skip periodic version queries to Groestlcoin Armory server"""))
       skipVerChk = self.main.getSettingOrSetDefault('SkipVersionCheck', False)
       self.chkSkipVersionCheck.setChecked(skipVerChk)
 
@@ -8820,7 +8820,7 @@ class DlgSettings(ArmoryDialog):
          logged by ATI servers.  You can continue to receive notifications 
          but not send any statistical information.""")
       lblPrivTorDescr = QRichLabel("""
-         If you are going to use Armory and Groestlcoin Core with a proxy (such
+         If you are going to use Groestlcoin Armory and Groestlcoin Core with a proxy (such
          as Tor), you should disable all Armory communications that might operate 
          outside the proxy.""")
 
@@ -10661,7 +10661,7 @@ class DlgQRCodeDisplay(ArmoryDialog):
 # STUB STUB STUB STUB STUB
 class ArmoryPref(object):
    """
-   Create a class that will handle arbitrary preferences for Armory.  This
+   Create a class that will handle arbitrary preferences for Groestlcoin Armory.  This
    means that I can just create maps/lists of preferences, and auto-include
    them in the preferences dialog, and know how to set/get them.  This will
    be subclassed for each unique/custom preference type that is needed.

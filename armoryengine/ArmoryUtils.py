@@ -86,28 +86,28 @@ indent = ' '*3
 haveGUI = [False, None]
 
 parser = optparse.OptionParser(usage="%prog [options]\n")
-parser.add_option("--settings",        dest="settingsPath",default=DEFAULT, type="str",          help="load Armory with a specific settings file")
-parser.add_option("--datadir",         dest="datadir",     default=DEFAULT, type="str",          help="Change the directory that Armory calls home")
+parser.add_option("--settings",        dest="settingsPath",default=DEFAULT, type="str",          help="load Groestlcoin Armory with a specific settings file")
+parser.add_option("--datadir",         dest="datadir",     default=DEFAULT, type="str",          help="Change the directory that Groestlcoin Armory calls home")
 parser.add_option("--satoshi-datadir", dest="satoshiHome", default=DEFAULT, type='str',          help="The Groestlcoin-Qt/groestlcoind home directory")
 parser.add_option("--satoshi-port",    dest="satoshiPort", default=DEFAULT, type="str",          help="For Groestlcoin-Qt instances operating on a non-standard port")
 parser.add_option("--satoshi-rpcport", dest="satoshiRpcport",default=DEFAULT,type="str",         help="RPC port Groestlcoin-Qt instances operating on a non-standard port")
 #parser.add_option("--groestlcoind-path",   dest="bitcoindPath",default='DEFAULT', type="str",         help="Path to the location of groestlcoind on your system")
 parser.add_option("--dbdir",           dest="armoryDBDir",  default=DEFAULT, type='str',          help="Location to store blocks database (defaults to --datadir)")
-parser.add_option("--rpcport",         dest="rpcport",     default=DEFAULT, type="str",          help="RPC port for running armoryd.py")
+parser.add_option("--rpcport",         dest="rpcport",     default=DEFAULT, type="str",          help="RPC port for running groestlcoinarmoryd.py")
 parser.add_option("--testnet",         dest="testnet",     default=False,     action="store_true", help="Use the testnet protocol")
-parser.add_option("--offline",         dest="offline",     default=False,     action="store_true", help="Force Armory to run in offline mode")
+parser.add_option("--offline",         dest="offline",     default=False,     action="store_true", help="Force Groestlcoin Armory to run in offline mode")
 parser.add_option("--nettimeout",      dest="nettimeout",  default=2,         type="int",          help="Timeout for detecting internet connection at startup")
-parser.add_option("--interport",       dest="interport",   default=-1,        type="int",          help="Port for inter-process communication between Armory instances")
+parser.add_option("--interport",       dest="interport",   default=-1,        type="int",          help="Port for inter-process communication between Groestlcoin Armory instances")
 parser.add_option("--debug",           dest="doDebug",     default=False,     action="store_true", help="Increase amount of debugging output")
 parser.add_option("--nologging",       dest="logDisable",  default=False,     action="store_true", help="Disable all logging")
-parser.add_option("--netlog",          dest="netlog",      default=False,     action="store_true", help="Log networking messages sent and received by Armory")
+parser.add_option("--netlog",          dest="netlog",      default=False,     action="store_true", help="Log networking messages sent and received by Groestlcoin Armory")
 parser.add_option("--logfile",         dest="logFile",     default=DEFAULT, type='str',          help="Specify a non-default location to send logging information")
 parser.add_option("--mtdebug",         dest="mtdebug",     default=False,     action="store_true", help="Log multi-threaded call sequences")
 parser.add_option("--skip-online-check",dest="forceOnline", default=False,   action="store_true", help="Go into online mode, even if internet connection isn't detected")
 parser.add_option("--skip-stats-report", dest="skipStatsReport", default=False, action="store_true", help="Does announcement checking without any OS/version reporting (for ATI statistics)")
-parser.add_option("--skip-announce-check",dest="skipAnnounceCheck", default=False, action="store_true", help="Do not query for Armory announcements")
-parser.add_option("--tor",             dest="useTorSettings", default=False, action="store_true", help="Enable common settings for when Armory connects through Tor")
-parser.add_option("--keypool",         dest="keypool",     default=100, type="int",                help="Default number of addresses to lookahead in Armory wallets")
+parser.add_option("--skip-announce-check",dest="skipAnnounceCheck", default=False, action="store_true", help="Do not query for Groestlcoin Armory announcements")
+parser.add_option("--tor",             dest="useTorSettings", default=False, action="store_true", help="Enable common settings for when Groestlcoin Armory connects through Tor")
+parser.add_option("--keypool",         dest="keypool",     default=100, type="int",                help="Default number of addresses to lookahead in Groestlcoin Armory wallets")
 parser.add_option("--redownload",      dest="redownload",  default=False,     action="store_true", help="Delete Groestlcoin-Qt/groestlcoind databases; redownload")
 parser.add_option("--rebuild",         dest="rebuild",     default=False,     action="store_true", help="Rebuild blockchain database and rescan")
 parser.add_option("--rescan",          dest="rescan",      default=False,     action="store_true", help="Rescan existing blockchain DB")
@@ -577,7 +577,7 @@ if not CLI_OPTIONS.rpcport == DEFAULT:
    try:
       ARMORY_RPC_PORT = int(CLI_OPTIONS.rpcport)
    except:
-      raise TypeError('Invalid RPC port for armoryd ' + str(ARMORY_RPC_PORT))
+      raise TypeError('Invalid RPC port for groestlcoinarmoryd ' + str(ARMORY_RPC_PORT))
 
 
 

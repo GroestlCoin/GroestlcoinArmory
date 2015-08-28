@@ -52,7 +52,7 @@ class DlgLockboxEditor(ArmoryDialog):
             address string, and always starts with "02", "03" or "04". 
             Most wallet applications do not provide an easy way to access  
             a public key associated with a given address.  This is easiest
-            if everyone is using Armory. 
+            if everyone is using Groestlcoin Armory. 
             <br><br>
             The address book buttons next to each input box below will show you 
             normal address strings, but will enter the correct public 
