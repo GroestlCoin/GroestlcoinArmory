@@ -2125,7 +2125,7 @@ class ArmoryMainWindow(QMainWindow):
       elif OS_MACOSX:
          shortOS = 'mac'
 
-      webURL = 'http://www.groestlcoin.org'
+      webURL = 'http://www.groestlcoin.org/download'
       if shortOS is not None:
          webURL += '#' + shortOS
 
@@ -4491,17 +4491,17 @@ class ArmoryMainWindow(QMainWindow):
 
       #####
       def openBitcoinOrg():
-         webbrowser.open('http://www.groestlcoin.org')
+         webbrowser.open('http://www.groestlcoin.org/download')
 
 
       #####
       def openInstruct():
          if OS_WINDOWS:
-            webbrowser.open('http://www.groestlcoin.org')
+            webbrowser.open('http://www.groestlcoin.org/forum')
          elif OS_LINUX:
-            webbrowser.open('http://www.groestlcoin.org')
+            webbrowser.open('http://www.groestlcoin.org/forum')
          elif OS_MACOSX:
-            webbrowser.open('http://www.groestlcoin.org')
+            webbrowser.open('http://www.groestlcoin.org/forum')
 
 
 
@@ -5335,8 +5335,7 @@ class ArmoryMainWindow(QMainWindow):
          your funds if something terrible happens to you.  <i>Each wallet
          only needs to be backed up once, ever!</i>  Without it, you are at
          risk of losing all of your Groestlcoins!  For more information,
-         visit the <a href="http://www.groestlcoin.org/forum/">Groestlcoin Armory
-         Backups page</a>.
+         visit the <a href="http://www.groestlcoin.org/forum/">Groestlcoin Forum</a>.
          <br><br> """)
       elif state == 'OnlineFull1':
          return tr( \
@@ -6621,7 +6620,7 @@ class ArmoryMainWindow(QMainWindow):
             # click on the tx in their ledger if they want to see what's in it.
             # amt = determineSentToSelfAmt(le, cppWlt)[0]
             # self.sysTray.showMessage('Your groestlcoins just did a lap!', \
-            #                          'Wallet "%s" (%s) just sent %s BTC to itself!' % \
+            #                          'Wallet "%s" (%s) just sent %s GRS to itself!' % \
             #                          (wlt.labelName, moneyID, coin2str(amt,maxZeros=1).strip()),
             self.sysTray.showMessage(tr('Your groestlcoins just did a lap!'), \
                                      tr('%(wltName)s just sent some GRS to itself!') % { 'wltName' : wltName }, \
@@ -6742,7 +6741,7 @@ class ArmoryMainWindow(QMainWindow):
    def closeForReal(self):
       '''
       Unlike File->Quit or clicking the X on the window, which may actually
-      minimize Groestlcoin Armory, this method is for *really* closing Armory
+      minimize Groestlcoin Armory, this method is for *really* closing Groestlcoin Armory
       '''
       
       self.setCursor(Qt.WaitCursor)
