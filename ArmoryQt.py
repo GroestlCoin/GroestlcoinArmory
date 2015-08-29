@@ -3886,7 +3886,6 @@ class ArmoryMainWindow(QMainWindow):
 
    #############################################################################
    def execAddressBook(self):
-      st = TheBDM.getState()  #!!!T
       if TheBDM.getState()==BDM_SCANNING:
          QMessageBox.warning(self, 'Blockchain Not Ready', \
             'The address book is created from transaction data available in '

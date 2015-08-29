@@ -696,7 +696,7 @@ void DBTx::unserialize(BinaryRefReader & brr, bool fragged)
       numBytes_ = nbytes;
       uint32_t span = offsetsOut[numTxOut_] - offsetsOut[0];
       fragBytes_ = numBytes_ - span;
-      BtcUtils::getHash256(getDataCopy(), thisHash_);
+	  thisHash_ = BtcUtils::getSha256(getDataCopy());
    }
 }
 

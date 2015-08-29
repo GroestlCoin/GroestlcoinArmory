@@ -550,6 +550,14 @@ public:
       return hashOutput; 
    }
 
+   static BinaryData getSha256(BinaryData const & strToHash) {
+	   return getSha256(strToHash.getPtr(), strToHash.getSize());
+   }
+
+   static void getSha256(BinaryData const & strToHash, BinaryData & hashOutput) {
+	   hashOutput = getSha256(strToHash);
+   }
+
    /////////////////////////////////////////////////////////////////////////////
    static void getHash256(BinaryData const & strToHash, 
                           BinaryData &       hashOutput)

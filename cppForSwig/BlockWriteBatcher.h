@@ -103,7 +103,7 @@ struct PulledTx : public DBTx
          numBytes_ = nbytes;
          uint32_t span = offsetsOut[numTxOut_] - offsetsOut[0];
          fragBytes_ = numBytes_ - span;
-         BtcUtils::getHash256(bdDataCopy_, thisHash_);
+		 thisHash_ = BtcUtils::getSha256(bdDataCopy_);
       }
    }
    
@@ -249,8 +249,7 @@ struct PulledBlock : public DBBlock
          size_t txSize = BtcUtils::TxCalcLength(ptr, brr.getSizeRemaining(),
             &stx.txInIndexes_, &txOutIndexes);
          numBytes_ += txSize;
-         BtcUtils::getHash256(ptr, txSize, stx.thisHash_);
-
+		 stx.thisHash_ = BtcUtils::getSha256(ptr, txSize);
 
          //if fileMapPtr_ is poiting to something, we go this block from a
          //FileMap object, let's avoid copies and just point the data through a

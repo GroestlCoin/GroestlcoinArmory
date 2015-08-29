@@ -5701,7 +5701,7 @@ def extractTxInfo(pytx, rcvTime=None):
          txinFromList[-1].append(script_to_scrAddr(ustxi.txoScript))
          txinFromList[-1].append(ustxi.value)
          txinFromList[-1].append('')
-         txinFromList[-1].append(hash256(ustxi.supportTx))
+         txinFromList[-1].append(sha256(ustxi.supportTx))			#GRS
          txinFromList[-1].append(ustxi.outpoint.txOutIndex)
          txinFromList[-1].append(ustxi.txoScript)
    else:  # BDM is not initialized
@@ -6178,11 +6178,7 @@ class DlgDispTxInfo(ArmoryDialog):
                   'of the same transaction, and change-back-to-sender outputs '
                   '(change outputs are displayed in light gray).')
 
-      self.lblChangeDescr = QRichLabel( tr("""Some outputs might be "change."
-         <a href="https://bitcoinarmory.com/all-about-change">Click for more 
-         info</a>"""), doWrap=False)
-      self.lblChangeDescr.setOpenExternalLinks(True)
-        
+     
 
 
       inStrip = makeLayoutFrame(HORIZONTAL, [lblInputs, ttipInputs, STRETCH])
@@ -6209,7 +6205,6 @@ class DlgDispTxInfo(ArmoryDialog):
                                  self.btnCopy, 
                                  self.lblCopied,  
                                  'Stretch', 
-                                 self.lblChangeDescr,
                                  'Stretch',
                                  self.btnOk])
 
@@ -6246,7 +6241,6 @@ class DlgDispTxInfo(ArmoryDialog):
          self.btnCopy.setVisible(True)
          self.lblCopied.setVisible(True)
          self.btnIOList.setText('<<< Less Info')
-         self.lblChangeDescr.setVisible(True)
          self.scriptArea.setVisible(False) # self.mode == USERMODE.Expert)
          # Disabling script area now that you can double-click to get it
       else:
@@ -6254,7 +6248,6 @@ class DlgDispTxInfo(ArmoryDialog):
          self.scriptArea.setVisible(False)
          self.btnCopy.setVisible(False)
          self.lblCopied.setVisible(False)
-         self.lblChangeDescr.setVisible(False)
          self.btnIOList.setText('Advanced >>>')
 
    def dispTxioInfo(self, InOrOut):
