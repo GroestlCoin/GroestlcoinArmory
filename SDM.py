@@ -531,14 +531,14 @@ class SatoshiDaemonManager(object):
                icacls_out = subprocess_check_output(cmd_icacls, **kargs)
                LOGINFO('icacls returned: %s', icacls_out)
             else:
-               LOGWARN('Skipped setting permissions on bitcoin.conf file')
+               LOGWARN('Skipped setting permissions on groestlcoin.conf file')
             
       else:
          if not CLI_OPTIONS.disableConfPermis:
-            LOGINFO('Setting permissions on bitcoin.conf')
+            LOGINFO('Setting permissions on groestlcoin.conf')
             os.chmod(bitconf, stat.S_IRUSR | stat.S_IWUSR)
          else:
-            LOGWARN('Skipped setting permissions on bitcoin.conf file')
+            LOGWARN('Skipped setting permissions on groestlcoin.conf file')
 
 
       with open(bitconf,'r') as f:

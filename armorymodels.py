@@ -1248,7 +1248,10 @@ class TxInDispModel(QAbstractTableModel):
             # We had a BDM to help us get info on each input -- use it
             scrAddr,val,blk,hsh,idx,script = txinListFromBDM[i]
             dispInfo = self.main.getDisplayStringForScript(script, 60)
-            addrStr = dispInfo['String']
+            if script=='' and scrAddr!='':
+               addrStr = binary_to_base58(scrAddr + hash256(scrAddr)[:4])
+            else:
+               addrStr = dispInfo['String']
             wltID   = dispInfo['WltID']
             if not wltID:
                wltID  = dispInfo['LboxID']
