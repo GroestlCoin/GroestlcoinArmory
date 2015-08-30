@@ -586,7 +586,7 @@ if sys.argv[0]=='ArmoryQt.py':
    print 'Loading Groestlcoin Armory Engine:'
    print '   Groestlcoin Armory Version:      ', getVersionString(BTCARMORY_VERSION)
    print '   Groestlcoin Armory Build:        ', BTCARMORY_BUILD
-   print '   PyBtcWallet  Version:', getVersionString(PYBTCWALLET_VERSION)
+   print '   PyGrsWallet  Version:', getVersionString(PYBTCWALLET_VERSION)
    print 'Detected Operating system:', OS_NAME
    print '   OS Variant            :', OS_VARIANT
    print '   User home-directory   :', USER_HOME_DIR
@@ -1211,7 +1211,7 @@ LOGINFO('************************************************************')
 LOGINFO('Loading Groestlcoin Armory Engine:')
 LOGINFO('   Groestlcoin Armory Version        : ' + getVersionString(BTCARMORY_VERSION))
 LOGINFO('   Groestlcoin Armory Build:         : ' + str(BTCARMORY_BUILD))
-LOGINFO('   PyBtcWallet  Version  : ' + getVersionString(PYBTCWALLET_VERSION))
+LOGINFO('   PyGrsWallet  Version  : ' + getVersionString(PYBTCWALLET_VERSION))
 LOGINFO('Detected Operating system: ' + OS_NAME)
 LOGINFO('   OS Variant            : ' + (OS_VARIANT[0] if OS_MACOSX else '-'.join(OS_VARIANT)))
 LOGINFO('   User home-directory   : ' + USER_HOME_DIR)
