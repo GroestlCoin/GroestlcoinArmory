@@ -59,7 +59,7 @@ class DlgLockboxEditor(ArmoryDialog):
             key of the address you select.  
             <br><br>
             If you are creating this lockbox with other
-            Armory users, they can use the "Select Public Key" button
+            Groestlcoin Armory users, they can use the "Select Public Key" button
             from the Lockbox Manager dashboard to pick a key and enter
             their contact info.  You can use the "Import" button
             on each public key line to import the data they send you."""),
@@ -2261,7 +2261,7 @@ class DlgSelectPublicKey(ArmoryDialog):
          QMessageBox.warning(self, tr('Invalid Public Key'), tr("""
             You must enter a public key into the box, <b>not</b> a regular 
             Groestlcoin address that most users are accustomed to.  A public key 
-            is much longer than a Bitcoin address, and always starts with 
+            is much longer than a Groestlcoin address, and always starts with 
             "02", "03" or "04"."""), QMessageBox.Ok)
          return None
 

@@ -5511,7 +5511,7 @@ class ArmoryMainWindow(QMainWindow):
             'restart Groestlcoin Armory.')
          if state == 'InitializingLongTime':
             return tr("""
-            <b>To maximize your security, the Bitcoin engine is downloading
+            <b>To maximize your security, the Groestlcoin engine is downloading
             and verifying the global transaction ledger.  <u>This will take
             several hours, but only needs to be done once</u>!</b>  It is
             usually best to leave it running over night for this
