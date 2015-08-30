@@ -43,7 +43,7 @@ class DlgLockboxEditor(ArmoryDialog):
 
       lblDescr3 = QRichLabel(tr("""
          <b><u>NOTE:</u> Multi-sig "lockboxes" require <u>public keys</u>, not 
-         the address strings most Bitcoin users are familiar with.</b>
+         the address strings most Groestlcoin users are familiar with.</b>
          <a href="None">Click for more info</a>."""))
 
       def openMoreInfo(*args): 
@@ -1190,7 +1190,7 @@ class DlgLockboxManager(ArmoryDialog):
             self.lblDispAddr.setEnabled(True)
             self.lblDispAddr.setText(tr("""
                Anyone can send funds to this lockbox using this
-               Bitcoin address: <br><b>%s</b>""") % p2shAddr)
+               Groestlcoin address: <br><b>%s</b>""") % p2shAddr)
 
       self.updateDashFuncs.append(updateRegFundCell)
 
@@ -2155,7 +2155,7 @@ class DlgSelectPublicKey(ArmoryDialog):
          <center><font size=4><b><u>Select Public Key for Lockbox 
          Creation</u></b></font></center>
          <br>
-         Lockbox creation requires <b>public keys</b> not the regular Bitcoin
+         Lockbox creation requires <b>public keys</b> not the regular Groestlcoin
          addresses most users are accustomed to.  A public key is much longer
          than a regular Groestlcoin address, usually starting with "02", "03" or
          "04".  Once you have selected a public key, send it to the lockbox 
@@ -2168,7 +2168,7 @@ class DlgSelectPublicKey(ArmoryDialog):
          You <u>can</u> use a public key from a watching-only wallet (for 
          an offline wallet), but you will have to sign the transactions the
          same way you would a regular offline transaction.  Additionally the 
-         offline computer will need to have Armory version 0.92 or later.
+         offline computer will need to have Groestlcoin Armory version 0.93.99.1 or later.
          <br><br>
          <b><font color="%s">BACKUP WARNING</b></b>:  
          It is highly recommended that you select a public key from a
@@ -2260,7 +2260,7 @@ class DlgSelectPublicKey(ArmoryDialog):
          LOGEXCEPT('Invalid public key entered')
          QMessageBox.warning(self, tr('Invalid Public Key'), tr("""
             You must enter a public key into the box, <b>not</b> a regular 
-            Bitcoin address that most users are accustomed to.  A public key 
+            Groestlcoin address that most users are accustomed to.  A public key 
             is much longer than a Bitcoin address, and always starts with 
             "02", "03" or "04"."""), QMessageBox.Ok)
          return None

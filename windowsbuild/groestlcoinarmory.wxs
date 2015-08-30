@@ -2,7 +2,7 @@
 
 
 <?define UpgradeCode="433bbf0a-7ae4-4013-90df-bfeb45120970"?>
-<?define PRODVER="2.11"?>
+<?define PRODVER="0.93.99.1"?>
 
 <?if $(sys.BUILDARCH) = x64 ?>
 	<?define OUTDIR="..\x64_R_St\"?>

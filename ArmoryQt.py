@@ -1591,7 +1591,7 @@ class ArmoryMainWindow(QMainWindow):
          modulepathname += unicode(passstr[0:(rtlength*2)], encoding='utf16') + u'" "%1"'
          modulepathname = modulepathname.encode('utf8')
 
-         rootKey = 'bitcoin\\shell\\open\\command'
+         rootKey = 'groestlcoin\\shell\\open\\command'
          try:
             userKey = 'Software\\Classes\\' + rootKey
             registryKey = OpenKey(HKEY_CURRENT_USER, userKey, 0, KEY_READ)
@@ -5421,7 +5421,7 @@ class ArmoryMainWindow(QMainWindow):
             'groestlcoins and viewing the balances and transaction histories '
             'of each of your wallets.<br><br>')
          elif state == 'OfflineNoSatoshi':
-            bitconf = os.path.join(BTC_HOME_DIR, 'bitcoin.conf')
+            bitconf = os.path.join(BTC_HOME_DIR, 'groestlcoin.conf')
             return tr( \
             'You are currently in offline mode because '
             'Groestlcoin-Qt is not running.  To switch to online '
@@ -5513,9 +5513,7 @@ class ArmoryMainWindow(QMainWindow):
             return tr("""
             <b>To maximize your security, the Groestlcoin engine is downloading
             and verifying the global transaction ledger.  <u>This will take
-            several hours, but only needs to be done once</u>!</b>  It is
-            usually best to leave it running over night for this
-            initialization process.  Subsequent loads will only take a few
+            several hours, but only needs to be done once</u>!</b>  Subsequent loads will only take a few
             minutes.
             <br><br>
             <b>Please Note:</b> Between Groestlcoin Armory and the underlying Groestlcoin

@@ -2139,7 +2139,7 @@ class DlgWalletDetails(ArmoryDialog):
       if not self.main.getSettingOrSetDefault('DNAA_ImportWarning', False):
          result = MsgBoxWithDNAA(self, self.main, MSGBOX.Warning, \
             tr("""Imported Address Warning"""), tr("""
-            Armory supports importing of external private keys into your
+            Groestlcoin Armory supports importing of external private keys into your
             wallet but imported addresses are <u>not</u> automatically
             protected by your backups.  If you do not plan to use the
             address again, it is recommended that you "Sweep" the private
@@ -4090,8 +4090,7 @@ class DlgIntroMessage(ArmoryDialog):
          'for loss of groestlcoins resulting from the use of this software!'
          '<br><br>'
          'For more info about Groestlcoin Armory, and Groestlcoin itself, see '
-         '<a href="http://groestlcoin.org/faq">frequently '
-         'asked questions</a>.')
+         '<a href="http://groestlcoin.org/forum">Groestlcoin Forum</a>.')
       lblDescr.setOpenExternalLinks(True)
 
       lblContact = QRichLabel(\
@@ -7942,9 +7941,9 @@ class DlgECDSACalc(ArmoryDialog):
       gystr = '483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8'
 
       lblDescr = QRichLabel(tr("""
-         Use this form to perform Bitcoin elliptic curve calculations.  All
+         Use this form to perform Groestlcoin elliptic curve calculations.  All
          operations are performed on the secp256k1 elliptic curve, which is
-         the one used for Bitcoin.
+         the one used for Groestlcoin.
          Supply all values as 32-byte, big-endian, hex-encoded integers.
          <br><br>
          The following is the secp256k1 generator point coordinates (G): <br>
@@ -9413,7 +9412,7 @@ class DlgSettings(ArmoryDialog):
       elif modestr.lower() == 'advanced':
          strDescr += \
             ('"Advanced" mode provides '
-             'extra Armory features such as private key '
+             'extra Groestlcoin Armory features such as private key '
              'importing & sweeping, message signing, and the offline wallet '
              'interface.  But, with advanced features come advanced risks...')
       elif modestr.lower() == 'expert':
@@ -14671,7 +14670,7 @@ class DlgFactoryReset(ArmoryDialog):
          <br><br>
          It is <i>strongly</i> recommended that you make backups of your
          wallets before continuing, though <b>wallet files will never be
-         intentionally deleted!</b>  All Armory
+         intentionally deleted!</b>  All Groestlcoin Armory
          wallet files, and the wallet.dat file used by Groestlcoin-Qt/groestlcoind
          should remain untouched in their current locations.  All Groestlcoin Armory
          wallets will automatically be detected and loaded after the reset.
@@ -14764,7 +14763,7 @@ class DlgFactoryReset(ArmoryDialog):
 
       if self.rdoSettings.isChecked():
          reply = QMessageBox.warning(self, tr('Confirmation'), tr("""
-            You are about to delete your settings and force Armory to rescan
+            You are about to delete your settings and force Groestlcoin Armory to rescan
             its databases.  Are you sure you want to do this?"""), \
             QMessageBox.Cancel | QMessageBox.Ok)
 
@@ -14779,7 +14778,7 @@ class DlgFactoryReset(ArmoryDialog):
 
       elif self.rdoArmoryDB.isChecked():
          reply = QMessageBox.warning(self, tr('Confirmation'), tr("""
-            You are about to delete your settings and force Armory to delete
+            You are about to delete your settings and force Groestlcoin Armory to delete
             and rebuild its databases.  Are you sure you want to do this?"""), \
             QMessageBox.Cancel | QMessageBox.Ok)
 
@@ -14800,7 +14799,7 @@ class DlgFactoryReset(ArmoryDialog):
                You are about to delete <b>all</b>
                blockchain databases on your system.  The Groestlcoin software will
                have to redownload of blockchain data over the peer-to-peer
-               network again which can take from 8 to 72 hours depending on
+               network again which can take from 30 min to 1 hour depending on
                your system speed and connection.  <br><br><b>Are you absolutely
                sure you want to do this?</b>""")
          else:
@@ -14808,7 +14807,7 @@ class DlgFactoryReset(ArmoryDialog):
                You are about to delete your settings and delete <b>all</b>
                blockchain databases on your system.  The Groestlcoin software will
                have to redownload of blockchain data over the peer-to-peer
-               network again which can take from 8 to 72 hours depending on
+               network again which can take from 30 min to 1 hour depending on
                your system speed and connection.  <br><br><b>Are you absolutely
                sure you want to do this?</b>""")
             

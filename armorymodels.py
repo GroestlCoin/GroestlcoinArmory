@@ -391,7 +391,7 @@ class LedgerDispModelSimple(QAbstractTableModel):
                if isCB:
                   tooltipStr = '%d/120 confirmations'%nConf
                   tooltipStr += ( '\n\nThis is a "generation" transaction from\n'
-                                 'Bitcoin mining.  These transactions take\n'
+                                 'Groestlcoin mining.  These transactions take\n'
                                  '120 confirmations (approximately one day)\n'
                                  'before they are available to be spent.')
                else:
