@@ -2963,7 +2963,7 @@ class PyBtcWallet(object):
 
    #############################################################################
    def pprint(self, indent='', allAddrInfo=True):
-      print indent + 'PyBtcWallet  :', self.uniqueIDB58
+      print indent + 'PyGrsWallet  :', self.uniqueIDB58
       print indent + '   useEncrypt:', self.useEncryption
       print indent + '   watchOnly :', self.watchingOnly
       print indent + '   isLocked  :', self.isLocked
