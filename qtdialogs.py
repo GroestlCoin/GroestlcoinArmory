@@ -4417,7 +4417,7 @@ class DlgRemoveWallet(ArmoryDialog):
       lblWarning.setAlignment(Qt.AlignHCenter)
 
       lblWarning2 = QLabel('<i>You have requested that the following wallet '
-                            'be removed from Armory:</i>')
+                            'be removed from Groestcoin Armory:</i>')
       lblWarning.setTextFormat(Qt.RichText)
       lblWarning.setWordWrap(True)
       lblWarning.setAlignment(Qt.AlignHCenter)
@@ -8832,27 +8832,27 @@ class DlgSettings(ArmoryDialog):
 
    
       lblDefaultUriTitle = QRichLabel(tr("""
-         <b>Set Armory as default URL handler</b>"""))
+         <b>Set Groestcoin Armory as default URL handler</b>"""))
       lblDefaultURI = QRichLabel(tr("""
-         Set Armory to be the default when you click on "groestlcoin:"
+         Set Groestcoin Armory to be the default when you click on "groestlcoin:"
          links in your browser or in emails.
          You can test if your operating system is supported by clicking
          on a "groestlcoin:" link right after clicking this button."""))
-      btnDefaultURI = QPushButton(tr('Set Armory as Default'))
+      btnDefaultURI = QPushButton(tr('Set Groestcoin Armory as Default'))
       frmBtnDefaultURI = makeHorizFrame([btnDefaultURI, 'Stretch'])
 
       self.chkAskURIAtStartup = QCheckBox(tr("""
-         Check whether Armory is the default handler at startup"""))
+         Check whether Groestcoin Armory is the default handler at startup"""))
       askuriDNAA = self.main.getSettingOrSetDefault('DNAA_DefaultApp', False)
       self.chkAskURIAtStartup.setChecked(not askuriDNAA)
 
       def clickRegURI():
          self.main.setupUriRegistration(justDoIt=True)
          QMessageBox.information(self, tr('Registered'), tr("""
-            Armory just attempted to register itself to handle "groestlcoin:"
+            Groestcoin Armory just attempted to register itself to handle "groestlcoin:"
             links, but this does not work on all operating systems.  You can
             test it by going to the
-            <a href="http://www.bitcoinarmory.com">Bitcoin Armory
+            <a href="http://groestlcoin.org">Groestcoin Armory
             website</a> and clicking the link at the bottom of the
             homepage."""), QMessageBox.Ok)
 
@@ -8947,7 +8947,7 @@ class DlgSettings(ArmoryDialog):
          <br>
          You can have Groestlcoin Armory automatically minimize itself to your system
          tray on open or close.  Groestlcoin Armory will stay open but run in the
-         background, and you will still receive notifications.  Access Armory
+         background, and you will still receive notifications.  Access Groestcoin Armory
          through the icon on your system tray.
          <br><br>
          If select "Minimize on close", the 'x' on the top window bar will
@@ -14395,7 +14395,7 @@ class DlgCorruptWallet(DlgProgress):
       lblDescr = QRichLabel(tr("""
          <font color="%(color)s" size=5><b><u>%(title)s</u></b></font>
          <br><br>
-         Armory software now detects and prevents certain kinds of 
+         Groestlcoin Armory software now detects and prevents certain kinds of 
          hardware errors that could lead to problems with your wallet.  
          <br> """) % { 'color' : htmlColor('TextWarn'), 'title' : titleStr })
 
@@ -15041,11 +15041,11 @@ class DlgBroadcastBlindTx(ArmoryDialog):
          linkToExplorer = 'http://blockexplorer.com/testnet/tx/%s' % hexhash
          dispToExplorer = 'http://blockexplorer.com/testnet/tx/%s...' % hexhash[:16]
       else:
-         linkToExplorer = 'https://blockchain.info/search/%s' % hexhash
-         dispToExplorer = 'https://blockchain.info/search/%s...' % hexhash[:16]
+         linkToExplorer = 'https://chainz.cryptoid.info/grs/search.dws?%s' % hexhash
+         dispToExplorer = 'https://chainz.cryptoid.info/grs/search.dws?%s...' % hexhash[:16]
 
       QMessageBox.information(self, tr("Broadcast!"), tr("""
-         Your transaction was successfully sent to the local Bitcoin
+         Your transaction was successfully sent to the local Groestcloin
          Core instance, though there is no guarantees that it was
          forwarded to the rest of the network.   On testnet, just about
          every valid transaction will successfully propagate.  On the
@@ -15059,7 +15059,7 @@ class DlgBroadcastBlindTx(ArmoryDialog):
          <br><br>
          If this is test
          You can check whether it was seen by other nodes on the network
-         blockchain.info (this link will not work on testnet):
+         chainz.cryptoid.info/grs  (this link will not work on testnet):
          <br><br>
          <a href="%(link)s">%(disp)s</a>""") % \
          { 'hexhash' : hexhash, 'link' : linkToExplorer, 'disp' : dispToExplorer}, QMessageBox.Ok)

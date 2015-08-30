@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 
 # jackjack's signing/verifying tool
 # verifies base64 signatures from Bitcoin
@@ -13,6 +13,8 @@ import base64
 import hashlib
 import random
 import time
+
+from armoryengine.ArmoryUtils import hash256
 
 import CppBlockUtils
 from armoryengine.ArmoryUtils import getVersionString, BTCARMORY_VERSION, \
@@ -35,11 +37,11 @@ END_MARKER = '-----END '
 DASHX5 = '-----'
 RN = '\r\n'
 RNRN = '\r\n\r\n'
-CLEARSIGN_MSG_TYPE_MARKER = 'BITCOIN SIGNED MESSAGE'
-BITCOIN_SIG_TYPE_MARKER = 'BITCOIN SIGNATURE'
-BASE64_MSG_TYPE_MARKER = 'BITCOIN MESSAGE'
-BITCOIN_ARMORY_COMMENT = 'Comment: Signed by Bitcoin Armory v' +\
-   getVersionString(BTCARMORY_VERSION, 3)
+CLEARSIGN_MSG_TYPE_MARKER = 'GROESTLCOIN SIGNED MESSAGE'
+BITCOIN_SIG_TYPE_MARKER = 'GROESTLCOIN SIGNATURE'
+BASE64_MSG_TYPE_MARKER = 'GROESTLCOIN MESSAGE'
+BITCOIN_ARMORY_COMMENT = 'Comment: Signed by Groestlcoin Armory v' +\
+   getVersionString(BTCARMORY_VERSION, 4)
 class UnknownSigBlockType(Exception): pass
    
 def randomk():  
@@ -52,7 +54,7 @@ def randomk():
 # Common constants/functions for Bitcoin
 def hash_160_to_bc_address(h160, addrtype=0):
    vh160 = chr(addrtype) + h160
-   h = Hash(vh160)
+   h = hash256(vh160)               #GRS
    addr = vh160 + h[0:4]
    return b58encode(addr)
 
@@ -60,8 +62,8 @@ def bc_address_to_hash_160(addr):
    hash160 = b58decode(addr, 25)
    return hash160[1:21]
 
-def Hash(data):
-   return hashlib.sha256(hashlib.sha256(data).digest()).digest()
+#GRS def Hash(data):
+#GRS    return hashlib.sha256(hashlib.sha256(data).digest()).digest()
 
 def sha256(data):
    return hashlib.sha256(data).digest()
@@ -125,7 +127,7 @@ def DecodeBase58Check(psz):
    vchRet = b58decode(psz, None)
    key = vchRet[0:-4]
    csum = vchRet[-4:]
-   hashValue = Hash(key)
+   hashValue = hash256(key)
    cs32 = hashValue[0:4]
    if cs32 != csum:
       return None
@@ -428,7 +430,7 @@ def decvi(d):
    return '\xff'+decbin(d,8,True)
 
 def format_msg_to_sign(msg):
-   return "\x18Bitcoin Signed Message:\n"+decvi(len(msg))+msg
+   return "\x1CGroestlCoin Signed Message:\n"+decvi(len(msg))+msg
 
 def sqrt_mod(a, p):
    return pow(a, (p+1)/4, p)
@@ -444,7 +446,7 @@ randrange = random.SystemRandom().randrange
 def verify_message_Bitcoin(signature, message, pureECDSASigning=False, networkVersionNumber=0):
    msg=message
    if not pureECDSASigning:
-      msg=Hash(format_msg_to_sign(message))
+      msg=sha256(format_msg_to_sign(message))
 
    compressed=False
    curve = curve_secp256k1
@@ -496,7 +498,7 @@ def sign_message(secret, message, pureECDSASigning=False):
 
    msg=message
    if not pureECDSASigning:
-      msg=Hash(format_msg_to_sign(message))
+      msg=sha256(format_msg_to_sign(message))
 
    eckey           = EC_KEY(str_to_long(secret), compressed)
    private_key     = eckey.privkey

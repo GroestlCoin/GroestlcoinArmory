@@ -583,18 +583,18 @@ if not CLI_OPTIONS.rpcport == DEFAULT:
 
 if sys.argv[0]=='ArmoryQt.py':
    print '********************************************************************************'
-   print 'Loading Armory Engine:'
-   print '   Armory Version:      ', getVersionString(BTCARMORY_VERSION)
-   print '   Armory Build:        ', BTCARMORY_BUILD
+   print 'Loading Groestlcoin Armory Engine:'
+   print '   Groestlcoin Armory Version:      ', getVersionString(BTCARMORY_VERSION)
+   print '   Groestlcoin Armory Build:        ', BTCARMORY_BUILD
    print '   PyBtcWallet  Version:', getVersionString(PYBTCWALLET_VERSION)
    print 'Detected Operating system:', OS_NAME
    print '   OS Variant            :', OS_VARIANT
    print '   User home-directory   :', USER_HOME_DIR
-   print '   Satoshi BTC directory :', BTC_HOME_DIR
-   print '   Armory home dir       :', ARMORY_HOME_DIR
-   print '   ArmoryDB directory     :', ARMORY_DB_DIR
-   print '   Armory settings file  :', SETTINGS_PATH
-   print '   Armory log file       :', ARMORY_LOG_FILE
+   print '   Satoshi GRS directory :', BTC_HOME_DIR
+   print '   Groestlcoin Armory home dir       :', ARMORY_HOME_DIR
+   print '   Groestlcoin ArmoryDB directory     :', ARMORY_DB_DIR
+   print '   Groestlcoin Armory settings file  :', SETTINGS_PATH
+   print '   Groestlcoin Armory log file       :', ARMORY_LOG_FILE
    print '   Do wallet checking    :', DO_WALLET_CHECK
 
 
@@ -1208,15 +1208,15 @@ LOGINFO('')
 LOGINFO('************************************************************')
 LOGINFO('Invoked: ' + ' '.join(sys.argv))
 LOGINFO('************************************************************')
-LOGINFO('Loading Armory Engine:')
-LOGINFO('   Armory Version        : ' + getVersionString(BTCARMORY_VERSION))
-LOGINFO('   Armory Build:         : ' + str(BTCARMORY_BUILD))
+LOGINFO('Loading Groestlcoin Armory Engine:')
+LOGINFO('   Groestlcoin Armory Version        : ' + getVersionString(BTCARMORY_VERSION))
+LOGINFO('   Groestlcoin Armory Build:         : ' + str(BTCARMORY_BUILD))
 LOGINFO('   PyBtcWallet  Version  : ' + getVersionString(PYBTCWALLET_VERSION))
 LOGINFO('Detected Operating system: ' + OS_NAME)
 LOGINFO('   OS Variant            : ' + (OS_VARIANT[0] if OS_MACOSX else '-'.join(OS_VARIANT)))
 LOGINFO('   User home-directory   : ' + USER_HOME_DIR)
-LOGINFO('   Satoshi BTC directory : ' + BTC_HOME_DIR)
-LOGINFO('   Armory home dir       : ' + ARMORY_HOME_DIR)
+LOGINFO('   Satoshi GRS directory : ' + BTC_HOME_DIR)
+LOGINFO('   Groestlcoin Armory home dir       : ' + ARMORY_HOME_DIR)
 LOGINFO('Detected System Specs    : ')
 LOGINFO('   Total Available RAM   : %0.2f GB', SystemSpecs.Memory)
 LOGINFO('   CPU ID string         : ' + SystemSpecs.CpuStr)
@@ -1225,7 +1225,7 @@ LOGINFO('   System is 64-bit      : ' + str(SystemSpecs.IsX64))
 LOGINFO('   Preferred Encoding    : ' + locale.getpreferredencoding())
 LOGINFO('   Machine Arch          : ' + SystemSpecs.Machine)
 LOGINFO('   Available HDD (ARM)   : %d GB' % SystemSpecs.HddAvailA)
-LOGINFO('   Available HDD (BTC)   : %d GB' % SystemSpecs.HddAvailB)
+LOGINFO('   Available HDD (GRS)   : %d GB' % SystemSpecs.HddAvailB)
 LOGINFO('')
 LOGINFO('Network Name: ' + NETWORKS[ADDRBYTE])
 LOGINFO('Satoshi Port: %d', BITCOIN_PORT)
