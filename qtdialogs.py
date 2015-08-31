@@ -7223,7 +7223,7 @@ class DlgPrintBackup(ArmoryDialog):
 
       self.scene.drawText('Paper Backup for Groestlcoin Armory Wallet', GETFONT('Var', 11))
       self.scene.newLine()
-      self.scene.drawText('http://www.bitcoinarmory.com')
+      self.scene.drawText('http://groestlcoin.org')
 
       self.scene.newLine(extra_dy=20)
       self.scene.drawHLine()
@@ -7545,7 +7545,7 @@ def OpenPaperBackupWindow(backupType, parent, main, wlt, unlockTitle=None):
              physically secure it.</li>
       </ul>
       <br>
-      Armory has a backup tester that uses the exact same
+      Groestlcoin Armory has a backup tester that uses the exact same
       process as restoring your wallet, but stops before it writes any
       data to disk.  Would you like to test your backup now?
       """) % verifyText, yesStr="Test Backup", noStr="Cancel")
@@ -8850,11 +8850,7 @@ class DlgSettings(ArmoryDialog):
          self.main.setupUriRegistration(justDoIt=True)
          QMessageBox.information(self, tr('Registered'), tr("""
             Groestcoin Armory just attempted to register itself to handle "groestlcoin:"
-            links, but this does not work on all operating systems.  You can
-            test it by going to the
-            <a href="http://groestlcoin.org">Groestcoin Armory
-            website</a> and clicking the link at the bottom of the
-            homepage."""), QMessageBox.Ok)
+            links, but this does not work on all operating systems."""), QMessageBox.Ok)
 
       self.connect(btnDefaultURI, SIGNAL(CLICKED), clickRegURI)
 
@@ -13777,7 +13773,7 @@ def verifyRecoveryTestID(parent, computedWltID, expectedWltID=None):
    if expectedWltID == None:
       # Testing an arbitrary paper backup
       yesno = QMessageBox.question(parent, tr('Recovery Test'), tr("""
-         From the data you entered, Armory calculated the following
+         From the data you entered, Groestlcoin Armory calculated the following
          wallet ID: <font color="blue"><b>%(id)s</b></font>
          <br><br>
          Does this match the wallet ID on the backup you are
