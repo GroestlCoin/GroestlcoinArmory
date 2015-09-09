@@ -15,9 +15,13 @@ Multi-signature transactions are accommodated under-the-hood about 80%, and will
 In Ubuntu, open a terminal (Applications → Accessories → Terminal) and copy in each of the following lines one at a time :
 
 sudo apt-get install git-core build-essential pyqt4-dev-tools swig libqtcore4 libqt4-dev python-qt4 python-dev python-twisted python-psutil
+
 git clone git://github.com/GroestlCoin/GroestlcoinArmory.git
+
 cd GroestlcoinArmory
+
 make
+
 python ArmoryQt.py
 
 Alternatively you can run "sudo make install" after building and it and it will install Armory onto your Ubuntu system, including but shortcuts in your the Applications --> Internet menu.
