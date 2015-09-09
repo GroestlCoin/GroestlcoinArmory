@@ -78,9 +78,9 @@ See [LICENSE file](LICENSE) or [here][License]
 ##Copyright
 
 Copyright (C) 2011-2015, Armory Technologies, Inc.
+
 Copyright (C) 2015, Groestlcoin
 
-[Armory Build Instructions]: https://bitcoinarmory.com/building-from-source
 [Windows Crypto Download]: http://www.cryptopp.com/#download
 [Windows SWIG Download]: http://www.swig.org/download.html
 [Windows Python Download]: http://www.python.org/getit/
@@ -90,4 +90,3 @@ Copyright (C) 2015, Groestlcoin
 [Windows PyWin Download]: http://sourceforge.net/projects/pywin32/files/pywin32/
 [Windows Py2Exe Download]:  http://www.py2exe.org/
 [License]: http://www.gnu.org/licenses/agpl.html
-[Donation Image]: https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin:1ArmoryXcfq7TnCSuZa9fQjRYwJ4bkRKfv?&label=Armory+Donation
