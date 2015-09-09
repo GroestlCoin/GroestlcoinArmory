@@ -10,10 +10,17 @@ Multi-signature transactions are accommodated under-the-hood about 80%, and will
 
 ** Groestlcoin Armory has no independent networking components built in.** Instead, it relies on the Groestlcoin Core to securely connect to peers, validate blockchain data, and broadcast transactions for us. Although it was initially planned to cut the umbilical cord to the Groestlcoin Core and implement independent networking, it has turned out to be an inconvenience worth having. Reimplementing all the networking code would be fraught with bugs, security holes, and possible blockchain forking.  The reliance on Groestlcoin-Qt right now is actually making Armory more secure!
 
-##Building Armory From Source
+##Building Groestlcoin Armory From Source
 
-See instructions [here][Armory Build Instructions]
+In Ubuntu, open a terminal (Applications → Accessories → Terminal) and copy in each of the following lines one at a time :
 
+sudo apt-get install git-core build-essential pyqt4-dev-tools swig libqtcore4 libqt4-dev python-qt4 python-dev python-twisted python-psutil
+git clone git://github.com/GroestlCoin/GroestlcoinArmory.git
+cd GroestlcoinArmory
+make
+python ArmoryQt.py
+
+Alternatively you can run "sudo make install" after building and it and it will install Armory onto your Ubuntu system, including but shortcuts in your the Applications --> Internet menu.
 
 ##Dependencies
 
