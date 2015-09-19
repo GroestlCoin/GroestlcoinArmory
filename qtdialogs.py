@@ -464,7 +464,7 @@ class DlgBugReport(ArmoryDialog):
       self.txtDescr.setMinimumWidth(w)
       self.txtDescr.setMinimumHeight(4*h)
       self.lblOS = QRichLabel(tr("""
-         Note: if you are using this computer to report an Armory problem
+         Note: if you are using this computer to report an Groestlcoin Armory problem
          on another computer, please include the operating system of the
          other computer and the version of Groestlcoin Armory it is running."""))
 
@@ -478,7 +478,7 @@ class DlgBugReport(ArmoryDialog):
 
       armoryver = getVersionString(BTCARMORY_VERSION)
       lblDetect = QRichLabel( tr("""
-         <b>Detected:</b> %(osname)s (%(osvariant)s) / %(mem)0.2f GB RAM / Armory version %(ver)s<br>
+         <b>Detected:</b> %(osname)s (%(osvariant)s) / %(mem)0.2f GB RAM / Groestlcoin Armory version %(ver)s<br>
          <font size=2>(this data will be submitted automatically with the
          report)</font>""") % \
          { 'osname' : OS_NAME, 'osvariant' : OS_VARIANT[0], 'mem' : SystemSpecs.Memory, 'ver' : armoryver})
@@ -689,12 +689,12 @@ class DlgInconsistentWltReport(ArmoryDialog):
          <font color="%s" size=4><b><u>Important:</u>  Wallet Consistency 
          Issues Detected!</b></font>
          <br><br>
-         Armory now detects certain kinds of hardware errors, and one 
+         Groestlcoin Armory now detects certain kinds of hardware errors, and one 
          or more of your wallets
          was flagged.  The consistency logs need to be analyzed by the 
-         Armory team to determine if any further action is required.
+         Groestlcoin Armory team to determine if any further action is required.
          <br><br>
-         <b>This warning will pop up every time you start Armory until
+         <b>This warning will pop up every time you start Groestlcoin Armory until
          the wallet is fixed</b>""") % (htmlColor('TextWarn')), 
          QMessageBox.Ok)
 
@@ -720,13 +720,13 @@ class DlgInconsistentWltReport(ArmoryDialog):
 
       #too complex to tr() right now
       lblDescr = QRichLabel(("""
-         Armory has detected that %s inconsistent,
+         Groestlcoin Armory has detected that %s inconsistent,
          possibly due to hardware errors out of our control.  It <u>strongly
          recommended</u> you submit the wallet logs to the Groestlcoin Armory team 
-         for review.  Until you hear back from an Armory representative, 
+         for review.  Until you hear back from an Groestlcoin Armory representative, 
          we recommend:
          <ul>
-         <li><b>Do not delete any data in your Armory home directory</b></li>
+         <li><b>Do not delete any data in your Groestlcoin Armory home directory</b></li>
          <li><b>Do not send or receive any funds with the affected 
                 wallet(s)</b></li>
          <li><b>Create a backup of the wallet analysis logs</b></li>
@@ -774,7 +774,7 @@ class DlgInconsistentWltReport(ArmoryDialog):
 
       armoryver = getVersionString(BTCARMORY_VERSION)
       lblDetect = QRichLabel( tr("""
-         <b>Detected:</b> %(osname)s (%(osvariant)s) / %(mem)0.2f GB RAM / Armory version %(ver)s<br>
+         <b>Detected:</b> %(osname)s (%(osvariant)s) / %(mem)0.2f GB RAM / Groestlcoin Armory version %(ver)s<br>
          <font size=2>(this data will be included with the data 
          submission""") % \
          { 'osname' : OS_NAME, 'osvariant' : OS_VARIANT[0], 'mem' : SystemSpecs.Memory, 'ver' : armoryver})
@@ -942,7 +942,7 @@ class DlgInconsistentWltReport(ArmoryDialog):
                You should receive and email shortly from our support system.
                If you do not receive it, you should follow up your request
                with an email to <a href="%(url)s">%(url)s</a>.  
-               You should hear back from an Armory representative within
+               You should hear back from an Groestlcoin Armory representative within
                24 hours.""") % { 'url' : cemail }, QMessageBox.Ok)
             self.accept()
          else:
@@ -1918,7 +1918,7 @@ class DlgWalletDetails(ArmoryDialog):
             webbrowser.open(blkchnURL)
          except:
             QMessageBox.critical(self, tr('Could not open browser'), tr("""
-               Armory encountered an error opening your web browser.  To view 
+               Groestlcoin Armory encountered an error opening your web browser.  To view 
                this address on blockchain.info, please copy and paste 
                the following URL into your browser: 
                <br><br>
@@ -2548,7 +2548,7 @@ def showRecvCoinsWarningIfNecessary(wlt, parent, main):
          receive Groestlcoins to your Groestlcoin Armory wallets until you have successfully
          gotten online <i>at least one time</i>.
          <br><br>
-         Armory is still beta software, and some users report difficulty
+         Groestlcoin Armory is still beta software, and some users report difficulty
          ever getting online.
          <br><br>
          Do you wish to continue?"""), QMessageBox.Cancel | QMessageBox.Ok)
@@ -2606,11 +2606,11 @@ class DlgKeypoolSettings(ArmoryDialog):
          'Armory pre-computes a pool of addresses beyond the last address '
          'you have used, and keeps them in your wallet to "look-ahead."  One '
          'reason it does this is in case you have restored this wallet from '
-         'a backup, and Armory does not know how many addresses you have actually '
+         'a backup, and Groestlcoin Armory does not know how many addresses you have actually '
          'used. '
          '<br><br>'
          'If this wallet was restored from a backup and was very active after '
-         'it was backed up, then it is possible Armory did not pre-compute '
+         'it was backed up, then it is possible Groestlcoin Armory did not pre-compute '
          'enough addresses to find your entire balance.  <b>This condition is '
          'rare</b>, but it can happen.  You may extend the keypool manually, '
          'below.')
@@ -2665,7 +2665,7 @@ class DlgKeypoolSettings(ArmoryDialog):
          # QMessageBox.warning(self, 'Armory is Busy', \
             # 'Armory is in the middle of a scan, and cannot add addresses to '
             # 'any of its wallets until the scan is finished.  Please wait until '
-            # 'the dashboard says that Armory is "online."', QMessageBox.Ok)
+            # 'the dashboard says that Groestlcoin Armory is "online."', QMessageBox.Ok)
          # return
 
 
@@ -2685,7 +2685,7 @@ class DlgKeypoolSettings(ArmoryDialog):
          confirm = QMessageBox.warning(self, 'Are you sure?', \
             'You have entered that you want to compute %d more addresses '
             'for this wallet.  This operation will take a very long time, '
-            'and Groestlcoin Armory will become unresponsive until the computation is '
+            'and Groestlcoin Groestlcoin Armory will become unresponsive until the computation is '
             'finished.  Groestlcoin Armory estimates it will take about %d minutes. '
             '<br><br>Do you want to continue?' % (naddr, int(naddr / 750.)), \
             QMessageBox.Yes | QMessageBox.No)
@@ -3154,7 +3154,7 @@ class DlgImportAddress(ArmoryDialog):
       except CompressedKeyError, e:
          QMessageBox.critical(self, 'Unsupported key type', 'You entered a key '
             'for an address that uses a compressed public key, usually produced '
-            'in Groestlcoin-Qt/groestlcoind wallets created after version 2.1.0.6.  Armory '
+            'in Groestlcoin-Qt/groestlcoind wallets created after version 2.1.0.6.  Groestlcoin Armory '
             'does not yet support this key type.')
          LOGERROR('Compressed key data recognized but not supported')
          return
@@ -4282,7 +4282,7 @@ class DlgImportPaperWallet(ArmoryDialog):
          QMessageBox.question(self, 'Errors Corrected!', \
             'Detected' + article + ' error' + pluralChar + ' on line' +
             pluralChar + ' ' + englishNumberList(errorLines) +
-            ' in the data you entered.  Armory attempted to fix the ' +
+            ' in the data you entered.  Groestlcoin Armory attempted to fix the ' +
             'error' + pluralChar + ' but it is not always right.  Be sure '
             'to verify the "Wallet Unique ID" closely on the next window.', \
             QMessageBox.Ok)
@@ -7572,7 +7572,7 @@ class DlgBadConnection(ArmoryDialog):
       lblDescr = QLabel()
       if not haveInternet and not CLI_OPTIONS.offline:
          lblDescr = QRichLabel(\
-            'Armory was not able to detect an internet connection, so Armory '
+            'Groestlcoin Armory was not able to detect an internet connection, so Groestlcoin Armory '
             'will operate in "Offline" mode.  In this mode, only wallet'
             '-management and unsigned-transaction functionality will be available. '
             '<br><br>'
@@ -8208,7 +8208,7 @@ class DlgAddressBook(ArmoryDialog):
       self.useBareMultiSigCheckBox.setVisible(False)
       self.ttipBareMS = self.main.createToolTipWidget( tr("""
          EXPERT OPTION:  Do not check this box unless you know what it means
-                         and you need it!  Forces Armory to exposes public 
+                         and you need it!  Forces Groestlcoin Armory to exposes public 
                          keys to the blockchain before the funds are spent.  
                          This is only needed for very specific use cases, 
                          and otherwise creates blockchain bloat."""))
@@ -8741,7 +8741,7 @@ class DlgSettings(ArmoryDialog):
             '<b>Groestlcoin Software Management</b>'
             '<br><br>'
             'By default, Groestlcoin Armory will manage the Groestlcoin engine/software in the '
-            'background.  You can choose to manage it yourself, or tell Armory '
+            'background.  You can choose to manage it yourself, or tell Groestlcoin Armory '
             'about non-standard installation configuration.')
       if self.main.settings.hasSetting('SatoshiExe'):
          self.edtSatoshiExePath.setText(self.main.settings.get('SatoshiExe'))
@@ -8807,13 +8807,13 @@ class DlgSettings(ArmoryDialog):
       lblPrivacyTitle = QRichLabel("<b>Privacy Settings</b>")
       lblPrivStatsDescr = QRichLabel("""
          When this software checks for updates and security alerts, it sends
-         your operating system and Armory version to ATI server for statistical
+         your operating system and Groestlcoin Armory version to ATI server for statistical
          purposes.  No attempt is made to identify you.  No IP addresses are 
          logged by ATI servers.  You can continue to receive notifications 
          but not send any statistical information.""")
       lblPrivTorDescr = QRichLabel("""
          If you are going to use Groestlcoin Armory and Groestlcoin Core with a proxy (such
-         as Tor), you should disable all Armory communications that might operate 
+         as Tor), you should disable all Groestlcoin Armory communications that might operate 
          outside the proxy.""")
 
       self.chkPrivacyStats = QCheckBox(tr("""
@@ -9050,7 +9050,7 @@ class DlgSettings(ArmoryDialog):
       # NOT ENABLED YET -- BUT WILL BE SOON
       # lblSelectCoin = QRichLabel('<b>Coin Selection Preferences:</b>')
       # lblSelectCoinDescr = QRichLabel( \
-            # 'When Armory constructs a transaction, there are many different '
+            # 'When Groestlcoin Armory constructs a transaction, there are many different '
             # 'ways for it to select from coins that make up your balance. '
             # 'The "SelectCoins" algorithm can be set to prefer more-anonymous '
             # 'coin selections or to prefer avoiding mandatory transaction fees. '
@@ -9362,16 +9362,16 @@ class DlgSettings(ArmoryDialog):
 
       if self.chkPrivacyTor.isChecked() and not oldTorSetting:
          annURL = 'https://bitcoinarmory.com/announcements/'
-         QMessageBox.warning(self, 'Disable Security Alerts?', tr("""
-            You have chosen to disable all Armory communications that are
-            incompatible with proxies/Tor.  This includes 
-            checking for security alerts.  If you leave this option
-            checked, it is highly recommended that you manually check
-            for updates in the "<i>Announcements</i>" tab on the main 
-            window from another online Armory installation and/or
-            bookmark our announcements page: 
-            <br><br>
-            <a href="%s">%s</a>""") % (annURL,annURL), QMessageBox.Ok) 
+#!!!P         QMessageBox.warning(self, 'Disable Security Alerts?', tr("""
+#!!!P            You have chosen to disable all Groestlcoin Armory communications that are
+#!!!P            incompatible with proxies/Tor.  This includes 
+#!!!P            checking for security alerts.  If you leave this option
+#!!!P            checked, it is highly recommended that you manually check
+#!!!P            for updates in the "<i>Announcements</i>" tab on the main 
+#!!!P            window from another online Groestlcoin Armory installation and/or
+#!!!P            bookmark our announcements page: 
+#!!!P            <br><br>
+#!!!P            <a href="%s">%s</a>""") % (annURL,annURL), QMessageBox.Ok) 
 
       
 
