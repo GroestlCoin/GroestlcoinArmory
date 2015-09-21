@@ -246,7 +246,7 @@ class SendBitcoinsFrame(ArmoryFrame):
       alreadyDonated = self.main.getSettingOrSetDefault('DonateAlready', False)
       lastPestering = self.main.getSettingOrSetDefault('DonateLastPester', 0)
       donateFreq = self.main.getSettingOrSetDefault('DonateFreq', 20)
-      dnaaDonate = self.main.getSettingOrSetDefault('DonateDNAA', False)
+      dnaaDonate = True #self.main.getSettingOrSetDefault('DonateDNAA', False)
 
 
       if prefill:
